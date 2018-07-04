@@ -24,7 +24,11 @@ userRoutes.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const errors = {}; //TODO Validate login model
+  const { errors, isValid } = validateLogin(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({ email }).then(user => {
     if (!user) {
