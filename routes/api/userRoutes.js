@@ -5,6 +5,12 @@ const bcrypt = require("bcryptjs");
 const token = require("jsonwebtoken");
 const passport = require("passport");
 
+const {
+  validateLogin,
+  validateRegistration
+} = require("../../validation/userValidation");
+
+//@application keys
 const secretKey = require("../../config/keys").secretKey;
 
 //@model
@@ -56,6 +62,26 @@ userRoutes.post("/register", (req, res) => {
   //   if (!isValid) {
   //     return res.status(400).json(errors);
   //   }
+
+  //   const result = validation.registerValidation.validate(req.body, {
+  //     abortEarly: false
+  //   });
+  //   res.json(result);
+
+  // validation.fnRegistration(req.body, (error, val) => {
+  //   res.json(error);
+  // });
+
+  validateRegistration(req.body, result => {
+    const { isValid, errors } = result;
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    res.json({ valid: "Everytying is valid" });
+  });
+
+  return;
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
