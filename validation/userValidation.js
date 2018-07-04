@@ -27,6 +27,6 @@ const registrationSchema = joi.object().keys({
 });
 
 module.exports = {
-  validateRegistration: (data, cb) => joiValidate(registrationSchema, data, cb),
-  validateLogin: (data, cb) => joiValidate(loginSchema, data, cb)
+  validateRegistration: data => joiValidate(registrationSchema, data),
+  validateLogin: data => joiValidate(loginSchema, data)
 };
