@@ -54,34 +54,14 @@ userRoutes.post("/login", (req, res) => {
 });
 
 //@route        POST api/users/register
-//@access       Private
+//@access       Public
 //@return       User
 userRoutes.post("/register", (req, res) => {
-  //   const { errors, isValid } = validateRegisterInput(req.body);
-  //Check Validation
-  //   if (!isValid) {
-  //     return res.status(400).json(errors);
-  //   }
+  const { errors, isValid } = validateRegistration(req.body);
 
-  //   const result = validation.registerValidation.validate(req.body, {
-  //     abortEarly: false
-  //   });
-  //   res.json(result);
-
-  // validation.fnRegistration(req.body, (error, val) => {
-  //   res.json(error);
-  // });
-
-  validateRegistration(req.body, result => {
-    const { isValid, errors } = result;
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-
-    res.json({ valid: "Everytying is valid" });
-  });
-
-  return;
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {

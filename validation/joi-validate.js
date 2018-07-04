@@ -20,15 +20,15 @@ const simplifyErrorMessage = joiError => {
   };
 };
 
-module.exports = (joiSchema, data, cb) => {
-  joiSchema.validate(data, { abortEarly: false }, (error, value) => {
-    if (error) {
-      cb(simplifyErrorMessage(error));
-    } else {
-      cb({
-        errors: undefined,
-        isValid: true
-      });
-    }
-  });
+module.exports = (joiSchema, data) => {
+  const { error, value } = joiSchema.validate(data, { abortEarly: false });
+
+  if (error) {
+    return simplifyErrorMessage(error);
+  } else {
+    return {
+      errors: {},
+      isValid: true
+    };
+  }
 };

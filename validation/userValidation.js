@@ -6,10 +6,7 @@ const loginSchema = joi.object().keys({
     .string()
     .email()
     .required(),
-  password: joi
-    .string()
-    .regex(/^[a-zA-Z]{3-30}$/)
-    .required()
+  password: joi.string().required()
 });
 
 const registrationSchema = joi.object().keys({
