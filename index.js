@@ -7,8 +7,9 @@ const passport = require("passport");
 const app = express();
 const db = require("./config/keys").mongoURI;
 
-//importing routes
+//import routes
 const userRoutes = require("./routes/api/userRoutes");
+const customerRoutes = require("./routes/api/customerRoutes");
 
 //database connection
 mongoose
@@ -25,6 +26,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 app.use("/api/users", userRoutes);
+app.use("/api/customers/", customerRoutes);
 
 const port = process.env.PORT || 5000;
 
