@@ -70,5 +70,6 @@ module.exports = {
       };
     }
   },
-  validateDeliveryAddress: data => joiValidation(deliveryAddressSchema, data)
+  validateDeliveryAddress: data => joiValidation(deliveryAddressSchema, data),
+  validateOrderItem: data => joiValidation(orderItemSchema, data)
 };

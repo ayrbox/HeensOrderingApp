@@ -5,13 +5,17 @@ const passport = require("passport");
 const Order = require("../../models/orderModel");
 const {
   validateOrder,
+  validateOrderItem,
   validateDeliveryAddress
 } = require("../../validation/orderValidation");
+
+//@services
+const orderService = require("../../services/orderService");
 
 //@route        GET api/orders/
 //@desc         List of all orders
 //@access       private
-//@return       Order
+//@return       [Order]
 orderRoutes.get(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -69,23 +73,18 @@ orderRoutes.post(
     }
 
     //Item total of each item
-    req.body.orderItems.forEach(item => {
-      item.itemTotal =
-        item.price +
-        (item.options || []).reduce((t, o) => t + o.additionalCost, 0);
-    });
+    const order_items = req.body.orderItems.map(item =>
+      orderService.getOrderItem(item)
+    );
 
     //subTotal: sub each item total
-    const subTotal = req.body.orderItems.reduce(
-      (total, item) => total + item.itemTotal,
-      0
-    );
+    const subTotal = calculateOrderTotal(req.body.orderItems);
 
     //orderTotal: subTotal - discountAmount
     const orderTotal = subTotal - subTotal * (req.body.discount / 100);
 
     const _order = new Order({
-      orderItems: req.body.orderItems,
+      orderItems: order_items,
       orderType: req.body.orderType,
       deliveryAddress: req.body.deliveryAddress,
       note: req.body.note,
@@ -107,14 +106,78 @@ orderRoutes.post(
   }
 );
 
-//@route        PUT api/orders/:id
+//@route        DELETE api/orders/:id/additem
 //@desc         Update/Change order
 //@access       private
 //@return       Order
-orderRoutes.put(
-  "/:id",
+orderRoutes.post(
+  "/:id/additem",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {}
+  (req, res) => {
+    const { errors, isValid } = validateOrderItem(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    Order.findOne({ _id: req.params.id }).then(order => {
+      if (!order) {
+        return res.status(404).json({ msg: "Order not found" });
+      }
+
+      const _orderItem = orderService.getOrderItem({
+        name: req.body.name,
+        price: req.body.price,
+        options: req.body.options || []
+      });
+
+      order.orderItems.push(_orderItem);
+      order.subTotal = orderService.calculateOrderTotal(order.orderItems);
+
+      order.orderTotal =
+        order.subTotal - order.subTotal * (order.discount / 100);
+      order.save().then(o => {
+        res.json(o);
+      });
+    });
+    // .catch(err =>
+    //   res.status(500).json({ msg: "Unexpected error", exception: err })
+    // );
+  }
+);
+
+//@route         DELETE api/orders/:id/removeitem/:itemId
+//@desc          Delete order item
+//@access        private
+//@return        Order
+orderRoutes.delete(
+  "/:id/removeitem/:itemId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Order.find({ _id: req.params.id }).then(order => {
+      if (!order) {
+        return res.status(404).json({ msg: "Order not found" });
+      }
+
+      const _index = order.orderItems
+        .map(item => item.id)
+        .indexOf(req.params.itemId);
+
+      if (_index < 0) {
+        return res.status(404).json({ msg: "Order Item not found" });
+      }
+
+      order.orderItems.splice(_index, 1);
+      order
+        .save()
+        .then(o => res.json(o))
+        .catch(err => {
+          res
+            .status(500)
+            .json({ msg: "Unable to save order item", exception: err });
+        });
+    });
+  }
 );
 
 //@route        DELETE api/orders/:id
