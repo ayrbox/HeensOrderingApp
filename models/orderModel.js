@@ -44,7 +44,20 @@ const OrderSchema = new Schema({
     address: { type: String, required: true },
     postCode: { type: String, required: true }
   },
-  note: { type: String }
+  note: { type: String },
+  orderStatus: {
+    type: String,
+    required: true,
+    enumValues: [
+      "ordered",
+      "paid",
+      "processing",
+      "delivered",
+      "cancelled",
+      "collected"
+    ],
+    default: "ordered"
+  }
 });
 
 module.exports = Order = mongoose.model("orders", OrderSchema);
