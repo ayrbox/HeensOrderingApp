@@ -58,41 +58,45 @@ userRoutes.post("/login", (req, res) => {
 });
 
 //@route        POST api/users/register
-//@access       Public
+//@access       private
 //@return       User
-userRoutes.post("/register", (req, res) => {
-  const { errors, isValid } = validateRegistration(req.body);
+userRoutes.post(
+  "/register",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateRegistration(req.body);
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      errors.email = "Email already exists";
+    if (!isValid) {
       return res.status(400).json(errors);
-    } else {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-      });
-
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err; //unlikely to occurs
-
-        bcrypt.hash(newUser.password, salt, (hashError, hash) => {
-          if (hashError) throw hashError;
-
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
     }
-  });
-});
+
+    User.findOne({ email: req.body.email }).then(user => {
+      if (user) {
+        errors.email = "Email already exists";
+        return res.status(400).json(errors);
+      } else {
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password
+        });
+
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) throw err; //unlikely to occurs
+
+          bcrypt.hash(newUser.password, salt, (hashError, hash) => {
+            if (hashError) throw hashError;
+
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => res.json(user))
+              .catch(err => console.log(err));
+          });
+        });
+      }
+    });
+  }
+);
 
 module.exports = userRoutes;
