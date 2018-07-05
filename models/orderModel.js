@@ -15,7 +15,7 @@ const OrderSchema = new Schema({
       options: [
         {
           description: { type: String, required: true },
-          addtionalCost: { type: Number, required: true }
+          additionalCost: { type: Number, required: true }
         }
       ],
       itemTotal: { type: String, required: true }

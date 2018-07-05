@@ -31,7 +31,7 @@ categoryRoutes.get("/:id", (req, res) => {
   Category.findOne({ _id: req.params.id }).then(c => {
     if (!c) {
       errors.msg = "Customer not found";
-      res.status(404).json({});
+      res.status(404).json(errors);
     }
 
     res.json(c);
