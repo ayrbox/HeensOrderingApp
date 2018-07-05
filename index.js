@@ -10,6 +10,7 @@ const db = require("./config/keys").mongoURI;
 //import routes
 const userRoutes = require("./routes/api/userRoutes");
 const customerRoutes = require("./routes/api/customerRoutes");
+const categoryRoutes = require("./routes/api/categoryRoutes");
 
 //database connection
 mongoose
@@ -27,6 +28,7 @@ require("./config/passport")(passport);
 
 app.use("/api/users", userRoutes);
 app.use("/api/customers/", customerRoutes);
+app.use("/api/categories", categoryRoutes);
 
 const port = process.env.PORT || 5000;
 
