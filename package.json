@@ -6,7 +6,6 @@
   "repository": "https://github.com/sawbeanraz/HeensOrderingApp.git",
   "author": "Sabin Raj <sawbean.raz@googlemail.com>",
   "license": "MIT",
-  "private": null,
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
@@ -20,6 +19,9 @@
     "pdfkit": "^0.8.3"
   },
   "scripts": {
-    "develop": "nodemon index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "develop": "concurrently \"npm run server\" \"npm run client\""
   }
 }
