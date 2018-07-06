@@ -21,8 +21,22 @@ const calculateOrderTotal = orderItems => {
   return orderItems.reduce((total, item) => total + item.itemTotal, 0);
 };
 
+const addOrderItem = (order, order_item) => {
+  //require order to be validated
+
+  if (order_item) {
+    const _orderItem = getOrderItem(order_item);
+    order.orderItems.push(_orderItem);
+  }
+  order.subTotal = calculateOrderTotal(order.orderItems);
+
+  order.orderTotal = order.subTotal - order.subTotal * (order.discount / 100);
+  return order;
+};
+
 module.exports = {
   calculateItemTotal,
   getOrderItem,
-  calculateOrderTotal
+  calculateOrderTotal,
+  addOrderItem
 };

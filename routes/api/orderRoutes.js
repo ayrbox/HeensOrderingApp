@@ -111,9 +111,10 @@ orderRoutes.post(
 //@access       private
 //@return       Order
 orderRoutes.post(
-  "/:id/additem",
+  "/:id/item",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    //TODO: Validate order item options too
     const { errors, isValid } = validateOrderItem(req.body);
 
     if (!isValid) {
@@ -124,25 +125,17 @@ orderRoutes.post(
       if (!order) {
         return res.status(404).json({ msg: "Order not found" });
       }
-
-      const _orderItem = orderService.getOrderItem({
-        name: req.body.name,
-        price: req.body.price,
-        options: req.body.options || []
-      });
-
-      order.orderItems.push(_orderItem);
-      order.subTotal = orderService.calculateOrderTotal(order.orderItems);
-
-      order.orderTotal =
-        order.subTotal - order.subTotal * (order.discount / 100);
-      order.save().then(o => {
-        res.json(o);
-      });
+      orderService
+        .addOrderItem(order, {
+          name: req.body.name,
+          price: req.body.price,
+          options: req.body.options || []
+        })
+        .save()
+        .then(o => {
+          res.json(o);
+        });
     });
-    // .catch(err =>
-    //   res.status(500).json({ msg: "Unexpected error", exception: err })
-    // );
   }
 );
 
@@ -151,10 +144,10 @@ orderRoutes.post(
 //@access        private
 //@return        Order
 orderRoutes.delete(
-  "/:id/removeitem/:itemId",
+  "/:id/item/:itemId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Order.find({ _id: req.params.id }).then(order => {
+    Order.findOne({ _id: req.params.id }).then(order => {
       if (!order) {
         return res.status(404).json({ msg: "Order not found" });
       }
@@ -168,7 +161,9 @@ orderRoutes.delete(
       }
 
       order.orderItems.splice(_index, 1);
-      order
+
+      orderService
+        .addOrderItem(order, undefined)
         .save()
         .then(o => res.json(o))
         .catch(err => {
