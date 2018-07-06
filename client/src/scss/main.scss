@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+/*Vendor */
+@import "~bootstrap/scss/bootstrap.scss";
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
