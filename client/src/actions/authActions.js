@@ -1,6 +1,8 @@
 import axios from "axios";
-
 import jwt_decode from "jwt-decode";
+
+import { GET_ERRORS, SET_USER } from "./types";
+import setToken from "../utils/set-token";
 
 export const loginUser = (loginModel, history) => dispatch => {
   axios
@@ -11,9 +13,15 @@ export const loginUser = (loginModel, history) => dispatch => {
       localStorage.setItem("token", token);
 
       //set token
+      setToken(token);
 
       const decoded = jwt_decode(token);
-      dispatch(setUser(decoded));
+      dispatch({
+        type: SET_USER,
+        payload: decoded
+      });
+
+      history.push("/orders");
     })
     .catch(err =>
       dispatch({
@@ -21,4 +29,8 @@ export const loginUser = (loginModel, history) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+export const logoutUser = () => {
+  console.log("todo: logut");
 };

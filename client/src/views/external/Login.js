@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
   constructor(props, context) {
@@ -12,6 +15,20 @@ class Login extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated) {
+      this.props.history.push("/orders"); //todo main page after login
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      console.log(nextProps.errors);
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -32,16 +49,13 @@ class Login extends Component {
 
   render() {
     return (
-      <form className="form-signin text-center" onSubmit={this.onSubmit}>
-        <img
-          className="mb-4"
-          src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg"
-          alt=""
-          width="72"
-          height="72"
-        />
+      <form
+        className="form-signin text-center"
+        onSubmit={this.onSubmit}
+        noValidate
+      >
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" className="sr-only">
+        <label htmlFor="inputEmail" className="sr-only">
           Email address
         </label>
         <input
@@ -51,11 +65,14 @@ class Login extends Component {
           className="form-control"
           placeholder="Email address"
           required=""
-          autofocus=""
+          autoFocus
           value={this.state.email}
           onChange={this.onChange}
         />
-        <label for="inputPassword" className="sr-only">
+        {this.state.errors.email ? (
+          <div className="text-help">{this.state.errors.email}</div>
+        ) : null}
+        <label htmlFor="inputPassword" className="sr-only">
           Password
         </label>
         <input
@@ -68,6 +85,9 @@ class Login extends Component {
           value={this.state.password}
           onChange={this.onChange}
         />
+        {this.state.errors.password ? (
+          <div className="text-help">{this.state.errors.password}</div>
+        ) : null}
         <div className="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me" /> Remember me
@@ -76,10 +96,19 @@ class Login extends Component {
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Sign in
         </button>
-        <p className="mt-5 mb-3 text-muted">© 2017-2018</p>
       </form>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    loginUser
+  }
+)(Login);

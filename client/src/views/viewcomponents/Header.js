@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 const Header = ({ title }) => (
   <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div className="container">
-      <Link className="navbar-brand">{title}</Link>
+      <Link to="/" className="navbar-brand">
+        {title}
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -19,15 +21,19 @@ const Header = ({ title }) => (
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <Link className="nav-link">
+            <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link">Link</Link>
+            <Link className="nav-link" to="/">
+              Link
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link disabled">Disabled</Link>
+            <Link className="nav-link disabled" to="/">
+              Disabled
+            </Link>
           </li>
         </ul>
         <form className="form-inline mt-2 mt-md-0">

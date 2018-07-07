@@ -14,13 +14,14 @@
     "joi": "^13.4.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.0",
+    "nodemon": "^1.17.5",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pdfkit": "^0.8.3"
   },
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js",
+    "server": "nodemon index.js --ignore client/",
     "client": "npm start --prefix client",
     "develop": "concurrently \"npm run server\" \"npm run client\""
   }

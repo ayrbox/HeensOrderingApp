@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 const Footer = () => (
   <footer className="container">
     <p className="float-right">
-      <Link>Back to top</Link>
+      <Link to="/">Back to top</Link>
     </p>
     <p>
-      &copy; {new Date().getFullYear()} Heens· <Link>Privacy</Link>.
-      <Link>Terms</Link>
+      &copy; {new Date().getFullYear()} Heens·
+      <Link to="/">Privacy</Link>.
+      <Link to="/">Terms</Link>
     </p>
   </footer>
 );

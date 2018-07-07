@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute";
-import store from "./store"; //TODO: GET REDUX STORE
+import store from "./store";
 
 import Landing from "./views/external/";
 import Login from "./views/external/Login";
 import Orders from "./views/orders/";
+
+import { getToken } from "./utils/get-token";
+
+//check the token
+getToken();
 
 class App extends Component {
   render() {
@@ -19,7 +24,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
             </Switch>
             <Switch>
-              <PrivateRoute path="/orders" component={Orders} />
+              <PrivateRoute exact path="/orders" component={Orders} />
             </Switch>
           </div>
         </Router>
