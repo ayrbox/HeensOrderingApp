@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { loginUser } from "../../actions/authActions";
 
+import ExternalLayout from "../viewcomponents/ExternalLayout";
+
 class Login extends Component {
   constructor(props, context) {
     super(props, context);
@@ -49,54 +51,56 @@ class Login extends Component {
 
   render() {
     return (
-      <form
-        className="form-signin text-center"
-        onSubmit={this.onSubmit}
-        noValidate
-      >
-        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label htmlFor="inputEmail" className="sr-only">
-          Email address
-        </label>
-        <input
-          type="email"
-          id="inputEmail"
-          name="email"
-          className="form-control"
-          placeholder="Email address"
-          required=""
-          autoFocus
-          value={this.state.email}
-          onChange={this.onChange}
-        />
-        {this.state.errors.email ? (
-          <div className="text-help">{this.state.errors.email}</div>
-        ) : null}
-        <label htmlFor="inputPassword" className="sr-only">
-          Password
-        </label>
-        <input
-          type="password"
-          id="inputPassword"
-          name="password"
-          className="form-control"
-          placeholder="Password"
-          required=""
-          value={this.state.password}
-          onChange={this.onChange}
-        />
-        {this.state.errors.password ? (
-          <div className="text-help">{this.state.errors.password}</div>
-        ) : null}
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
+      <ExternalLayout>
+        <form
+          className="form-signin text-center"
+          onSubmit={this.onSubmit}
+          noValidate
+        >
+          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <label htmlFor="inputEmail" className="sr-only">
+            Email address
           </label>
-        </div>
-        <button className="btn btn-lg btn-primary btn-block" type="submit">
-          Sign in
-        </button>
-      </form>
+          <input
+            type="email"
+            id="inputEmail"
+            name="email"
+            className="form-control"
+            placeholder="Email address"
+            required=""
+            autoFocus
+            value={this.state.email}
+            onChange={this.onChange}
+          />
+          {this.state.errors.email ? (
+            <div className="text-help">{this.state.errors.email}</div>
+          ) : null}
+          <label htmlFor="inputPassword" className="sr-only">
+            Password
+          </label>
+          <input
+            type="password"
+            id="inputPassword"
+            name="password"
+            className="form-control"
+            placeholder="Password"
+            required=""
+            value={this.state.password}
+            onChange={this.onChange}
+          />
+          {this.state.errors.password ? (
+            <div className="text-help">{this.state.errors.password}</div>
+          ) : null}
+          <div className="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me" /> Remember me
+            </label>
+          </div>
+          <button className="btn btn-lg btn-primary btn-block" type="submit">
+            Sign in
+          </button>
+        </form>
+      </ExternalLayout>
     );
   }
 }

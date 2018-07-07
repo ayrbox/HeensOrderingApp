@@ -1,4 +1,4 @@
-import { SET_USER } from "../actions/types";
+import { SET_USER, LOGOUT } from "../actions/types";
 import isEmpty from "../utils/is-empty";
 
 const initialState = {
@@ -12,6 +12,12 @@ export default function(state = initialState, action) {
       return {
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      };
+
+    case LOGOUT:
+      return {
+        isAuthenticated: false,
+        user: undefined
       };
     default:
       return state;

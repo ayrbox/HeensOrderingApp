@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = ({ title }) => (
-  <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <nav className="navbar navbar-expand-md navbar-dark bg-dark">
     <div className="container">
       <Link to="/" className="navbar-brand">
         {title}
@@ -20,19 +20,24 @@ const Header = ({ title }) => (
       </button>
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
+          <li className="nav-item">
+            <Link className="nav-link" to="/takeorder">
+              Take Order
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Link
+            <Link className="nav-link" to="/orders">
+              Orders
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link disabled" to="/">
-              Disabled
+            <Link className="nav-link" to="/customers">
+              Customers
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link disabled" to="/menus">
+              Menu
             </Link>
           </li>
         </ul>

@@ -31,6 +31,11 @@ export const loginUser = (loginModel, history) => dispatch => {
     );
 };
 
-export const logoutUser = () => {
-  console.log("todo: logut");
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem("token");
+  setToken(false);
+  dispatch({
+    type: SET_USER,
+    payload: {}
+  });
 };

@@ -7,6 +7,7 @@ import store from "./store";
 import Landing from "./views/external/";
 import Login from "./views/external/Login";
 import Orders from "./views/orders/";
+import TakeOrder from "./views/orders/take-order";
 
 import { getToken } from "./utils/get-token";
 
@@ -19,12 +20,12 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="app-container">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/login" component={Login} />
-            </Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+
             <Switch>
               <PrivateRoute exact path="/orders" component={Orders} />
+              <PrivateRoute exact path="/takeorder" component={TakeOrder} />
             </Switch>
           </div>
         </Router>

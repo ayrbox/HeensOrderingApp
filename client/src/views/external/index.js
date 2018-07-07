@@ -1,5 +1,9 @@
 import React from "react";
-
-const Landing = ({ match }) => <h1>Application Landing Page</h1>;
+import ExternalLayout from "../viewcomponents/ExternalLayout";
+const Landing = ({ match }) => (
+  <ExternalLayout>
+    <h1>Application Landing Page</h1>
+  </ExternalLayout>
+);
 
 export default Landing;
