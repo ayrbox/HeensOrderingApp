@@ -10,6 +10,7 @@ import Login from "./views/external/Login";
 import Orders from "./views/orders/";
 import TakeOrder from "./views/orders/take-order";
 import CustomerIndex from "./views/customers/";
+import AddCustomer from "./views/customers/add-customer";
 
 import { getToken } from "./utils/get-token";
 
@@ -29,6 +30,13 @@ class App extends Component {
               <PrivateRoute exact path="/orders" component={Orders} />
               <PrivateRoute exact path="/takeorder" component={TakeOrder} />
               <PrivateRoute exact path="/customers" component={CustomerIndex} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/customers/add"
+                component={AddCustomer}
+              />
             </Switch>
           </div>
         </Router>

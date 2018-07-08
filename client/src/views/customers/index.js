@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import MainLayout from "../viewcomponents/MainLayout";
 import Spinner from "../../components/Spinner";
+import { Link } from "react-router-dom";
 import { fetchCustomers, clearCustomers } from "../../actions/customerActions";
 
 class CustomerIndex extends Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   componentDidMount() {
     this.props.fetchCustomers();
   }
@@ -60,11 +57,13 @@ class CustomerIndex extends Component {
         <div className="container">
           <div className="row">
             <div className="col-12 text-right mb-3">
-              <button className="btn btn-primary">New Customer</button>
+              <Link className="btn btn-primary" to="/customers/add">
+                New Customer
+              </Link>
             </div>
           </div>
 
-          {errors.msg ? (
+          {errors && errors.msg ? (
             <div className="row">
               <div className="col-12 mb-3">
                 <div className="alert alert-warning">{errors.msg}</div>
