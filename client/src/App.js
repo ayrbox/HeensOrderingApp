@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute";
 import store from "./store";
 
+//@views
 import Landing from "./views/external/";
 import Login from "./views/external/Login";
 import Orders from "./views/orders/";
 import TakeOrder from "./views/orders/take-order";
+import CustomerIndex from "./views/customers/";
 
 import { getToken } from "./utils/get-token";
 
@@ -26,6 +28,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/orders" component={Orders} />
               <PrivateRoute exact path="/takeorder" component={TakeOrder} />
+              <PrivateRoute exact path="/customers" component={CustomerIndex} />
             </Switch>
           </div>
         </Router>

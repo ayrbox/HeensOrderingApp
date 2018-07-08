@@ -17,10 +17,9 @@ customerRoutes.get(
     const errors = {};
     Customer.find().then(customers => {
       if (customers.length <= 0) {
-        errors.customers = "No customers found.";
+        errors.msg = "No customers found.";
         return res.status(404).json(errors);
       }
-
       res.json(customers);
     });
   }
