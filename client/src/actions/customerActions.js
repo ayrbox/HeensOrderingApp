@@ -7,7 +7,10 @@ import {
   CLEAR_CUSTOMER,
   CUSTOMER_CREATE_REQUEST,
   CUSTOMER_CREATE_SUCCESS,
-  CUSTOMER_CREATE_ERROR
+  CUSTOMER_CREATE_ERROR,
+  CUSTOMER_GET_REQUEST,
+  CUSTOMER_GET_SUCCESS,
+  CUSTOMER_GET_ERROR
 } from "./types";
 
 export const fetchCustomers = () => dispatch => {
@@ -56,6 +59,29 @@ export const createCustomer = customer => dispatch => {
     .catch(err =>
       dispatch({
         type: CUSTOMER_CREATE_ERROR,
+        payload: err.response.data
+      })
+    );
+};
+
+//@name     getCustomer
+//@desc     GET request to get detail of customer
+export const getCustomer = id => dispatch => {
+  dispatch({
+    type: CUSTOMER_GET_REQUEST
+  });
+
+  axios
+    .get(`/api/customers/${id}`)
+    .then(res =>
+      dispatch({
+        type: CUSTOMER_GET_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: CUSTOMER_GET_ERROR,
         payload: err.response.data
       })
     );

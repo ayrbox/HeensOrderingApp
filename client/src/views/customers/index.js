@@ -31,6 +31,7 @@ class CustomerIndex extends Component {
                 <th>Contact Number</th>
                 <th>Address</th>
                 <th>Postcode</th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -40,6 +41,11 @@ class CustomerIndex extends Component {
                   <td>{c.phoneNo}</td>
                   <td>{c.address}</td>
                   <td>{c.postCode}</td>
+                  <td>
+                    <Link className="btn btn-link" to={`/customers/${c._id}`}>
+                      View
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

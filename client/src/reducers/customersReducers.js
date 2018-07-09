@@ -5,7 +5,10 @@ import {
   CLEAR_CUSTOMER,
   CUSTOMER_CREATE_REQUEST,
   CUSTOMER_CREATE_SUCCESS,
-  CUSTOMER_CREATE_ERROR
+  CUSTOMER_CREATE_ERROR,
+  CUSTOMER_GET_REQUEST,
+  CUSTOMER_GET_SUCCESS,
+  CUSTOMER_GET_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -50,6 +53,26 @@ export default function(state = initialState, action) {
         errors: undefined
       };
     case CUSTOMER_CREATE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        current: undefined,
+        errors: action.payload
+      };
+
+    case CUSTOMER_GET_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case CUSTOMER_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        current: action.payload,
+        errors: undefined
+      };
+    case CUSTOMER_GET_ERROR:
       return {
         ...state,
         loading: false,
