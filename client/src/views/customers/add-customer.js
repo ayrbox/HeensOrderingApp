@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import classnames from "classnames";
 
 import { createCustomer } from "../../actions/customerActions";
 import MainLayout from "../viewcomponents/MainLayout";
 import Spinner from "../../components/Spinner";
+import isEmpty from "../../utils/is-empty";
 
 class AddCustomer extends Component {
   constructor(props, context) {
@@ -14,7 +16,8 @@ class AddCustomer extends Component {
       phoneNo: "",
       address: "",
       postCode: "",
-      note: ""
+      note: "",
+      errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,23 +45,19 @@ class AddCustomer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.customers.errors) {
-      this.setState({ errors: nextProps.customers.errors });
+      this.setState({
+        errors: nextProps.customers.errors || {}
+      });
     }
 
-    if (nextProps.current) {
-      const { name, phoneNo, address, postCode, note } = nextProps.current;
-      this.setState({
-        name,
-        phoneNo,
-        address,
-        postCode,
-        note
-      });
+    if (nextProps.customers.current) {
+      this.props.history.push("/customers"); //redirect if customer is created successfully
     }
   }
 
   render() {
     const { loading } = this.props.customers;
+    const { errors } = this.state;
 
     return (
       <MainLayout>
@@ -68,9 +67,14 @@ class AddCustomer extends Component {
         </div>
 
         <div className="container">
-          {this.state.errors ? (
+          {!isEmpty(errors) ? (
             <div className="alert alert-danger">
-              <pre>{JSON.stringify(this.state.errors, null, 2)}</pre>
+              Please enter required fiels with valid data.
+              <ul>
+                {Object.keys(errors).map(key => (
+                  <li key={key}>{errors[key]}</li>
+                ))}
+              </ul>
             </div>
           ) : null}
           <form onSubmit={this.handleSubmit}>
@@ -81,13 +85,18 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="name"
-                  className="form-control"
+                  className={classnames("form-control", {
+                    "is-invalid": errors.name
+                  })}
                   id="name"
                   name="name"
                   value={this.state.name}
                   placeholder="Enter customer name..."
                   onChange={this.handleChange}
                 />
+                {errors.name ? (
+                  <div className="invalid-feedback">{errors.name}</div>
+                ) : null}
               </div>
             </div>
             <div className="form-group row">
@@ -97,13 +106,18 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="phoneNo"
-                  className="form-control"
+                  className={classnames("form-control", {
+                    "is-invalid": errors.phoneNo
+                  })}
                   id="phoneNo"
                   name="phoneNo"
                   value={this.state.phoneNo}
                   placeholder="Mobile/Home no..."
                   onChange={this.handleChange}
                 />
+                {errors.phoneNo ? (
+                  <div className="invalid-feedback">{errors.phoneNo}</div>
+                ) : null}
               </div>
             </div>
             <div className="form-group row">
@@ -113,13 +127,18 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="address"
-                  className="form-control"
+                  className={classnames("form-control", {
+                    "is-invalid": errors.address
+                  })}
                   id="address"
                   name="address"
                   value={this.state.address}
                   placeholder="address..."
                   onChange={this.handleChange}
                 />
+                {errors.address ? (
+                  <div className="invalid-feedback">{errors.address}</div>
+                ) : null}
               </div>
             </div>
             <div className="form-group row">
@@ -129,13 +148,18 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="postCode"
-                  className="form-control"
+                  className={classnames("form-control", {
+                    "is-invalid": errors.postCode
+                  })}
                   id="postCode"
                   name="postCode"
                   value={this.state.postCode}
                   placeholder="postcode..."
                   onChange={this.handleChange}
                 />
+                {errors.postCode ? (
+                  <div className="invalid-feedback">{errors.postCode}</div>
+                ) : null}
               </div>
             </div>
             <div className="form-group row">
@@ -145,13 +169,18 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <textarea
                   type="note"
-                  className="form-control"
+                  className={classnames("form-control", {
+                    "is-invalid": errors.note
+                  })}
                   id="note"
                   name="note"
                   value={this.state.note}
                   placeholder="Note about customer..."
                   onChange={this.handleChange}
                 />
+                {errors.note ? (
+                  <div className="invalid-feedback">{errors.note}</div>
+                ) : null}
               </div>
             </div>
 
