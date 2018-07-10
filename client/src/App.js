@@ -12,6 +12,7 @@ import TakeOrder from "./views/orders/take-order";
 import CustomerIndex from "./views/customers/";
 import AddCustomer from "./views/customers/add-customer";
 import CustomerDetail from "./views/customers/customer-detail";
+import EditCustomer from "./views/customers/edit-customer";
 
 import { getToken } from "./utils/get-token";
 
@@ -31,17 +32,22 @@ class App extends Component {
               <PrivateRoute exact path="/orders" component={Orders} />
               <PrivateRoute exact path="/takeorder" component={TakeOrder} />
               <PrivateRoute exact path="/customers" component={CustomerIndex} />
-              <PrivateRoute
-                exact
-                path="/customers/:id"
-                component={CustomerDetail}
-              />
             </Switch>
             <Switch>
               <PrivateRoute
                 exact
                 path="/customers/add"
                 component={AddCustomer}
+              />
+              <PrivateRoute
+                exact
+                path="/customers/:id"
+                component={CustomerDetail}
+              />
+              <PrivateRoute
+                exact
+                path="/customer/:id/edit"
+                component={EditCustomer}
               />
             </Switch>
           </div>

@@ -45,6 +45,12 @@ class CustomerIndex extends Component {
                     <Link className="btn btn-link" to={`/customers/${c._id}`}>
                       View
                     </Link>
+                    <Link
+                      className="btn btn-link"
+                      to={`/customer/${c._id}/edit`}
+                    >
+                      Edit
+                    </Link>
                   </td>
                 </tr>
               ))}

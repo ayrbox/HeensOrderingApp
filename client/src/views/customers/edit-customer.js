@@ -1,27 +1,72 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCustomer } from "../../actions/customerActions";
-import { Link } from "react-router-dom";
+import classnames from "classnames";
+import isEmpty from "../../utils/is-empty";
+
+//components
 import MainLayout from "../viewcomponents/MainLayout";
 import Spinner from "../../components/Spinner";
 
-class CustomerDetail extends Component {
+//actions
+import { getCustomer } from "../../actions/customerActions";
+
+class EditCustomer extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      errors: {}
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.customers.current) {
+      const {
+        name,
+        address,
+        postCode,
+        phoneNo,
+        note
+      } = nextProps.customers.current;
+      this.setState({
+        name,
+        address,
+        postCode,
+        phoneNo,
+        note
+      });
+    }
+  }
+
   componentDidMount() {
     this.props.getCustomer(this.props.match.params.id);
   }
+
   render() {
     const { current, loading } = this.props.customers;
+    const { errors } = this.state;
 
     return (
       <MainLayout>
         <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Customer</h1>
-          <p className="lead">Detail of customer</p>
+          <h1 className="display-4">Add/New Customer</h1>
+          <p className="lead">Enter detail of new customer</p>
         </div>
+
         {!current || loading ? (
           <Spinner />
         ) : (
           <div className="container">
+            {!isEmpty(errors) ? (
+              <div className="alert alert-danger">
+                Please enter required fiels with valid data.
+                <ul>
+                  {Object.keys(errors).map(key => (
+                    <li key={key}>{errors[key]}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
             <form onSubmit={this.handleSubmit}>
               <div className="form-group row">
                 <label htmlFor="name" className="col-sm-2 col-form-label">
@@ -30,13 +75,18 @@ class CustomerDetail extends Component {
                 <div className="col-sm-5">
                   <input
                     type="name"
-                    className="form-control-plaintext"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.name
+                    })}
                     id="name"
                     name="name"
-                    value={current.name}
+                    value={this.state.name}
                     placeholder="Enter customer name..."
                     onChange={this.handleChange}
                   />
+                  {errors.name ? (
+                    <div className="invalid-feedback">{errors.name}</div>
+                  ) : null}
                 </div>
               </div>
               <div className="form-group row">
@@ -46,13 +96,18 @@ class CustomerDetail extends Component {
                 <div className="col-sm-5">
                   <input
                     type="phoneNo"
-                    className="form-control-plaintext"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.phoneNo
+                    })}
                     id="phoneNo"
                     name="phoneNo"
-                    value={current.phoneNo}
+                    value={this.state.phoneNo}
                     placeholder="Mobile/Home no..."
                     onChange={this.handleChange}
                   />
+                  {errors.phoneNo ? (
+                    <div className="invalid-feedback">{errors.phoneNo}</div>
+                  ) : null}
                 </div>
               </div>
               <div className="form-group row">
@@ -62,13 +117,18 @@ class CustomerDetail extends Component {
                 <div className="col-sm-5">
                   <input
                     type="address"
-                    className="form-control-plaintext"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.address
+                    })}
                     id="address"
                     name="address"
-                    value={current.address}
+                    value={this.state.address}
                     placeholder="address..."
                     onChange={this.handleChange}
                   />
+                  {errors.address ? (
+                    <div className="invalid-feedback">{errors.address}</div>
+                  ) : null}
                 </div>
               </div>
               <div className="form-group row">
@@ -78,13 +138,18 @@ class CustomerDetail extends Component {
                 <div className="col-sm-5">
                   <input
                     type="postCode"
-                    className="form-control-plaintext"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.postCode
+                    })}
                     id="postCode"
                     name="postCode"
-                    value={current.postCode}
+                    value={this.state.postCode}
                     placeholder="postcode..."
                     onChange={this.handleChange}
                   />
+                  {errors.postCode ? (
+                    <div className="invalid-feedback">{errors.postCode}</div>
+                  ) : null}
                 </div>
               </div>
               <div className="form-group row">
@@ -94,28 +159,31 @@ class CustomerDetail extends Component {
                 <div className="col-sm-5">
                   <textarea
                     type="note"
-                    className="form-control-plaintext"
+                    className={classnames("form-control", {
+                      "is-invalid": errors.note
+                    })}
                     id="note"
                     name="note"
-                    value={current.note}
+                    value={this.state.note}
                     placeholder="Note about customer..."
                     onChange={this.handleChange}
                   />
+                  {errors.note ? (
+                    <div className="invalid-feedback">{errors.note}</div>
+                  ) : null}
                 </div>
               </div>
 
               <div className="form-group row">
                 <div className="col-sm-2" />
                 <div className="col-sm-5">
-                  <Link className="btn btn-outline-primary" to={"/customers"}>
-                    Back
-                  </Link>
-                  <Link
-                    className="btn btn-outline-danger"
-                    to={`/customer/${current._id}/edit`}
-                  >
-                    Edit
-                  </Link>
+                  {loading ? (
+                    <Spinner />
+                  ) : (
+                    <button type="submit" className="btn btn-outline-primary">
+                      Save
+                    </button>
+                  )}
                 </div>
               </div>
             </form>
@@ -125,7 +193,6 @@ class CustomerDetail extends Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   customers: state.customers
 });
@@ -133,4 +200,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getCustomer }
-)(CustomerDetail);
+)(EditCustomer);
