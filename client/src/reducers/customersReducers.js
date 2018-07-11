@@ -8,7 +8,10 @@ import {
   CUSTOMER_CREATE_ERROR,
   CUSTOMER_GET_REQUEST,
   CUSTOMER_GET_SUCCESS,
-  CUSTOMER_GET_ERROR
+  CUSTOMER_GET_ERROR,
+  CUSTOMER_UPDATE_REQUEST,
+  CUSTOMER_UPDATE_SUCCESS,
+  CUSTOMER_UPDATE_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -77,6 +80,26 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         current: undefined,
+        errors: action.payload
+      };
+
+    case CUSTOMER_UPDATE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case CUSTOMER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        current: action.payload,
+        errors: undefined
+      };
+    case CUSTOMER_UPDATE_ERROR:
+      return {
+        ...state,
+        loading: false,
         errors: action.payload
       };
     default:

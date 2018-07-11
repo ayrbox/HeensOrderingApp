@@ -8,15 +8,43 @@ import MainLayout from "../viewcomponents/MainLayout";
 import Spinner from "../../components/Spinner";
 
 //actions
-import { getCustomer } from "../../actions/customerActions";
+import { getCustomer, updateCustomer } from "../../actions/customerActions";
 
 class EditCustomer extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      name: undefined,
+      address: undefined,
+      postCode: undefined,
+      phoneNo: undefined,
+      note: undefined,
       errors: {}
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { name, phoneNo, address, postCode, note } = this.state;
+    const { id } = this.props.match.params;
+    this.props.updateCustomer(id, {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +64,12 @@ class EditCustomer extends Component {
         note
       });
     }
+
+    if (nextProps.customers.errors) {
+      this.setState({
+        errors: nextProps.customers.errors || {}
+      });
+    }
   }
 
   componentDidMount() {
@@ -49,7 +83,7 @@ class EditCustomer extends Component {
     return (
       <MainLayout>
         <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Add/New Customer</h1>
+          <h1 className="display-4">Edit Customer</h1>
           <p className="lead">Enter detail of new customer</p>
         </div>
 
@@ -199,5 +233,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCustomer }
+  { getCustomer, updateCustomer }
 )(EditCustomer);

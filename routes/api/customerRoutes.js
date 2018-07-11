@@ -97,7 +97,7 @@ customerRoutes.put(
       phoneNo: req.body.phoneNo,
       address: req.body.address,
       postCode: req.body.postCode,
-      node: req.body.note
+      note: req.body.note
     };
 
     Customer.findOne({ _id: req.params.id }).then(c => {

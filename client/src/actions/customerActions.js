@@ -10,7 +10,10 @@ import {
   CUSTOMER_CREATE_ERROR,
   CUSTOMER_GET_REQUEST,
   CUSTOMER_GET_SUCCESS,
-  CUSTOMER_GET_ERROR
+  CUSTOMER_GET_ERROR,
+  CUSTOMER_UPDATE_REQUEST,
+  CUSTOMER_UPDATE_SUCCESS,
+  CUSTOMER_UPDATE_ERROR
 } from "./types";
 
 export const fetchCustomers = () => dispatch => {
@@ -82,6 +85,29 @@ export const getCustomer = id => dispatch => {
     .catch(err =>
       dispatch({
         type: CUSTOMER_GET_ERROR,
+        payload: err.response.data
+      })
+    );
+};
+
+//@name   updateCustomer
+//@desc   PUT update customer details
+export const updateCustomer = (id, data) => dispatch => {
+  dispatch({
+    type: CUSTOMER_UPDATE_REQUEST
+  });
+
+  axios
+    .put(`/api/customers/${id}`, data)
+    .then(res =>
+      dispatch({
+        type: CUSTOMER_UPDATE_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: CUSTOMER_UPDATE_ERROR,
         payload: err.response.data
       })
     );
