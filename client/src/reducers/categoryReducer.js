@@ -148,6 +148,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      state;
+      return state;
   }
 }
