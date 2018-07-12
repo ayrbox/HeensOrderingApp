@@ -13,6 +13,7 @@ import CustomerIndex from "./views/customers/";
 import AddCustomer from "./views/customers/add-customer";
 import CustomerDetail from "./views/customers/customer-detail";
 import EditCustomer from "./views/customers/edit-customer";
+import CategoryIndex from "./views/category";
 
 import { getToken } from "./utils/get-token";
 
@@ -48,6 +49,14 @@ class App extends Component {
                 exact
                 path="/customer/:id/edit"
                 component={EditCustomer}
+              />
+            </Switch>
+
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/categories/"
+                component={CategoryIndex}
               />
             </Switch>
           </div>

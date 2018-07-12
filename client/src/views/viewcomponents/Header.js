@@ -36,8 +36,13 @@ const Header = ({ title }) => (
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link disabled" to="/menus">
+            <Link className="nav-link" to="/menus">
               Menu
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/categories">
+              Categories
             </Link>
           </li>
         </ul>

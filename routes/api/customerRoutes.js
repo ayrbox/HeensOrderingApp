@@ -39,11 +39,9 @@ customerRoutes.get(
         if (!c) {
           res.status(404).json({ msg: "Customer not found" });
         }
-
         res.json(c);
       })
       .catch(err => {
-        console.log(err);
         res.status(500).json({ msg: "Unable to get customer" });
       });
   }
