@@ -80,7 +80,7 @@ export const createCategory = category => dispatch => {
     );
 };
 
-export const updateCategory = (id, category) => {
+export const updateCategory = (id, category) => dispatch => {
   dispatch({
     type: CATEGORY_UPDATE_REQUEST
   });
@@ -101,7 +101,7 @@ export const updateCategory = (id, category) => {
     );
 };
 
-export const deleteCategory = id => {
+export const deleteCategory = id => dispatch => {
   dispatch({
     type: CATEGORY_DELETE_REQUEST
   });

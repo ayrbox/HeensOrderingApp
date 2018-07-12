@@ -14,7 +14,7 @@ import {
   CATEGORY_DELETE_REQUEST,
   CATEGORY_DELETE_SUCCESS,
   CATEGORY_DELETE_ERRROR
-} from "./types";
+} from "../actions/types";
 
 const initialState = {
   loading: false,
@@ -104,7 +104,7 @@ export default function(state = initialState, action) {
         msg: "Updating category"
       };
 
-    case CATEGORY_UPDATE_REQUEST:
+    case CATEGORY_UPDATE_SUCCESS:
       return {
         ...state,
         loading: false,
