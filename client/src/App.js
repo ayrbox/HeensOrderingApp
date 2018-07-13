@@ -51,13 +51,8 @@ class App extends Component {
                 component={EditCustomer}
               />
             </Switch>
-
             <Switch>
-              <PrivateRoute
-                exact
-                path="/categories/"
-                component={CategoryIndex}
-              />
+              <PrivateRoute path="/categories" component={CategoryIndex} />
             </Switch>
           </div>
         </Router>

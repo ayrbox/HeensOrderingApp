@@ -22,7 +22,7 @@ class CustomerDetail extends Component {
           <Spinner />
         ) : (
           <div className="container">
-            <form onSubmit={this.handleSubmit}>
+            <form>
               <div className="form-group row">
                 <label htmlFor="name" className="col-sm-2 col-form-label">
                   Name
