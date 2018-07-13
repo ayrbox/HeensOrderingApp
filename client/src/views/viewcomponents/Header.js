@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = ({ title }) => (
   <nav className="navbar navbar-expand-md navbar-dark bg-dark">
     <div className="container">
-      <Link to="/" className="navbar-brand">
+      <NavLink to="/" className="navbar-brand">
         {title}
-      </Link>
+      </NavLink>
       <button
         className="navbar-toggler"
         type="button"
@@ -21,29 +21,29 @@ const Header = ({ title }) => (
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/takeorder">
+            <NavLink className="nav-link" to="/takeorder">
               Take Order
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/orders">
+            <NavLink className="nav-link" to="/orders">
               Orders
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/customers">
+            <NavLink className="nav-link" to="/customers">
               Customers
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/menus">
+            <NavLink className="nav-link" to="/menus">
               Menu
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/categories">
+            <NavLink className="nav-link" to="/categories">
               Categories
-            </Link>
+            </NavLink>
           </li>
         </ul>
         <form className="form-inline mt-2 mt-md-0">

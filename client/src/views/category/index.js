@@ -32,7 +32,23 @@ class CategoryIndex extends Component {
               <tr key={c._id}>
                 <td>{c.name}</td>
                 <td>{c.description}</td>
-                <td>View &nbsp; Edit &nbsp;Delete</td>
+                <td>
+                  <Link to={`/categories/${c._id}`} className="btn btn-link">
+                    View
+                  </Link>
+                  <Link
+                    to={`/categories/${c._id}/edit`}
+                    className="btn btn-link"
+                  >
+                    Edit
+                  </Link>
+                  <Link
+                    to={`/categories/${c._id}/delete`}
+                    className="btn btn-link"
+                  >
+                    Delete
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
