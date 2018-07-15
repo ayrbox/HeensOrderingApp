@@ -1,9 +1,62 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getCategory, updateCategory } from "../../actions/categoryActions";
 
 class EditCategory extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      name: "",
+      description: ""
+    };
+
+    this.handleClose = this.handleClose.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getCategory(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.categories.current) {
+      const { name, description } = nextProps.categories.current;
+
+      this.setState({
+        name: name || "",
+        description: description || ""
+      });
+    }
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.props.history.push("/categories");
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { id } = this.props.match.params;
+
+    const { name, description } = this.state;
+    console.log(name, description);
+
+    this.props.updateCategory(id, {
+      name: this.state.name,
+      description: this.state.description
+    });
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   render() {
-    const category = {};
     return (
       <div
         className="modal fade show"
@@ -17,11 +70,8 @@ class EditCategory extends Component {
           backgroundColor: "rgba(0,0,0,.6)"
         }}
       >
-        <div
-          className="modal-dialog modal-dialog-centered modal-lg"
-          role="document"
-        >
-          <div className="modal-content">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <form onSubmit={this.handleSubmit} className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
                 Menu Category
@@ -37,37 +87,39 @@ class EditCategory extends Component {
               </button>
             </div>
             <div className="modal-body">
-              {category ? (
-                <form>
-                  <div className="form-group row">
-                    <label htmlFor="name" className="col-sm-4 col-form-label">
-                      Name
-                    </label>
-                    <div className="col-sm-8">
-                      <input
-                        type="name"
-                        className="form-control-plaintext"
-                        id="name"
-                        name="name"
-                        value={category.name}
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                    <label htmlFor="name" className="col-sm-4 col-form-label">
-                      Description
-                    </label>
-                    <div className="col-sm-8">
-                      <textarea
-                        value={category.description}
-                        className="form-control-plaintext"
-                      />
-                    </div>
-                  </div>
-                </form>
-              ) : null}
+              <div className="form-group row">
+                <label htmlFor="name" className="col-sm-4 col-form-label">
+                  Name
+                </label>
+                <div className="col-sm-8">
+                  <input
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="name" className="col-sm-4 col-form-label">
+                  Description
+                </label>
+                <div className="col-sm-8">
+                  <textarea
+                    value={this.state.description}
+                    className="form-control"
+                    name="description"
+                    id="description"
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
             </div>
             <div className="modal-footer">
+              <button type="submit" className="btn btn-outline-primary">
+                Save
+              </button>
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -77,11 +129,21 @@ class EditCategory extends Component {
                 Close
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     );
   }
 }
 
-export default connect(null)(EditCategory);
+const mapStateToProps = state => ({
+  categories: state.categories
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getCategory,
+    updateCategory
+  }
+)(EditCategory);
