@@ -42,11 +42,10 @@ class EditCategory extends Component {
     const { id } = this.props.match.params;
 
     const { name, description } = this.state;
-    console.log(name, description);
 
     this.props.updateCategory(id, {
-      name: this.state.name,
-      description: this.state.description
+      name,
+      description
     });
   }
 

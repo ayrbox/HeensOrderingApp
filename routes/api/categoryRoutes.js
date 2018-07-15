@@ -99,7 +99,7 @@ categoryRoutes.put(
         { _id: req.params.id },
         { $set: _category },
         { new: true }
-      ).then(updated => res.json({ updated }));
+      ).then(updated => res.json(updated));
     });
   }
 );
