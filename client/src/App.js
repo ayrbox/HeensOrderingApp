@@ -14,6 +14,7 @@ import AddCustomer from "./views/customers/add-customer";
 import CustomerDetail from "./views/customers/customer-detail";
 import EditCustomer from "./views/customers/edit-customer";
 import CategoryIndex from "./views/category";
+import MenuIndex from "./views/menus";
 
 import { getToken } from "./utils/get-token";
 
@@ -53,6 +54,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute path="/categories" component={CategoryIndex} />
+            </Switch>
+            <Switch>
+              <PrivateRoute path="/menus" component={MenuIndex} />
             </Switch>
           </div>
         </Router>

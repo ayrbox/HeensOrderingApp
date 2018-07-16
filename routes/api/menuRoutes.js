@@ -17,14 +17,15 @@ menuRoutes.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-    Menu.find().then(menus => {
-      if (menus.length <= 0) {
-        errors.msg = "Not found";
-        return res.status(404).json(errors);
-      }
-
-      res.json(menus);
-    });
+    Menu.find()
+      .populate("category") //, ["name", "description"]
+      .then(menus => {
+        if (menus.length <= 0) {
+          errors.msg = "Not found";
+          return res.status(404).json(errors);
+        }
+        res.json(menus);
+      });
   }
 );
 
