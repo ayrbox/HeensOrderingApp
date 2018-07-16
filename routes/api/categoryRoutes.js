@@ -109,15 +109,16 @@ categoryRoutes.put(
 //@access       private
 //@return       Category
 categoryRoutes.delete(
-  "/",
+  "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Category.find({ _id: req.params.id }).then(c => {
+    const { id } = req.params;
+    Category.find({ _id: id }).then(c => {
       if (!c) {
         return req.status(404).json({ msg: "Category not found" });
       }
-      Category.findOneAndRemove({ _id: req.params.id }).then(() => {
-        res.json({ msg: "Category removed" });
+      Category.findOneAndRemove({ _id: id }).then(() => {
+        res.json({ _id: id, msg: "Category removed" });
       });
     });
   }

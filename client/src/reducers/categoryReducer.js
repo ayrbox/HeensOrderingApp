@@ -83,6 +83,7 @@ export default function(state = initialState, action) {
     case CATEGORY_CREATE_SUCCESS:
       return {
         ...state,
+        list: [...state.list, action.payload],
         loading: false,
         current: action.payload,
         errors: {},
@@ -105,8 +106,19 @@ export default function(state = initialState, action) {
       };
 
     case CATEGORY_UPDATE_SUCCESS:
+      //Immutable array update
+      //https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#inserting-and-removing-items-in-arrays
+
+      const updateIndex = state.list.findIndex(c => {
+        return c._id === action.payload._id;
+      });
       return {
         ...state,
+        list: [
+          ...state.list.slice(0, updateIndex),
+          action.payload,
+          ...state.list.slice(updateIndex + 1)
+        ],
         loading: false,
         current: action.payload,
         errors: {},
@@ -130,8 +142,15 @@ export default function(state = initialState, action) {
       };
 
     case CATEGORY_DELETE_SUCCESS:
+      const deleteIndex = state.list.findIndex(c => {
+        return c._id === action.payload._id;
+      });
       return {
         ...state,
+        list: [
+          ...state.list.slice(0, deleteIndex),
+          ...state.list.slice(deleteIndex + 1)
+        ],
         loading: false,
         current: undefined,
         errors: {},

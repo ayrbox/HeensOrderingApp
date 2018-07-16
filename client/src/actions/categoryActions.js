@@ -65,7 +65,7 @@ export const createCategory = category => dispatch => {
   });
 
   axios
-    .post("/api/customers/", category)
+    .post(`/api/categories/`, category)
     .then(res =>
       dispatch({
         type: CATEGORY_CREATE_SUCCESS,

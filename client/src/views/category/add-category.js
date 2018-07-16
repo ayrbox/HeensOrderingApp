@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCategory, updateCategory } from "../../actions/categoryActions";
+import { createCategory } from "../../actions/categoryActions";
 
-class EditCategory extends Component {
+class AddCategory extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -16,22 +16,6 @@ class EditCategory extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getCategory(id);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.categories.current) {
-      const { name, description } = nextProps.categories.current;
-
-      this.setState({
-        name: name || "",
-        description: description || ""
-      });
-    }
-  }
-
   handleClose(e) {
     e.preventDefault();
     this.props.history.push("/categories");
@@ -39,11 +23,10 @@ class EditCategory extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
 
     const { name, description } = this.state;
 
-    this.props.updateCategory(id, {
+    this.props.createCategory({
       name,
       description
     });
@@ -149,7 +132,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getCategory,
-    updateCategory
+    createCategory
   }
-)(EditCategory);
+)(AddCategory);
