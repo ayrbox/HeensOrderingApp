@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { createMenu } from "../../actions/categoryActions";
+import classnames from "classnames";
+
+//actions
+import { getCategories } from "../../actions/categoryActions";
+import { createMenu } from "../../actions/menuActions";
 
 //components
 import Modal, {
@@ -44,6 +48,9 @@ class AddMenu extends Component {
       tags
     });
   }
+  componentDidMount() {
+    this.props.getCategories();
+  }
 
   handleChange(e) {
     this.setState({
@@ -52,22 +59,37 @@ class AddMenu extends Component {
   }
 
   render() {
+    const categories = this.props.categories.list;
+    const { errors, msg } = this.props.menus;
+
     return (
-      <Modal onSubmit={() => console.log("testing")}>
+      <Modal onSubmit={this.handleSubmit}>
         <ModalHeader title="Add Menu" onClose={this.handleClose} />
         <ModalBody>
+          {msg ? (
+            <div className="form-group row">
+              <div className="col-12">
+                <div className="alert alert-warning">{msg}</div>
+              </div>
+            </div>
+          ) : null}
           <div className="form-group row">
             <label htmlFor="name" className="col-sm-4 col-form-label">
               Name
             </label>
             <div className="col-sm-8">
               <input
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.name
+                })}
                 id="name"
                 name="name"
                 value={this.state.name}
                 onChange={this.handleChange}
               />
+              {errors.name ? (
+                <div className="invalid-feedback">{errors.name}</div>
+              ) : null}
             </div>
           </div>
           <div className="form-group row">
@@ -75,13 +97,18 @@ class AddMenu extends Component {
               Description
             </label>
             <div className="col-sm-8">
-              <input
-                className="form-control"
+              <textarea
+                className={classnames("form-control", {
+                  "is-invalid": errors.description
+                })}
                 id="description"
                 name="description"
                 value={this.state.description}
                 onChange={this.handleChange}
               />
+              {errors.description ? (
+                <div className="invalid-feedback">{errors.description}</div>
+              ) : null}
             </div>
           </div>
           <div className="form-group row">
@@ -90,13 +117,18 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.price
+                })}
                 id="price"
                 name="price"
                 value={this.state.price}
                 onChange={this.handleChange}
                 type="number"
               />
+              {errors.price ? (
+                <div className="invalid-feedback">{errors.price}</div>
+              ) : null}
             </div>
           </div>
           <div className="form-group row">
@@ -104,13 +136,26 @@ class AddMenu extends Component {
               Category
             </label>
             <div className="col-sm-8">
-              <input
-                className="form-control"
-                id="category"
-                name="category"
+              <select
                 value={this.state.category}
+                defaultValue={""}
+                name="category"
+                id="category"
                 onChange={this.handleChange}
-              />
+                className={classnames("form-control", {
+                  "is-invalid": errors.category
+                })}
+              >
+                <option value="">--Select Category--</option>
+                {categories.map(o => (
+                  <option key={o._id} value={o._id}>
+                    {o.name}
+                  </option>
+                ))}
+              </select>
+              {errors.category ? (
+                <div className="invalid-feedback">{errors.category}</div>
+              ) : null}
             </div>
           </div>
           <div className="form-group row">
@@ -119,12 +164,17 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.tags
+                })}
                 id="tags"
                 name="tags"
                 value={this.state.tags}
                 onChange={this.handleChange}
               />
+              {errors.tags ? (
+                <div className="invalid-feedback">{errors.tags}</div>
+              ) : null}
             </div>
           </div>
         </ModalBody>
@@ -146,7 +196,12 @@ class AddMenu extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  categories: state.categories,
+  menus: state.menus
+});
+
 export default connect(
-  null
-  // { createMenu }
+  mapStateToProps,
+  { getCategories, createMenu }
 )(AddMenu);

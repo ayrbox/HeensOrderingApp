@@ -15,10 +15,19 @@ class MenuList extends Component {
 
   render() {
     const { list, loading } = this.props.menus;
+
     let listContent = <pre>{JSON.stringify(this.props.menus, null, 2)}</pre>;
 
-    if (list.length === 0 || loading) {
+    if (loading) {
       listContent = "Loading.....";
+    } else if (list.length === 0) {
+      listContent = (
+        <div className="row">
+          <div className="col-12">
+            <div className="alert alert-warning">No menu found</div>
+          </div>
+        </div>
+      );
     } else {
       listContent = (
         <table className="table table-striped">
@@ -77,9 +86,8 @@ class MenuList extends Component {
                 New Menu
               </Link>
             </div>
-
-            {listContent}
           </div>
+          {listContent}
         </div>
       </MainLayout>
     );
