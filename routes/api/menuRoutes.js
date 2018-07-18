@@ -38,14 +38,16 @@ menuRoutes.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-    Menu.find({ _id: req.params.id }).then(menu => {
-      if (!menu) {
-        errors.msg = "Not found";
-        return res.status(404).json(errors);
-      }
+    Menu.findOne({ _id: req.params.id })
+      .populate("category", ["name", "description"])
+      .then(menu => {
+        if (!menu) {
+          errors.msg = "Not found";
+          return res.status(404).json(errors);
+        }
 
-      res.json(menu);
-    });
+        res.json(menu);
+      });
   }
 );
 

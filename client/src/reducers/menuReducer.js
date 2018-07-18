@@ -4,7 +4,9 @@ import {
   MENU_FETCH_ERROR,
   MENU_CREATE_REQUEST,
   MENU_CREATE_SUCCESS,
-  MENU_CREATE_ERROR
+  MENU_CREATE_ERROR,
+  MENU_GET_REQUEST,
+  MENU_GET_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -57,6 +59,18 @@ export default function(state = initialState, action) {
         loading: false,
         errors: action.payload,
         msg: "There is error saving menu"
+      };
+    case MENU_GET_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case MENU_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        current: action.payload
       };
     default:
       return state;
