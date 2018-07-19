@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
 class Modal extends Component {
   render() {
@@ -16,7 +17,12 @@ class Modal extends Component {
           backgroundColor: "rgba(0,0,0,.6)"
         }}
       >
-        <div className="modal-dialog modal-dialog-centered" role="document">
+        <div
+          className={classnames("modal-dialog modal-dialog-centered", {
+            "modal-lg": this.props.size === "large"
+          })}
+          role="document"
+        >
           <form onSubmit={this.props.onSubmit} className="modal-content">
             {this.props.children}
           </form>
