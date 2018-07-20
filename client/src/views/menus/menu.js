@@ -50,7 +50,8 @@ class Menu extends Component {
         description,
         price,
         category,
-        tags
+        tags,
+        menuOptions
       } = nextProps.menus.current;
 
       this.setState({
@@ -58,14 +59,15 @@ class Menu extends Component {
         description,
         price,
         category,
-        tags
+        tags,
+        menuOptions
       });
     }
   }
 
   render() {
     return (
-      <Modal>
+      <Modal size="large">
         <ModalHeader title="Menu" onClose={this.handleClose} />
         <ModalBody>
           <div className="form-group row">
@@ -139,6 +141,24 @@ class Menu extends Component {
                   {t}
                 </label>
               ))}
+            </div>
+          </div>
+
+          <div className="form-group row">
+            <label className="col-sm-4 col-form-label">Menu Options</label>
+            <div className="col-sm-8">
+              {this.state.menuOptions ? (
+                <ul className="list-group">
+                  {this.state.menuOptions.map(o => (
+                    <li key={o._id} className="list-group-item">
+                      <div class="d-flex w-100 justify-content-between">
+                        {o.description}
+                        <span>&pound;{o.additionalCost}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </div>
         </ModalBody>

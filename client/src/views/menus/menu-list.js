@@ -16,7 +16,7 @@ class MenuList extends Component {
   render() {
     const { list, loading } = this.props.menus;
 
-    let listContent = <pre>{JSON.stringify(this.props.menus, null, 2)}</pre>;
+    let listContent = "";
 
     if (loading) {
       listContent = "Loading.....";
