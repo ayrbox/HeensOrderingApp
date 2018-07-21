@@ -25,6 +25,15 @@ class Menu extends Component {
 
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+
+    const { id } = this.props.match.params;
+
+    this.props.history.push(`/menus/${id}/delete`);
   }
 
   handleClose(e) {
@@ -151,7 +160,7 @@ class Menu extends Component {
                 <ul className="list-group">
                   {this.state.menuOptions.map(o => (
                     <li key={o._id} className="list-group-item">
-                      <div class="d-flex w-100 justify-content-between">
+                      <div className="d-flex w-100 justify-content-between">
                         {o.description}
                         <span>&pound;{o.additionalCost}</span>
                       </div>
@@ -163,6 +172,20 @@ class Menu extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
+          <button type="button" className="btn btn-outline-primary">
+            Add Menu Option
+          </button>
+          <button type="button" className="btn btn-outline-primary">
+            Edit
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            onClick={this.handleDelete}
+          >
+            Delete
+          </button>
           <button
             type="button"
             className="btn btn-secondary"

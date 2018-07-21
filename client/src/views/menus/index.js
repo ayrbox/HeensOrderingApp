@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import MenuList from "./menu-list";
 import AddMenu from "./add-menu";
 import EditMenu from "./edit-menu";
+import DeleteMenu from "./delete-menu";
 import Menu from "./menu";
 
 const MenuIndex = () => (
@@ -16,7 +17,7 @@ const MenuIndex = () => (
       <Route exact path="/menus/add" component={AddMenu} />
       <Route exact path="/menus/:id" component={Menu} />
       <Route exact path="/menus/:id/edit" component={EditMenu} />
-      <Route exact path="/menus/:id/delete" render={() => <h1>Delete</h1>} />
+      <Route exact path="/menus/:id/delete" component={DeleteMenu} />
     </Switch>
   </div>
 );

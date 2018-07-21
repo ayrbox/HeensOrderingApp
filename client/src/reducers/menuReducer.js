@@ -6,7 +6,10 @@ import {
   MENU_CREATE_SUCCESS,
   MENU_CREATE_ERROR,
   MENU_GET_REQUEST,
-  MENU_GET_SUCCESS
+  MENU_GET_SUCCESS,
+  MENU_DELETE_REQUEST,
+  MENU_DELETE_SUCCESS,
+  MENU_DELETE_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -71,6 +74,26 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         current: action.payload
+      };
+
+    case MENU_DELETE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        msg: "Deleting.."
+      };
+    case MENU_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: "Menu is deleted."
+      };
+    case MENU_DELETE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        msg: "Unable to delete error",
+        errors: action.payload
       };
     default:
       return state;

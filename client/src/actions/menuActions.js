@@ -11,7 +11,10 @@ import {
   MENU_UPDATE_ERROR,
   MENU_GET_REQUEST,
   MENU_GET_SUCCESS,
-  MENU_GET_ERROR
+  MENU_GET_ERROR,
+  MENU_DELETE_REQUEST,
+  MENU_DELETE_SUCCESS,
+  MENU_DELETE_ERROR
 } from "./types";
 
 // GET         /api/menus/
@@ -103,6 +106,28 @@ export const updateMenu = (id, menu) => dispatch => {
 };
 
 // DELETE      /api/menus/:id
+export const deleteMenu = (id, history) => dispatch => {
+  dispatch({
+    type: MENU_DELETE_REQUEST
+  });
+  axios
+    .delete(`/api/menus/${id}`)
+    .then(res => {
+      dispatch({
+        type: MENU_DELETE_SUCCESS,
+        payload: res.data
+      });
+
+      //TODO REMOVE THE MENU ITEM FROM THE LIST
+      if (history) history.push("/menus/");
+    })
+    .catch(err =>
+      dispatch({
+        type: MENU_DELETE_ERROR,
+        payload: err.response.data
+      })
+    );
+};
 
 // POST        /api/menus/:id/options
 // DELETE      /:id/options/:optionId

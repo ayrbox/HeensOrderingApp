@@ -151,10 +151,10 @@ menuRoutes.delete(
   (req, res) => {
     Menu.find({ _id: req.params.id }).then(m => {
       if (!m) {
-        return req.status(404).json({ msg: "Menu not found" });
+        return res.status(404).json({ msg: "Menu not found" });
       }
 
-      Menu.findOneAndUpdate({ _id: req.params.id }).then(() => {
+      Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
         res.json({ msg: "Menu removed" });
       });
     });
