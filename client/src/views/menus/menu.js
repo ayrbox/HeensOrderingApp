@@ -175,7 +175,15 @@ class Menu extends Component {
           <button type="button" className="btn btn-outline-primary">
             Add Menu Option
           </button>
-          <button type="button" className="btn btn-outline-primary">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={e => {
+              e.preventDefault();
+              const { id } = this.props.match.params;
+              this.props.history.push(`/menus/${id}/edit`);
+            }}
+          >
             Edit
           </button>
 

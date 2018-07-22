@@ -84,19 +84,20 @@ export const createMenu = menu => dispatch => {
 };
 
 // PUT         /api/menus/:id
-export const updateMenu = (id, menu) => dispatch => {
+export const updateMenu = (id, menu, history) => dispatch => {
   dispatch({
     type: MENU_UPDATE_REQUEST
   });
 
   axios
     .put(`/api/menus/${id}`, menu)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: MENU_UPDATE_SUCCESS,
         payload: res.data
-      })
-    )
+      });
+      if (history) history.push(`/menus`);
+    })
     .catch(err =>
       dispatch({
         type: MENU_UPDATE_ERROR,

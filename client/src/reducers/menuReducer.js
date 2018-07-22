@@ -9,7 +9,10 @@ import {
   MENU_GET_SUCCESS,
   MENU_DELETE_REQUEST,
   MENU_DELETE_SUCCESS,
-  MENU_DELETE_ERROR
+  MENU_DELETE_ERROR,
+  MENU_UPDATE_REQUEST,
+  MENU_UPDATE_SUCCESS,
+  MENU_UPDATE_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -93,6 +96,29 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         msg: "Unable to delete error",
+        errors: action.payload
+      };
+
+    case MENU_UPDATE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        msg: "Upading menu"
+      };
+    case MENU_UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: "Update updated successfully",
+        current: action.payload
+      };
+
+    case MENU_UPDATE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        msg: "Unable to update menu",
+        current: undefined,
         errors: action.payload
       };
     default:
