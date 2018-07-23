@@ -118,7 +118,7 @@ class DeleteMenu extends Component {
             className="btn btn-secondary"
             onClick={this.handleClose}
           >
-            Cancel
+            Back
           </button>
         </ModalFooter>
       </Modal>

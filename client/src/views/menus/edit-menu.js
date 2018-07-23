@@ -220,7 +220,7 @@ class EditMenu extends Component {
             data-dismiss="modal"
             onClick={this.handleClose}
           >
-            Close
+            Back
           </button>
         </ModalFooter>
       </Modal>
