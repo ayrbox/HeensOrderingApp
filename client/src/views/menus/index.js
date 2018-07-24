@@ -7,6 +7,7 @@ import AddMenu from "./add-menu";
 import EditMenu from "./edit-menu";
 import DeleteMenu from "./delete-menu";
 import Menu from "./menu";
+import AddMenuOption from "./add-menu-option";
 
 const MenuIndex = () => (
   <div>
@@ -18,6 +19,7 @@ const MenuIndex = () => (
       <Route exact path="/menus/:id" component={Menu} />
       <Route exact path="/menus/:id/edit" component={EditMenu} />
       <Route exact path="/menus/:id/delete" component={DeleteMenu} />
+      <Route exact path="/menus/:id/options/add" component={AddMenuOption} />
     </Switch>
   </div>
 );

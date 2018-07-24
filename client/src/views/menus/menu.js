@@ -9,7 +9,7 @@ import Modal, {
 } from "../../components/Modal";
 
 //actions
-import { getMenu } from "../../actions/menuActions";
+import { getMenu, deleteMenuOption } from "../../actions/menuActions";
 
 class Menu extends Component {
   constructor(props, context) {
@@ -26,6 +26,16 @@ class Menu extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
+  }
+
+  handleAddOption(e) {
+    e.preventDefault();
+
+    const { id } = this.props.match.params;
+
+    this.props.history.push(`/menus/${id}/options/add`);
   }
 
   handleDelete(e) {
@@ -45,6 +55,13 @@ class Menu extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  handleDeleteOption(optionId, e) {
+    e.preventDefault();
+
+    const { id } = this.props.match.params;
+    this.props.deleteMenuOption(id, optionId, this.props.history);
   }
 
   componentDidMount() {
@@ -161,6 +178,12 @@ class Menu extends Component {
                   {this.state.menuOptions.map(o => (
                     <li key={o._id} className="list-group-item">
                       <div className="d-flex w-100 justify-content-between">
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={e => this.handleDeleteOption(o._id, e)}
+                        >
+                          X
+                        </button>
                         {o.description}
                         <span>&pound;{o.additionalCost}</span>
                       </div>
@@ -172,7 +195,11 @@ class Menu extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
-          <button type="button" className="btn btn-outline-primary">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={this.handleAddOption}
+          >
             Add Menu Option
           </button>
           <button
@@ -214,5 +241,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getMenu }
+  { getMenu, deleteMenuOption }
 )(Menu);

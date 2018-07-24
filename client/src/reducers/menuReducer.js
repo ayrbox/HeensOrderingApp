@@ -12,7 +12,13 @@ import {
   MENU_DELETE_ERROR,
   MENU_UPDATE_REQUEST,
   MENU_UPDATE_SUCCESS,
-  MENU_UPDATE_ERROR
+  MENU_UPDATE_ERROR,
+  MENU_OPTION_ADD_REQUEST,
+  MENU_OPTION_ADD_SUCCESS,
+  MENU_OPTION_ADD_ERROR,
+  MENU_OPTION_DELETE_REQUEST,
+  MENU_OPTION_DELETE_SUCCESS,
+  MENU_OPTION_DELETE_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -119,6 +125,48 @@ export default function(state = initialState, action) {
         loading: false,
         msg: "Unable to update menu",
         current: undefined,
+        errors: action.payload
+      };
+
+    case MENU_OPTION_ADD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        msg: "Adding menu option"
+      };
+    case MENU_OPTION_ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: "Menu option added",
+        current: action.payload,
+        errors: {}
+      };
+    case MENU_OPTION_ADD_ERROR:
+      return {
+        ...state,
+        loading: false,
+        msg: "Unable to update menu option",
+        errors: action.payload
+      };
+    case MENU_OPTION_DELETE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        msg: "Deleting menu option"
+      };
+    case MENU_OPTION_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        msg: "Menu option deleted",
+        errors: {}
+      };
+    case MENU_OPTION_DELETE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        msg: "Unable to delete menu option",
         errors: action.payload
       };
     default:
