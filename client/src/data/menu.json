@@ -1,0 +1,1496 @@
+[
+  {
+    "name": "Seafood Hors d'oeuvres海先并",
+    "description": "Seafood Hors d'oeuvres (For 2 Persons or More)",
+    "price": 9.4,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Egg, Fish, Peanuts, Sesame, Molluscs"
+  },
+  {
+    "name": "Heen's Mixed Hors D'oeuvres并",
+    "description": "Mixed Hors D'oeuvres (For 2 Persons or More)",
+    "price": 7.9,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Egg, Fish, Peanuts, Sesame"
+  },
+  {
+    "name": "Crispy Seaweed干貝",
+    "description": "Crispy Seaweed",
+    "price": 4.9,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Fish"
+  },
+  {
+    "name": "Mini Spring Rolls 春卷",
+    "description": "Mini Spring Rolls (Vegetarian Available)",
+    "price": 4.9,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans,Sesame"
+  },
+  {
+    "name": "Vegetarian Mini Spring Rolls齐卷",
+    "description": "Vegetarian Mini Spring Rolls",
+    "price": 4.9,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Sesame"
+  },
+  {
+    "name": "Sesame Prawn on Toast下多士",
+    "description": "Sesame Prawn on Toast",
+    "price": 5.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Egg, Sesame"
+  },
+  {
+    "name": "Wor Tip Pan Fried Pork Dumplings 鍋貼",
+    "description": "Wor Tip Pan Fried Pork Dumplings (4 Pieces)",
+    "price": 5.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Dry Shredded Smoked Chicken 分鸡",
+    "description": "Dry Shredded Smoked Chicken (in Salted Chilli & Garlic)",
+    "price": 8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Eggs"
+  },
+  {
+    "name": "Lettuce Wrap Chopped Chicken 鸡生才包",
+    "description": "Lettuce Wrap Chopped Chicken",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Crispy Sweet & Sour Fried Won  炸吞",
+    "description": "Crispy Sweet & Sour Fried Won Tun with Prawn Filling",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans,Sesame"
+  },
+  {
+    "name": "Satay Lamb 串羊",
+    "description": "Satay Lamb with Peanut Sauce on Skewers (4 Pieces)",
+    "price": 6.9,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "Satay Chicken 串雞",
+    "description": "Satay Chicken with Peanut Sauce on Skewers (4 Pieces)",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "Satay Prawn 串下",
+    "description": "Satay Prawn with Peanut Sauce on Skewers (6 Prawns)",
+    "price": 7.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "BBQ Capital Ribs京骨",
+    "description": "BBQ Capital Ribs in Tangy Sauce",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Soyabeans, Celery, Sesame"
+  },
+  {
+    "name": "Peppercorn Salted Chilli & Garlic Spare Ribs召炎骨",
+    "description": "Peppercorn Salted Chilli & Garlic Spare Ribs (Dry)",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Dry Roasted Spare Ribs骨",
+    "description": "Dry Roasted Spare Ribs",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Peppercorn Salted King Prawns召炎下",
+    "description": "Peppercorn Salted King Prawns in Chilli & Garlic (Dry)",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "Spicy Capital King Prawns京辣下",
+    "description":
+      "Spicy Capital King Prawns (Lightly battered in tangy capital sauce with Chillies)",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Crustaceans, Celery"
+  },
+  {
+    "name": "King Prawns in Batter with Sweet & Sour Sauce炸大下",
+    "description": "King Prawns in Batter with Sweet & Sour Sauce",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans"
+  },
+  {
+    "name": "Butterfly King Prawns鳳下",
+    "description": "Butterfly King Prawns in Bread Crumbs (4 Pieces)",
+    "price": 5.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans"
+  },
+  {
+    "name": "Crab Claws蚧鉗",
+    "description": "Crab Claws (2 Pieces)",
+    "price": 6,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "Whole Soft Shell Crab Salted Chilli & Garlic軟蚧",
+    "description":
+      "Whole Soft Shell Crab Salted Chilli & Garlic (Dry) - Seasonal Price",
+    "price": 9.8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Crustaceans"
+  },
+  {
+    "name": "Scallops Fried in Batter with Sweet & Sour Sauce炸大子",
+    "description": "Scallops Fried in Batter with Sweet & Sour Sauce",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Molluscs"
+  },
+  {
+    "name": "Steamed Scallops in Shells (3 Pieces)蒸大子",
+    "description": "Steamed Scallops in Shells (3 Pieces)",
+    "price": 9.8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Molluscs"
+  },
+  {
+    "name": "Mussels in Black Bean Sauce士汁青口",
+    "description": "Mussels in Black Bean Sauce",
+    "price": 7,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Sesame, Molluscs"
+  },
+  {
+    "name": "Mussels in Green Thai Curry Sauce泰青口",
+    "description": "Mussels in Green Thai Curry Sauce",
+    "price": 7,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Crustaceans, Molluscs"
+  },
+  {
+    "name": "Aromatic Mongolian Lamb Lettuce Wrap炸羊",
+    "description": "Aromatic Mongolian Lamb Lettuce Wrap (with Plum Sauce)",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "-"
+  },
+  {
+    "name": "Szechuan Style Spicy Aromatic Lamb Lettuce Wrap辣羊",
+    "description": "Szechuan Style Spicy Aromatic Lamb Lettuce Wrap",
+    "price": 8.5,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat"
+  },
+  {
+    "name": "Quarter Duck1/4 甲",
+    "description": "Quarter Duck",
+    "price": 10.8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Sesame"
+  },
+  {
+    "name": "Half Duck1/2 甲",
+    "description": "Half Duck",
+    "price": 19.8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Sesame"
+  },
+  {
+    "name": "Whole Duck一只甲",
+    "description": "Whole Duck",
+    "price": 36.8,
+    "category": "5b3dfd4116987b4e407f8652",
+    "tags": "Wheat, Sesame"
+  },
+  {
+    "name": "Vegetarian Crispy Aromatic Duck with Pancakes 齐香甲",
+    "description":
+      "Vegetarian Crispy Aromatic Duck with Pancakes (Served with Plum Sauce, Spring Onions & Cucumber)",
+    "price": 9.8,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Mixed Vegetarian Hor's d'oeurves for Two 齐并",
+    "description":
+      "Mixed Vegetarian Hor's d'oeurves for Two (For two persons or more)",
+    "price": 14.8,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Wheat, Crustaceans (Satay Sauce), Peanuts, Soyabeans"
+  },
+  {
+    "name": "Vegetarian Style Sesame Toast 齐多士",
+    "description": "Vegetarian Style Sesame Toast",
+    "price": 5.5,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Wheat"
+  },
+  {
+    "name": "Crispy Seaweed (Vegetarian)齐干貝",
+    "description": "Crispy Seaweed (Vegetarian)",
+    "price": 4.9,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "-"
+  },
+  {
+    "name": "Vegetarian Crispy Won Tun 齐古吞",
+    "description":
+      "Vegetarian Crispy Won Tun (Pastry Filled with Vegetables with Sweet & Sour Sauce)",
+    "price": 6,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Wheat"
+  },
+  {
+    "name": "Satay Tofu on Skewers in Satay Peanut Sauce 串豆付",
+    "description": "Satay Tofu on Skewers in Satay Peanut Sauce",
+    "price": 6,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Wheat, Crustaceans (Satay Sauce), Peanuts, Soyabeans"
+  },
+  {
+    "name":
+      "Peppercorn Salted Fried Tofu 召炎豆付 with Salted Chilli & Garlic (Dry)",
+    "description":
+      "Peppercorn Salted Fried Tofu with Salted Chilli & Garlic (Dry)",
+    "price": 6,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Soyabeans"
+  },
+  {
+    "name": "Vegetarian Lettuce Wrap 齐才包",
+    "description": "Vegetarian Lettuce Wrap",
+    "price": 6,
+    "category": "5b58ae9b9841684dcc644f58",
+    "tags": "Soybeans, Sesame"
+  },
+  {
+    "name": "Kung Po Tofu Vegetarian Style 齐公保",
+    "description":
+      "Kung Po Tofu Vegetarian Style (Spicy Sweet & Sour with Water Chestnuts )",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Vegetarian Crispy Shredded Chilli 'Beef'  齐牛C",
+    "description": "New Style Vegetarian Crispy Shredded Chilli 'Beef'",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Celery"
+  },
+  {
+    "name": "Sweet & Sour Fried Tofu 古豆付",
+    "description":
+      "Sweet & Sour Fried Tofu (with Pineapple, green Peppers and Onions)",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Soyabeans"
+  },
+  {
+    "name": "Monks Vegetable 羅才",
+    "description":
+      "Monks Vegetable (with Chinese Vegetable and Tofu in Oyster Sauce)",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Mixed Chinese Vegetable Curry 什才咖喱",
+    "description": "Mixed Chinese Vegetable Curry",
+    "price": 7,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "-"
+  },
+  {
+    "name": "Stir Fried Bean Sprouts 牙才",
+    "description": "Stir Fried Bean Sprouts",
+    "price": 5.5,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Soybeans, Sesame"
+  },
+  {
+    "name": "Stir Fried Asparagus with Straw Mushroom双筍姑  & Baby Corn",
+    "description": "Stir Fried Asparagus with Straw Mushroom & Baby Corn",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Peppercorn Salted Vegetables in Chilli & Garlic召炎什才",
+    "description":
+      "Peppercorn Salted Vegetables in Chilli & Garlic (Dry in light Batter)",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "-"
+  },
+  {
+    "name": "Mixed Chinese Vegetables  什才",
+    "description":
+      "Mixed Chinese Vegetables (Baby Corn, Chinese Leaf, Straw Mushrooms..)",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "-"
+  },
+  {
+    "name": "Pak Choi in Oyster Sauce蠔白才",
+    "description": "Chinese \"Pak Choi\" in Oyster Sauce",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Soyabeans, Molluscs"
+  },
+  {
+    "name": "Pak Choi Stir Fried in Garlic Sauce 蒜白才",
+    "description": "Chinese \"Pak Choi\" Stir Fried in Garlic Sauce",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Stir Fried \"Pak Choi\" with Broccoli in Garlic Sauce蒜白才西花",
+    "description": "Stir Fried \"Pak Choi\" with Broccoli in Garlic Sauce",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Peppercorn Salted French Beans with Chilli & Garlic召炎豆角",
+    "description":
+      "Peppercorn Salted French Beans with Chilli & Garlic (Dry in light Batter)",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "-"
+  },
+  {
+    "name": "Stir Fried French Beans in Garlic Sauce蒜豆角",
+    "description": "Stir Fried French Beans in Garlic Sauce",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Spicy French Beans in Chilli Sauce辣汁豆角",
+    "description": "Spicy French Beans in Chilli Sauce",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Thai Green Vegetarian Curry with Aubergine泰齐咖喱",
+    "description": "Thai Green Vegetarian Curry with Aubergine",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Tofu in Satay Sauce沙爹豆腐",
+    "description": "-",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "-"
+  },
+  {
+    "name": "Peking Tofu锅豆腐",
+    "description": "-",
+    "price": 7,
+    "category": "5b58aea49841684dcc644f59",
+    "tags": "-"
+  },
+  {
+    "name": "Sizzling Vegetarian Tofu in Sweet Chilli Sauce铁甜辣什才豆付",
+    "description": "Sizzling Vegetarian Tofu in Sweet Chilli Sauce",
+    "price": 9.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soyabeans"
+  },
+  {
+    "name":
+      "Sizzling Fried Tofu in Black Bean Sauce with Peppers 士汁豆付 Onions",
+    "description":
+      "Sizzling Fried Tofu in Black Bean Sauce with Peppers & Onions",
+    "price": 9.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Sizzling Fried Tofu in Peanut Satay Sauce铁沙豆付",
+    "description": "Sizzling Fried Tofu in Peanut Satay Sauce",
+    "price": 9.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "Sizzling Seaspice Fried Tofu铁魚香豆付",
+    "description":
+      "Sizzling Seaspice Fried Tofu (Spicy, with Black Seaweed & Water Chestnuts)",
+    "price": 9.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Sizzling Seaspice Spicy Aubergine铁魚香茄子",
+    "description":
+      "Sizzling Seaspice Spicy Aubergine (Spicy, with Black Seaweed & Water Chestnuts)",
+    "price": 9.9,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Sizzling Aubergine in Chilli & Black Bean Sauce铁士汁茄子",
+    "description": "Sizzling Aubergine in Chilli & Black Bean Sauce",
+    "price": 9.9,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "seafood seaspice",
+    "description": "-",
+    "price": 9.8,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "-"
+  },
+  {
+    "name": "Chips署条",
+    "description": "Chips",
+    "price": 3,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Prawn Crackers下片",
+    "description": "Prawn Cracker",
+    "price": 1.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Lobster Deep Fried in Peppercorn salted with Chilli and Garlic",
+    "description":
+      "Lobster Deep Fried in Peppercorn salted with Chilli and Garlic (No Sauce). Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans, Egg (Trace)"
+  },
+  {
+    "name": "Lobster in Black Bean Sauce",
+    "description":
+      "Lobster in Black Bean Sauce Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans, Egg (Trace)"
+  },
+  {
+    "name": "Lobster in Ginger & Spring Onions Sauce",
+    "description":
+      "Lobster in Ginger & Spring Onions Sauce (seasonal price) Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans, Egg (Trace)"
+  },
+  {
+    "name": "Lobster in Spicy Chilli & Garlic Sauce",
+    "description":
+      "Lobster in Spicy Chilli & Garlic Sauce Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans, Egg (Trace)"
+  },
+  {
+    "name": "Whole Crab In Hot Thai Green Curry",
+    "description":
+      "Whole Crab In Hot Thai Green Curry (seasonal price) Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Sesame"
+  },
+  {
+    "name": "Crab in Ginger & Spring Onions",
+    "description":
+      "Crab in Ginger & Spring Onions (seasonal price) Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Sesame"
+  },
+  {
+    "name": "Crab in Chilli & Black Bean Sauce",
+    "description":
+      "Crab in Chilli & Black Bean Sauce Traditionally prepared in the shell, with a choice tasty sauce in a bed of noodles",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Sesame"
+  },
+  {
+    "name": "Steamed Whole Sea Bass In Seafood Soya Sauce with Spring Onion",
+    "description":
+      "Steamed Whole Sea Bass (In Seafood Soya Sauce with Spring Onion) (Seasonal Price)",
+    "price": 21.9,
+    "category": "5b58ae709841684dcc644f53",
+    "tags": "Fish, Sesame"
+  },
+  {
+    "name":
+      "1/2 正魚 Steamed Half a Sea Bass In Seafood Soya Sauce with Spring Onion",
+    "description":
+      "Steamed Half a Sea Bass (In Seafood Soya Sauce with Spring Onion) (Seasonal Price)",
+    "price": 0,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Fish, Sesame"
+  },
+  {
+    "name": "Fillet of Fresh Sea Bass in Seafood Soya Sauce1/2 士油魚",
+    "description": "Fillet of Fresh Sea Bass in Seafood Soya Sauce",
+    "price": 11.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Fish, Sesame"
+  },
+  {
+    "name":
+      "Special Capital Fish Fillet 京辣魚 Lightly Battered in Spicy Capital Sauce",
+    "description":
+      "Special Capital Fish Fillet Lightly Battered in Spicy Capital Sauce",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Fish, Celery, Sesame"
+  },
+  {
+    "name": "Peking Style Fish鍋魚",
+    "description":
+      "Peking Style Fish (Pan Fried Lightly with Egg in Light Garlic Sauce)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Fish, Celery, Sesame"
+  },
+  {
+    "name": "Kung Po Fish Fillets公保魚",
+    "description":
+      "Kung Po Fish Fillets (Lighty battered with Sweet and Spicy)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Fish, Soyabeans, Sesame"
+  },
+  {
+    "name": "Peppercorn Salted Fried Squid in Chilli and Garlic召炎先尤",
+    "description": "Peppercorn Salted Fried Squid in Chilli and Garlic (Dry)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Molluscs"
+  },
+  {
+    "name": "Spicy Capital Squid京辣先尤",
+    "description":
+      "Spicy Capital Squid, Lightly Battered in Spicy Capital Sauce",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Celery, Sesame, Molluscs"
+  },
+  {
+    "name": "Sweet & Sour King Prawns古下",
+    "description": "Sweet & Sour King Prawns",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "King Prawns in Ginger & Spring Onions姜冲下",
+    "description": "King Prawns in Ginger & Spring Onions",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Sesame"
+  },
+  {
+    "name": "King Prawns with Chilli & Basil香叶下",
+    "description":
+      "King Prawns with Chilli & Basil (with Green Peppers & Chillies)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "King Prawns with Cashew Nuts in Ho Sin Sauce夭下",
+    "description": "King Prawns with Cashew Nuts in Ho Sin Sauce",
+    "price": 10.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans, Soyabeans, Cashew Nuts, Sesame"
+  },
+  {
+    "name": "Szechuan Style King Prawns四川下",
+    "description":
+      "Szechuan Style King Prawns (with Onions & Green Pepper & Chillies)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Wheat, Crustaceans,Sesame"
+  },
+  {
+    "name": "King Prawns with Scallop & Asparagus筍下大子",
+    "description": "King Prawns with Scallop & Asparagus",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Crustaceans, Molluscs"
+  },
+  {
+    "name": "Scallops Stir Fried with Fresh Broccoli西花大子",
+    "description":
+      "Scallops Stir Fried with Fresh Broccoli (in Light Garlic Sauce)",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "Sesame, Molluscs"
+  },
+  {
+    "name": "Heen's Seafood Soup海先湯",
+    "description": "Heen's Seafood Soup",
+    "price": 5,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "Hot & Sour Soup京湯",
+    "description": "Hot & Sour Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Wheat, Eggs, Soyabeans, Sesame"
+  },
+  {
+    "name": "Vegetarian Hot & Sour Soup齐京湯",
+    "description": "Vegetarian Hot & Sour Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Wheat, Soyabeans"
+  },
+  {
+    "name": "Sweet Corn with Chicken Soup鸡米湯",
+    "description": "Sweet Corn with Chicken Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Eggs"
+  },
+  {
+    "name": "Sweet Corn with Crab Meat Soup蚧米湯",
+    "description": "Sweet Corn with Crab Meat Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "Won Tun Prawns Dumpling Soup吞湯",
+    "description": "Won Tun Prawns Dumpling Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Wheat, Eggs, Sesame"
+  },
+  {
+    "name": "Straw Mushrooms & Chicken Soup鸡古湯",
+    "description": "Straw Mushrooms & Chicken Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Vegetarian Sweet Corn Soup齐米湯",
+    "description": "Vegetarian Sweet Corn Soup",
+    "price": 3.8,
+    "category": "5b58ae8c9841684dcc644f56",
+    "tags": "-"
+  },
+  {
+    "name": "Sizzling Steak Fillet Cantonese style铁中牛柳",
+    "description":
+      "Sizzling Steak Fillet Cantonese style (with Onions in Capital Fruity Sauce)",
+    "price": 14.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Sizzling Steak Fillet in Black Pepper Sauce铁黑牛柳",
+    "description": "Sizzling Steak Fillet in Black Pepper Sauce",
+    "price": 14.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "-"
+  },
+  {
+    "name": "Sizzling Sauteed Beef & Chicken铁士汁双柳  in Black Bean Sauce",
+    "description": "Sizzling Sauteed Beef & Chicken in Black Bean Sauce",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soybeans, Sesame"
+  },
+  {
+    "name": "Sizzling Satay Chicken铁沙鸡",
+    "description": "Sizzling Satay Chicken in Spicy Peanut Sauce",
+    "price": 10.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "Sizzling Pork Fillet Cantonese Style 铁中朱扒",
+    "description":
+      "Sizzling Pork Fillet Cantonese Style (with Onions in Capital Fruity Sauce)",
+    "price": 10.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Sizzling Lamb in Honey & Black Pepper Sauce铁蜜召羊",
+    "description": "Sizzling Lamb in Honey & Black Pepper Sauce",
+    "price": 10.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Sizzling Lamb in Ginger & Spring Onions铁姜冲羊",
+    "description": "Sizzling Lamb in Ginger & Spring Onions",
+    "price": 10.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Sizzling King Prawns in Satay Peanut Sauce铁沙下",
+    "description": "Sizzling King Prawns in Satay Peanut Sauce",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Crustaceans, Peanuts, Soyabeans"
+  },
+  {
+    "name": "Sizzling King Prawns in Chilli & Black Bean Sauce铁士汁下",
+    "description": "Sizzling King Prawns in Chilli & Black Bean Sauce",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Crustaceans, Soyabeans, Sesame"
+  },
+  {
+    "name": "Sizzling King Prawns Cantonese style铁中下",
+    "description":
+      "Sizzling King Prawns Cantonese style (in Capital Fruity Sauce)",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Crustaceans, Celery, Sesame"
+  },
+  {
+    "name": "Sizzling Mixed Seafood in Seaspice Chilli Sauce铁魚香海先",
+    "description": "Sizzling Mixed Seafood in Seaspice Chilli Sauce",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Wheat, Crustaceans, Soyabeans, Sesame, Molluscs"
+  },
+  {
+    "name": "Scallops in Chilli & Garlic铁辣汁大子",
+    "description": "Scallops in Chilli & Garlic",
+    "price": 11.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "Soyabeans, Sesame，Molluscs"
+  },
+  {
+    "name": "Classic Cantonese Roasted Duck中甲",
+    "description": "Classic Cantonese Roasted Duck",
+    "price": 9.5,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "-"
+  },
+  {
+    "name": "Duck in Sweet Chilli Sauce & Basil香叶甲",
+    "description": "Duck in Sweet Chilli Sauce & Basil",
+    "price": 9.5,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "-"
+  },
+  {
+    "name": "Duck with Fresh Orange in Mandarin Sauce橙甲",
+    "description": "Duck with Fresh Orange in Mandarin Sauce",
+    "price": 9.5,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "-"
+  },
+  {
+    "name": "Dry Shredded Smoked Chicken in Garlic & Chilli分鸡",
+    "description": "Dry Shredded Smoked Chicken in Garlic & Chilli",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "-"
+  },
+  {
+    "name": "Chicken with Cashew Nuts in Hoi Sin Sauce夭鸡",
+    "description": "Chicken with Cashew Nuts in Hoi Sin Sauce",
+    "price": 8.8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Soyabeans， Cashew Nuts， Sesame"
+  },
+  {
+    "name": "Lemon ChickenO雞",
+    "description": "Lemon Chicken (Fried in Light Batter with Lemon Sauce)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Eggs"
+  },
+  {
+    "name": "Sweet & Sour Chicken古雞",
+    "description": "Sweet & Sour Chicken (Hong Kong Style, in Sauce)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Eggs"
+  },
+  {
+    "name": "Fried Chicken with Crispy Onions京冲鸡",
+    "description": "Fried Chicken with Crispy Onions (With Capital BBQ Sauce)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Eggs, Celery, Sesame"
+  },
+  {
+    "name": "Kung Po chicken公保鸡",
+    "description":
+      "Kung Po chicken (In Spicy Sweet & Sour Sauce with Water Chestnuts)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Chicken with Ginger & spring Onions姜冲鸡",
+    "description": "Chicken with Ginger & spring Onions",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Chicken in Black Bean Sauce士汁鸡",
+    "description":
+      "Chicken in Black Bean Sauce (with Green Peppers and Onions)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Sesame"
+  },
+  {
+    "name": "Szechuan Chicken四川鸡",
+    "description":
+      "Szechuan Chicken (Spicy Szechuan Sauce, Onions & Green Peppers)",
+    "price": 8,
+    "category": "5b58ae4a9841684dcc644f4e",
+    "tags": "Wheat"
+  },
+  {
+    "name": "Sweet & Sour Pork古玉",
+    "description": "Sweet & Sour Pork (Hong Kong Style)",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "-"
+  },
+  {
+    "name": "Char-Sui叉烧",
+    "description": "Char-Sui Chinese BBQ Roasted Pork",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Soyabeans"
+  },
+  {
+    "name": "Pork Fillets with Honey & Black Pepper Sauce蜜召朱扒",
+    "description": "Pork Fillets with Honey & Black Pepper Sauce",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Soyabeans"
+  },
+  {
+    "name": "Peppercorn Salted Pork Fillets with Chilli and Garlic召炎朱扒",
+    "description":
+      "Peppercorn Salted Pork Fillets with Chilli and Garlic (Dry)",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "-"
+  },
+  {
+    "name": "Crispy Shredded Chilli Beef牛C",
+    "description": "Crispy Shredded Chilli Beef",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Eggs, Celery, Sesame"
+  },
+  {
+    "name": "Beef in Ginger & Spring Onions姜冲牛",
+    "description": "Beef in Ginger & Spring Onions",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Beef in Black Bean Sauce士汁牛",
+    "description": "Beef in Black Bean Sauce",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Soyabeans, Sesame"
+  },
+  {
+    "name": "Szechuan Style Beef四川牛",
+    "description": "Szechuan Style Beef (Spicy with Onions & Green Peppers)",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Wheat, Soyabeans"
+  },
+  {
+    "name": "Ma Po Tofu麻婆豆付",
+    "description":
+      "Ma Po Tofu (Soft Tofu cubes & Minced Beef with strong preserved vegetables in Chilli Sauce)",
+    "price": 8,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "Lamb Slices in Sweet Chilli & Basil香叶羊",
+    "description": "Lamb Slices in Sweet Chilli & Basil",
+    "price": 9.5,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "-"
+  },
+  {
+    "name": "Szechuan Style Lamb Slices四川羊",
+    "description":
+      "Szechuan Style Lamb Slices (Spicy with Onions & Green Peppers)",
+    "price": 9.5,
+    "category": "5b58ae2f9841684dcc644f4a",
+    "tags": "Wheat, Soyabeans"
+  },
+  {
+    "name": "Chinese Style Beef Curry咖喱牛",
+    "description": "Chinese Style Beef Curry",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "-"
+  },
+  {
+    "name": "Chinese Style Chicken Curry咖喱鸡",
+    "description": "Chinese Style Chicken Curry",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "-"
+  },
+  {
+    "name": "Chinese Style Lamb Curry咖喱羊",
+    "description": "Chinese Style Lamb Curry",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "-"
+  },
+  {
+    "name": "Chinese King Prawn Curry咖喱下",
+    "description": "Chinese King Prawn Curry",
+    "price": 10.3,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Thai Style Hot Green Curry with Beef泰牛",
+    "description":
+      "Thai Style Hot Green Curry with Beef (Aromatic Herbs & Creamy Coconut Milk)",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Thai Style Hot Green Curry with Chicken泰鸡",
+    "description":
+      "Thai Style Hot Green Curry with Chicken (Aromatic Herbs & Creamy Coconut Milk)",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Thai Style Hot Green Curry with Lamb泰羊",
+    "description":
+      "Thai Style Hot Green Curry with Lamb (Aromatic Herbs & Creamy Coconut Milk)",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Thai Style Hot Green Curry with King Prawns泰下",
+    "description":
+      "Thai Style Hot Green Curry with King Prawns (Aromatic Herbs & Creamy Coconut Milk)",
+    "price": 10.3,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Vegetarian Thai Style Hot Green Curry 泰茄子 with Aubergine",
+    "description":
+      "Vegetarian Thai Style Hot Green Curry with Aubergine (Aromatic Herbs & Creamy Coconut Milk)",
+    "price": 9.5,
+    "category": "5b58ae109841684dcc644f45",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Stir Fried Noodles with Beansprouts牙面",
+    "description": "Stir Fried Noodles with Beansprouts",
+    "price": 4.8,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Special Chow Mein 羊面",
+    "description": "Special Chow Mein",
+    "price": 7,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Chow Mein with Chicken 干鸡面",
+    "description": "Chow Mein with Chicken",
+    "price": 6,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Chow Mein with Beef 干牛面",
+    "description": "Chow Mein with Beef",
+    "price": 6,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Vegetarian Chow Mein 齐炒面",
+    "description": "Vegetarian Chow Mein",
+    "price": 6,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Special Mixed Fried Udon  羊烏冬",
+    "description": "Special Mixed Fried Udon (Thick Japanese style Noodle)",
+    "price": 9.8,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Soyabeans, Sesame"
+  },
+  {
+    "name": "King Prawns Chow Mein 大下炒面",
+    "description": "King Prawns Chow Mein",
+    "price": 9,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Crustaceans, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Singapore Style Spicy Vermicelli  星米",
+    "description":
+      "Singapore Style Spicy Vermicelli (Rice Noodles, Vegetarian Available)",
+    "price": 7,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Crustaceans"
+  },
+  {
+    "name": "Singapore Style Spicy Vermicelli (Vegetarian)齐星米",
+    "description":
+      "Singapore Style Spicy Vermicelli (Rice Noodles, Vegetarian )",
+    "price": 7,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "-"
+  },
+  {
+    "name": "Seafood Crispy Noodle 海先面",
+    "description": "Seafood Crispy Noodle (King Prawns, Squid & Scallops)",
+    "price": 10.8,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Crustaceans, Egg (Trace), Sesame, Molluscs"
+  },
+  {
+    "name": "Heen's Crispy House Fried Noodle 召面",
+    "description":
+      "Heen's Crispy House Fried Noodle (Mixed topping of Prawns and Meat)",
+    "price": 9.8,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Crustaceans, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Vegetarian Crispy Noodle with Tofu and Vegetables 齐面",
+    "description": "Vegetarian Crispy Noodle with Tofu and Vegetables",
+    "price": 9.8,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "Wheat, Egg (Trace), Soyabeans, Sesame"
+  },
+  {
+    "name": "Special Fried Rice 羊反",
+    "description": "Special Fried Rice",
+    "price": 4.2,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Crustaceans, Egg, Soyabeans"
+  },
+  {
+    "name": "Singapore Spicy Fried Rice 星反",
+    "description": "Singapore Spicy Fried Rice (Vegetarian Available)",
+    "price": 4.2,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Crustaceans, Egg"
+  },
+  {
+    "name": "Singapore Spicy Fried Rice (Vegetarian)齐星反",
+    "description": "Singapore Spicy Fried Rice (Vegetarian)",
+    "price": 4.2,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Eggs"
+  },
+  {
+    "name": "Shredded Chicken Fried Rice 冲鸡反",
+    "description": "Shredded Chicken & Spring Onions Fried Rice",
+    "price": 4.2,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Eggs, Soyabeans"
+  },
+  {
+    "name": "Vegetarian Fried Rice 齐反",
+    "description": "Vegetarian Fried Rice (with chopped Vegetables, no egg)",
+    "price": 4,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Soyabeans"
+  },
+  {
+    "name": "Egg Fried  Rice  旦反",
+    "description": "Egg Fried Rice with Spring Onions",
+    "price": 3.8,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "Eggs, Soyabeans"
+  },
+  {
+    "name": "Plain Steamed Rice 白反",
+    "description": "Plain Steamed Rice",
+    "price": 3,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "-"
+  },
+  {
+    "name": "beef oyster sauce蚝牛肉",
+    "description": "-",
+    "price": 8,
+    "category": "5b58adf99841684dcc644f42",
+    "tags": "-"
+  },
+  {
+    "name": "Banana Fritter",
+    "description": "-",
+    "price": 3.8,
+    "category": "5b58ae169841684dcc644f46",
+    "tags": "-"
+  },
+  {
+    "name": "Pineapple Fritter",
+    "description": "-",
+    "price": 3.8,
+    "category": "5b58ae169841684dcc644f46",
+    "tags": "-"
+  },
+  {
+    "name": "sweet n sour chicken Balls古鸡球",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae0b9841684dcc644f44",
+    "tags": "-"
+  },
+  {
+    "name": "Curry Sauce",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "chicken oyster sauce蚝油鸡",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae0b9841684dcc644f44",
+    "tags": "-"
+  },
+  {
+    "name": "Large Curry Sauce",
+    "description": "-",
+    "price": 3,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "duck boiled rice",
+    "description": "-",
+    "price": 11,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Coke Can",
+    "description": "Drink Coke",
+    "price": 1,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  },
+  {
+    "name": "Diet Coke",
+    "description": "Diet Coke",
+    "price": 1,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  },
+  {
+    "name": "tango",
+    "description": "-",
+    "price": 1,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  },
+  {
+    "name": "7up",
+    "description": "-",
+    "price": 1,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  },
+  {
+    "name": "Kung Po Prawn公保下",
+    "description": "-",
+    "price": 9.8,
+    "category": "5b58ae539841684dcc644f4f",
+    "tags": "-"
+  },
+  {
+    "name": "King prawn Fried Rice",
+    "description": "-",
+    "price": 8.8,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Large Egg Rice大蛋饭",
+    "description": "-",
+    "price": 4.8,
+    "category": "5b58ae599841684dcc644f50",
+    "tags": "-"
+  },
+  {
+    "name": "Large Satay Sauce",
+    "description": "-",
+    "price": 3,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "Prawn cracker虾片",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "6 pancake 6鸭皮",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Pork chow mein",
+    "description": "-",
+    "price": 6,
+    "category": "5b58ae379841684dcc644f4b",
+    "tags": "-"
+  },
+  {
+    "name": "sweetnsour小古汁",
+    "description": "sweetnsour",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "Sweet and Sour King Prawn古下",
+    "description": "-",
+    "price": 9.8,
+    "category": "5b58ae959841684dcc644f57",
+    "tags": "-"
+  },
+  {
+    "name": "satay beef",
+    "description": "-",
+    "price": 9.5,
+    "category": "5b58aeab9841684dcc644f5a",
+    "tags": "-"
+  },
+  {
+    "name": "black been sauce士汁",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "special chilli oil叉油",
+    "description": "-",
+    "price": 3.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "curry sauce小咖喱汁",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "satay sauce小沙爹汁",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "large sweet n sour sauce大古汁",
+    "description": "-",
+    "price": 2.8,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "Chilli oil辣椒油",
+    "description": "-",
+    "price": 1,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Chilli Sauce辣椒酱",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae5f9841684dcc644f51",
+    "tags": "-"
+  },
+  {
+    "name": "Scallops in Chilli & Garlic铁辣汁大子",
+    "description": "-",
+    "price": 11.5,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "-"
+  },
+  {
+    "name": "SET DINNER A",
+    "description": "-",
+    "price": 35.6,
+    "category": "5b58ae7c9841684dcc644f54",
+    "tags": "-"
+  },
+  {
+    "name": "SET DINNER B",
+    "description": "-",
+    "price": 45.6,
+    "category": "5b58ae7c9841684dcc644f54",
+    "tags": "-"
+  },
+  {
+    "name": "SET DINNER C",
+    "description": "-",
+    "price": 51.6,
+    "category": "5b58ae7c9841684dcc644f54",
+    "tags": "-"
+  },
+  {
+    "name": "SET SEAFOOD",
+    "description": "-",
+    "price": 77.6,
+    "category": "5b58ae7c9841684dcc644f54",
+    "tags": "-"
+  },
+  {
+    "name": "Sweet and  Sour Chicken古雞",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae959841684dcc644f57",
+    "tags": "-"
+  },
+  {
+    "name": "Sweet and Sour Pork古玉",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae959841684dcc644f57",
+    "tags": "-"
+  },
+  {
+    "name": "sweet n sour chicken balls",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae959841684dcc644f57",
+    "tags": "-"
+  },
+  {
+    "name": "Sweet and Sour Fish",
+    "description": "-",
+    "price": 9.8,
+    "category": "5b58ae649841684dcc644f52",
+    "tags": "-"
+  },
+  {
+    "name": "Sweet and sour sauce 小古汁",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "sweet n sour pork balls古肉球",
+    "description": "-",
+    "price": 8,
+    "category": "5b58ae959841684dcc644f57",
+    "tags": "-"
+  },
+  {
+    "name": "Satay Sauce (s)小沙爹汁",
+    "description": "-",
+    "price": 1.5,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Large Satay Sauce",
+    "description": "-",
+    "price": 3,
+    "category": "5b58ae3d9841684dcc644f4c",
+    "tags": "-"
+  },
+  {
+    "name": "Toffee Banana",
+    "description": "-",
+    "price": 3.8,
+    "category": "5b58ae169841684dcc644f46",
+    "tags": "-"
+  },
+  {
+    "name": "Toffee Banana",
+    "description": "-",
+    "price": 3.8,
+    "category": "5b58ae169841684dcc644f46",
+    "tags": "-"
+  },
+  {
+    "name": "Toffee Apple",
+    "description": "-",
+    "price": 3.8,
+    "category": "5b58ae169841684dcc644f46",
+    "tags": "-"
+  },
+  {
+    "name": "Rioja",
+    "description": "-",
+    "price": 19.8,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  },
+  {
+    "name": "Large Glass of House Red",
+    "description": "-",
+    "price": 5.9,
+    "category": "5b58ae1e9841684dcc644f47",
+    "tags": "-"
+  }
+]

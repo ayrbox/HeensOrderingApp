@@ -1,0 +1,158 @@
+[
+  {
+    "_id": "5b3dfd4116987b4e407f8652",
+    "name": "Appetisers",
+    "description": "Appetisers Menu",
+    "__v": 0
+  },
+  {
+    "_id": "5b58adf99841684dcc644f42",
+    "name": "Beef",
+    "description": "Beef Items",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae049841684dcc644f43",
+    "name": "Black Bean",
+    "description": "Black Bean",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae0b9841684dcc644f44",
+    "name": "Chicken",
+    "description": "Chicken",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae109841684dcc644f45",
+    "name": "Curry",
+    "description": "Curry",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae169841684dcc644f46",
+    "name": "Desert",
+    "description": "Desert",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae1e9841684dcc644f47",
+    "name": "Drinks",
+    "description": "Drinks",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae239841684dcc644f48",
+    "name": "Duck",
+    "description": "Duck",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae299841684dcc644f49",
+    "name": "Lamb",
+    "description": "Lamb",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae2f9841684dcc644f4a",
+    "name": "Meat",
+    "description": "Meat",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae379841684dcc644f4b",
+    "name": "Noodles",
+    "description": "Noodles",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae3d9841684dcc644f4c",
+    "name": "Others",
+    "description": "Others",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae459841684dcc644f4d",
+    "name": "Pork",
+    "description": "Pork",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae4a9841684dcc644f4e",
+    "name": "Poultry",
+    "description": "Poultry",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae539841684dcc644f4f",
+    "name": "Prawns",
+    "description": "Prawns",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae599841684dcc644f50",
+    "name": "Rice",
+    "description": "Rice",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae5f9841684dcc644f51",
+    "name": "Sauce",
+    "description": "Sauce",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae649841684dcc644f52",
+    "name": "Seafood",
+    "description": "Seafood",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae709841684dcc644f53",
+    "name": "Second Course",
+    "description": "Second Course",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae7c9841684dcc644f54",
+    "name": "Set Menu",
+    "description": "Set Menu",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae829841684dcc644f55",
+    "name": "Sizzling",
+    "description": "Sizzling",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae8c9841684dcc644f56",
+    "name": "Soup",
+    "description": "Soup",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae959841684dcc644f57",
+    "name": "Sweet and Sour",
+    "description": "Sweet and Sour",
+    "__v": 0
+  },
+  {
+    "_id": "5b58ae9b9841684dcc644f58",
+    "name": "Vege Appetisers",
+    "description": "Vege Appetisers",
+    "__v": 0
+  },
+  {
+    "_id": "5b58aea49841684dcc644f59",
+    "name": "Vege Dish",
+    "description": "Vege Dish",
+    "__v": 0
+  },
+  {
+    "_id": "5b58aeab9841684dcc644f5a",
+    "name": "Vege Sizzling",
+    "description": "Vege Sizzling",
+    "__v": 0
+  }
+]

@@ -8,9 +8,21 @@ import MainLayout from "../viewcomponents/MainLayout";
 //actions
 import { getMenus } from "../../actions/menuActions";
 
+import axios from "axios";
+import menuData from "../../data/menu.json";
+
 class MenuList extends Component {
   componentDidMount() {
     this.props.getMenus();
+  }
+
+  createHeensSampleMenu() {
+    menuData.forEach((m, i) => {
+      axios
+        .post(`/api/menus/`, m)
+        .then(() => console.log(`${m.name} is created`))
+        .catch(err => console.error(`${m.name} - ${i} not created`, err));
+    });
   }
 
   render() {
@@ -88,6 +100,18 @@ class MenuList extends Component {
             </div>
           </div>
           {listContent}
+
+          <div className="row">
+            <div className="col-12 text-right mb-3">
+              <button
+                className="btn btn-danger"
+                onClick={this.createHeensSampleMenu}
+                disabled={true}
+              >
+                Create Heens menu from data
+              </button>
+            </div>
+          </div>
         </div>
       </MainLayout>
     );
