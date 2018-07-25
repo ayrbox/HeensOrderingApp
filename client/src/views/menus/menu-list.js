@@ -9,20 +9,31 @@ import MainLayout from "../viewcomponents/MainLayout";
 import { getMenus } from "../../actions/menuActions";
 
 import axios from "axios";
-import menuData from "../../data/menu.json";
 
 class MenuList extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = { installing: false };
+    this.createHeensSampleMenu = this.createHeensSampleMenu.bind(this);
+  }
+
   componentDidMount() {
     this.props.getMenus();
   }
 
   createHeensSampleMenu() {
-    menuData.forEach((m, i) => {
-      axios
-        .post(`/api/menus/`, m)
-        .then(() => console.log(`${m.name} is created`))
-        .catch(err => console.error(`${m.name} - ${i} not created`, err));
-    });
+    this.setState({ installing: true });
+    axios
+      .post(`/api/sample/install/`)
+      .then(() => {
+        this.setState({ installing: false });
+        console.log(`Sample data is install successfully`);
+      })
+      .catch(err => {
+        this.setState({ installing: false });
+        console.error(err);
+      });
   }
 
   render() {
@@ -107,8 +118,11 @@ class MenuList extends Component {
                 className="btn btn-danger"
                 onClick={this.createHeensSampleMenu}
                 disabled={true}
+                // disabled={this.state.installing}
               >
-                Create Heens menu from data
+                {this.state.installing
+                  ? "Installing"
+                  : "Create Heens menu from data"}
               </button>
             </div>
           </div>
