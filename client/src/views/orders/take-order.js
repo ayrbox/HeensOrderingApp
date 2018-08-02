@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 //components
 import MainLayout from "../viewcomponents/MainLayout";
@@ -56,12 +57,13 @@ class TakeOrder extends Component {
                 ))}
                 <h2>Menus</h2>
                 {this.props.menus.list.map(m => (
-                  <span
+                  <Link
                     className="btn btn-outline-secondary btn-lg"
                     key={m._id}
+                    to={`/takeorder/${m._id}`}
                   >
                     {m.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </div>

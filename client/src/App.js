@@ -15,6 +15,7 @@ import CustomerDetail from "./views/customers/customer-detail";
 import EditCustomer from "./views/customers/edit-customer";
 import CategoryIndex from "./views/category";
 import MenuIndex from "./views/menus";
+import TakeOrderSelectMenu from "./views/orders/take-order-selectmenu";
 
 import { getToken } from "./utils/get-token";
 
@@ -32,8 +33,14 @@ class App extends Component {
 
             <Switch>
               <PrivateRoute exact path="/orders" component={Orders} />
-              <PrivateRoute exact path="/takeorder" component={TakeOrder} />
+              <PrivateRoute path="/takeorder" component={TakeOrder} />
               <PrivateRoute exact path="/customers" component={CustomerIndex} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                path="/takeorder/:id"
+                component={TakeOrderSelectMenu}
+              />
             </Switch>
             <Switch>
               <PrivateRoute
