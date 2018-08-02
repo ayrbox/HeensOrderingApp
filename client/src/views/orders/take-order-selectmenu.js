@@ -16,17 +16,29 @@ class TakeOrderSelectMenu extends Component {
     this.state = {
       menu: undefined
     };
+
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.props.history.push("/takeorder");
   }
 
   render() {
     return (
-      <Modal>
+      <Modal onClose={this.handleClose}>
         <ModalHeader title="Select Options" onClose={this.handleClose} />
         <ModalBody>
           @todo Hello This will show menu detail and menu options
         </ModalBody>
         <ModalFooter>
-          <button className="btn btn-outline-secondary">Close</button>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={this.handleClose}
+          >
+            Close
+          </button>
         </ModalFooter>
       </Modal>
     );
