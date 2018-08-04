@@ -36,7 +36,7 @@ const OrderSchema = new Schema({
   orderType: {
     type: String,
     required: true,
-    enumValues: ["delivery", "collection"]
+    enumValues: ["delivery", "collection", "table"]
   },
   deliveryAddress: {
     name: { type: String, required: true },

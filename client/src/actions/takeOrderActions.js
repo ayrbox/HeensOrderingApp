@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import {
   SELECT_MENU_ITEM,
   SELECT_MENU_OPTION,
@@ -14,9 +14,14 @@ export const selectMenuItem = menu => dispatch => {
 };
 
 export const confirmMenuItem = () => dispatch => {
-  //@todo add confirm save
   dispatch({
     type: CONFIRM_MENU_ITEM
+  });
+};
+
+export const cancelMenuItem = () => dispatch => {
+  dispatch({
+    type: CANCEL_MENU_ITEM
   });
 };
 

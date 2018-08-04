@@ -38,7 +38,7 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute
-                path="/takeorder/:id"
+                path="/takeorder/options"
                 component={TakeOrderSelectMenu}
               />
             </Switch>
