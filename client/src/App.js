@@ -8,15 +8,15 @@ import store from "./store";
 import Landing from "./views/external/";
 import Login from "./views/external/Login";
 import Orders from "./views/orders/";
-import TakeOrder from "./views/orders/take-order";
 import CustomerIndex from "./views/customers/";
 import AddCustomer from "./views/customers/add-customer";
 import CustomerDetail from "./views/customers/customer-detail";
 import EditCustomer from "./views/customers/edit-customer";
 import CategoryIndex from "./views/category";
 import MenuIndex from "./views/menus";
-import TakeOrderSelectMenu from "./views/orders/take-order-selectmenu";
+import TakeOrderIndex from "./views/takeOrder/";
 
+//actions
 import { getToken } from "./utils/get-token";
 
 //check the token
@@ -33,15 +33,10 @@ class App extends Component {
 
             <Switch>
               <PrivateRoute exact path="/orders" component={Orders} />
-              <PrivateRoute path="/takeorder" component={TakeOrder} />
+              <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
               <PrivateRoute exact path="/customers" component={CustomerIndex} />
             </Switch>
-            <Switch>
-              <PrivateRoute
-                path="/takeorder/options"
-                component={TakeOrderSelectMenu}
-              />
-            </Switch>
+
             <Switch>
               <PrivateRoute
                 exact

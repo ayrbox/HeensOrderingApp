@@ -13,7 +13,7 @@ import {
   confirmMenuItem
 } from "../../actions/takeOrderActions";
 
-class TakeOrderSelectMenu extends Component {
+class SelectMenuItem extends Component {
   constructor(props) {
     super(props);
 
@@ -116,4 +116,4 @@ export default connect(
     confirmMenuItem,
     selectOption
   }
-)(TakeOrderSelectMenu);
+)(SelectMenuItem);

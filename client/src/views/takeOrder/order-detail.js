@@ -13,7 +13,7 @@ import {
   confirmMenuItem
 } from "../../actions/takeOrderActions";
 
-class TakeOrder extends Component {
+class OrderDetail extends Component {
   componentDidMount() {
     if (this.props.categories.list.length === 0) {
       this.props.getCategories();
@@ -124,4 +124,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getCategories, getMenus, selectMenuItem, confirmMenuItem }
-)(TakeOrder);
+)(OrderDetail);
