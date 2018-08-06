@@ -2,7 +2,8 @@ import {
   SELECT_MENU_ITEM,
   SELECT_MENU_OPTION,
   CONFIRM_MENU_ITEM,
-  CANCEL_MENU_ITEM
+  CANCEL_MENU_ITEM,
+  SET_ORDER_TYPE
 } from "../actions/types";
 
 const initialState = {
@@ -15,6 +16,15 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case SET_ORDER_TYPE:
+      const { orderType, deliveryAddress, tableNo } = action.payload;
+      return {
+        ...state,
+        orderType: orderType,
+        deliveryAddress: deliveryAddress,
+        tableNo: tableNo
+      };
+
     case SELECT_MENU_ITEM:
       return {
         ...state,

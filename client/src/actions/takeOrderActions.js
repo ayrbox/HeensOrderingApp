@@ -3,8 +3,16 @@ import {
   SELECT_MENU_ITEM,
   SELECT_MENU_OPTION,
   CONFIRM_MENU_ITEM,
-  CANCEL_MENU_ITEM
+  CANCEL_MENU_ITEM,
+  SET_ORDER_TYPE
 } from "./types";
+
+export const setOrderType = orderType => dispatch => {
+  dispatch({
+    type: SET_ORDER_TYPE,
+    payload: orderType
+  });
+};
 
 export const selectMenuItem = menu => dispatch => {
   dispatch({

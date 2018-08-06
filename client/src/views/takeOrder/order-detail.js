@@ -76,7 +76,7 @@ class OrderDetail extends Component {
 
                 <hr />
 
-                {/* <pre>{JSON.stringify(takeOrder, null, 2)}</pre> */}
+                <pre>{JSON.stringify(takeOrder, null, 2)}</pre>
               </div>
             </div>
             <div className="col-sm-6">

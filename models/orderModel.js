@@ -44,6 +44,9 @@ const OrderSchema = new Schema({
     address: { type: String, required: true },
     postCode: { type: String, required: true }
   },
+  tableNo: {
+    type: String
+  },
   note: { type: String },
   orderStatus: {
     type: String,

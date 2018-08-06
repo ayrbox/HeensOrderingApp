@@ -10,6 +10,7 @@ const TakeOrderIndex = () => (
       <Route path="/takeorder" component={OrderDetail} />
     </Switch>
     <Switch>
+      <Route path="/takeorder/type" component={OrderType} />
       <Route path="/takeorder/options" component={SelectMenuItem} />
     </Switch>
   </div>
