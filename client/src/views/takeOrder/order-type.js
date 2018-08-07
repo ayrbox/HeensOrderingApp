@@ -25,7 +25,8 @@ class OrderType extends Component {
       name: "",
       address: "",
       postCode: "",
-      contactNo: ""
+      contactNo: "",
+      errors: {}
     };
 
     this.handleCancel = this.handleCancel.bind(this);
@@ -195,7 +196,11 @@ class OrderType extends Component {
             >
               Cancel
             </button>
-            <button className="btn btn-primary" onClick={this.handleConfirm}>
+            <button
+              className="btn btn-primary"
+              onClick={this.handleConfirm}
+              type="submit"
+            >
               Confirm
             </button>
           </div>

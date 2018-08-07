@@ -11,7 +11,12 @@ const initialState = {
     date: Date.now(),
     orderItems: []
   }, //this is current order // items with option, date, order type
-  menuItem: undefined //current menu item selected to be added in order
+  menuItem: undefined, //current menu item selected to be added in order
+  orderTypes: {
+    delivery: "Delivery",
+    collection: "Collection",
+    table: "Table Order"
+  }
 };
 
 export default function(state = initialState, action) {
@@ -20,9 +25,12 @@ export default function(state = initialState, action) {
       const { orderType, deliveryAddress, tableNo } = action.payload;
       return {
         ...state,
-        orderType: orderType,
-        deliveryAddress: deliveryAddress,
-        tableNo: tableNo
+        order: {
+          ...state.order,
+          orderType: orderType,
+          deliveryAddress: deliveryAddress,
+          tableNo: tableNo
+        }
       };
 
     case SELECT_MENU_ITEM:

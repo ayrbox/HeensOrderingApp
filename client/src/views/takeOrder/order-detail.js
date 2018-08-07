@@ -12,18 +12,21 @@ import {
   selectMenuItem,
   confirmMenuItem
 } from "../../actions/takeOrderActions";
+import { totalmem } from "os";
 
 class OrderDetail extends Component {
-  componentDidMount() {
-    if (this.props.categories.list.length === 0) {
-      this.props.getCategories();
-    }
-
-    if (this.props.menus.list.length === 0) {
-      this.props.getMenus();
-    }
-
+  constructor(props) {
+    super(props);
     this.handleSelectMenuItem = this.handleSelectMenuItem.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getCategories();
+    this.props.getMenus();
+
+    if (this.props.takeOrder.orderType === undefined) {
+      this.props.history.push("/takeorder/type");
+    }
   }
 
   handleSelectMenuItem(menu) {
@@ -33,6 +36,7 @@ class OrderDetail extends Component {
 
   render() {
     const { takeOrder } = this.props;
+    const order = takeOrder.order;
     return (
       <MainLayout>
         <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -72,11 +76,51 @@ class OrderDetail extends Component {
                       ))}
                     </a>
                   ))}
+
+                  <a className="list-group-item list-group-item-action flex-column align-items-start">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">Total</h5>
+                      <h5>
+                        &pound;
+                        {order.orderItems.reduce((total, item, idx) => {
+                          const additionalCost = item.menuOptions.reduce(
+                            (a, o) => {
+                              return a + o.additionalCost;
+                            },
+                            0
+                          );
+                          return total + item.price + additionalCost;
+                        }, 0)}
+                      </h5>
+                    </div>
+                  </a>
                 </div>
 
                 <hr />
 
-                <pre>{JSON.stringify(takeOrder, null, 2)}</pre>
+                <Link className="float-right" to={"/takeorder/type"}>
+                  Edit
+                </Link>
+                <h4>{takeOrder.orderTypes[order.orderType]}</h4>
+
+                {order.orderType === "delivery" ? (
+                  <div>
+                    {order.deliveryAddress.name} <br />
+                    {order.deliveryAddress.address} <br />
+                    {order.deliveryAddress.postCode} <br />
+                    {order.deliveryAddress.contactNo}
+                  </div>
+                ) : null}
+
+                {order.orderType === "table" ? (
+                  <div>Table No: {order.tableNo}</div>
+                ) : null}
+
+                <hr />
+
+                <button className="btn btn-primary">Save</button>
+
+                {/* <pre>{JSON.stringify(takeOrder, null, 2)}</pre> */}
               </div>
             </div>
             <div className="col-sm-6">
