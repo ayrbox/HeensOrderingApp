@@ -1,14 +1,17 @@
-import React, { Component } from "react";
-import MainLayout from "../viewcomponents/MainLayout";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
-class OrderIndex extends Component {
-  render() {
-    return (
-      <MainLayout>
-        <h1>List of Orders</h1>
-      </MainLayout>
-    );
-  }
-}
+//@views
+import OrderList from "./order-list";
+
+const OrderIndex = () => {
+  return (
+    <div>
+      <Switch>
+        <Route path="/orders/" component={OrderList} />
+      </Switch>
+    </div>
+  );
+};
 
 export default OrderIndex;
