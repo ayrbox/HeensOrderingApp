@@ -20,7 +20,7 @@ class OrderType extends Component {
         collection: "Collection",
         table: "Table Order"
       },
-      orderType: "table",
+      orderType: "delivery",
       tableNo: "",
       name: "",
       address: "",

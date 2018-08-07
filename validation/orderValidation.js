@@ -5,7 +5,9 @@ const isEmpty = require("./is-empty");
 const orderItemSchema = joi.object().keys({
   name: joi.string().required(),
   price: joi.number().required(),
-  options: joi.array()
+  description: joi.string(),
+  menuOptions: joi.array(),
+  itemTotal: joi.number().required()
 });
 
 const orderItemOptionSchema = joi.object().keys({
@@ -14,10 +16,10 @@ const orderItemOptionSchema = joi.object().keys({
 });
 
 const deliveryAddressSchema = joi.object().keys({
-  name: joi.string().required(),
-  contactNo: joi.string().required(),
-  address: joi.string().required(),
-  postCode: joi.string().required()
+  name: joi.string(),
+  contactNo: joi.string(),
+  address: joi.string(),
+  postCode: joi.string()
 });
 
 module.exports = {

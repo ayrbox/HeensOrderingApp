@@ -11,8 +11,9 @@ const OrderSchema = new Schema({
   orderItems: [
     {
       name: { type: String, required: true },
+      description: { type: String },
       price: { type: Number, required: true },
-      options: [
+      menuOptions: [
         {
           description: { type: String, required: true },
           additionalCost: { type: Number, required: true }
@@ -39,10 +40,10 @@ const OrderSchema = new Schema({
     enumValues: ["delivery", "collection", "table"]
   },
   deliveryAddress: {
-    name: { type: String, required: true },
-    contactNo: { type: String, required: true },
-    address: { type: String, required: true },
-    postCode: { type: String, required: true }
+    name: { type: String },
+    contactNo: { type: String },
+    address: { type: String },
+    postCode: { type: String }
   },
   tableNo: {
     type: String
@@ -57,7 +58,8 @@ const OrderSchema = new Schema({
       "processing",
       "delivered",
       "cancelled",
-      "collected"
+      "collected",
+      "served"
     ],
     default: "ordered"
   }

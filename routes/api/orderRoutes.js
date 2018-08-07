@@ -78,7 +78,7 @@ orderRoutes.post(
     );
 
     //subTotal: sub each item total
-    const subTotal = calculateOrderTotal(req.body.orderItems);
+    const subTotal = orderService.calculateOrderTotal(req.body.orderItems);
 
     //orderTotal: subTotal - discountAmount
     const orderTotal = subTotal - subTotal * (req.body.discount / 100);

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import OrderDetail from "./order-detail";
 import OrderType from "./order-type";
