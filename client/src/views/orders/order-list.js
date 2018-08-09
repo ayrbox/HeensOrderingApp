@@ -3,9 +3,28 @@ import { connect } from "react-redux";
 
 //@components
 import MainLayout from "../viewcomponents/MainLayout";
+import Spinner from "../../components/Spinner";
+
+import { getOrders } from "../../actions/orderActions";
 
 class OrderList extends Component {
+  componentDidMount() {
+    this.props.getOrders();
+  }
+
   render() {
+    const { loading, list, errors } = this.props.orders;
+
+    let content = <Spinner />;
+    if (!loading) {
+      content = list.map(order => (
+        <div className="m-3 p-3 border" key={order._id}>
+          <span className="badge badge-primary">{order.orderStatus}</span>
+          <span className="badge badge-secondary">{order.orderType}</span>
+        </div>
+      ));
+    }
+
     return (
       <MainLayout>
         <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -15,7 +34,8 @@ class OrderList extends Component {
 
         <div className="container">
           <div className="row">
-            <h1>Test</h1>
+            <div className="col-12">{content}</div>
+            <pre>{JSON.stringify(this.props.orders, null, 2)}</pre>
           </div>
         </div>
       </MainLayout>
@@ -27,4 +47,7 @@ const mapStateToProps = state => ({
   orders: state.orders
 });
 
-export default connect(mapStateToProps)(OrderList);
+export default connect(
+  mapStateToProps,
+  { getOrders }
+)(OrderList);
