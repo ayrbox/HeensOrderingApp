@@ -19,8 +19,44 @@ class OrderList extends Component {
     if (!loading) {
       content = list.map(order => (
         <div className="m-3 p-3 border" key={order._id}>
-          <span className="badge badge-primary">{order.orderStatus}</span>
-          <span className="badge badge-secondary">{order.orderType}</span>
+          <div className="d-flex w-100 justify-content-between">
+            {order.orderType === "table" ? (
+              <div style={{ width: "250px" }}>
+                <strong>
+                  Table <br /> {order.tableNo}
+                </strong>
+              </div>
+            ) : null}
+            {order.orderType === "delivery" ? (
+              <div style={{ width: "250px" }}>
+                <strong>Delivery</strong>
+                <br />
+                <small>
+                  {order.deliveryAddress.name} <br />
+                  {order.deliveryAddress.address}{" "}
+                  {order.deliveryAddress.postCode} <br />
+                  {order.deliveryAddress.contactNo}
+                </small>
+              </div>
+            ) : null}
+            {order.orderType === "collection" ? (
+              <div style={{ width: "250px" }}>
+                <strong>Collection</strong>
+              </div>
+            ) : null}
+
+            <div>
+              <strong>{order.orderStatus}</strong>
+              <br />
+              <span>&pound; {order.orderTotal.toFixed(2)} </span>
+            </div>
+
+            <div className="">
+              <button type="button" class="btn btn-primary btn-lg btn-block">
+                Delivered
+              </button>
+            </div>
+          </div>
         </div>
       ));
     }
@@ -35,7 +71,7 @@ class OrderList extends Component {
         <div className="container">
           <div className="row">
             <div className="col-12">{content}</div>
-            <pre>{JSON.stringify(this.props.orders, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(this.props.orders, null, 2)}</pre> */}
           </div>
         </div>
       </MainLayout>
