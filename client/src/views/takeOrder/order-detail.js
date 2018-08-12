@@ -127,7 +127,10 @@ class OrderDetail extends Component {
                     >
                       <div className="d-flex w-100 justify-content-between">
                         <h5 className="mb-1">{item.name}</h5>
-                        <h5>&pound;{item.price}</h5>
+                        <h5>
+                          &pound;
+                          {item.price}
+                        </h5>
                       </div>
                       {item.menuOptions.map((o, i) => (
                         <div
@@ -135,7 +138,10 @@ class OrderDetail extends Component {
                           className="d-flex w-100 justify-content-between"
                         >
                           <p className="text-muted">{o.description}</p>
-                          <strong>&pound;{o.additionalCost}</strong>
+                          <strong>
+                            &pound;
+                            {o.additionalCost}
+                          </strong>
                         </div>
                       ))}
                     </a>

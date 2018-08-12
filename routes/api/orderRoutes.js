@@ -106,6 +106,24 @@ orderRoutes.post(
   }
 );
 
+orderRoutes.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const status = req.body.status;
+
+    Order.findOne({ _id: req.params.id }).then(order => {
+      if (!order) {
+        return res.status(404).json({ msg: "Order not found" });
+      }
+
+      order.orderStatus = status;
+      order.save().then(o => res.json(o));
+      //@todo revisit order status findoneandupdate
+    });
+  }
+);
+
 //@route        DELETE api/orders/:id/additem
 //@desc         Update/Change order
 //@access       private

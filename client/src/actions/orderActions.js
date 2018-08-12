@@ -37,7 +37,7 @@ export const updateOrder = (id, status) => dispatch => {
   });
 
   axios
-    .post(`/api/orders/${id}`, {
+    .put(`/api/orders/${id}`, {
       status: status
     })
     .then(res =>

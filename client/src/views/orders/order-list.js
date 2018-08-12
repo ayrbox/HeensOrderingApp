@@ -4,16 +4,28 @@ import { connect } from "react-redux";
 //@components
 import MainLayout from "../viewcomponents/MainLayout";
 import Spinner from "../../components/Spinner";
+import OrderStatusButton from "../../components/OrderStatusButton";
 
-import { getOrders } from "../../actions/orderActions";
+import { getOrders, updateOrder } from "../../actions/orderActions";
 
 class OrderList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.updateOrderStatus = this.updateOrderStatus.bind(this);
+  }
+
+  updateOrderStatus(id, status) {
+    this.props.updateOrder(id, status);
+  }
+
   componentDidMount() {
     this.props.getOrders();
   }
 
   render() {
     const { loading, list, errors } = this.props.orders;
+    const { orderStatuses, orderTypes } = this.props.takeOrder;
 
     let content = <Spinner />;
     if (!loading) {
@@ -23,13 +35,13 @@ class OrderList extends Component {
             {order.orderType === "table" ? (
               <div style={{ width: "250px" }}>
                 <strong>
-                  Table <br /> {order.tableNo}
+                  {orderTypes[order.orderType]} <br /> {order.tableNo}
                 </strong>
               </div>
             ) : null}
             {order.orderType === "delivery" ? (
               <div style={{ width: "250px" }}>
-                <strong>Delivery</strong>
+                <strong>{orderTypes[order.orderType]}</strong>
                 <br />
                 <small>
                   {order.deliveryAddress.name} <br />
@@ -41,20 +53,23 @@ class OrderList extends Component {
             ) : null}
             {order.orderType === "collection" ? (
               <div style={{ width: "250px" }}>
-                <strong>Collection</strong>
+                <strong>{orderTypes[order.orderType]}</strong>
               </div>
             ) : null}
 
             <div>
-              <strong>{order.orderStatus}</strong>
+              <strong>{orderStatuses[order.orderStatus]}</strong>
               <br />
               <span>&pound; {order.orderTotal.toFixed(2)} </span>
             </div>
 
-            <div className="">
-              <button type="button" class="btn btn-primary btn-lg btn-block">
-                Delivered
-              </button>
+            <div>
+              <OrderStatusButton
+                currentStatus={order.orderStatus}
+                onItemClick={status => {
+                  this.updateOrderStatus(order._id, status);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -80,10 +95,11 @@ class OrderList extends Component {
 }
 
 const mapStateToProps = state => ({
-  orders: state.orders
+  orders: state.orders,
+  takeOrder: state.takeOrder
 });
 
 export default connect(
   mapStateToProps,
-  { getOrders }
+  { getOrders, updateOrder }
 )(OrderList);
