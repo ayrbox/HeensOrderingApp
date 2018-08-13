@@ -10,6 +10,7 @@ import {
   UPDATE_ORDER_STATUS_ERROR
 } from "./types";
 
+//@action - getOrders
 export const getOrders = () => dispatch => {
   dispatch({
     type: GET_ORDERS_REQUEST
@@ -31,6 +32,7 @@ export const getOrders = () => dispatch => {
     );
 };
 
+//@action - updateOrder
 export const updateOrder = (id, status) => dispatch => {
   dispatch({
     type: UPDATE_ORDER_STATUS_REQUEST
@@ -40,12 +42,12 @@ export const updateOrder = (id, status) => dispatch => {
     .put(`/api/orders/${id}`, {
       status: status
     })
-    .then(res =>
+    .then(res => {
       dispatch({
         type: UPDATE_ORDER_STATUS_SUCCESS,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: UPDATE_ORDER_STATUS_ERROR,

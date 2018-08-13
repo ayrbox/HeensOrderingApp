@@ -24,7 +24,7 @@ class OrderList extends Component {
   }
 
   render() {
-    const { loading, list, errors } = this.props.orders;
+    const { loading, list } = this.props.orders;
     const { orderStatuses, orderTypes } = this.props.takeOrder;
 
     let content = <Spinner />;
