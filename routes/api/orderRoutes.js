@@ -91,7 +91,8 @@ orderRoutes.post(
       orderStatus: req.body.orderStatus,
       subTotal: subTotal,
       discount: req.body.discount,
-      orderTotal: orderTotal
+      orderTotal: orderTotal,
+      tableNo: req.body.tableNo
     });
 
     _order
