@@ -6,8 +6,8 @@ const Category = require("../../models/categoryModel");
 const Menu = require("../../models/menuModel");
 
 //data
-const categoryData = require("../../data/categories.json");
-const menuData = require("../../data/menu.json");
+const categoryData = []; //require("../../data/categories.json");
+const menuData = []; //require("../../data/menu.json");
 
 sampleRoutes.post(
   "/install",
