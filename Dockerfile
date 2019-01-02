@@ -1,4 +1,6 @@
-FROM node:latest
+FROM node:latest as builder
+
+RUN mkdir /web
 
 WORKDIR /usr/app
 

@@ -8,14 +8,16 @@ services:
       MONGO_INITDB_DATABASE: HeensOrdering
     volumes: 
       - heens_data:/var/lib/mysql  
-  # web:
-  #   build: .
-  #   command: npm start
-  #   volumes: 
-  #     - .:/usr/app/      
-  #   ports: 
-  #     - "49160:3000"
-  #   depends_on: 
-  #     - mongo-db
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    command: npm start
+    volumes: 
+      - .:/usr/app/      
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - mongo-db
 volumes: 
   heens_data:
