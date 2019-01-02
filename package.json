@@ -25,6 +25,7 @@
     "client": "npm start --prefix client",
     "develop": "concurrently \"npm run server\" \"npm run client\"",
     "seed": "node ./bin/seed.js",
+    "cleardb": "node ./bin/seed.js --clear",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true"
   }
 }

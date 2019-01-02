@@ -17,8 +17,6 @@ const createCategories = async () => {
     categoryData.map(async ({ _id, name, description }) => {
       const category = new Category({ _id, name, description });
       const newCat = await category.save();
-
-      console.log('NEW DATA', newCat);
       console.log('Created', _id, name, description);
     })
   );
@@ -36,6 +34,14 @@ const createMenu = async () => {
   )
 }
 
+const clearDatabase = async () => {
+  console.log('Clearing database......');
+
+  await User.collection.drop();
+  await Category.collection.drop();
+  await Menu.collection.drop(); 
+};
+
 const createUsers = async () => {
   console.log('Creating users...\n\n\n');
   await Promise.all(
@@ -51,13 +57,19 @@ const createUsers = async () => {
     console.log('Connecting database');
 
     await mongoose.connect(db)
+    const option = process.argv[2];
 
-    await createUsers()
-    await createCategories();
-    await createMenu();
-    
-    console.log('Data is seed successfully');
+    if (option === '--clear') {
+      await clearDatabase(); 
+      console.log('Database cleared...');
+    } else {
+      await createUsers()
+      await createCategories();
+      await createMenu();
+      console.log('Data is seed successfully');
+    }
     process.exit();
+    
   } catch (error) {
     console.log('Error: Unable to run seed', error)
     console.log(error.stack)
