@@ -3,11 +3,12 @@ const db = require("../config/keys").mongoURI;
 
 const Category = require('../models/categoryModel');
 const Menu = require('../models/menuModel');
+const User = require('../models/user');
 
 //data
 const categoryData = require("./data/categories.json");
 const menuData = require("./data/menu.json");
-
+const userData = require('./data/users.json');
 
 
 const createCategories = async () => {
@@ -15,8 +16,10 @@ const createCategories = async () => {
   await Promise.all(
     categoryData.map(async ({ _id, name, description }) => {
       const category = new Category({ _id, name, description });
-      await category.save();
-      console.log('Created', _id, name, description
+      const newCat = await category.save();
+
+      console.log('NEW DATA', newCat);
+      console.log('Created', _id, name, description);
     })
   );
 }
@@ -33,12 +36,23 @@ const createMenu = async () => {
   )
 }
 
+const createUsers = async () => {
+  console.log('Creating users...\n\n\n');
+  await Promise.all(
+    userData.map( async ({ name, email, password }) => {
+      await new User({ name, email, password }).save();
+      console.log('Users', name, email, password);
+    })
+  );
+}
+
 (async () => {
   try {
     console.log('Connecting database');
-    await mongoose
-      .connect(db)
-    // await createUsers()
+
+    await mongoose.connect(db)
+
+    await createUsers()
     await createCategories();
     await createMenu();
     
