@@ -1,0 +1,7 @@
+.editorconfig
+.git
+npm-debug.log
+README.md
+LICENSE
+node_modules
+client/node_modules

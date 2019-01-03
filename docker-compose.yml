@@ -1,6 +1,6 @@
 version: "3.1"
 services: 
-  mongo-db:
+  mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
@@ -8,16 +8,27 @@ services:
       MONGO_INITDB_DATABASE: HeensOrdering
     volumes: 
       - heens_data:/var/lib/mysql  
-  web:
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   command: npm start
+  #   volumes:
+  #     - .:/usr/app/
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongodb
+  webapp:
     build:
       context: .
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     command: npm start
     volumes: 
-      - .:/usr/app/      
+      - .:/usr/app/
     ports: 
-      - "3000:3000"
+      - "3000:5000"
     depends_on: 
-      - mongo-db
+      - mongodb
 volumes: 
   heens_data:

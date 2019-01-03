@@ -1,8 +1,8 @@
-FROM node:latest as builder
+FROM node:latest
 
 RUN mkdir /web
 
-WORKDIR /usr/app
+WORKDIR /web
 
 COPY package.json .
 RUN npm install --quite
