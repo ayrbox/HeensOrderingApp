@@ -15,7 +15,6 @@ const customerRoutes = require("./routes/api/customerRoutes");
 const categoryRoutes = require("./routes/api/categoryRoutes");
 const menuRoutes = require("./routes/api/menuRoutes");
 const orderRoutes = require("./routes/api/orderRoutes");
-const sampleRoutes = require("./routes/api/sampleRoutes");
 
 //database connection
 mongoose
@@ -36,7 +35,6 @@ app.use("/api/customers/", customerRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/menus/", menuRoutes);
 app.use("/api/orders/", orderRoutes);
-app.use("/api/sample", sampleRoutes);
 
 //server static assets
 if (process.env.NODE_ENV === "production") {

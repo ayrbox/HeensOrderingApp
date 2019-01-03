@@ -8,34 +8,11 @@ import MainLayout from "../viewcomponents/MainLayout";
 //actions
 import { getMenus } from "../../actions/menuActions";
 
-import axios from "axios";
-
 class MenuList extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = { installing: false };
-    this.createHeensSampleMenu = this.createHeensSampleMenu.bind(this);
-  }
-
   componentDidMount() {
     this.props.getMenus();
   }
-
-  createHeensSampleMenu() {
-    this.setState({ installing: true });
-    axios
-      .post(`/api/sample/install/`)
-      .then(() => {
-        this.setState({ installing: false });
-        console.log(`Sample data is install successfully`);
-      })
-      .catch(err => {
-        this.setState({ installing: false });
-        console.error(err);
-      });
-  }
-
+  
   render() {
     const { list, loading } = this.props.menus;
 
@@ -111,21 +88,6 @@ class MenuList extends Component {
             </div>
           </div>
           {listContent}
-
-          <div className="row">
-            <div className="col-12 text-right mb-3">
-              <button
-                className="btn btn-danger"
-                onClick={this.createHeensSampleMenu}
-                disabled={true}
-                // disabled={this.state.installing}
-              >
-                {this.state.installing
-                  ? "Installing"
-                  : "Create Heens menu from data"}
-              </button>
-            </div>
-          </div>
         </div>
       </MainLayout>
     );
