@@ -14,4 +14,4 @@ RUN npm install
 
 EXPOSE 5000
 
-CMD ["npm", "start"] 
+ENTRYPOINT ["sh", "./bin/docker-entrypoint.sh"]
