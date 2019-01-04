@@ -8,17 +8,6 @@ services:
       MONGO_INITDB_DATABASE: HeensOrdering
     volumes: 
       - heens_data:/var/lib/mysql  
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   command: npm start
-  #   volumes:
-  #     - .:/usr/app/
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - mongodb
   webapp:
     build:
       context: .
@@ -27,7 +16,13 @@ services:
     volumes: 
       - .:/usr/app/
     ports: 
-      - "3000:5000"
+      - "8080:5000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/db_heens
+      NODE_ENV: production
+      SECRET_KEY: th15isMYs3cr3tk3y
+
+
     depends_on: 
       - mongodb
 volumes: 

@@ -1,10 +1,17 @@
 FROM node:latest
 
-RUN mkdir /web
+RUN mkdir /usr/src/app
 
-WORKDIR /web
+WORKDIR /usr/src/app
 
-COPY package.json .
-RUN npm install --quite
+COPY . . 
 
-COPY . .
+RUN npm install --prefix client
+
+RUN npm run build --prefix client
+
+RUN npm install
+
+EXPOSE 5000
+
+CMD ["npm", "start"] 
