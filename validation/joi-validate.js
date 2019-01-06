@@ -1,34 +1,26 @@
-//Simplify joi error message
-/*Converts joi error message as follows
-/*
-{
-    fieldName: errorMessage
-}*/
+const isEmpty = require('./is-empty');
 
-const isEmpty = require("./is-empty");
-
-const simplifyErrorMessage = joiError => {
+const simplifyErrorMessage = (joiError) => {
   const { details } = joiError;
-  const errors = details.reduce((simpleError, err) => {
-    simpleError[err.path.join("_")] = err.message;
-    return simpleError;
-  }, {});
+  const errors = details.reduce((simpleError, err) => ({
+    ...simpleError,
+    [err.path.join('_')]: err.message,
+  }), {});
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 
 module.exports = (joiSchema, data) => {
-  const { error, value } = joiSchema.validate(data, { abortEarly: false });
+  const { error } = joiSchema.validate(data, { abortEarly: false });
 
   if (error) {
     return simplifyErrorMessage(error);
-  } else {
-    return {
-      errors: {},
-      isValid: true
-    };
   }
+  return {
+    errors: {},
+    isValid: true,
+  };
 };

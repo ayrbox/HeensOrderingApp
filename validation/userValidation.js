@@ -1,12 +1,12 @@
-const joi = require("joi");
-const joiValidate = require("./joi-validate");
+const joi = require('joi');
+const joiValidate = require('./joi-validate');
 
 const loginSchema = joi.object().keys({
   email: joi
     .string()
     .email()
     .required(),
-  password: joi.string().required()
+  password: joi.string().required(),
 });
 
 const registrationSchema = joi.object().keys({
@@ -14,7 +14,7 @@ const registrationSchema = joi.object().keys({
     .string()
     .regex(/^[A-z]+$/)
     .required()
-    .label("Name of user"),
+    .label('Name of user'),
   email: joi
     .string()
     .required()
@@ -23,10 +23,10 @@ const registrationSchema = joi.object().keys({
     .string()
     .alphanum()
     .min(8)
-    .required()
+    .required(),
 });
 
 module.exports = {
   validateRegistration: data => joiValidate(registrationSchema, data),
-  validateLogin: data => joiValidate(loginSchema, data)
+  validateLogin: data => joiValidate(loginSchema, data),
 };

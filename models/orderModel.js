@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
   date: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   orderItems: [
     {
@@ -16,53 +16,53 @@ const OrderSchema = new Schema({
       menuOptions: [
         {
           description: { type: String, required: true },
-          additionalCost: { type: Number, required: true }
-        }
+          additionalCost: { type: Number, required: true },
+        },
       ],
-      itemTotal: { type: Number, required: true }
-    }
+      itemTotal: { type: Number, required: true },
+    },
   ],
   subTotal: {
     type: Number,
-    required: true
+    required: true,
   },
   discount: {
     type: Number,
-    required: true
+    required: true,
   },
   orderTotal: {
     type: Number,
-    required: true
+    required: true,
   },
   orderType: {
     type: String,
     required: true,
-    enumValues: ["delivery", "collection", "table"]
+    enumValues: ['delivery', 'collection', 'table'],
   },
   deliveryAddress: {
     name: { type: String },
     contactNo: { type: String },
     address: { type: String },
-    postCode: { type: String }
+    postCode: { type: String },
   },
   tableNo: {
-    type: String
+    type: String,
   },
   note: { type: String },
   orderStatus: {
     type: String,
     required: true,
     enumValues: [
-      "ordered",
-      "paid",
-      "processing",
-      "delivered",
-      "cancelled",
-      "collected",
-      "served"
+      'ordered',
+      'paid',
+      'processing',
+      'delivered',
+      'cancelled',
+      'collected',
+      'served',
     ],
-    default: "ordered"
-  }
+    default: 'ordered',
+  },
 });
 
-module.exports = Order = mongoose.model("orders", OrderSchema);
+module.exports = mongoose.model('orders', OrderSchema);
