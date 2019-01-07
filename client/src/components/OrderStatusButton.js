@@ -48,7 +48,7 @@ class OrderStatusButton extends Component {
             aria-labelledby="btnGroupDrop1"
           >
             {Object.keys(orderStatuses).map(key => (
-              <a
+              <button
                 key={key}
                 className="dropdown-item"
                 onClick={e => {
@@ -57,7 +57,7 @@ class OrderStatusButton extends Component {
                 }}
               >
                 {orderStatuses[key]}
-              </a>
+              </button>
             ))}
           </div>
         ) : null}

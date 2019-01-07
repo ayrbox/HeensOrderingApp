@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
 
-//components
+// components
 import MainLayout from "../viewcomponents/MainLayout";
 
 import { getMenus } from "../../actions/menuActions";
@@ -121,7 +121,7 @@ class OrderDetail extends Component {
 
                 <div className="list-group">
                   {takeOrder.order.orderItems.map((item, itemIndex) => (
-                    <a
+                    <button
                       key={itemIndex}
                       className="list-group-item list-group-item-action flex-column align-items-start"
                     >
@@ -144,10 +144,12 @@ class OrderDetail extends Component {
                           </strong>
                         </div>
                       ))}
-                    </a>
+                    </button>
                   ))}
 
-                  <a className="list-group-item list-group-item-action flex-column align-items-start">
+                  <button
+                    className="list-group-item list-group-item-action flex-column align-items-start"
+                  >
                     <div className="d-flex w-100 justify-content-between">
                       <h5 className="mb-1">Total</h5>
                       <h5>
@@ -163,7 +165,7 @@ class OrderDetail extends Component {
                         }, 0)}
                       </h5>
                     </div>
-                  </a>
+                  </button>
                 </div>
 
                 <hr />
