@@ -14,7 +14,7 @@ const customerData = require('./data/customer');
 
 
 const createCategories = async () => {
-  console.log('Creating menu categories.... \n\n\n\n\n');
+  console.log('Creating menu categories.... \n\n\n\n\n'); // eslint-disable-line
   await Promise.all(
     categoryData.map(async ({ _id, name, description }) => {
       const category = new Category({ _id, name, description });
@@ -26,7 +26,7 @@ const createCategories = async () => {
 
 
 const createMenu = async () => {
-  console.log('Creating menu items.... \n\n\n\n\n');
+  console.log('Creating menu items.... \n\n\n\n\n'); // eslint-disable-line
   await Promise.all(
     menuData.map(async ({
       name,

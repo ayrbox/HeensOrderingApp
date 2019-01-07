@@ -72,7 +72,7 @@ customerRoutes.post(
     customer
       .save()
       .then(c => res.json(c))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); // eslint-disable-line
   },
 );
 
@@ -90,7 +90,7 @@ customerRoutes.put(
       res.status(400).json(errors);
     }
 
-    const _customer = {
+    const customer = {
       name: req.body.name,
       phoneNo: req.body.phoneNo,
       address: req.body.address,
@@ -100,12 +100,12 @@ customerRoutes.put(
 
     Customer.findOne({ _id: req.params.id }).then((c) => {
       if (!c) {
-        return req.status(404).json({ msg: 'Customer not found' });
+        req.status(404).json({ msg: 'Customer not found' });
       }
 
       Customer.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: _customer },
+        { $set: customer },
         { new: true },
       ).then(updated => res.json(updated));
     });
@@ -123,14 +123,14 @@ customerRoutes.delete(
     Customer.findOne({ _id: req.params.id })
       .then((c) => {
         if (!c) {
-          return req.status(404).json({ msg: 'Customer not found' });
+          req.status(404).json({ msg: 'Customer not found' });
         }
 
         Customer.findOneAndRemove({ _id: req.params.id })
           .then(() => {
             res.json({ msg: 'Customer Removed' });
           })
-          .catch((err) => {
+          .catch(() => {
             res.status(500).json({ msg: 'Unable to delete customer' });
           });
       })
