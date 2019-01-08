@@ -28,17 +28,20 @@
     "seed": "node ./bin/seed.js",
     "cleardb": "node ./bin/seed.js --clear",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",
-    "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client"
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
+    "test": "mocha index.test.js --watch"
   },
   "eslintConfig": {
     "extends": "airbnb"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "chai": "^4.2.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.3"
+    "eslint-plugin-react": "^7.12.3",
+    "mocha": "^5.2.0"
   }
 }
