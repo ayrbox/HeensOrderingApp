@@ -29,7 +29,7 @@
     "cleardb": "node ./bin/seed.js --clear",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",
     "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
-    "test": "mocha index.test.js --watch"
+    "test": "mocha ./**/*.test.js --watch"
   },
   "eslintConfig": {
     "extends": "airbnb"
