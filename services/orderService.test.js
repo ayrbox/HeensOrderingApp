@@ -1,5 +1,10 @@
 const { expect } = require('chai');
-const { calculateItemTotal, getOrderItem } = require('./orderService');
+const {
+  calculateItemTotal,
+  getOrderItem,
+  calculateOrderTotal,
+  addOrderItem,
+} = require('./orderService');
 
 const item = {
   name: 'Test OrderItem',
@@ -43,5 +48,58 @@ describe('#getOrderItem', () => {
     };
     const orderItem = getOrderItem(item);
     expect(orderItem).to.deep.equal(expected);
+  });
+});
+
+describe('#calculateOrderTotal', () => {
+  it('get total of an order', () => {
+    const expectedTotal = 100;
+    const orderItems = [
+      { itemTotal: 10 },
+      { itemTotal: 20 },
+      { itemTotal: 30 },
+      { itemTotal: 40 },
+    ];
+
+    const orderTotal = calculateOrderTotal(orderItems);
+    expect(orderTotal).to.equal(expectedTotal);
+  });
+
+
+  it('assumes item price to be zero if not supplied', () => {
+    const expectedTotal = 10;
+    const orderItems = [
+      { itemTotal: 10 },
+      { itemTotal: undefined },
+      { }, // obect with out item total
+    ];
+
+    const orderTotal = calculateOrderTotal(orderItems);
+    expect(orderTotal).to.equal(expectedTotal);
+  });
+});
+
+describe('#addOrderItem', () => {
+  it('error if order is null', () => {
+    expect(() => addOrderItem(null, {})).to.throw();
+  });
+
+  it('error if order item is null', () => {
+    expect(() => addOrderItem({}, null)).to.throw();
+  });
+
+  it('add order item to order object', () => {
+    const order = { discount: 0, orderItems: [] };
+    const newOrder = addOrderItem(order, item);
+    const expectedOrder = {
+      discount: 0,
+      subTotal: 120,
+      orderTotal: 120,
+      orderItems: [{
+        ...item,
+        itemTotal: 120,
+      }],
+    };
+    expect(newOrder).to.deep.equal(expectedOrder);
   });
 });

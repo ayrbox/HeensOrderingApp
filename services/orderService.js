@@ -16,24 +16,35 @@ const getOrderItem = orderItem => ({
 });
 
 const calculateOrderTotal = (orderItems) => {
-  const orderTotal = orderItems.reduce((total, item) => total + item.itemTotal, 0);
+  const orderTotal = orderItems.reduce((total, item) => total + (item.itemTotal || 0), 0);
   return orderTotal;
 };
 
 
 const addOrderItem = (order, orderItem) => {
-  // TODO: require order to be validated
-  if (orderItem) {
-    order.orderItems.push(
-      getOrderItem(orderItem),
-    );
+  if (!order) {
+    throw Error('Order is not defined');
   }
+
+  if (!orderItem) {
+    throw Error('Order Item is required');
+  }
+
+  const { name, price, options = [] } = orderItem;
+  const orderItems = (order.orderItems || []);
+  orderItems.push({
+    name,
+    price,
+    itemTotal: calculateItemTotal(orderItem),
+    options,
+  });
 
   const subTotal = calculateOrderTotal(order.orderItems);
   const orderTotal = subTotal - (subTotal * (order.discount / 100));
 
   return {
     ...order,
+    orderItems,
     subTotal,
     orderTotal,
   };
