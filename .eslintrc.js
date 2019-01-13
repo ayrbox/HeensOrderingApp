@@ -9,11 +9,13 @@ module.exports = {
           ".jsx"
         ]
       }
-    ]
+    ],
+    "no-unused-expressions": 0
   },
   "env": {
     "browser": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "mocha": true
   }
 };

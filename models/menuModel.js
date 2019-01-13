@@ -22,8 +22,8 @@ const menuSchema = new Schema({
   tags: {
     type: [String],
   },
-  menuOptions: [
-    {
+  menuOptions: {
+    type: [{
       description: {
         type: String,
         required: true,
@@ -33,8 +33,8 @@ const menuSchema = new Schema({
         required: true,
         default: 0,
       },
-    },
-  ],
+    }],
+  },
 });
 
 module.exports = mongoose.model('menus', menuSchema);
