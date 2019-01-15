@@ -14,6 +14,9 @@ const simplifyErrorMessage = (joiError) => {
 };
 
 module.exports = (joiSchema, data) => {
+  if (!joiSchema) throw new Error('Scheme description is required');
+  if (!data) throw new Error('`Data` is required for validation');
+
   const { error } = joiSchema.validate(data, { abortEarly: false });
 
   if (error) {
