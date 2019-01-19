@@ -16,10 +16,10 @@ const orderItemOptionSchema = joi.object().keys({
 });
 
 const deliveryAddressSchema = joi.object().keys({
-  name: joi.string(),
-  contactNo: joi.string(),
-  address: joi.string(),
-  postCode: joi.string(),
+  name: joi.string().required(),
+  contactNo: joi.string().required(),
+  address: joi.string().required(),
+  postCode: joi.string().required(),
 });
 
 module.exports = {
