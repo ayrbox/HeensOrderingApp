@@ -5,7 +5,6 @@ const {
   validateOrderItem,
 } = require('./orderValidation');
 
-
 describe('#validateDeliveryAddress', () => {
   it('should invalidate empty object', () => {
     const { errors, isValid } = validateDeliveryAddress({});
@@ -58,10 +57,12 @@ describe('#validateOrderItem', () => {
       name: 'Singaporean Noodes',
       description: 'Alwasy favourite',
       price: 6.45,
-      menuOptions: [{
-        description: 'Additional chilli oil',
-        additionalCost: 0.5,
-      }],
+      menuOptions: [
+        {
+          description: 'Additional chilli oil',
+          additionalCost: 0.5,
+        },
+      ],
       itemTotal: 6.95,
     });
 
@@ -70,21 +71,45 @@ describe('#validateOrderItem', () => {
   });
 });
 
-
 describe('#validateOrder', () => {
   it('should invalidate empty object', () => {
-    expect(100).to.equal(100);
+    const { errors, isValid } = validateOrder({});
+    expect(isValid).to.equal(false);
+    expect(errors.orderItems).to.exist;
   });
 
   it('should invalidate order without items', () => {
-    expect(500).to.equal(500);
+    const { errors, isValid } = validateOrder({
+      orderItems: [],
+    });
+    expect(isValid).to.equal(false);
+    expect(errors.orderItems).to.exist;
   });
 
   it('should validate order', () => {
-    expect('200').to.equal('200');
+    const { errors, isValid } = validateOrder({
+      orderItems: [{
+        name: 'Test Order item',
+        price: 10,
+        description: 'Order item test',
+        itemTotal: 10,
+        menuOptions: [],
+      }],
+    });
+    expect(isValid).to.equal(true);
+    expect(errors).to.deep.equal({});
   });
 
   it('should invalidate order with invalid items', () => {
-    expect(1000).to.equal(1000);
+    const { errors, isValid } = validateOrder({
+      orderItems: [{
+        menuItemName: 'Test Order Item',
+        price: 20,
+      }],
+    });
+
+    expect(isValid).to.equal(false);
+    expect(errors.orderItems).to.exist;
+    expect(errors.detail.length).to.be.above(0);
   });
 });
