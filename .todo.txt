@@ -1,0 +1,29 @@
+API Test (2hrs)
+1. Complete all Validation test
+2. Route test
+
+CircleCI - Integration (2hrs)
+1. run npm lint
+2. run test
+3. Make sure checks pass to merge pull request 
+
+UI Test (4hrs)
+1. React component test
+2. React redux test
+3. React routes test (if possible)
+
+
+UI/UX Change (8hrs)
+1. Change Orders view 
+2. Change Table list css and apply to all 
+
+
+E2E Testing (6hrs)
+1. View and Add Menu
+2. View and add menu category
+3. view and add customer
+4. Take order 
+4.1 Collection
+4.2 Table Order
+4.3 Delivery
+
