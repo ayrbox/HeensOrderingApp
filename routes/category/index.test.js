@@ -1,5 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
+// const Category = require('../../models/categoryModel');
+
 
 const categoryHandlers = require('./index.js');
 
@@ -107,12 +109,47 @@ describe('#test cateogry handlers', () => {
     });
 
     it('should return 500 error', async () => {
+      const sampleCategory = {
+        name: 'Sample Category',
+        description: 'cateogry description',
+      };
 
+      // const stub = sinon.stub(Category.prototype, 'save');
+      // const fakeCategory = {
+      //   save: sinon.fake.returns(sampleCategory),
+      // };
+      //
+      // const fakeCategory = function() {
+      //   save: sinon.fake.resolves({tero: 'tauko' })
+      // };
+      const fakeCategory = function () { };
+      fakeCategory.prototype.save = sinon.fake.rejects({});
+
+      const fakeCategoryValidator = sinon.fake.returns({
+        errors: undefined,
+        isValid: true,
+      });
+
+      const req = {
+        body: {
+          ...sampleCategory,
+        },
+      };
+      const res = {
+        status: sinon.spy(),
+        json: sinon.spy(),
+      };
+      await categoryHandlers(fakeCategory, fakeCategoryValidator)
+        .createCategory(req, res);
+
+      console.log('RES', res);
+      // expect(res.status.calledWith(500)).to.equal(true);
     });
 
     it('should return 201 with categoty created', async () => {
+
     });
-  })
+  });
 
   describe('#update category', () => {
 

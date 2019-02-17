@@ -47,7 +47,10 @@ module.exports = (Category, validateCategory) => {
     category
       .save()
       .then(c => res.json(c))
-      .catch(err => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500);
+        res.json(err);
+      });
   };
 
   return {
