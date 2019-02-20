@@ -4,22 +4,25 @@ module.exports = (Customer, validateCustomer) => {
     Customer.find().then((customers) => {
       if (customers.length <= 0) {
         errors.msg = 'No customers found.';
-        res.status(404).json(errors);
+        res.status(404);
+        res.json(errors);
       }
       res.json(customers);
     });
   };
 
   const getCustomer = (req, res) => {
-    return Customer.findOne({ _id: req.params.id })
+    Customer.findOne({ _id: req.params.id })
       .then((c) => {
         if (!c) {
-          res.status(404).json({ msg: 'Customer not found' });
+          res.status(404);
+          res.json({ msg: 'Customer not found' });
         }
         res.json(c);
       })
       .catch(() => {
-        res.status(500).json({ msg: 'Unable to get customer' });
+        res.status(500);
+        res.json({ msg: 'Unable to get customer' });
       });
   };
 
