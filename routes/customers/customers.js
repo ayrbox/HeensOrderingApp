@@ -14,6 +14,7 @@ module.exports = (Customer, validateCustomer) => {
   const getCustomer = (req, res) => {
     Customer.findOne({ _id: req.params.id })
       .then((c) => {
+        console.log("NO ERROR", c)
         if (!c) {
           res.status(404);
           res.json({ msg: 'Customer not found' });
@@ -21,6 +22,7 @@ module.exports = (Customer, validateCustomer) => {
         res.json(c);
       })
       .catch(() => {
+        console.log('ERROR')
         res.status(500);
         res.json({ msg: 'Unable to get customer' });
       });
