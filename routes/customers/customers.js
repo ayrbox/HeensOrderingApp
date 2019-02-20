@@ -11,7 +11,7 @@ module.exports = (Customer, validateCustomer) => {
   };
 
   const getCustomer = (req, res) => {
-    Customer.findOne({ _id: req.params.id })
+    return Customer.findOne({ _id: req.params.id })
       .then((c) => {
         if (!c) {
           res.status(404).json({ msg: 'Customer not found' });
