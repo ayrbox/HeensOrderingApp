@@ -106,12 +106,9 @@ describe('#test cateogry handlers', () => {
       })).to.equal(true);
     });
 
-    it('should return 500 error', async () => {
+    it('should return 500 error');
 
-    });
-
-    it('should return 201 with categoty created', async () => {
-    });
+    it('should return 201 with categoty created');
   })
 
   describe('#update category', () => {
