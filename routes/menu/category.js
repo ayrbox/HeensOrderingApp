@@ -89,7 +89,7 @@ module.exports = (Category, validateCategory) => {
 
   const deleteCategory = (req, res) => {
     const { id } = req.params;
-    return Category.find({ _id: id }).then((c) => {
+    return Category.findOne({ _id: id }).then((c) => {
       if (!c) {
         res.status(404);
         res.json({ msg: 'Category not found' });
@@ -97,7 +97,13 @@ module.exports = (Category, validateCategory) => {
       }
       return Category.findOneAndRemove({ _id: id }).then(() => {
         res.json({ _id: id, msg: 'Category removed' });
+      }).catch((err) => {
+        res.status(500);
+        res.json(err);
       });
+    }).catch((err) => {
+      res.status(500);
+      res.json(err);
     });
   };
 

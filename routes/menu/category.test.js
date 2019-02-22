@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const sinon = require('sinon');
 
 const categoryModel = require('../../models/categoryModel');
@@ -44,7 +43,7 @@ describe('#test cateogry handlers', () => {
 
   describe('#get categories', () => {
     it('should return 404 with error', async () => {
-      find.returns(Promise.resolve([]));
+      find.resolves([]);
 
       await handlers.getCategories(undefined, res);
 
@@ -56,7 +55,7 @@ describe('#test cateogry handlers', () => {
 
 
     it('should return list categories', async () => {
-      find.returns(Promise.resolve(sampleCategories));
+      find.resolves(sampleCategories);
 
       await handlers.getCategories(undefined, res);
       sinon.assert.calledWith(res.json, sampleCategories);
@@ -71,7 +70,7 @@ describe('#test cateogry handlers', () => {
     };
 
     it('should return 404', async () => {
-      findOne.returns(Promise.resolve(undefined));
+      findOne.resolves(undefined);
       await handlers.getCategory(getReq, res);
 
       sinon.assert.calledWith(res.status, 404);
@@ -82,7 +81,7 @@ describe('#test cateogry handlers', () => {
 
     it('should return category', async () => {
       const [category] = sampleCategories;
-      findOne.returns(Promise.resolve(category));
+      findOne.resolves(category);
 
       await handlers.getCategory(getReq, res);
       sinon.assert.calledWith(res.json, sinon.match(category));
@@ -106,7 +105,7 @@ describe('#test cateogry handlers', () => {
     });
 
     it('should return 500 error', async () => {
-      save.returns(Promise.reject(Error('Unexpected Error')));
+      save.rejects(Error('Unexpected Error'));
       await handlers.createCategory(createReq, res);
 
       sinon.assert.calledWith(res.status, 500);
@@ -114,7 +113,7 @@ describe('#test cateogry handlers', () => {
     });
 
     it('should return 201 with categoty created', async () => {
-      save.returns(Promise.resolve(category));
+      save.resolves(category);
       await handlers.createCategory(createReq, res);
 
       sinon.assert.calledWith(res.status, 201);
@@ -130,21 +129,21 @@ describe('#test cateogry handlers', () => {
     };
 
     it('should return 404 non existing user', async () => {
-      findOne.returns(Promise.resolve(undefined));
+      findOne.resolves(undefined);
       await handlers.updateCategory(updateReq, res);
 
       sinon.assert.calledWith(res.status, 404);
     });
 
     it('should return 400 on empty object', async () => {
-      findOne.returns(Promise.resolve(updateCategory));
+      findOne.resolves(updateCategory);
       await handlers.updateCategory({ ...updateReq, body: {} }, res);
 
       sinon.assert.calledWith(res.status, 400);
     });
 
     it('should return 400 on invalid data', async () => {
-      findOne.returns(Promise.resolve(updateCategory));
+      findOne.resolves(updateCategory);
       await handlers.updateCategory({
         ...updateReq,
         body: {
@@ -155,8 +154,8 @@ describe('#test cateogry handlers', () => {
     });
 
     it('should return 500 on unexpected error on update', async () => {
-      findOne.returns(Promise.resolve({}));
-      findOneAndUpdate.returns(Promise.reject(Error('Unexpected error')));
+      findOne.resolves({});
+      findOneAndUpdate.rejects(Error('Unexpected error'));
 
       await handlers.updateCategory(updateReq, res);
 
@@ -165,8 +164,8 @@ describe('#test cateogry handlers', () => {
     });
 
     it('should update data without error', async () => {
-      findOne.returns(Promise.resolve({}));
-      findOneAndUpdate.returns(Promise.resolve(updatedCategory));
+      findOne.resolves({});
+      findOneAndUpdate.resolves(updatedCategory);
 
       await handlers.updateCategory(updateReq, res);
       sinon.assert.calledWith(res.json, sinon.match(updatedCategory));
@@ -174,12 +173,45 @@ describe('#test cateogry handlers', () => {
   });
 
   describe('#delete category', () => {
-    it('should return 404 on customer not found');
+    const [categoryToDelete] = sampleCategories;
+    const deleteReq = {
+      params: {
+        id: 38834,
+      },
+    };
 
-    it('should return 500 on unable to read customer');
+    it('should return 404 on category not found', async () => {
+      findOne.resolves(undefined);
+      await handlers.deleteCategory(deleteReq, res);
 
-    it('should return 500 on unable to remove');
+      sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match.object);
+    });
 
-    it('should remove customer without error');
+    it('should return 500 on unable to read category', async () => {
+      findOne.rejects(Error('Unexpected Error'));
+
+      await handlers.deleteCategory(deleteReq, res);
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
+
+    it('should return 500 on unable to remove', async () => {
+      findOne.resolves({});
+      findOneAndRemove.rejects(Error('Unexpected Error'));
+
+      await handlers.deleteCategory(deleteReq, res);
+
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
+
+    it('should remove customer without error', async () => {
+      findOne.resolves({});
+      findOneAndRemove.resolves(categoryToDelete);
+
+      await handlers.deleteCategory(deleteReq, res);
+      sinon.assert.calledWith(res.json, sinon.match({ msg: 'Category removed' }));
+    });
   });
 });
