@@ -123,10 +123,63 @@ describe('#test cateogry handlers', () => {
   });
 
   describe('#update category', () => {
+    const [updateCategory, updatedCategory] = sampleCategories;
+    const updateReq = {
+      params: { id: 200 },
+      body: updateCategory,
+    };
 
+    it('should return 404 non existing user', async () => {
+      findOne.returns(Promise.resolve(undefined));
+      await handlers.updateCategory(updateReq, res);
+
+      sinon.assert.calledWith(res.status, 404);
+    });
+
+    it('should return 400 on empty object', async () => {
+      findOne.returns(Promise.resolve(updateCategory));
+      await handlers.updateCategory({ ...updateReq, body: {} }, res);
+
+      sinon.assert.calledWith(res.status, 400);
+    });
+
+    it('should return 400 on invalid data', async () => {
+      findOne.returns(Promise.resolve(updateCategory));
+      await handlers.updateCategory({
+        ...updateReq,
+        body: {
+          description: 'Only description is not enough',
+        },
+      }, res);
+      sinon.assert.calledWith(res.status, 400);
+    });
+
+    it('should return 500 on unexpected error on update', async () => {
+      findOne.returns(Promise.resolve({}));
+      findOneAndUpdate.returns(Promise.reject(Error('Unexpected error')));
+
+      await handlers.updateCategory(updateReq, res);
+
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
+
+    it('should update data without error', async () => {
+      findOne.returns(Promise.resolve({}));
+      findOneAndUpdate.returns(Promise.resolve(updatedCategory));
+
+      await handlers.updateCategory(updateReq, res);
+      sinon.assert.calledWith(res.json, sinon.match(updatedCategory));
+    });
   });
 
   describe('#delete category', () => {
+    it('should return 404 on customer not found');
 
+    it('should return 500 on unable to read customer');
+
+    it('should return 500 on unable to remove');
+
+    it('should remove customer without error');
   });
 });

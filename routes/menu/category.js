@@ -79,7 +79,11 @@ module.exports = (Category, validateCategory) => {
         { _id: req.params.id },
         { $set: category },
         { new: true },
-      ).then(updated => res.json(updated));
+      ).then(updated => res.json(updated))
+        .catch((err) => {
+          res.status(500);
+          res.json(err);
+        });
     });
   };
 
