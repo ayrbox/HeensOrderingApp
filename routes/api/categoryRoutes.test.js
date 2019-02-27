@@ -1,5 +1,5 @@
 // const request = require('supertest');
-const { expect } = require('chai');
+// const { expect } = require('chai');
 
 // const routes = require('./categoryRoutes');
 
@@ -13,10 +13,7 @@ describe('#category Routes', () => {
   // afterEach(() => {
   //   server.close();
   // });
-
-  it('create server') 
-
-
+  it('create server');
   // it('test routes', (done) => {
   //   // request(server).get('/').expect(200, done);
   //   // const res = routes.get('/');

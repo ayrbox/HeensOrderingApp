@@ -34,7 +34,7 @@ describe('#menuValidation', () => {
 
   it('should valid menu item', () => {
     const { errors, isValid } = validateMenu({
-      name: 'Menu Item Name', 
+      name: 'Menu Item Name',
       description: 'Menu description',
       price: 6.45,
       category: '293847293749237492374',
