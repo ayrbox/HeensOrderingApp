@@ -57,22 +57,32 @@ describe('#test menu route handlers', () => {
 
   describe('#get menus', () => {
     it('should return 404 with error', async () => {
-      find.resolves([]);
+      find.returns({
+        populate: () => Promise.resolve([]),
+      });
 
       await handlers.getMenus(undefined, res);
 
       sinon.assert.calledWith(res.status, 404);
-      sinon.assert.calledWith(res.jom, sinon.match({
-        msg: 'No menu found',
+      sinon.assert.calledWith(res.json, sinon.match({
+        msg: 'Menus not found',
       }));
     });
 
     it('should return list categories', async () => {
-      find.resolves(sampleMenus);
+      find.returns({
+        populate: () => Promise.resolve(sampleMenus),
+      });
 
       await handlers.getMenus(undefined, res);
       sinon.assert.calledWith(res.json, sampleMenus);
     });
+  });
+
+  describe('#get menus by category', () => {
+    it('should return 404');
+    it('should return 500 on unexpected read error');
+    it('should return array of menus');
   });
 
   describe('#get menu', () => {
@@ -81,18 +91,22 @@ describe('#test menu route handlers', () => {
     };
 
     it('should return 404', async () => {
-      findOne.resolves(undefined);
+      findOne.returns({
+        populate: () => Promise.resolve(undefined),
+      });
       await handlers.getMenu(getReq, res);
 
       sinon.assert.calledWith(res.status, 404);
       sinon.assert.calledWith(res.json, sinon.match({
-        msg: 'Menu not found',
+        msg: 'Not found',
       }));
     });
 
     it('should return menu', async () => {
       const [menu] = sampleMenus;
-      findOne.resolves(menu);
+      findOne.returns({
+        populate: () => Promise.resolve(menu),
+      });
 
       await handlers.getMenu(getReq, res);
       sinon.assert.calledWith(res.json, sinon.match(menu));
@@ -109,7 +123,7 @@ describe('#test menu route handlers', () => {
       save.returns(Promise.resolve({}));
       await handlers.createMenu({ body: {} }, res);
 
-      sinon.assert.calledWith(res.status, 400)
+      sinon.assert.calledWith(res.status, 400);
       sinon.assert.calledWith(res.json, sinon.match.object);
     });
 

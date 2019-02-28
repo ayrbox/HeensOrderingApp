@@ -1,14 +1,15 @@
 module.exports = (Menu, { validateMenu, validateOption }) => {
   const getMenus = (req, res) => {
     const errors = {};
-    Menu.find()
+    return Menu.find()
       .populate('category') // , ["name", "description"]
       .then((menus) => {
         if (menus.length <= 0) {
-          errors.msg = 'Not found';
-          return res.status(404).json(errors);
+          errors.msg = 'Menus not found';
+          res.status(404);
+          res.json(errors);
         }
-        return res.json(menus);
+        res.json(menus);
       });
   };
 
@@ -26,14 +27,15 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
 
   const getMenu = (req, res) => {
     const errors = {};
-    Menu.findOne({ _id: req.params.id })
+    return Menu.findOne({ _id: req.params.id })
       .populate('category', ['name', 'description'])
       .then((menu) => {
         if (!menu) {
           errors.msg = 'Not found';
-          return res.status(404).json(errors);
+          res.status(404);
+          res.json(errors);
         }
-        return res.json(menu);
+        res.json(menu);
       });
   };
 
