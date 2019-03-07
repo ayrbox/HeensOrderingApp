@@ -1,6 +1,6 @@
 const Faker = require('faker');
 
-const customerData = new Array(100).fill(undefined).map(() => ({
+const customerData = n => new Array(n).fill(undefined).map(() => ({
   name: Faker.name.findName(),
   phoneNo: Faker.phone.phoneNumber(),
   address: `${Faker.random.number()} ${Faker.address.streetName()}`,
