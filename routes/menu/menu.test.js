@@ -80,9 +80,34 @@ describe('#test menu route handlers', () => {
   });
 
   describe('#get menus by category', () => {
-    it('should return 404');
-    it('should return 500 on unexpected read error');
-    it('should return array of menus');
+    const req = {
+      params: {
+        categoryId: 100,
+      },
+    }
+    it('should return 404', async () => {
+      find.resolves([]);
+
+      await handlers.getMenusByCategory(req, res);
+      sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match({
+        msg: 'No menu in category',
+      }));
+    });
+
+    it('should return 500 on unexpected read error', async () => {
+      find.rejects(Error('Unexpected Error'));
+      await handlers.getMenusByCategory(req, res);
+
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
+
+    it('should return array of menus', async () => {
+      find.resolves(sampleMenus);
+      await handlers.getMenusByCategory(req, res);
+      sinon.assert.calledWith(res.json, sampleMenus);
+    });
   });
 
   describe('#get menu', () => {

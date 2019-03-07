@@ -13,17 +13,17 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       });
   };
 
-  const getMenusByCategory = (req, res) => {
-    const errors = {};
-    Menu.find({ category: req.params.categoryId }).then((menus) => {
+  const getMenusByCategory = (req, res) => Menu.find({ category: req.params.categoryId })
+    .then((menus) => {
       if (menus.length === 0) {
-        errors.msg = 'Not menu in the category';
-        return res.status(404).json(errors);
+        res.status(404);
+        res.json({ msg: 'No menu in category' });
       }
-
-      return res.json(menus);
+      res.json(menus);
+    }).catch((err) => {
+      res.status(500);
+      res.json(err);
     });
-  };
 
   const getMenu = (req, res) => {
     const errors = {};
