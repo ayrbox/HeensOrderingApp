@@ -30,6 +30,10 @@ userRoutes.post('/login', (req, res) => {
     res.status(400).json(errors);
   }
 
+  User.find().then((users) => {
+    console.log(JSON.stringify(users, null, 2));
+  });
+
   User.findOne({ email }).then((user) => {
     if (!user) {
       errors.email = 'User not found.';
