@@ -69,7 +69,7 @@ describe('#test menu route handlers', () => {
       }));
     });
 
-    it('should return list categories', async () => {
+    it('should return menu list', async () => {
       find.returns({
         populate: () => Promise.resolve(sampleMenus),
       });
@@ -364,17 +364,13 @@ describe('#test menu route handlers', () => {
       }));
     });
 
-    it('returns 404 on option not found', async () => {
+    it('returns menu without delete option successfully', async () => {
       findOne.resolves({
         ...menuToDeleteOption,
         menuOptions: [{
           id: 1,
           description: 'Option to delete',
           additionalCost: 2,
-        }, {
-          id: 2,
-          descriptin: 'Option 2 delete',
-          additionalCost: 0,
         }],
         save: () => Promise.resolve(menuToDeleteOption),
       });

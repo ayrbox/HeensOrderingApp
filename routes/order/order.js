@@ -20,7 +20,9 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
   };
 
   const createOrder = (req, res) => {
-    // validate orderItems
+    // TODO: calculate itemTotal
+    // TODO: calculate subTotal
+    // TODO: calculate orderTotal
     const { errors, isValid } = validateOrder(req.body);
 
     if (!isValid) {
@@ -29,54 +31,24 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
       return {};
     }
 
-    // validate delivery
-    const {
-      orderType,
-      deliveryAddress,
-      note,
-      orderStatus,
-      discount,
-      tableNo,
-    } = req.body;
-
-    if (orderType === 'delivery') {
-      const { validationErrors, isValidDeliveryAddress } = validateDeliveryAddress(deliveryAddress);
-      if (!isValidDeliveryAddress) {
-        res.status(400);
-        res.json(validationErrors);
-        return {};
-      }
-    }
-
     // Item total of each item
-    const orderItems = req.body.orderItems.map(item => orderService.getOrderItem(item));
+    // const orderItems = req.body.orderItems.map(item => orderService.getOrderItem(item));
 
     // subTotal: sub each item total
-    const subTotal = orderService.calculateOrderTotal(req.body.orderItems);
+    // const subTotal = orderService.calculateOrderTotal(req.body.orderItems);
 
     // orderTotal: subTotal - discountAmount
-    const orderTotal = subTotal - subTotal * (discount / 100);
+    // const orderTotal = subTotal - subTotal * (discount / 100);
 
-    new Order({
-      orderItems,
-      orderType,
-      deliveryAddress,
-      note,
-      orderStatus,
-      subTotal,
-      discount,
-      orderTotal,
-      tableNo,
-    }).save()
+    return new Order(req.body).save()
       .then(o => res.json(o))
-      .catch(err => res.status(500).json({
-        msg: 'Unable to save order',
-        exception: err,
-      }));
-    return res.status(200);
+      .catch((err) => {
+        res.status(500);
+        res.json(err);
+      });
   };
 
-  const updateOrder = (req, res) => {
+  const updateOrderStatus = (req, res) => {
     const { status } = req.body;
 
     Order.findOne({ _id: req.params.id }).then((order) => {
@@ -97,13 +69,18 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
     const { errors, isValid } = validateOrderItem(req.body);
 
     if (!isValid) {
-      res.status(400).json(errors);
+      res.status(400);
+      res.json(errors);
+      return {};
     }
 
     Order.findOne({ _id: req.params.id }).then((order) => {
       if (!order) {
-        res.status(404).json({ msg: 'Order not found' });
+        res.status(404);
+        res.json({ msg: 'Order not found' });
+        return;
       }
+
       orderService
         .addOrderItem(order, {
           name: req.body.name,
@@ -117,56 +94,11 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
     });
   };
 
-  const addOrderItem = (req, res) => {
-    Order.findOne({ _id: req.params.id }).then((order) => {
-      if (!order) {
-        res.status(404).json({ msg: 'Order not found' });
-      }
-
-      const index = order.orderItems
-        .map(item => item.id)
-        .indexOf(req.params.itemId);
-
-      if (index < 0) {
-        return res.status(404).json({ msg: 'Order Item not found' });
-      }
-
-      order.orderItems.splice(index, 1);
-
-      orderService
-        .addOrderItem(order, undefined)
-        .save()
-        .then(o => res.json(o))
-        .catch((err) => {
-          res
-            .status(500)
-            .json({ msg: 'Unable to save order item', exception: err });
-        });
-
-      return res.status(200);
-    });
-  };
-
-  const deleteOrderItem = (req, res) => {
-    Order.findOne({ _id: req.params.id }).then((o) => {
-      if (!o) {
-        return res.status(404).json({ msg: 'Order not found' });
-      }
-
-      Order.findOneAndRemove({ _id: req.params.id }).then(() => {
-        res.json({ msg: 'Order removed' });
-      });
-      return res.status(200);
-    });
-  };
-
   return {
     getOrders,
     getOrder,
     createOrder,
-    updateOrder,
+    updateOrderStatus,
     deleteOrder,
-    addOrderItem,
-    deleteOrderItem,
   };
 };
