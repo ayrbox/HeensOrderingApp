@@ -51,16 +51,16 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
   const updateOrderStatus = (req, res) => {
     const { status } = req.body;
 
-    Order.findOne({ _id: req.params.id }).then((order) => {
+    return Order.findOne({ _id: req.params.id }).then((order) => {
       if (!order) {
-        return res.status(404).json({ msg: 'Order not found' });
+        res.status(404);
+        res.json({ msg: 'Order not found' });
+        return {};
       }
 
       // @todo: visit eslint disable issue
       order.orderStatus = status; // eslint-disable-line
-      order.save().then(o => res.json(o));
-      // @todo revisit order status findoneandupdate
-      return res.status(200);
+      return order.save().then(o => res.json(o));
     });
   };
 

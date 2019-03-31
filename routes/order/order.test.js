@@ -176,33 +176,21 @@ describe('#test order route handlers', () => {
   });
 
 
-  // describe('#update menu', () => {
-  //   const [updateMenu, updatedMenu] = sampleMenus;
-  //   const updateReq = {
-  //     params: { id: 400 },
-  //     body: updateMenu,
-  //   };
+  describe('#update order status', () => {
+    const [order] = sampleOrders;
+    const updateReq = {
+      params: { id: 400 },
+      body: order,
+    };
 
-  //   it('should return 404 on non existing menu', async () => {
-  //     findOne.resolves(undefined);
-  //     await handlers.updateMenu(updateReq, res);
+    it('should return 404 on non existing menu', async () => {
+      findOne.resolves(undefined);
+      await handlers.updateOrderStatus(updateReq, res);
 
-  //     sinon.assert.calledWith(res.status, 404);
-  //   });
+      sinon.assert.calledWith(res.status, 404);
+    });
 
-  //   it('should return 400 on empty object', async () => {
-  //     find.resolves(updateMenu);
-
-  //     await handlers.updateMenu({
-  //       ...updateReq,
-  //       body: {
-  //         name: 'only name not allowed',
-  //       },
-  //     }, res);
-  //     sinon.assert.calledWith(res.status, 400);
-  //   });
-
-  //   it('should return 500 on unexpected error on udpate', async () => {
+ //   it('should return 500 on unexpected error on udpate', async () => {
   //     findOne.resolves({});
   //     findOneAndUpdate.rejects(Error('Unexpected error'));
 
@@ -219,7 +207,7 @@ describe('#test order route handlers', () => {
   //     await handlers.updateMenu(updateReq, res);
   //     sinon.assert.calledWith(res.json, sinon.match(updatedMenu));
   //   });
-  // });
+  });
 
   // describe('#delete menu', () => {
   //   const [customerToDelete] = sampleMenus;
