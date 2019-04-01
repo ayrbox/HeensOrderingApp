@@ -59,19 +59,21 @@ module.exports = (Customer, validateCustomer) => {
       return {};
     }
 
-    const customer = ({
+    const {
       name,
       phoneNo,
       address,
       postCode,
       note,
-    }) => ({
+    } = req.body;
+
+    const customer = {
       name,
       phoneNo,
       address,
       postCode,
       note,
-    })(req.body);
+    };
 
     return Customer.findOne({ _id: req.params.id }).then((c) => {
       if (!c) {
