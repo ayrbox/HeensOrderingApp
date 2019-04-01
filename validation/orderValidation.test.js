@@ -75,7 +75,14 @@ describe('#validateOrder', () => {
   it('should invalidate empty object', () => {
     const { errors, isValid } = validateOrder({});
     expect(isValid).to.equal(false);
-    expect(errors.orderItems).to.exist;
+    expect(errors).to.have.all.keys([
+      'date',
+      'subTotal',
+      'discount',
+      'orderTotal',
+      'orderType',
+      'status',
+    ]);
   });
 
   it('should invalidate order without items', () => {
@@ -88,6 +95,7 @@ describe('#validateOrder', () => {
 
   it('should validate order', () => {
     const { errors, isValid } = validateOrder({
+      date: new Date(),
       orderItems: [{
         name: 'Test Order item',
         price: 10,
@@ -95,6 +103,11 @@ describe('#validateOrder', () => {
         itemTotal: 10,
         menuOptions: [],
       }],
+      subTotal: 10,
+      discount: 0,
+      orderTotal: 10,
+      orderType: 'collection',
+      status: 'ordered',
     });
     expect(isValid).to.equal(true);
     expect(errors).to.deep.equal({});
@@ -109,7 +122,6 @@ describe('#validateOrder', () => {
     });
 
     expect(isValid).to.equal(false);
-    expect(errors.orderItems).to.exist;
-    expect(errors.detail.length).to.be.above(0);
+    expect(Object.keys(errors)).to.have.lengthOf.above(1);
   });
 });

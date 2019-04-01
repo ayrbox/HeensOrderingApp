@@ -69,7 +69,7 @@ describe('#test menu route handlers', () => {
       }));
     });
 
-    it('should return list categories', async () => {
+    it('should return menu list', async () => {
       find.returns({
         populate: () => Promise.resolve(sampleMenus),
       });
@@ -84,7 +84,8 @@ describe('#test menu route handlers', () => {
       params: {
         categoryId: 100,
       },
-    }
+    };
+
     it('should return 404', async () => {
       find.resolves([]);
 
@@ -184,7 +185,7 @@ describe('#test menu route handlers', () => {
   });
 
 
-  describe('#update customer', () => {
+  describe('#update menu', () => {
     const [updateMenu, updatedMenu] = sampleMenus;
     const updateReq = {
       params: { id: 400 },
@@ -272,6 +273,109 @@ describe('#test menu route handlers', () => {
       await handlers.deleteMenu(deleteReq, res);
 
       sinon.assert.calledWith(res.json, sinon.match({ msg: 'Menu removed' }));
+    });
+  });
+
+
+  describe('#addOption', () => {
+    const [menuToAddOption] = sampleMenus;
+    const addOptionReq = {
+      params: { id: 100 },
+      body: {
+        description: 'Menu Option 1',
+        additionalCost: 1,
+      },
+    };
+
+    it('should return 400 for empty object', async () => {
+      await handlers.addOption({ body: {} }, res);
+
+      sinon.assert.calledWith(res.status, 400);
+      sinon.assert.calledWith(res.json, sinon.match.object);
+    });
+
+    it('should return 404 if menu not found', async () => {
+      findOne.resolves(undefined);
+      await handlers.addOption(addOptionReq, res);
+
+      sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match.object);
+    });
+
+    it('should return 500 on unexpected error', async () => {
+      findOne.rejects(Error('Unexpected Error'));
+      await handlers.addOption(addOptionReq, res);
+
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
+
+    it('should addOption to the menu', async () => {
+      findOne.resolves({
+        ...menuToAddOption,
+        menuOptions: [],
+        save: () => Promise.resolve({
+          ...menuToAddOption,
+          menuOptions: [{
+            description: 'Menu Option 1',
+            additionalCost: 1,
+          }],
+        }),
+      });
+      await handlers.addOption(addOptionReq, res);
+      sinon.assert.calledWith(res.json, sinon.match({
+        ...menuToAddOption,
+        menuOptions: [{
+          description: 'Menu Option 1',
+          additionalCost: 1,
+        }],
+      }));
+    });
+  });
+
+  describe('#deleteOption', () => {
+    const [menuToDeleteOption] = sampleMenus;
+    const deleteOptionReq = {
+      params: {
+        id: 100,
+        optionId: 1,
+      },
+    };
+
+    it('returns 404 error if not found', async () => {
+      findOne.resolves(undefined);
+      await handlers.deleteOption(deleteOptionReq, res);
+      sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match({
+        msg: 'Menu not found',
+      }));
+    });
+
+    it('returns 404 on option not found', async () => {
+      findOne.resolves({
+        ...menuToDeleteOption,
+        menuOptions: [],
+      });
+
+      await handlers.deleteOption(deleteOptionReq, res);
+      sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match({
+        msg: 'Option not found',
+      }));
+    });
+
+    it('returns menu without delete option successfully', async () => {
+      findOne.resolves({
+        ...menuToDeleteOption,
+        menuOptions: [{
+          id: 1,
+          description: 'Option to delete',
+          additionalCost: 2,
+        }],
+        save: () => Promise.resolve(menuToDeleteOption),
+      });
+      await handlers.deleteOption(deleteOptionReq, res);
+      sinon.assert.calledWith(res.json, sinon.match(menuToDeleteOption));
     });
   });
 });

@@ -1,6 +1,33 @@
 const joi = require('joi');
 const joiValidation = require('./joi-validate');
-const isEmpty = require('./is-empty');
+// const isEmpty = require('./is-empty');
+
+const orderSchema = joi.object().keys({
+  date: joi.date().required(),
+  orderItems: joi.array().items(joi.object().keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    price: joi.number().required(),
+    menuOptions: joi.array().items(joi.object().keys({
+      description: joi.string().required(),
+      additionalCost: joi.number().required(),
+    })),
+    itemTotal: joi.number().required(),
+  })).min(1),
+  subTotal: joi.number().required(),
+  discount: joi.number().required(),
+  orderTotal: joi.number().required(),
+  orderType: joi.string().required(),
+  deliveryAddress: joi.object().keys({
+    name: joi.string().required(),
+    contactNo: joi.string().required(),
+    address: joi.string().required(),
+    postCode: joi.string().required(),
+  }).when('orderType', { is: 'delivery', then: joi.required() }),
+  tableNo: joi.string(),
+  note: joi.string(),
+  status: joi.string().required(),
+});
 
 const orderItemSchema = joi.object().keys({
   name: joi.string().required(),
@@ -23,61 +50,7 @@ const deliveryAddressSchema = joi.object().keys({
 });
 
 module.exports = {
-  validateOrder: (data) => {
-    if (!data.orderItems || !Array.isArray(data.orderItems) || !data.orderItems.length) {
-      return {
-        isValid: false,
-        errors: {
-          orderItems: 'Order item(s) are empty or invalid',
-        },
-      };
-    }
-
-    const orderItemErrors = data.orderItems.reduce(
-      (itemErrors, orderItem, index) => {
-        // validate a item in orderItems
-        const { errors, isValid } = joiValidation(orderItemSchema, orderItem);
-        if (!isValid) {
-          itemErrors.push({ [index]: errors });
-        }
-        // validate order options
-        const optionErrors = (orderItem.options || []).reduce(
-          (optionError, o, i) => {
-            const { err, isValidOrder } = joiValidation(
-              orderItemOptionSchema,
-              o,
-            );
-            if (!isValidOrder) {
-              optionError.push({ [i]: err });
-            }
-            return optionError;
-          },
-          [],
-        );
-        if (!isEmpty(optionErrors)) {
-          itemErrors.push({ [index]: 'Invalid order options' });
-        }
-
-        return itemErrors;
-      },
-      [],
-    );
-
-    if (!isEmpty(orderItemErrors)) {
-      return {
-        isValid: false,
-        errors: {
-          orderItems: 'Invalid order items(s)',
-          detail: orderItemErrors,
-        },
-      };
-    }
-
-    return {
-      isValid: true,
-      errors: {},
-    };
-  },
+  validateOrder: data => joiValidation(orderSchema, data),
   validateDeliveryAddress: data => joiValidation(deliveryAddressSchema, data),
   validateOrderItem: data => joiValidation(orderItemSchema, data),
 };

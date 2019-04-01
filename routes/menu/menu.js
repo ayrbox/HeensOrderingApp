@@ -118,51 +118,60 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
     const { errors, isValid } = validateOption(req.body);
 
     if (!isValid) {
-      res.status(400).json(errors);
+      res.status(400);
+      res.json(errors);
+      return {};
     }
 
-    Menu.findOne({ _id: req.params.id }).then((menu) => {
+    return Menu.findOne({ _id: req.params.id }).then((menu) => {
       if (!menu) {
         errors.msg = 'Menu not found';
-        res.status(404).json(errors);
+        res.status(404);
+        res.json(errors);
+        return;
       }
 
-      const option = {
-        description: req.body.description,
-        additionalCost: req.body.additionalCost,
-      };
+      const { description, additionalCost } = req.body;
 
-      menu.menuOptions.push(option);
+      menu.menuOptions.push({
+        description,
+        additionalCost,
+      });
       menu.save().then(m => res.json(m));
+    }).catch((err) => {
+      res.status(500);
+      res.json(err);
     });
   };
 
-  const deleteOption = (req, res) => {
-    Menu.findOne({ _id: req.params.id }).then((menu) => {
-      if (!menu) {
-        res.status(404).json({ msg: 'Menu not found' });
-      }
+  const deleteOption = (req, res) => Menu.findOne({ _id: req.params.id }).then((menu) => {
+    if (!menu) {
+      res.status(404);
+      res.json({ msg: 'Menu not found' });
+      return {};
+    }
 
-      const index = menu.menuOptions
-        .map(item => item.id)
-        .indexOf(req.params.optionId);
+    const index = menu.menuOptions
+      .map(item => item.id)
+      .indexOf(req.params.optionId);
 
-      if (index < 0) {
-        res.status(404).json({ msg: 'Option not found' });
-      }
+    if (index < 0) {
+      res.status(404);
+      res.json({ msg: 'Option not found' });
+      return {};
+    }
 
-      menu.menuOptions.splice(index, 1);
+    menu.menuOptions.splice(index, 1);
 
-      menu
-        .save()
-        .then(m => res.json(m))
-        .catch((err) => {
-          res
-            .status(500)
-            .json({ msg: 'Unable to delete option', exception: err });
-        });
-    });
-  };
+    return menu
+      .save()
+      .then(m => res.json(m))
+      .catch((err) => {
+        res
+          .status(500)
+          .json({ msg: 'Unable to delete option', exception: err });
+      });
+  });
 
   return {
     getMenus,
