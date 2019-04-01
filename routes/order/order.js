@@ -68,32 +68,23 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
   };
 
   const deleteOrder = (req, res) => {
-    // TODO: Validate order item options too
-    const { errors, isValid } = validateOrderItem(req.body);
-
-    if (!isValid) {
-      res.status(400);
-      res.json(errors);
-      return {};
-    }
-
-    Order.findOne({ _id: req.params.id }).then((order) => {
+    const { id } = req.params;
+    return Order.findOne({ _id: id }).then((order) => {
       if (!order) {
         res.status(404);
         res.json({ msg: 'Order not found' });
         return;
       }
 
-      orderService
-        .addOrderItem(order, {
-          name: req.body.name,
-          price: req.body.price,
-          options: req.body.options || [],
-        })
-        .save()
-        .then((o) => {
-          res.json(o);
-        });
+      Order.findOneAndRemove({ _id: id }).then(() => {
+        res.json({ msg: 'Order deleted' });
+      }).catch((err) => {
+        res.status(500);
+        res.json(err);
+      });
+    }).catch((err) => {
+      res.status(500);
+      res.json(err);
     });
   };
 
