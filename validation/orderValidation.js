@@ -26,7 +26,7 @@ const orderSchema = joi.object().keys({
   }).when('orderType', { is: 'delivery', then: joi.required() }),
   tableNo: joi.string(),
   note: joi.string(),
-  orderStatus: joi.string().required(),
+  status: joi.string().required(),
 });
 
 const orderItemSchema = joi.object().keys({

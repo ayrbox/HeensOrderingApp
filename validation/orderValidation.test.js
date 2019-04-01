@@ -81,7 +81,7 @@ describe('#validateOrder', () => {
       'discount',
       'orderTotal',
       'orderType',
-      'orderStatus',
+      'status',
     ]);
   });
 
@@ -107,7 +107,7 @@ describe('#validateOrder', () => {
       discount: 0,
       orderTotal: 10,
       orderType: 'collection',
-      orderStatus: 'ordered',
+      status: 'ordered',
     });
     expect(isValid).to.equal(true);
     expect(errors).to.deep.equal({});

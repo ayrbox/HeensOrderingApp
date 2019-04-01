@@ -59,8 +59,11 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
       }
 
       // @todo: visit eslint disable issue
-      order.orderStatus = status; // eslint-disable-line
+      order.status = status; // eslint-disable-line
       return order.save().then(o => res.json(o));
+    }).catch((err) => {
+      res.status(500);
+      res.json(err);
     });
   };
 

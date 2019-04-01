@@ -28,7 +28,7 @@ const sampleOrders = [{
     address: 'Test Road, London',
     postCode: 'TE51 0AB',
   },
-  orderStatus: 'paid',
+  status: 'ordered',
 }, {
   date: new Date(),
   orderItems: [],
@@ -37,7 +37,7 @@ const sampleOrders = [{
   orderTotal: 90,
   orderType: 'collection',
   note: '20 mins',
-  orderStatus: 'collected',
+  status: 'collected',
 }, {
   date: new Date(),
   orderItems: [],
@@ -46,7 +46,7 @@ const sampleOrders = [{
   orderTotal: 100,
   orderType: 'table',
   tableNo: 'T101',
-  orderStatus: 'served',
+  status: 'served',
 }];
 
 let res;
@@ -188,25 +188,33 @@ describe('#test order route handlers', () => {
       await handlers.updateOrderStatus(updateReq, res);
 
       sinon.assert.calledWith(res.status, 404);
+      sinon.assert.calledWith(res.json, sinon.match({ msg: 'Order not found' }));
     });
 
- //   it('should return 500 on unexpected error on udpate', async () => {
-  //     findOne.resolves({});
-  //     findOneAndUpdate.rejects(Error('Unexpected error'));
+    it('should return 500 on unexpected error on udpate', async () => {
+      findOne.rejects(Error('Unexpected Error'));
 
-  //     await handlers.updateMenu(updateReq, res);
+      await handlers.updateOrderStatus(updateReq, res);
 
-  //     sinon.assert.calledWith(res.status, 500);
-  //     sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
-  //   });
+      sinon.assert.calledWith(res.status, 500);
+      sinon.assert.calledWith(res.json, sinon.match.instanceOf(Error));
+    });
 
-  //   it('should update menu without error', async () => {
-  //     findOne.resolves({});
-  //     findOneAndUpdate.resolves(updatedMenu);
+    it('should update menu without error', async () => {
+      findOne.resolves({
+        ...order,
+        save: () => Promise.resolve({ ...order, status: 'paid' }),
+      });
 
-  //     await handlers.updateMenu(updateReq, res);
-  //     sinon.assert.calledWith(res.json, sinon.match(updatedMenu));
-  //   });
+      await handlers.updateOrderStatus({
+        params: { id: 100 },
+        body: { status: 'paid' },
+      }, res);
+      sinon.assert.calledWith(res.json, sinon.match({
+        ...order,
+        status: 'paid',
+      }));
+    });
   });
 
   // describe('#delete menu', () => {
