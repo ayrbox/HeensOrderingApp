@@ -11,7 +11,7 @@ const db = require('./config/keys').mongoURI;
 
 // import routes
 const userRoutes = require('./routes/api/userRoutes');
-const customerRoutes = require('./routes/api/customerRoutes');
+const { customerRoutes } = require('./routes');
 const categoryRoutes = require('./routes/api/categoryRoutes');
 const menuRoutes = require('./routes/api/menuRoutes');
 const orderRoutes = require('./routes/api/orderRoutes');

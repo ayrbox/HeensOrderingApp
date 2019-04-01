@@ -1,6 +1,6 @@
-const express = require('express');
+const { Router } = require('express');
 
-const categoryRoutes = express.Router();
+const categoryRoutes = Router();
 const passport = require('passport');
 
 // @model and validation
