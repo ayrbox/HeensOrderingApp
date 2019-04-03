@@ -28,6 +28,7 @@ describe('app routes', () => {
           .expect('Content-type', /json/)
           .expect(200)
           .end((err, res) => {
+            console.log(res);
             // res.status.should.equal(200);
             // res.body.error.should.equal(false);
             // res.body.data.should.equal(30);
