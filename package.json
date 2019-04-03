@@ -18,8 +18,7 @@
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pdfkit": "^0.8.3",
-    "supertest": "^3.4.2"
+    "pdfkit": "^0.8.3"
   },
   "scripts": {
     "start": "node index.js",
@@ -44,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
     "mocha": "^5.2.0",
-    "sinon": "^7.2.3"
+    "sinon": "^7.2.3",
+    "supertest": "^4.0.2"
   }
 }
