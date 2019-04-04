@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const testdb = require('./config/keys').mongoURI;
 
 const app = require('./app');
+const { auth } = require('./utils/test');
 
 describe('app routes', () => {
   before(() => {
@@ -56,6 +57,25 @@ describe('app routes', () => {
             expect(res.status).to.equal(200);
             expect(res.body.success).to.equal(true);
             expect(res.body.token).to.match(/Bearer\s[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
+            done();
+          });
+      });
+    });
+  });
+
+
+  describe('customers', () => {
+    context('with valid token', () => {
+      it('list customer', (done) => {
+        request(app)
+          .get('/api/customers/')
+          .use(auth())
+          .expect('Content-type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            console.log('RESPONSE', res.body);
+            expect(Array.isArray(res.body)).to.equal(true);
+            expect(res.status).to.equal(200);
             done();
           });
       });
