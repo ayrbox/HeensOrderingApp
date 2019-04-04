@@ -28,21 +28,20 @@ userRoutes.post('/login', (req, res) => {
 
   if (!isValid) {
     res.status(400).json(errors);
+    return {};
   }
 
-  User.find().then((users) => {
-    console.log(JSON.stringify(users, null, 2));
-  });
-
-  User.findOne({ email }).then((user) => {
+  return User.findOne({ email }).then((user) => {
     if (!user) {
       errors.email = 'User not found.';
       res.status(404).json(errors);
+      return;
     }
 
+    const { _id: id, name } = user;
     const payload = {
-      id: user.id,
-      name: user.name,
+      id,
+      name,
     };
 
     bcrypt.compare(password, user.password).then((match) => {
