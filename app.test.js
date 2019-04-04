@@ -7,7 +7,6 @@ const app = require('./app');
 
 describe('app routes', () => {
   before(() => {
-    // todo: connection to test database and run test script
     mongoose
       .connect(testdb)
       .then(() => console.log('Database connected')) // eslint-disable-line
@@ -15,27 +14,38 @@ describe('app routes', () => {
   });
 
   after(() => {
-    console.log('Required to disconnet from database');
-    // mongoose.disconnect();
+    mongoose.connection.close();
   });
 
-  describe('/api/users', () => {
-    describe('/login', (done) => {
-      it('should get 400 on wrong password', () => {
+  describe('/api/users/login', () => {
+    describe('when email or password is wrong', () => {
+      it('should return 400 for wrong email', (done) => {
+        request(app)
+          .post('/api/users/login')
+          .send({ email: 'notexistsing@admin.com', password: 'password' })
+          .expect(404)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.error).to.exist;
+            done();
+          });
+      });
+
+      it('should get 400 for wrongpassword', (done) => {
         request(app)
           .post('/api/users/login')
           .send({ email: 'admin@admin.com', password: 'wrongpassword' })
           .expect('Content-type', /json/)
-          .expect(200)
+          .expect(400)
           .end((err, res) => {
-            console.log(res);
-            // res.status.should.equal(200);
-            // res.body.error.should.equal(false);
-            // res.body.data.should.equal(30);
             expect(res.status).to.equal(400);
+            expect(res.error).to.exist;
             done();
           });
       });
     });
+
+    // describe('when email address does not exits', () => {
+    //       });
   });
 });
