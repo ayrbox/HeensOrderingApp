@@ -18,7 +18,7 @@ describe('app routes', () => {
   });
 
   describe('/api/users/login', () => {
-    describe('when email or password is wrong', () => {
+    context('when email or password is wrong', () => {
       it('should return 400 for wrong email', (done) => {
         request(app)
           .post('/api/users/login')
@@ -45,7 +45,20 @@ describe('app routes', () => {
       });
     });
 
-    // describe('when email address does not exits', () => {
-    //       });
+    context('when user email and password is correct', () => {
+      it('should return 200 with token', (done) => {
+        request(app)
+          .post('/api/users/login')
+          .send({ email: 'admin@admin.com', password: 'password' })
+          .expect('Content-type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.success).to.equal(true);
+            expect(res.body.token).to.match(/Bearer\s[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
+            done();
+          });
+      });
+    });
   });
 });
