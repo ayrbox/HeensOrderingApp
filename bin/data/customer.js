@@ -1,6 +1,6 @@
 const Faker = require('faker');
 
-const customerData = n => new Array(n).fill(undefined).map(() => ({
+const generateFakeCustomers = n => new Array(n).fill(undefined).map(() => ({
   name: Faker.name.findName(),
   phoneNo: Faker.phone.phoneNumber(),
   address: `${Faker.random.number()} ${Faker.address.streetName()}`,
@@ -8,4 +8,4 @@ const customerData = n => new Array(n).fill(undefined).map(() => ({
   note: Faker.lorem.paragraph(),
 }));
 
-module.exports = customerData;
+module.exports = generateFakeCustomers;
