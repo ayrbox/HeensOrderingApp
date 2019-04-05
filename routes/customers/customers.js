@@ -12,12 +12,13 @@ module.exports = (Customer, validateCustomer) => {
   };
 
   const getCustomer = (req, res) => Customer.findOne({ _id: req.params.id })
-    .then((c) => {
-      if (!c) {
+    .then((customer) => {
+      if (!customer) {
         res.status(404);
         res.json({ msg: 'Customer not found' });
+        return;
       }
-      res.json(c);
+      res.json(customer);
     })
     .catch(() => {
       res.status(500);
