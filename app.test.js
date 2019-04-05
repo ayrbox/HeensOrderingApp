@@ -7,15 +7,17 @@ const app = require('./app');
 const { auth } = require('./utils/test');
 
 describe('app routes', () => {
-  before(() => {
+  before((done) => {
     mongoose
       .connect(testdb)
       .then(() => console.log('Database connected')) // eslint-disable-line
       .catch(err => console.log(err)); // eslint-disable-line
+    done();
   });
 
-  after(() => {
+  after((done) => {
     mongoose.connection.close();
+    done();
   });
 
   describe('/api/users/login', () => {
@@ -190,6 +192,16 @@ describe('app routes', () => {
         .send(testCustomer)
         .end((err, res) => {
           expect(res.status).to.equal(200);
+          expect(Object.keys(res.body)).to.have.members([
+            '_id',
+            'name',
+            'phoneNo',
+            'address',
+            'postCode',
+            'note',
+            'registeredDate',
+            '__v',
+          ]);
           const {
             _id,
             registeredDate,
@@ -227,7 +239,21 @@ describe('app routes', () => {
         });
     });
 
-    it('should return 401 unauthorised');
+    it('should return 401 unauthorised', (done) => {
+      request(app)
+        .put(`/api/customers/${customerId}`)
+        .send({
+          name: 'test',
+          phoneNo: '000',
+          address: 'Update',
+          postCode: 'test',
+          note: 'note',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          done();
+        });
+    });
 
     it('should update existing customer', (done) => {
       request(app)
