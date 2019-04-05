@@ -63,8 +63,18 @@ const createUsers = async () => {
   console.log('Creating users...\n\n\n'); // eslint-disable-line
 
   await Promise.all(
-    userData.map(async ({ name, email, password }) => {
-      await new User({ name, email, password }).save();
+    userData.map(async ({
+      _id,
+      name,
+      email,
+      password,
+    }) => {
+      await new User({
+        _id,
+        name,
+        email,
+        password,
+      }).save();
       console.log('Users', name, email, password); // eslint-disable-line
     }),
   );
