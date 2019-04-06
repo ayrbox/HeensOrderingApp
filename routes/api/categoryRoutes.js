@@ -120,14 +120,14 @@ categoryRoutes.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { id } = req.params;
-    Category.find({ _id: id }).then((c) => {
+    return Category.findOne({ _id: id }).then((c) => {
       if (!c) {
-        return req.status(404).json({ msg: 'Category not found' });
+        res.status(404).json({ msg: 'Category not found' });
+        return {};
       }
-      Category.findOneAndRemove({ _id: id }).then(() => {
+      return Category.findOneAndRemove({ _id: id }).then(() => {
         res.json({ _id: id, msg: 'Category removed' });
       });
-      return res.status(200);
     });
   },
 );

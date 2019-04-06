@@ -542,6 +542,29 @@ describe('app routes', () => {
             done();
           });
       });
+
+      it('returns 404 not found', (done) => {
+        request(app)
+          .delete('/api/categories/5c9f8c64cae7314e3b9441d8')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Category not found',
+            });
+            done();
+          });
+      });
+
+      it('returns 200 after delete', (done) => {
+        request(app)
+          .delete(`/api/categories/${categoryId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            done();
+          });
+      });
     });
   });
 });
