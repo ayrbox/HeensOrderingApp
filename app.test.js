@@ -417,6 +417,20 @@ describe('app routes', () => {
           });
       });
 
+      it('should return 404 not found', (done) => {
+        // 5c9f8c64cae7314e3b9441d8
+        request(app)
+          .get('/api/categories/5c9f8c64cae7314e3b9441d8')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Customer not found',
+            });
+            done();
+          });
+      });
+
       it('should return category', (done) => {
         request(app)
           .get(`/api/categories/${categoryId}`)
@@ -435,11 +449,87 @@ describe('app routes', () => {
     });
 
     describe('POST /api/categories', () => {
+      it('should return 401 unauthorised', (done) => {
+        request(app)
+          .post('/api/categories')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
 
+      it('should return 400 bad request', (done) => {
+        request(app)
+          .post('/api/categories')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            done();
+          });
+      });
+
+      it('should return 201 created', (done) => {
+        request(app)
+          .post('/api/categories')
+          .use(auth())
+          .send({
+            name: 'Category to Create',
+            description: 'Test Creation of category',
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            done();
+          });
+      });
     });
 
     describe('PUT /api/categories/:id', () => {
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .put(`/api/categories/${categoryId}`)
+          .send({
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
 
+      it('returns 400 bad request', (done) => {
+        request(app)
+          .put(`/api/categories/${categoryId}`)
+          .use(auth())
+          .send({ })
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.be.a('object');
+            done();
+          });
+      });
+
+
+      it('returns 200 after udpate', (done) => {
+        const categoryUpdate = {
+          name: 'Updated Category Name',
+          description: 'Updated Desc',
+        };
+
+        request(app)
+          .put(`/api/categories/${categoryId}`)
+          .use(auth())
+          .send(categoryUpdate)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal({
+              ...categoryUpdate,
+              _id: categoryId,
+              __v: 0,
+            });
+            done();
+          });
+      });
     });
 
     describe('DELETE /api/categories/:id', () => {

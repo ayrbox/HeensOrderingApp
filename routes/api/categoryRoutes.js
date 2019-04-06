@@ -58,7 +58,8 @@ categoryRoutes.post(
   (req, res) => {
     const { errors, isValid } = validateCategory(req.body);
     if (!isValid) {
-      return res.status(400).json(errors);
+      res.status(400).json(errors);
+      return {};
     }
 
     const category = new Category({
@@ -66,12 +67,13 @@ categoryRoutes.post(
       description: req.body.description,
     });
 
-    category
+    return category
       .save()
-      .then(c => res.json(c))
+      .then((c) => {
+        res.status(201);
+        res.json(c);
+      })
       .catch(err => console.log(err)); // eslint-disable-line
-
-    return res.status(201);
   },
 );
 
