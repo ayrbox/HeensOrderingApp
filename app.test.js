@@ -567,4 +567,132 @@ describe('app routes', () => {
       });
     });
   });
+
+  describe('Menu', () => {
+    let categoryId;
+    let menuId;
+    let optionId;
+
+    const testCategory = {
+      name: 'Test Category',
+      description: 'Test category description',
+    }
+    const testMenu = {
+      name: 'Menu Name',
+      description: 'Menu Desc',
+      price: 10,
+      tags: 'menu, test, category, crud',
+    };
+
+    const testOption = {
+      description: 'Test Menu Option',
+      additionalCost: 0,
+    };
+
+    before((done) => {
+      request(app)
+        .post('/api/categories')
+        .use(auth())
+        .send(testCategory)
+        .end((categoryErr, categoryRes) => {
+          const { _id: categoryId_ } = categoryRes.body;
+          categoryId = categoryId_;
+          request(app)
+            .post('/api/menus/')
+            .use(auth())
+            .send({
+              ...testMenu,
+              category: categoryId,
+            })
+            .end((menuErr, menuRes) => {
+              const { _id } = menuRes.body;
+              menuId = _id;
+              request(app)
+                .post(`/api/menus/${menuId}/options`)
+                .use(auth())
+                .send(testOption)
+                .end((optionErr, optionRes) => {
+                  const { _id: _optionId } = optionRes.body;
+                  optionId = _optionId;
+                  done();
+                });
+            });
+        });
+    });
+
+    describe('GET /api/menus', () => {
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .get('/api/menus')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 200 menu list', (done) => {
+        request(app)
+          .get('/api/menus')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Array.isArray(res.body)).to.equal(true);
+            res.body.forEach((menu) => {
+              expect(Object.keys(menu)).to.include.members([
+                '_id',
+                'name',
+                'description',
+                'price',
+                'menuOptions',
+              ]);
+            });
+            done();
+          });
+      });
+    });
+
+    describe('GET /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 not found');
+      it('returns 200 menu');
+    });
+
+    describe('GET /api/menus/category/:categoryId', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request for no category');
+      it('returns 404 not found');
+      it('returns 200 menu list');
+    });
+
+    describe('POST /api/menus/', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request');
+      it('returns 201 menu');
+    });
+
+    describe('PUT /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request');
+      it('returns 200 updated menu');
+    });
+
+    describe('DELETE /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 not found');
+    });
+
+
+    describe('POST /api/menus/:id/options', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 menu not found');
+      it('returns 201 option added');
+    });
+
+    describe('DELETE /api/menus/:id/options/:optionId', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 menu not found');
+      it('returns 404 option not found');
+      it('returns 200 option deleted');
+    });
+  });
 });
