@@ -533,7 +533,15 @@ describe('app routes', () => {
     });
 
     describe('DELETE /api/categories/:id', () => {
-
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .delete(`/api/categories/${categoryId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
     });
   });
 });
