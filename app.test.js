@@ -255,6 +255,19 @@ describe('app routes', () => {
         });
     });
 
+    it('should return 400 bad request', (done) => {
+      request(app)
+        .put(`/api/customers/${customerId}`)
+        .use(auth())
+        .send({
+          name: 'Bad update',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
+
     it('should update existing customer', (done) => {
       request(app)
         .put(`/api/customers/${customerId}`)
@@ -284,6 +297,153 @@ describe('app routes', () => {
           expect(note).to.equal('Updated Note');
           done();
         });
+    });
+  });
+
+
+  describe('DELETE /api/customer/:id', () => {
+    it('should return 401 unauthorised', (done) => {
+      request(app)
+        .delete('/api/customers/5c9f8c64cae7314e3b9441d8')
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.text).to.equal('Unauthorized');
+          done();
+        });
+    });
+
+    it('should return 404 not found', (done) => {
+      request(app)
+        .delete('/api/customers/5c9f8c64cae7314e3b9441d8')
+        .use(auth())
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body).to.deep.equal({
+            msg: 'Customer not found',
+          });
+          done();
+        });
+    });
+
+    it('should remove added customer', (done) => {
+      // add customer before delete
+      request(app)
+        .post('/api/customers')
+        .use(auth())
+        .send({
+          name: 'Test',
+          phoneNo: '23947293742',
+          address: 'test road',
+          postCode: 'TESTCODE',
+          note: 'testnote',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          const { _id } = res.body;
+
+          // delete request
+          request(app)
+            .delete(`/api/customers/${_id}`)
+            .use(auth())
+            .end((deleteErr, deleteRes) => {
+              expect(deleteRes.status).to.equal(200);
+              expect(deleteRes.body).to.deep.equal({
+                msg: 'Customer Removed',
+              });
+              done();
+            });
+        });
+    });
+  });
+
+  describe('Category', () => {
+    let categoryId;
+    const testCategory = {
+      name: 'Category Name',
+      description: 'Test Category',
+    };
+
+    before((done) => {
+      request(app)
+        .post('/api/categories')
+        .use(auth())
+        .send(testCategory)
+        .end((err, res) => {
+          const { _id } = res.body;
+          categoryId = _id;
+          done();
+        });
+    });
+
+    describe('GET /api/categories', () => {
+      it('should return 401 unauthorized', (done) => {
+        request(app)
+          .get('/api/categories')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('should return 200 with categories', (done) => {
+        request(app)
+          .get('/api/categories')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Array.isArray(res.body)).to.equal(true);
+            res.body.forEach((category) => {
+              expect(Object.keys(category)).to.have.members([
+                '_id',
+                'name',
+                'description',
+                '__v',
+              ]);
+            });
+            done();
+          });
+      });
+    });
+
+    describe('GET /api/categories/:id', () => {
+      it('should return 401 unauthorised', (done) => {
+        request(app)
+          .get(`/api/categories/${categoryId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('should return category', (done) => {
+        request(app)
+          .get(`/api/categories/${categoryId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Object.keys(res.body)).to.have.members([
+              '_id',
+              'name',
+              'description',
+              '__v',
+            ]);
+            done();
+          });
+      });
+    });
+
+    describe('POST /api/categories', () => {
+
+    });
+
+    describe('PUT /api/categories/:id', () => {
+
+    });
+
+    describe('DELETE /api/categories/:id', () => {
+
     });
   });
 });
