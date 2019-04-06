@@ -30,7 +30,8 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",
     "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
     "test": "NODE_ENV=test mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
-    "tt": "NODE_ENV=test mocha"
+    "tt": "NODE_ENV=test mocha",
+    "fake": "node fake.js"
   },
   "eslintConfig": {
     "extends": "airbnb"

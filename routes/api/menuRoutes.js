@@ -81,9 +81,10 @@ menuRoutes.post(
     const { errors, isValid } = validateMenu(req.body);
     if (!isValid) {
       res.status(400).json(errors);
+      return {};
     }
 
-    new Menu({
+    return new Menu({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,

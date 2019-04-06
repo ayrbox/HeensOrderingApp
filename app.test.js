@@ -567,4 +567,95 @@ describe('app routes', () => {
       });
     });
   });
+
+  describe('Menu', () => {
+    let menuId;
+    let optionId;
+    const testMenu = {
+      name: 'Menu Name',
+      description: 'Menu Desc',
+      price: 10,
+      category: 'required a caegory id',
+      tags: 'menu, test, category, crud',
+    };
+
+    const testOption = {
+      description: 'Test Menu Option',
+      additionalCost: 0,
+    };
+
+    before((done) => {
+      request(app)
+        .post('/api/menus/')
+        .use(auth())
+        .send(testMenu)
+        .end((err, res) => {
+          const { _id } = res.body;
+          menuId = _id;
+          console.log(res);
+          console.log(`/api/menus/${menuId}/options`);
+
+          // request(app)
+          //   .post(`/api/menus/${menuId}/options`)
+          //   .use(auth())
+          //   .send(testOption)
+          //   .end((optionErr, optionRes) => {
+          //     console.log(res);
+          //     const { _id: _optionId } = optionRes.body;
+          //     optionId = _optionId;
+          //     done();
+          //   });
+          done();
+        });
+    });
+
+    describe('GET /api/menus', () => {
+      it('returns 401 unauthorised');
+      it('returns 200 menu list');
+    });
+
+    describe('GET /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 not found');
+      it('returns 200 menu');
+    });
+
+    describe('GET /api/menus/category/:categoryId', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request for no category');
+      it('returns 404 not found');
+      it('returns 200 menu list');
+    });
+
+    describe('POST /api/menus/', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request');
+      it('returns 201 menu');
+    });
+
+    describe('PUT /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 400 bad request');
+      it('returns 200 updated menu');
+    });
+
+    describe('DELETE /api/menus/:id', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 not found');
+    });
+
+
+    describe('POST /api/menus/:id/options', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 menu not found');
+      it('returns 201 option added');
+    });
+
+    describe('DELETE /api/menus/:id/options/:optionId', () => {
+      it('returns 401 unauthorised');
+      it('returns 404 menu not found');
+      it('returns 404 option not found');
+      it('returns 200 option deleted');
+    });
+  });
 });
