@@ -21,7 +21,7 @@ menuRoutes.get(
       .populate('category') // , ["name", "description"]
       .then((menus) => {
         if (menus.length <= 0) {
-          errors.msg = 'Not found';
+          errors.msg = 'Menu not found';
           return res.status(404).json(errors);
         }
         return res.json(menus);
@@ -42,7 +42,7 @@ menuRoutes.get(
       .populate('category', ['name', 'description'])
       .then((menu) => {
         if (!menu) {
-          errors.msg = 'Not found';
+          errors.msg = 'Menu not found';
           return res.status(404).json(errors);
         }
         return res.json(menu);
@@ -55,18 +55,20 @@ menuRoutes.get(
 // @access       private
 // @return       [Menu]
 menuRoutes.get(
-  '/category/:cateogryId',
+  '/category/:categoryId',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
-    Menu.find({ category: req.params.categoryId }).then((menus) => {
-      if (menus.length === 0) {
-        errors.msg = 'Not menu in the category';
-        return res.status(404).json(errors);
-      }
-
-      return res.json(menus);
-    });
+    return Menu.find({ category: req.params.categoryId })
+      .populate('category', ['name', 'description'])
+      .then((menus) => {
+        if (menus.length === 0) {
+          errors.msg = 'Menu not found';
+          res.status(404).json(errors);
+          return;
+        }
+        res.json(menus);
+      });
   },
 );
 

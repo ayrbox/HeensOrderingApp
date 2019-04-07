@@ -652,16 +652,86 @@ describe('app routes', () => {
     });
 
     describe('GET /api/menus/:id', () => {
-      it('returns 401 unauthorised');
-      it('returns 404 not found');
-      it('returns 200 menu');
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .get(`/api/menus/${menuId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 404 not found', (done) => {
+        request(app)
+          .get('/api/menus/5ca7b3b4743b051fbb7aa28c')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({ msg: 'Menu not found' });
+            done();
+          });
+      });
+      it('returns 200 menu', (done) => {
+        request(app)
+          .get(`/api/menus/${menuId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Object.keys(res.body)).to.include.members([
+              '_id',
+              'name',
+              'description',
+              'price',
+              'menuOptions',
+            ]);
+            done();
+          });
+      });
     });
 
     describe('GET /api/menus/category/:categoryId', () => {
-      it('returns 401 unauthorised');
-      it('returns 400 bad request for no category');
-      it('returns 404 not found');
-      it('returns 200 menu list');
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .get(`/api/menus/category/${categoryId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('returns 404 not found', (done) => {
+        request(app)
+          .get('/api/menus/category/5ca92f78f6d2480e91392d73')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Menu not found',
+            });
+            done();
+          });
+      });
+
+      it('returns 200 menu list', (done) => {
+        request(app)
+          .get(`/api/menus/category/${categoryId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Array.isArray(res.body)).to.equal(true);
+            res.body.forEach((menu) => {
+              expect(Object.keys(menu)).to.include.members([
+                '_id',
+                'name',
+                'description',
+                'price',
+                'menuOptions',
+              ]);
+            });
+            done();
+          });
+      });
     });
 
     describe('POST /api/menus/', () => {
