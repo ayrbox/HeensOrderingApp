@@ -92,7 +92,10 @@ menuRoutes.post(
       category: req.body.category,
       tags: (req.body.tags || '').split(','),
     }).save()
-      .then(m => res.json(m))
+      .then((m) => {
+        res.status(201);
+        res.json(m);
+      })
       .catch((err) => {
         errors.msg = 'Unable to add menu';
         errors.exception = err;

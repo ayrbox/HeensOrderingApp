@@ -778,13 +778,87 @@ describe('app routes', () => {
             });
           });
       });
-      it('returns 201 menu');
+      it('returns 201 menu', (done) => {
+        request(app)
+          .post('/api/menus/')
+          .use(auth())
+          .send({
+            name: 'Test Menu Item',
+            description: 'Test Menu Item Description',
+            price: 100.00,
+            category: categoryId,
+            tags: 'menu, test, item',
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            expect(Object.keys(res.body)).to.include.members([
+              '_id',
+              '__v',
+              'name',
+              'description',
+              'menuOptions',
+              'category',
+            ]);
+            done();
+          });
+      });
     });
 
     describe('PUT /api/menus/:id', () => {
-      it('returns 401 unauthorised');
-      it('returns 400 bad request');
-      it('returns 200 updated menu');
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .put(`/api/menus/${menuId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 400 bad request', (done) => {
+        request(app)
+          .put(`/api/menus/${menuId}`)
+          .use(auth())
+          .send({})
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.deep.equal({
+              name: '"name" is required',
+              description: '"description" is required',
+              price: '"price" is required',
+              category: '"category" is required',
+            });
+            done();
+          });
+      });
+      it('returns 200 updated menu', (done) => {
+        const updatedMenu = {
+          name: 'Updated menu item',
+          description: 'Updated menu description',
+          price: 10.10,
+          category: categoryId,
+        };
+        request(app)
+          .put(`/api/menus/${menuId}`)
+          .use(auth())
+          .send(updatedMenu)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            const {
+              _id,
+              name,
+              description,
+              price,
+              menuOptions,
+            } = res.body;
+
+            expect(_id).to.equal(menuId);
+            expect(name).to.equal(updatedMenu.name);
+            expect(description).to.equal(updatedMenu.description);
+            expect(price).to.equal(updatedMenu.price);
+            expect(Array.isArray(menuOptions)).to.equal(true);
+            done();
+          });
+      });
     });
 
     describe('DELETE /api/menus/:id', () => {
