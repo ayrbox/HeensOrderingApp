@@ -12,12 +12,13 @@ module.exports = (Customer, validateCustomer) => {
   };
 
   const getCustomer = (req, res) => Customer.findOne({ _id: req.params.id })
-    .then((c) => {
-      if (!c) {
+    .then((customer) => {
+      if (!customer) {
         res.status(404);
         res.json({ msg: 'Customer not found' });
+        return;
       }
-      res.json(c);
+      res.json(customer);
     })
     .catch(() => {
       res.status(500);
@@ -59,19 +60,21 @@ module.exports = (Customer, validateCustomer) => {
       return {};
     }
 
-    const customer = ({
+    const {
       name,
       phoneNo,
       address,
       postCode,
       note,
-    }) => ({
+    } = req.body;
+
+    const customer = {
       name,
       phoneNo,
       address,
       postCode,
       note,
-    })(req.body);
+    };
 
     return Customer.findOne({ _id: req.params.id }).then((c) => {
       if (!c) {
@@ -103,12 +106,10 @@ module.exports = (Customer, validateCustomer) => {
       return Customer.findOneAndRemove({ _id: req.params.id })
         .then(() => {
           res.json({ msg: 'Customer Removed' });
-          return {};
         })
         .catch(() => {
           res.status(500);
           res.json({ msg: 'Unable to delete customer' });
-          return {};
         });
     })
     .catch((e) => {

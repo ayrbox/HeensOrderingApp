@@ -1,7 +1,13 @@
 [
   {
+    "_id": "5c9f8c64cae7314e3b9441d8",
     "name" : "admin",
     "email" : "admin@admin.com",
+    "password" : "$2a$10$IvHu5UtdF.RFoWs9gtPHnepwqULSVVNgnwLADv9FzwH8rEXCnnbrW"
+  },
+  {
+    "name": "test",
+    "email": "test@hotmail.com",
     "password" : "$2a$10$IvHu5UtdF.RFoWs9gtPHnepwqULSVVNgnwLADv9FzwH8rEXCnnbrW"
   }
 ]

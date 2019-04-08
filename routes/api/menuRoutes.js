@@ -21,7 +21,7 @@ menuRoutes.get(
       .populate('category') // , ["name", "description"]
       .then((menus) => {
         if (menus.length <= 0) {
-          errors.msg = 'Not found';
+          errors.msg = 'Menu not found';
           return res.status(404).json(errors);
         }
         return res.json(menus);
@@ -42,7 +42,7 @@ menuRoutes.get(
       .populate('category', ['name', 'description'])
       .then((menu) => {
         if (!menu) {
-          errors.msg = 'Not found';
+          errors.msg = 'Menu not found';
           return res.status(404).json(errors);
         }
         return res.json(menu);
@@ -55,18 +55,20 @@ menuRoutes.get(
 // @access       private
 // @return       [Menu]
 menuRoutes.get(
-  '/category/:cateogryId',
+  '/category/:categoryId',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
-    Menu.find({ category: req.params.categoryId }).then((menus) => {
-      if (menus.length === 0) {
-        errors.msg = 'Not menu in the category';
-        return res.status(404).json(errors);
-      }
-
-      return res.json(menus);
-    });
+    return Menu.find({ category: req.params.categoryId })
+      .populate('category', ['name', 'description'])
+      .then((menus) => {
+        if (menus.length === 0) {
+          errors.msg = 'Menu not found';
+          res.status(404).json(errors);
+          return;
+        }
+        res.json(menus);
+      });
   },
 );
 
@@ -90,7 +92,10 @@ menuRoutes.post(
       category: req.body.category,
       tags: (req.body.tags || '').split(','),
     }).save()
-      .then(m => res.json(m))
+      .then((m) => {
+        res.status(201);
+        res.json(m);
+      })
       .catch((err) => {
         errors.msg = 'Unable to add menu';
         errors.exception = err;
@@ -144,17 +149,16 @@ menuRoutes.put(
 menuRoutes.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Menu.find({ _id: req.params.id }).then((m) => {
-      if (!m) {
-        res.status(404).json({ msg: 'Menu not found' });
-      }
+  (req, res) => Menu.findOne({ _id: req.params.id }).then((m) => {
+    if (!m) {
+      res.status(404).json({ msg: 'Menu not found' });
+      return;
+    }
 
-      Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
-        res.json({ msg: 'Menu removed' });
-      });
+    Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
+      res.json({ msg: 'Menu deleted' });
     });
-  },
+  }),
 );
 
 // @route        POST api/menus/:id/options
@@ -169,6 +173,7 @@ menuRoutes.post(
 
     if (!isValid) {
       res.status(400).json(errors);
+      return;
     }
 
     Menu.findOne({ _id: req.params.id }).then((menu) => {
@@ -199,6 +204,7 @@ menuRoutes.delete(
     Menu.findOne({ _id: req.params.id }).then((menu) => {
       if (!menu) {
         res.status(404).json({ msg: 'Menu not found' });
+        return;
       }
 
       const index = menu.menuOptions

@@ -14,16 +14,15 @@ const { validateCustomer } = require('../../validation/customerValidation');
 customerRoutes.get(
   '/',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    const errors = {};
-    Customer.find().then((customers) => {
-      if (customers.length <= 0) {
-        errors.msg = 'No customers found.';
-        res.status(404).json(errors);
-      }
-      res.json(customers);
-    });
-  },
+  (req, res) => Customer.find().then((customers) => {
+    if (customers.length <= 0) {
+      res.status(404).json({
+        msg: 'No customers found.',
+      });
+      return;
+    }
+    res.json(customers);
+  }),
 );
 
 // @route        GET api/customers/:id
@@ -34,10 +33,12 @@ customerRoutes.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Customer.findOne({ _id: req.params.id })
+    const { id } = req.params;
+    return Customer.findOne({ _id: id })
       .then((c) => {
         if (!c) {
           res.status(404).json({ msg: 'Customer not found' });
+          return;
         }
         res.json(c);
       })
@@ -61,12 +62,20 @@ customerRoutes.post(
       res.status(400).json(errors);
     }
 
+    const {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    } = req.body;
+
     const customer = new Customer({
-      name: req.body.name,
-      phoneNo: req.body.phoneNo,
-      address: req.body.address,
-      postCode: req.body.postCode,
-      note: req.body.note,
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
     });
 
     customer

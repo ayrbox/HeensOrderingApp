@@ -10,7 +10,7 @@ const Customer = require('../models/customerModel');
 const categoryData = require('./data/categories.json');
 const menuData = require('./data/menu.json');
 const userData = require('./data/users.json');
-const customerData = require('./data/customer');
+const generateFakeCustomers = require('./data/customer');
 
 
 const createCategories = async () => {
@@ -63,8 +63,18 @@ const createUsers = async () => {
   console.log('Creating users...\n\n\n'); // eslint-disable-line
 
   await Promise.all(
-    userData.map(async ({ name, email, password }) => {
-      await new User({ name, email, password }).save();
+    userData.map(async ({
+      _id,
+      name,
+      email,
+      password,
+    }) => {
+      await new User({
+        _id,
+        name,
+        email,
+        password,
+      }).save();
       console.log('Users', name, email, password); // eslint-disable-line
     }),
   );
@@ -74,7 +84,7 @@ const createCustomers = async () => {
   console.log('Creating customers.... \n\n\n'); // eslint-disable-line
 
   await Promise.all(
-    customerData.map(async ({
+    generateFakeCustomers(100).map(async ({
       name,
       phoneNo,
       address,

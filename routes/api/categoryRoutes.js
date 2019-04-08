@@ -1,6 +1,6 @@
-const express = require('express');
+const { Router } = require('express');
 
-const categoryRoutes = express.Router();
+const categoryRoutes = Router();
 const passport = require('passport');
 
 // @model and validation
@@ -58,7 +58,8 @@ categoryRoutes.post(
   (req, res) => {
     const { errors, isValid } = validateCategory(req.body);
     if (!isValid) {
-      return res.status(400).json(errors);
+      res.status(400).json(errors);
+      return {};
     }
 
     const category = new Category({
@@ -66,12 +67,13 @@ categoryRoutes.post(
       description: req.body.description,
     });
 
-    category
+    return category
       .save()
-      .then(c => res.json(c))
+      .then((c) => {
+        res.status(201);
+        res.json(c);
+      })
       .catch(err => console.log(err)); // eslint-disable-line
-
-    return res.status(201);
   },
 );
 
@@ -118,14 +120,14 @@ categoryRoutes.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { id } = req.params;
-    Category.find({ _id: id }).then((c) => {
+    return Category.findOne({ _id: id }).then((c) => {
       if (!c) {
-        return req.status(404).json({ msg: 'Category not found' });
+        res.status(404).json({ msg: 'Category not found' });
+        return {};
       }
-      Category.findOneAndRemove({ _id: id }).then(() => {
+      return Category.findOneAndRemove({ _id: id }).then(() => {
         res.json({ _id: id, msg: 'Category removed' });
       });
-      return res.status(200);
     });
   },
 );
