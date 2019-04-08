@@ -900,7 +900,6 @@ describe('app routes', () => {
           .send(optionAdded)
           .end((err, res) => {
             expect(res.status).to.equal(200);
-            // expect(res.body.menuOptions).to.include(testOption);
             const testOptions = res.body.menuOptions.filter(option => (
               option.description === optionAdded.description
               && option.additionalCost === optionAdded.additionalCost
@@ -912,10 +911,51 @@ describe('app routes', () => {
     });
 
     describe('DELETE /api/menus/:id/options/:optionId', () => {
-      it('returns 401 unauthorised');
-      it('returns 404 menu not found');
-      it('returns 404 option not found');
-      it('returns 200 option deleted');
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .delete(`/api/menus/${menuId}/options/${optionId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 404 menu not found', (done) => {
+        request(app)
+          .delete('/api/menus/5ca7b3b4743b051fbb7aa28c/options/5ca7b3b4743b051fbb7aa28c')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Menu not found',
+            });
+            done();
+          });
+      });
+      it('returns 404 option not found', (done) => {
+        request(app)
+          .delete(`/api/menus/${menuId}/options/5ca7b3b4743b051fbb7aa28c`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Option not found',
+            });
+            done();
+          });
+      });
+      it('returns 200 option deleted', (done) => {
+        request(app)
+          .delete(`/api/menus/${menuId}/options/${optionId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Option not found',
+            });
+            done();
+          });
+      });
     });
 
     describe('DELETE /api/menus/:id', () => {
