@@ -861,12 +861,6 @@ describe('app routes', () => {
       });
     });
 
-    describe('DELETE /api/menus/:id', () => {
-      it('returns 401 unauthorised');
-      it('returns 404 not found');
-    });
-
-
     describe('POST /api/menus/:id/options', () => {
       it('returns 401 unauthorised');
       it('returns 404 menu not found');
@@ -878,6 +872,44 @@ describe('app routes', () => {
       it('returns 404 menu not found');
       it('returns 404 option not found');
       it('returns 200 option deleted');
+    });
+
+    describe('DELETE /api/menus/:id', () => {
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .delete(`/api/menus/${menuId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('returns 404 not found', (done) => {
+        request(app)
+          .delete('/api/menus/5ca7b3b4743b051fbb7aa28c')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Menu not found',
+            });
+            done();
+          });
+      });
+
+      it('returns 200 deletes successfully', (done) => {
+        request(app)
+          .delete(`/api/menus/${menuId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal({
+              msg: 'Menu deleted',
+            });
+            done();
+          });
+      });
     });
   });
 });

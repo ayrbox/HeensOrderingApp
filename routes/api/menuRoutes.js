@@ -149,17 +149,16 @@ menuRoutes.put(
 menuRoutes.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Menu.find({ _id: req.params.id }).then((m) => {
-      if (!m) {
-        res.status(404).json({ msg: 'Menu not found' });
-      }
+  (req, res) => Menu.findOne({ _id: req.params.id }).then((m) => {
+    if (!m) {
+      res.status(404).json({ msg: 'Menu not found' });
+      return;
+    }
 
-      Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
-        res.json({ msg: 'Menu removed' });
-      });
+    Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
+      res.json({ msg: 'Menu deleted' });
     });
-  },
+  }),
 );
 
 // @route        POST api/menus/:id/options
