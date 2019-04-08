@@ -597,7 +597,8 @@ describe('app routes', () => {
     const testCategory = {
       name: 'Test Category',
       description: 'Test category description',
-    }
+    };
+
     const testMenu = {
       name: 'Menu Name',
       description: 'Menu Desc',
@@ -994,6 +995,61 @@ describe('app routes', () => {
             done();
           });
       });
+    });
+  });
+
+  describe('Order', () => {
+    let orderId;
+    before((done) => {
+      request(app)
+        .post('/api/orders/')
+        .use(auth())
+        .send({
+          orderItems: [],
+          subTotal: 100,
+          discount: 0,
+          orderTotal: 100,
+          orderType: 'collection',
+          note: 'Nothing',
+          orderStatus: 'ordered',
+        })
+        .end((err, res) => {
+          console.log('RES', res);
+          const { _id } = res.body;
+          orderId = _id;
+          done();
+        });
+    });
+
+    describe('GET /api/orders/', () => {
+      it('returns 401 unauthorized');
+      it('returns 404 not found');
+      it('returns 200 orders');
+    });
+
+    describe('GET /api/orders/:id', () => {
+      it('returns 401 unauthorized');
+      it('returns 404 not found');
+      it('returns 200 order');
+    });
+
+    describe('POST /api/orders', () => {
+      it('returns 401 unauthorized');
+      it('returns 400 bad request');
+      it('returns 201 created');
+    });
+
+    describe('PUT /api/orders/:id', () => {
+      it('returns 401 unauthorized');
+      it('returns 400 not found');
+      it('returns 400 bad request');
+      it('returns 200 updated');
+    });
+
+    describe('DELETE /api/orders/:id', () => {
+      it('returns 401 unauthorized');
+      it('returns 404 not found');
+      it('returns 200 deleted');
     });
   });
 });
