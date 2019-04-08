@@ -862,9 +862,53 @@ describe('app routes', () => {
     });
 
     describe('POST /api/menus/:id/options', () => {
-      it('returns 401 unauthorised');
-      it('returns 404 menu not found');
-      it('returns 201 option added');
+      it('returns 401 unauthorised', (done) => {
+        request(app)
+          .post(`/api/menus/${menuId}/options`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 404 menu not found', (done) => {
+        request(app)
+          .post('/api/menus/5ca7b3b4743b051fbb7aa28c/options/')
+          .use(auth())
+          .send({
+            description: 'Updated option',
+            additionalCost: 100,
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Menu not found',
+            });
+            done();
+          });
+      });
+
+      it('returns 201 option added', (done) => {
+        const optionAdded = {
+          description: 'Updated options',
+          additionalCost: 100,
+        };
+
+        request(app)
+          .post(`/api/menus/${menuId}/options`)
+          .use(auth())
+          .send(optionAdded)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            // expect(res.body.menuOptions).to.include(testOption);
+            const testOptions = res.body.menuOptions.filter(option => (
+              option.description === optionAdded.description
+              && option.additionalCost === optionAdded.additionalCost
+            ));
+            expect(testOptions.length).to.above(0);
+            done();
+          });
+      });
     });
 
     describe('DELETE /api/menus/:id/options/:optionId', () => {

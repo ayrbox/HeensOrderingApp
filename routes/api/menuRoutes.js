@@ -173,6 +173,7 @@ menuRoutes.post(
 
     if (!isValid) {
       res.status(400).json(errors);
+      return;
     }
 
     Menu.findOne({ _id: req.params.id }).then((menu) => {
@@ -203,6 +204,7 @@ menuRoutes.delete(
     Menu.findOne({ _id: req.params.id }).then((menu) => {
       if (!menu) {
         res.status(404).json({ msg: 'Menu not found' });
+        return;
       }
 
       const index = menu.menuOptions
