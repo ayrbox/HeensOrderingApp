@@ -106,6 +106,27 @@ describe('app routes', () => {
   });
 
   describe('GET /api/customers/:id', () => {
+    let customerId;
+    const testCustomer = {
+      name: 'Test',
+      phoneNo: '23947293742',
+      address: 'test road',
+      postCode: 'TESTCODE',
+      note: 'testnote',
+    };
+
+    before((done) => {
+      request(app)
+        .post('/api/customers/')
+        .use(auth())
+        .send(testCustomer)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          const { _id } = res.body;
+          customerId = _id;
+          done();
+        });
+    });
     context('without valid token', () => {
       it('should return unauthorised 401', (done) => {
         request(app)
@@ -135,7 +156,7 @@ describe('app routes', () => {
 
       it('should return customers', (done) => {
         request(app)
-          .get('/api/customers/5ca7b3b4743b051fbb7aa28c')
+          .get(`/api/customers/${customerId}`)
           .use(auth())
           .expect('Content-type', /json/)
           .expect(200)
@@ -735,8 +756,28 @@ describe('app routes', () => {
     });
 
     describe('POST /api/menus/', () => {
-      it('returns 401 unauthorised');
-      it('returns 400 bad request');
+      it('returns 401 unauthorised', () => {
+        request(app)
+          .post('/api/menus/')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+          });
+      });
+      it('returns 400 bad request', () => {
+        request(app)
+          .post('/api/menus/')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.deep.equal({
+              category: '"category" is required',
+              description: '"description" is required',
+              name: '"name" is required',
+              price: '"price" is required',
+            });
+          });
+      });
       it('returns 201 menu');
     });
 
