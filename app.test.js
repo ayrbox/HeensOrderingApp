@@ -1000,56 +1000,233 @@ describe('app routes', () => {
 
   describe('Order', () => {
     let orderId;
+    const testOrder = {
+      date: new Date(),
+      orderItems: [{
+        name: 'Test Menu Item',
+        description: 'Hello Menu Item',
+        price: 100,
+        menuOptions: [{
+          description: 'Extra sauce',
+          additionalCost: 1,
+        }],
+        itemTotal: 101,
+      }],
+      subTotal: 101,
+      discount: 0,
+      orderTotal: 101,
+      orderType: 'collection',
+      note: 'Nothing',
+      status: 'ordered',
+    };
+
     before((done) => {
       request(app)
         .post('/api/orders/')
         .use(auth())
-        .send({
-          orderItems: [],
-          subTotal: 100,
-          discount: 0,
-          orderTotal: 100,
-          orderType: 'collection',
-          note: 'Nothing',
-          orderStatus: 'ordered',
-        })
-        .end((err, res) => {
-          console.log('RES', res);
-          const { _id } = res.body;
+        .send(testOrder)
+        .end((insertErr, insertRes) => {
+          const { _id } = insertRes.body;
           orderId = _id;
           done();
         });
     });
 
     describe('GET /api/orders/', () => {
-      it('returns 401 unauthorized');
-      it('returns 404 not found');
-      it('returns 200 orders');
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .get('/api/orders')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      // it('returns 404 not found', (done) => {
+      //   request(app)
+      //     .get('/api/orders')
+      //     .use(auth())
+      //     .end((err, res) => {
+      //       expect(res.status).to.equal(404);
+      //       expect(res.body).to.deep.equal({
+      //         msg: 'No orders were found',
+      //       });
+      //       done();
+      //     });
+      // });
+
+      it('returns 200 orders', (done) => {
+        request(app)
+          .get('/api/orders')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Array.isArray(res.body)).to.equal(true);
+            res.body.forEach((order) => {
+              expect(Object.keys(order)).to.include.members(Object.keys(testOrder));
+            });
+            done();
+          });
+      });
     });
 
     describe('GET /api/orders/:id', () => {
-      it('returns 401 unauthorized');
-      it('returns 404 not found');
-      it('returns 200 order');
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .get(`/api/orders/${orderId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('returns 404 not found', (done) => {
+        request(app)
+          .get('/api/orders/5ca7b3b4743b051fbb7aa28c')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Order not found',
+            });
+            done();
+          });
+      });
+
+      it('returns 200 order', (done) => {
+        request(app)
+          .get(`/api/orders/${orderId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Object.keys(res.body)).to.include.members(Object.keys(testOrder));
+            done();
+          });
+      });
     });
 
     describe('POST /api/orders', () => {
-      it('returns 401 unauthorized');
-      it('returns 400 bad request');
-      it('returns 201 created');
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .post('/api/orders')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 400 bad request', (done) => {
+        request(app)
+          .post('/api/orders')
+          .use(auth())
+          .send({})
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.deep.equal({
+              date: '"date" is required',
+              subTotal: '"subTotal" is required',
+              discount: '"discount" is required',
+              orderTotal: '"orderTotal" is required',
+              orderType: '"orderType" is required',
+              status: '"status" is required',
+            });
+            done();
+          });
+      });
+      it('returns 201 created', (done) => {
+        request(app)
+          .post('/api/orders')
+          .send(testOrder)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(Object.keys(res.body)).to.include.members(Object.keys(testOrder));
+            done();
+          });
+      });
     });
 
     describe('PUT /api/orders/:id', () => {
-      it('returns 401 unauthorized');
-      it('returns 400 not found');
-      it('returns 400 bad request');
-      it('returns 200 updated');
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .put(`/api/orders/${orderId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+
+      it('returns 404 not found', (done) => {
+        request(app)
+          .put('/api/orders/5ca7b3b4743b051fbb7aa28c')
+          .send({ status: 'ordered' })
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({ msg: 'Order not found' });
+            done();
+          });
+      });
+      it('returns 400 bad request', (done) => {
+        request(app)
+          .put(`/api/orders/${orderId}`)
+          .use(auth())
+          .send()
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            done();
+          });
+      });
+      it('returns 200 updated', (done) => {
+        request(app)
+          .put(`/api/orders/${orderId}`)
+          .use(auth())
+          .send({ status: 'paid' })
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.status).to.equal('paid');
+            done();
+          });
+      });
     });
 
     describe('DELETE /api/orders/:id', () => {
-      it('returns 401 unauthorized');
-      it('returns 404 not found');
-      it('returns 200 deleted');
+      it('returns 401 unauthorized', (done) => {
+        request(app)
+          .delete(`/api/orders/${orderId}`)
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.text).to.equal('Unauthorized');
+            done();
+          });
+      });
+      it('returns 404 not found', (done) => {
+        request(app)
+          .delete('/api/orders/5ca7b3b4743b051fbb7aa28c')
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.deep.equal({
+              msg: 'Order not found',
+            });
+            done();
+          });
+      });
+      it('returns 200 deleted', (done) => {
+        request(app)
+          .delete(`/api/orders/${orderId}`)
+          .use(auth())
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal({
+              msg: 'Order removed',
+            });
+            done();
+          });
+      });
     });
   });
 });
