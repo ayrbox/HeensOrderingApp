@@ -9,9 +9,11 @@ const app = express();
 
 // import routes
 const userRoutes = require('./routes/api/userRoutes');
-const { customerRoutes } = require('./routes');
+const {
+  customerRoutes,
+  menuRoutes,
+} = require('./routes');
 const categoryRoutes = require('./routes/api/categoryRoutes');
-const menuRoutes = require('./routes/api/menuRoutes');
 const orderRoutes = require('./routes/api/orderRoutes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
