@@ -37,9 +37,10 @@ orderRoutes.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Order.findOne({ _id: req.params.id }).then((o) => {
+    return Order.findOne({ _id: req.params.id }).then((o) => {
       if (!o) {
         res.status(404).json({ msg: 'Order not found' });
+        return {};
       }
 
       res.json(o);
@@ -60,6 +61,7 @@ orderRoutes.post(
 
     if (!isValid) {
       res.status(400).json(errors);
+      return {};
     }
 
     // validate delivery
@@ -68,7 +70,8 @@ orderRoutes.post(
         req.body.deliveryAddress,
       );
       if (!isValidDeliveryAddress) {
-        return res.status(400).json(validationErrors);
+        res.status(400).json(validationErrors);
+        return {};
       }
     }
 
@@ -85,7 +88,7 @@ orderRoutes.post(
       orderType,
       deliveryAddress,
       note,
-      orderStatus,
+      status,
       discount,
       tableNo,
     } = req.body;
@@ -95,7 +98,7 @@ orderRoutes.post(
       orderType,
       deliveryAddress,
       note,
-      orderStatus,
+      status,
       subTotal,
       discount,
       orderTotal,
@@ -115,17 +118,20 @@ orderRoutes.put(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { status } = req.body;
+    if (!status) {
+      res.status(400);
+      res.json({ msg: 'Invalid status' });
+      return {};
+    }
 
-    Order.findOne({ _id: req.params.id }).then((order) => {
+    return Order.findOne({ _id: req.params.id }).then((order) => {
       if (!order) {
-        return res.status(404).json({ msg: 'Order not found' });
+        res.status(404).json({ msg: 'Order not found' });
+        return;
       }
-
       // @todo: visit eslint disable issue
-      order.orderStatus = status; // eslint-disable-line
+      order.status = status; // eslint-disable-line
       order.save().then(o => res.json(o));
-      // @todo revisit order status findoneandupdate
-      return res.status(200);
     });
   },
 );
@@ -208,18 +214,17 @@ orderRoutes.delete(
 orderRoutes.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Order.findOne({ _id: req.params.id }).then((o) => {
-      if (!o) {
-        return res.status(404).json({ msg: 'Order not found' });
-      }
+  (req, res) => Order.findOne({ _id: req.params.id }).then((o) => {
+    if (!o) {
+      res.status(404);
+      res.json({ msg: 'Order not found' });
+      return {};
+    }
 
-      Order.findOneAndRemove({ _id: req.params.id }).then(() => {
-        res.json({ msg: 'Order removed' });
-      });
-      return res.status(200);
+    return Order.findOneAndRemove({ _id: req.params.id }).then(() => {
+      res.json({ msg: 'Order removed' });
     });
-  },
+  }),
 );
 
 module.exports = orderRoutes;

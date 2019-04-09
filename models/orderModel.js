@@ -60,7 +60,7 @@ const OrderSchema = new Schema({
     ],
   },
   note: { type: String },
-  orderStatus: {
+  status: {
     type: String,
     required: true,
     enumValues: [
