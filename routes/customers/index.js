@@ -1,42 +1,41 @@
-const { Router } = require('express');
-
-const router = Router();
-const passport = require('passport');
-
 const customerModel = require('../../models/customerModel');
 const { validateCustomer } = require('../../validation/customerValidation');
 const customerHandlers = require('./customers');
 
-const handlers = customerHandlers(customerModel, validateCustomer);
+const {
+  getCustomers,
+  getCustomer,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer,
+} = customerHandlers(customerModel, validateCustomer);
 
-router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  handlers.getCustomers,
-);
+const defaultPath = '/api/customers';
+const routes = [{
+  method: 'get',
+  path: defaultPath,
+  authenticate: true,
+  handler: getCustomers,
+}, {
+  method: 'get',
+  path: `${defaultPath}/:id`,
+  authenticate: true,
+  handler: getCustomer,
+}, {
+  method: 'post',
+  path: defaultPath,
+  authenticate: true,
+  handler: createCustomer,
+}, {
+  method: 'put',
+  path: `${defaultPath}/:id`,
+  authenticate: true,
+  handler: updateCustomer,
+}, {
+  method: 'delete',
+  path: `${defaultPath}/:id`,
+  authenticate: true,
+  handler: deleteCustomer,
+}];
 
-router.get(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
-  handlers.getCustomer,
-);
-
-router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  handlers.createCustomer,
-);
-
-router.put(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
-  handlers.updateCustomer,
-);
-
-router.delete(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
-  handlers.deleteCustomer,
-);
-
-module.exports = router;
+module.exports = routes;

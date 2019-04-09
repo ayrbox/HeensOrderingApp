@@ -11,8 +11,8 @@ const app = express();
 const userRoutes = require('./routes/api/userRoutes');
 const {
   customerRoutes,
-  menuRoutes,
 } = require('./routes');
+const menuRoutes = require('./routes/api/menuRoutes');
 const categoryRoutes = require('./routes/api/categoryRoutes');
 const orderRoutes = require('./routes/api/orderRoutes');
 
