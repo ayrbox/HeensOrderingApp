@@ -5,7 +5,7 @@ const db = require('./config/keys').mongoURI;
 
 // database connection
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log('Database connected')) // eslint-disable-line
   .catch(err => console.log(err)); // eslint-disable-line
 
