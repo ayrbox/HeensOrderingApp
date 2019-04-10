@@ -36,16 +36,13 @@ orderRoutes.get(
 orderRoutes.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    return Order.findOne({ _id: req.params.id }).then((o) => {
-      if (!o) {
-        res.status(404).json({ msg: 'Order not found' });
-        return {};
-      }
-
-      res.json(o);
-    });
-  },
+  (req, res) => Order.findOne({ _id: req.params.id }).then((o) => {
+    if (!o) {
+      res.status(404).json({ msg: 'Order not found' });
+      return;
+    }
+    res.json(o);
+  }),
 );
 
 // @route        POST api/orders/

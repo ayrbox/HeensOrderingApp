@@ -37,11 +37,6 @@ const orderItemSchema = joi.object().keys({
   itemTotal: joi.number().required(),
 });
 
-const orderItemOptionSchema = joi.object().keys({
-  description: joi.string().required(),
-  additionalCost: joi.number().required(),
-});
-
 const deliveryAddressSchema = joi.object().keys({
   name: joi.string().required(),
   contactNo: joi.string().required(),

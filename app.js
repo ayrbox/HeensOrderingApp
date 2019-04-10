@@ -18,7 +18,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/api/users', userRoutes);
-app.use(routes); 
+app.use(routes);
 
 
 // server static assets
