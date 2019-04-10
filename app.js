@@ -9,9 +9,7 @@ const app = express();
 
 // import routes
 const userRoutes = require('./routes/api/userRoutes');
-const {
-  customerRoutes,
-} = require('./routes');
+const routes = require('./routes');
 const menuRoutes = require('./routes/api/menuRoutes');
 const categoryRoutes = require('./routes/api/categoryRoutes');
 const orderRoutes = require('./routes/api/orderRoutes');
@@ -24,10 +22,11 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/api/users', userRoutes);
-app.use('/api/customers/', customerRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/menus/', menuRoutes);
 app.use('/api/orders/', orderRoutes);
+app.use(routes); // app.use('/api/customers/', customerRoutes);
+
 
 // server static assets
 if (process.env.NODE_ENV === 'production') {
