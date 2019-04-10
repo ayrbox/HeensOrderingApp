@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 
 // import routes
-const userRoutes = require('./routes/api/userRoutes');
+// const userRoutes = require('./routes/api/userRoutes');
 const routes = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-app.use('/api/users', userRoutes);
+// app.use('/api/users', userRoutes);
 app.use(routes);
 
 
