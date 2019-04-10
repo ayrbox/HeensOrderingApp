@@ -17,7 +17,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
     .then((menus) => {
       if (menus.length === 0) {
         res.status(404);
-        res.json({ msg: 'No menu in category' });
+        res.json({ msg: 'Menu not found' });
       }
       res.json(menus);
     }).catch((err) => {
@@ -31,7 +31,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       .populate('category', ['name', 'description'])
       .then((menu) => {
         if (!menu) {
-          errors.msg = 'Not found';
+          errors.msg = 'Menu not found';
           res.status(404);
           res.json(errors);
         }
@@ -54,7 +54,10 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       category: req.body.category,
       tags: (req.body.tags || '').split(','),
     }).save()
-      .then(m => res.json(m))
+      .then((m) => {
+        res.status(201);
+        res.json(m);
+      })
       .catch((err) => {
         res.status(500);
         res.json(err);
@@ -104,7 +107,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
     }
 
     Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
-      res.json({ msg: 'Menu removed' });
+      res.json({ msg: 'Menu deleted' });
     }).catch((err) => {
       res.status(500);
       res.json(err);
@@ -125,9 +128,10 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
 
     return Menu.findOne({ _id: req.params.id }).then((menu) => {
       if (!menu) {
-        errors.msg = 'Menu not found';
         res.status(404);
-        res.json(errors);
+        res.json({
+          msg: 'Menu not found',
+        });
         return;
       }
 
@@ -137,7 +141,10 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
         description,
         additionalCost,
       });
-      menu.save().then(m => res.json(m));
+      menu.save().then((m) => {
+        res.status(201);
+        res.json(m);
+      });
     }).catch((err) => {
       res.status(500);
       res.json(err);

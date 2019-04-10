@@ -14,27 +14,22 @@ const defaultPath = '/api/customers';
 const routes = [{
   method: 'get',
   path: defaultPath,
-  authenticate: true,
   handler: getCustomers,
 }, {
   method: 'get',
   path: `${defaultPath}/:id`,
-  authenticate: true,
   handler: getCustomer,
 }, {
   method: 'post',
   path: defaultPath,
-  authenticate: true,
   handler: createCustomer,
 }, {
   method: 'put',
   path: `${defaultPath}/:id`,
-  authenticate: true,
   handler: updateCustomer,
 }, {
   method: 'delete',
   path: `${defaultPath}/:id`,
-  authenticate: true,
   handler: deleteCustomer,
 }];
 

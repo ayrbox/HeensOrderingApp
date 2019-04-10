@@ -2,13 +2,11 @@ const { Router } = require('express');
 
 const { secureRoute } = require('../utils/passport');
 const customerRoutes = require('./customers');
-// const {
-//   menu: menuRoutes,
-//   category: categoryRoutes,
-// } = require('./menu');
+const menuRoutes = require('./menu');
 
 const routes = [
   ...customerRoutes,
+  ...menuRoutes,
 ];
 
 const router = Router();
@@ -16,13 +14,13 @@ const router = Router();
 routes.forEach(({
   method,
   path,
-  authenticate,
+  excludeAuthenticate,
   handler,
 }) => {
-  if (authenticate) {
-    router[method](path, secureRoute(), handler);
-  } else {
+  if (excludeAuthenticate) {
     router[method](path, handler);
+  } else {
+    router[method](path, secureRoute(), handler);
   }
 });
 
