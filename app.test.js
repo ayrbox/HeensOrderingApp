@@ -9,7 +9,7 @@ const { auth } = require('./utils/test');
 describe('app routes', () => {
   before((done) => {
     mongoose
-      .connect(testdb)
+      .connect(testdb, { useNewUrlParser: true })
       .then(() => console.log('Database connected')) // eslint-disable-line
       .catch(err => console.log(err)); // eslint-disable-line
     done();

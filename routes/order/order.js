@@ -13,6 +13,7 @@ module.exports = (Order, { validateOrder }) => {
       if (!o) {
         res.status(404);
         res.json({ msg: 'Order not found' });
+        return;
       }
 
       res.json(o);

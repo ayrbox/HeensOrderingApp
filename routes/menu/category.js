@@ -13,14 +13,13 @@ module.exports = (Category, validateCategory) => {
   };
 
   const getCategory = (req, res) => {
-    const errors = {};
-
     const { id } = req.params;
     return Category.findOne({ _id: id }).then((c) => {
       if (!c) {
-        errors.msg = 'Category not found';
         res.status(404);
-        res.json(errors);
+        res.json({
+          msg: 'Category not found',
+        });
         return;
       }
       res.json(c);

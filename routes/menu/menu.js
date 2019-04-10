@@ -18,6 +18,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       if (menus.length === 0) {
         res.status(404);
         res.json({ msg: 'Menu not found' });
+        return;
       }
       res.json(menus);
     }).catch((err) => {
@@ -34,6 +35,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
           errors.msg = 'Menu not found';
           res.status(404);
           res.json(errors);
+          return;
         }
         res.json(menu);
       });
@@ -104,6 +106,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
     if (!m) {
       res.status(404);
       res.json({ msg: 'Menu not found' });
+      return;
     }
 
     Menu.findOneAndRemove({ _id: req.params.id }).then(() => {
