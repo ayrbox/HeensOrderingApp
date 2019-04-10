@@ -1,5 +1,3 @@
-// const { validateCategory } = require('../../validation/categoryValidation');
-
 module.exports = (Category, validateCategory) => {
   const getCategories = (req, res) => {
     const errors = {};

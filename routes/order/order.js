@@ -1,4 +1,4 @@
-module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAddress }) => {
+module.exports = (Order, { validateOrder }) => {
   const getOrders = (req, res) => Order.find().then((orders) => {
     if (orders.length === 0) {
       res.status(404);
@@ -50,6 +50,11 @@ module.exports = (Order, { validateOrder, validateOrderItem, validateDeliveryAdd
 
   const updateOrderStatus = (req, res) => {
     const { status } = req.body;
+    if (!status) {
+      res.status(400);
+      res.json({ msg: 'Invalid stauts' });
+      return {};
+    }
 
     return Order.findOne({ _id: req.params.id }).then((order) => {
       if (!order) {

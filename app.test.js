@@ -446,7 +446,7 @@ describe('app routes', () => {
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
-              msg: 'Customer not found',
+              msg: 'Category not found',
             });
             done();
           });
@@ -900,7 +900,7 @@ describe('app routes', () => {
           .use(auth())
           .send(optionAdded)
           .end((err, res) => {
-            expect(res.status).to.equal(200);
+            expect(res.status).to.equal(201);
             const testOptions = res.body.menuOptions.filter(option => (
               option.description === optionAdded.description
               && option.additionalCost === optionAdded.additionalCost
@@ -1222,7 +1222,7 @@ describe('app routes', () => {
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal({
-              msg: 'Order removed',
+              msg: 'Order deleted',
             });
             done();
           });

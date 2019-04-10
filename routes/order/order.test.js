@@ -134,9 +134,6 @@ describe('#test order route handlers', () => {
 
   describe('#create order', async () => {
     const [order, invalidOrder] = sampleOrders;
-    const createReq = {
-      body: order,
-    };
 
     it('should return 400 for empty object', async () => {
       save.resolves({});
