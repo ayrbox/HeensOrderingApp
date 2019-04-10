@@ -3,10 +3,12 @@ const { Router } = require('express');
 const { secureRoute } = require('../utils/passport');
 const customerRoutes = require('./customers');
 const menuRoutes = require('./menu');
+const orderRoutes = require('./order');
 
 const routes = [
   ...customerRoutes,
   ...menuRoutes,
+  ...orderRoutes,
 ];
 
 const router = Router();
