@@ -1,9 +1,9 @@
 const jsonwebtoken = require('jsonwebtoken');
 const { secretKey } = require('../../config/keys');
 
-const auth = () => (request) => {
+const makeAuth = userId => (request) => {
   const validToken = jsonwebtoken.sign({
-    id: '5c9f8c64cae7314e3b9441d8',
+    id: userId,
     name: 'Test User Name',
   }, secretKey, { expiresIn: 3600 });
 
@@ -12,5 +12,5 @@ const auth = () => (request) => {
 };
 
 module.exports = {
-  auth,
+  makeAuth,
 };

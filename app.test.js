@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const testdb = require('./config/keys').mongoURI;
 
 const app = require('./app');
-const { auth } = require('./utils/test');
+const { makeAuth } = require('./utils/test');
 
 describe('app routes', () => {
+  let auth;
   before((done) => {
     mongoose
       .connect(testdb, { useNewUrlParser: true })
@@ -16,11 +17,28 @@ describe('app routes', () => {
   });
 
   after((done) => {
-    mongoose.connection.close();
-    done();
+    mongoose.connection.dropDatabase(() => {
+      mongoose.connection.close();
+      done();
+    });
   });
 
   describe('/api/users/login', () => {
+    before((done) => {
+      request(app)
+        .post('/api/users/register')
+        .send({
+          name: 'Testuser',
+          email: 'test@users.com',
+          password: 'test1234',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          const { _id } = res.body;
+          auth = makeAuth(_id);
+          done();
+        });
+    });
     context('when email or password is wrong', () => {
       it('should return 400 for wrong email', (done) => {
         request(app)
@@ -37,7 +55,7 @@ describe('app routes', () => {
       it('should get 400 for wrongpassword', (done) => {
         request(app)
           .post('/api/users/login')
-          .send({ email: 'admin@admin.com', password: 'wrongpassword' })
+          .send({ email: 'test@users.com', password: 'wrongpassword' })
           .expect('Content-type', /json/)
           .expect(400)
           .end((err, res) => {
@@ -52,7 +70,7 @@ describe('app routes', () => {
       it('should return 200 with token', (done) => {
         request(app)
           .post('/api/users/login')
-          .send({ email: 'admin@admin.com', password: 'password' })
+          .send({ email: 'test@users.com', password: 'test1234' })
           .expect('Content-type', /json/)
           .expect(200)
           .end((err, res) => {
@@ -67,41 +85,63 @@ describe('app routes', () => {
 
 
   describe('GET /api/customers', () => {
-    context('without valid token', () => {
-      it('should return unauthorised 401', (done) => {
-        request(app)
-          .get('/api/customers/')
-          .expect('Content-Type', /json/)
-          .expect(401)
-          .end((err, res) => {
-            expect(res.status).to.equal(401);
-            expect(res.text).to.equal('Unauthorized');
-            done();
-          });
-      });
+    it('returns 401 unauthorised', (done) => {
+      request(app)
+        .get('/api/customers/')
+        .expect('Content-Type', /json/)
+        .expect(401)
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.text).to.equal('Unauthorized');
+          done();
+        });
     });
 
-    context('with valid token', () => {
-      it('should return list of customers', (done) => {
-        request(app)
-          .get('/api/customers/')
-          .use(auth())
-          .expect('Content-type', /json/)
-          .expect(200)
-          .end((err, res) => {
-            expect(Array.isArray(res.body)).to.equal(true);
-            res.body.forEach((customer) => {
-              expect(customer).to.have.property('name');
-              expect(customer).to.have.property('phoneNo');
-              expect(customer).to.have.property('address');
-              expect(customer).to.have.property('postCode');
-              expect(customer).to.have.property('note');
-              expect(customer).to.have.property('registeredDate');
+    it('returns 404 not found', (done) => {
+      request(app)
+        .get('/api/customers')
+        .use(auth)
+        .expect(404)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body).to.deep.equal({ msg: 'Customers not found' });
+          done();
+        });
+    });
+
+    it('returns 200 with customers', (done) => {
+      const customerForTest = {
+        name: 'Customer Test',
+        phoneNo: '23947293742',
+        address: 'Customer Road',
+        postCode: 'CU10 1XY',
+        note: 'Customer note',
+      };
+
+      request(app)
+        .post('/api/customers')
+        .use(auth)
+        .send(customerForTest)
+        .end(() => {
+          request(app)
+            .get('/api/customers/')
+            .use(auth)
+            .expect('Content-type', /json/)
+            .expect(200)
+            .end((err, res) => {
+              expect(Array.isArray(res.body)).to.equal(true);
+              res.body.forEach((customer) => {
+                expect(customer).to.have.property('name');
+                expect(customer).to.have.property('phoneNo');
+                expect(customer).to.have.property('address');
+                expect(customer).to.have.property('postCode');
+                expect(customer).to.have.property('note');
+                expect(customer).to.have.property('registeredDate');
+              });
+              expect(res.status).to.equal(200);
+              done();
             });
-            expect(res.status).to.equal(200);
-            done();
-          });
-      });
+        });
     });
   });
 
@@ -118,7 +158,7 @@ describe('app routes', () => {
     before((done) => {
       request(app)
         .post('/api/customers/')
-        .use(auth())
+        .use(auth)
         .send(testCustomer)
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -145,7 +185,7 @@ describe('app routes', () => {
       it('should retun 404', (done) => {
         request(app)
           .get('/api/customers/5c9f8c64cae7314e3b9441d8')
-          .use(auth())
+          .use(auth)
           .expect('Content-Type', /json/)
           .expect(404)
           .end((err, res) => {
@@ -157,7 +197,7 @@ describe('app routes', () => {
       it('should return customers', (done) => {
         request(app)
           .get(`/api/customers/${customerId}`)
-          .use(auth())
+          .use(auth)
           .expect('Content-type', /json/)
           .expect(200)
           .end((err, res) => {
@@ -190,7 +230,7 @@ describe('app routes', () => {
     it('should return 400 invalid data', (done) => {
       request(app)
         .post('/api/customers')
-        .use(auth())
+        .use(auth)
         .send({})
         .expect(400)
         .end((err, res) => {
@@ -209,7 +249,7 @@ describe('app routes', () => {
       };
       request(app)
         .post('/api/customers')
-        .use(auth())
+        .use(auth)
         .send(testCustomer)
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -251,7 +291,7 @@ describe('app routes', () => {
       };
       request(app)
         .post('/api/customers')
-        .use(auth())
+        .use(auth)
         .send(testCustomer)
         .end((err, res) => {
           const { _id } = res.body;
@@ -279,7 +319,7 @@ describe('app routes', () => {
     it('should return 400 bad request', (done) => {
       request(app)
         .put(`/api/customers/${customerId}`)
-        .use(auth())
+        .use(auth)
         .send({
           name: 'Bad update',
         })
@@ -292,7 +332,7 @@ describe('app routes', () => {
     it('should update existing customer', (done) => {
       request(app)
         .put(`/api/customers/${customerId}`)
-        .use(auth())
+        .use(auth)
         .send({
           name: 'Test Updated',
           phoneNo: '0000000',
@@ -336,7 +376,7 @@ describe('app routes', () => {
     it('should return 404 not found', (done) => {
       request(app)
         .delete('/api/customers/5c9f8c64cae7314e3b9441d8')
-        .use(auth())
+        .use(auth)
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body).to.deep.equal({
@@ -350,7 +390,7 @@ describe('app routes', () => {
       // add customer before delete
       request(app)
         .post('/api/customers')
-        .use(auth())
+        .use(auth)
         .send({
           name: 'Test',
           phoneNo: '23947293742',
@@ -365,7 +405,7 @@ describe('app routes', () => {
           // delete request
           request(app)
             .delete(`/api/customers/${_id}`)
-            .use(auth())
+            .use(auth)
             .end((deleteErr, deleteRes) => {
               expect(deleteRes.status).to.equal(200);
               expect(deleteRes.body).to.deep.equal({
@@ -387,7 +427,7 @@ describe('app routes', () => {
     before((done) => {
       request(app)
         .post('/api/categories')
-        .use(auth())
+        .use(auth)
         .send(testCategory)
         .end((err, res) => {
           const { _id } = res.body;
@@ -410,7 +450,7 @@ describe('app routes', () => {
       it('should return 200 with categories', (done) => {
         request(app)
           .get('/api/categories')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Array.isArray(res.body)).to.equal(true);
@@ -442,7 +482,7 @@ describe('app routes', () => {
         // 5c9f8c64cae7314e3b9441d8
         request(app)
           .get('/api/categories/5c9f8c64cae7314e3b9441d8')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -455,7 +495,7 @@ describe('app routes', () => {
       it('should return category', (done) => {
         request(app)
           .get(`/api/categories/${categoryId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Object.keys(res.body)).to.have.members([
@@ -483,7 +523,7 @@ describe('app routes', () => {
       it('should return 400 bad request', (done) => {
         request(app)
           .post('/api/categories')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             done();
@@ -493,7 +533,7 @@ describe('app routes', () => {
       it('should return 201 created', (done) => {
         request(app)
           .post('/api/categories')
-          .use(auth())
+          .use(auth)
           .send({
             name: 'Category to Create',
             description: 'Test Creation of category',
@@ -521,7 +561,7 @@ describe('app routes', () => {
       it('returns 400 bad request', (done) => {
         request(app)
           .put(`/api/categories/${categoryId}`)
-          .use(auth())
+          .use(auth)
           .send({ })
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -539,7 +579,7 @@ describe('app routes', () => {
 
         request(app)
           .put(`/api/categories/${categoryId}`)
-          .use(auth())
+          .use(auth)
           .send(categoryUpdate)
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -567,7 +607,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .delete('/api/categories/5c9f8c64cae7314e3b9441d8')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -580,7 +620,7 @@ describe('app routes', () => {
       it('returns 200 after delete', (done) => {
         request(app)
           .delete(`/api/categories/${categoryId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             done();
@@ -614,14 +654,14 @@ describe('app routes', () => {
     before((done) => {
       request(app)
         .post('/api/categories')
-        .use(auth())
+        .use(auth)
         .send(testCategory)
         .end((categoryErr, categoryRes) => {
           const { _id: categoryId_ } = categoryRes.body;
           categoryId = categoryId_;
           request(app)
             .post('/api/menus/')
-            .use(auth())
+            .use(auth)
             .send({
               ...testMenu,
               category: categoryId,
@@ -631,7 +671,7 @@ describe('app routes', () => {
               menuId = _id;
               request(app)
                 .post(`/api/menus/${menuId}/options`)
-                .use(auth())
+                .use(auth)
                 .send(testOption)
                 .end((optionErr, optionRes) => {
                   const { _id: _optionId } = optionRes.body;
@@ -655,7 +695,7 @@ describe('app routes', () => {
       it('returns 200 menu list', (done) => {
         request(app)
           .get('/api/menus')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Array.isArray(res.body)).to.equal(true);
@@ -686,7 +726,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .get('/api/menus/5ca7b3b4743b051fbb7aa28c')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({ msg: 'Menu not found' });
@@ -696,7 +736,7 @@ describe('app routes', () => {
       it('returns 200 menu', (done) => {
         request(app)
           .get(`/api/menus/${menuId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Object.keys(res.body)).to.include.members([
@@ -725,7 +765,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .get('/api/menus/category/5ca92f78f6d2480e91392d73')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -738,7 +778,7 @@ describe('app routes', () => {
       it('returns 200 menu list', (done) => {
         request(app)
           .get(`/api/menus/category/${categoryId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Array.isArray(res.body)).to.equal(true);
@@ -768,7 +808,7 @@ describe('app routes', () => {
       it('returns 400 bad request', () => {
         request(app)
           .post('/api/menus/')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal({
@@ -782,7 +822,7 @@ describe('app routes', () => {
       it('returns 201 menu', (done) => {
         request(app)
           .post('/api/menus/')
-          .use(auth())
+          .use(auth)
           .send({
             name: 'Test Menu Item',
             description: 'Test Menu Item Description',
@@ -818,7 +858,7 @@ describe('app routes', () => {
       it('returns 400 bad request', (done) => {
         request(app)
           .put(`/api/menus/${menuId}`)
-          .use(auth())
+          .use(auth)
           .send({})
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -840,7 +880,7 @@ describe('app routes', () => {
         };
         request(app)
           .put(`/api/menus/${menuId}`)
-          .use(auth())
+          .use(auth)
           .send(updatedMenu)
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -875,7 +915,7 @@ describe('app routes', () => {
       it('returns 404 menu not found', (done) => {
         request(app)
           .post('/api/menus/5ca7b3b4743b051fbb7aa28c/options/')
-          .use(auth())
+          .use(auth)
           .send({
             description: 'Updated option',
             additionalCost: 100,
@@ -897,7 +937,7 @@ describe('app routes', () => {
 
         request(app)
           .post(`/api/menus/${menuId}/options`)
-          .use(auth())
+          .use(auth)
           .send(optionAdded)
           .end((err, res) => {
             expect(res.status).to.equal(201);
@@ -924,7 +964,7 @@ describe('app routes', () => {
       it('returns 404 menu not found', (done) => {
         request(app)
           .delete('/api/menus/5ca7b3b4743b051fbb7aa28c/options/5ca7b3b4743b051fbb7aa28c')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -936,7 +976,7 @@ describe('app routes', () => {
       it('returns 404 option not found', (done) => {
         request(app)
           .delete(`/api/menus/${menuId}/options/5ca7b3b4743b051fbb7aa28c`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -948,7 +988,7 @@ describe('app routes', () => {
       it('returns 200 option deleted', (done) => {
         request(app)
           .delete(`/api/menus/${menuId}/options/${optionId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -973,7 +1013,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .delete('/api/menus/5ca7b3b4743b051fbb7aa28c')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -986,7 +1026,7 @@ describe('app routes', () => {
       it('returns 200 deletes successfully', (done) => {
         request(app)
           .delete(`/api/menus/${menuId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal({
@@ -1023,7 +1063,7 @@ describe('app routes', () => {
     before((done) => {
       request(app)
         .post('/api/orders/')
-        .use(auth())
+        .use(auth)
         .send(testOrder)
         .end((insertErr, insertRes) => {
           const { _id } = insertRes.body;
@@ -1046,7 +1086,7 @@ describe('app routes', () => {
       // it('returns 404 not found', (done) => {
       //   request(app)
       //     .get('/api/orders')
-      //     .use(auth())
+      //     .use(auth)
       //     .end((err, res) => {
       //       expect(res.status).to.equal(404);
       //       expect(res.body).to.deep.equal({
@@ -1059,7 +1099,7 @@ describe('app routes', () => {
       it('returns 200 orders', (done) => {
         request(app)
           .get('/api/orders')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Array.isArray(res.body)).to.equal(true);
@@ -1085,7 +1125,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .get('/api/orders/5ca7b3b4743b051fbb7aa28c')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -1098,7 +1138,7 @@ describe('app routes', () => {
       it('returns 200 order', (done) => {
         request(app)
           .get(`/api/orders/${orderId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Object.keys(res.body)).to.include.members(Object.keys(testOrder));
@@ -1120,7 +1160,7 @@ describe('app routes', () => {
       it('returns 400 bad request', (done) => {
         request(app)
           .post('/api/orders')
-          .use(auth())
+          .use(auth)
           .send({})
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -1139,7 +1179,7 @@ describe('app routes', () => {
         request(app)
           .post('/api/orders')
           .send(testOrder)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(Object.keys(res.body)).to.include.members(Object.keys(testOrder));
@@ -1163,7 +1203,7 @@ describe('app routes', () => {
         request(app)
           .put('/api/orders/5ca7b3b4743b051fbb7aa28c')
           .send({ status: 'ordered' })
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({ msg: 'Order not found' });
@@ -1173,7 +1213,7 @@ describe('app routes', () => {
       it('returns 400 bad request', (done) => {
         request(app)
           .put(`/api/orders/${orderId}`)
-          .use(auth())
+          .use(auth)
           .send()
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -1183,7 +1223,7 @@ describe('app routes', () => {
       it('returns 200 updated', (done) => {
         request(app)
           .put(`/api/orders/${orderId}`)
-          .use(auth())
+          .use(auth)
           .send({ status: 'paid' })
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -1206,7 +1246,7 @@ describe('app routes', () => {
       it('returns 404 not found', (done) => {
         request(app)
           .delete('/api/orders/5ca7b3b4743b051fbb7aa28c')
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body).to.deep.equal({
@@ -1218,7 +1258,7 @@ describe('app routes', () => {
       it('returns 200 deleted', (done) => {
         request(app)
           .delete(`/api/orders/${orderId}`)
-          .use(auth())
+          .use(auth)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal({
