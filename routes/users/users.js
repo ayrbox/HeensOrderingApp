@@ -56,11 +56,14 @@ module.exports = (
 
     if (!isValid) {
       res.status(400).json(errors);
+      return {};
     }
 
-    User.findOne({ email: req.body.email }).then((user) => {
+    return User.findOne({ email: req.body.email }).then((user) => {
       if (user) {
-        throw new Error('Email already exists');
+        res.status(422);
+        res.json({ msg: 'Email already exists' });
+        return;
       }
 
       const { name, email, password } = req.body;
@@ -68,15 +71,26 @@ module.exports = (
         if (err) throw err; // unlikely to occurs
 
         bcrypt.hash(password, salt, (hashError, hash) => {
-          if (hashError) throw hashError;
+          if (hashError) {
+            res.status(500);
+            res.json({ msg: 'Unexpected error hashing password' });
+            return;
+          }
+
           new User({
             name,
             email,
             password: hash,
-          }).save()
-            .then(newUserCreated => res.json(newUserCreated))
-            .catch(err => console.log(err)); // eslint-disable-line
-          return res.status(200);
+          })
+            .save()
+            .then((newUserCreated) => {
+              res.status(201);
+              res.json(newUserCreated);
+            })
+            .catch((saveErr) => {
+              res.status(500);
+              res.json(saveErr);
+            });
         });
       });
     });
