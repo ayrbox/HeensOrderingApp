@@ -14,19 +14,20 @@ const generateFakeCustomers = require('./data/customer');
 
 
 const createCategories = async () => {
-  console.log('Creating menu categories.... \n\n\n\n\n'); // eslint-disable-line
+  console.log('Creating menu categories.... \n\n\n\n\n'); // eslint-disable-line no-console
   await Promise.all(
     categoryData.map(async ({ _id, name, description }) => {
       const category = new Category({ _id, name, description });
       await category.save();
-      console.log('Created', _id, name, description); // eslint-disable-line
+
+      console.log('Created', _id, name, description); // eslint-disable-line no-console
     }),
   );
 };
 
 
 const createMenu = async () => {
-  console.log('Creating menu items.... \n\n\n\n\n'); // eslint-disable-line
+  console.log('Creating menu items.... \n\n\n\n\n'); // eslint-disable-line no-console
   await Promise.all(
     menuData.map(async ({
       name,
@@ -45,13 +46,13 @@ const createMenu = async () => {
 
       await menu.save();
 
-      console.log('Menu', name, description, price, category, tags); // eslint-disable-line
+      console.log('Menu', name, description, price, category, tags); // eslint-disable-line no-console
     }),
   );
 };
 
 const clearDatabase = async () => {
-  console.log('Clearing database......'); // eslint-disable-line
+  console.log('Clearing database......'); // eslint-disable-line no-console
 
   await User.collection.drop();
   await Category.collection.drop();
@@ -60,7 +61,7 @@ const clearDatabase = async () => {
 };
 
 const createUsers = async () => {
-  console.log('Creating users...\n\n\n'); // eslint-disable-line
+  console.log('Creating users...\n\n\n'); // eslint-disable-line no-console
 
   await Promise.all(
     userData.map(async ({
@@ -75,13 +76,13 @@ const createUsers = async () => {
         email,
         password,
       }).save();
-      console.log('Users', name, email, password); // eslint-disable-line
+      console.log('Users', name, email, password); // eslint-disable-line no-console
     }),
   );
 };
 
 const createCustomers = async () => {
-  console.log('Creating customers.... \n\n\n'); // eslint-disable-line
+  console.log('Creating customers.... \n\n\n'); // eslint-disable-line no-console
 
   await Promise.all(
     generateFakeCustomers(100).map(async ({
@@ -98,32 +99,32 @@ const createCustomers = async () => {
         postCode,
         note,
       }).save();
-      console.log('Customer', name, phoneNo); // eslint-disable-line
+      console.log('Customer', name, phoneNo); // eslint-disable-line no-console
     }),
   );
 };
 
 (async () => {
   try {
-    console.log('Connecting database'); // eslint-disable-line
+    console.log('Connecting database'); // eslint-disable-line no-console
 
     await mongoose.connect(db);
     const option = process.argv[2];
 
     if (option === '--clear') {
       await clearDatabase();
-      console.log('Database cleared...'); // eslint-disable-line
+      console.log('Database cleared...'); // eslint-disable-line no-console
     } else {
       await createUsers();
       await createCategories();
       await createMenu();
       await createCustomers();
-      console.log('Data is seed successfully'); // eslint-disable-line
+      console.log('Data is seed successfully'); // eslint-disable-line no-console
     }
     process.exit();
   } catch (error) {
-    console.log('Error: Unable to run seed', error); // eslint-disable-line
-    console.log(error.stack); // eslint-disable-line
+    console.log('Error: Unable to run seed', error); // eslint-disable-line no-console
+    console.log(error.stack); // eslint-disable-line no-console
     process.exit(1);
   }
 })();
