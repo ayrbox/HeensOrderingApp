@@ -1,13 +1,13 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-//views
-import MenuList from "./menu-list";
-import AddMenu from "./add-menu";
-import EditMenu from "./edit-menu";
-import DeleteMenu from "./delete-menu";
-import Menu from "./menu";
-import AddMenuOption from "./add-menu-option";
+// views
+import MenuList from './menu-list';
+import AddMenu from './add-menu';
+import EditMenu from './edit-menu';
+import DeleteMenu from './delete-menu';
+import Menu from './menu';
+import AddMenuOption from './add-menu-option';
 
 const MenuIndex = () => (
   <div>

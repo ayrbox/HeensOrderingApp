@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { loginUser } from "../../actions/authActions";
+import { loginUser } from '../../actions/authActions';
 
-import ExternalLayout from "../viewcomponents/ExternalLayout";
+import ExternalLayout from '../viewcomponents/ExternalLayout';
 
 class Login extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      email: "",
-      password: "",
-      errors: {}
+      email: '',
+      password: '',
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -22,7 +22,7 @@ class Login extends Component {
   componentDidMount() {
     const { isAuthenticated } = this.props.auth;
     if (isAuthenticated) {
-      this.props.history.push("/orders"); //todo main page after login
+      this.props.history.push('/orders'); // todo main page after login
     }
   }
 
@@ -35,15 +35,15 @@ class Login extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    var loginModel = {
+    const loginModel = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     this.props.loginUser(loginModel, this.props.history);
@@ -93,7 +93,9 @@ class Login extends Component {
           ) : null}
           <div className="checkbox mb-3">
             <label>
-              <input type="checkbox" value="remember-me" /> Remember me
+              <input type="checkbox" value="remember-me" />
+              {' '}
+Remember me
             </label>
           </div>
           <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -107,12 +109,12 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(
   mapStateToProps,
   {
-    loginUser
-  }
+    loginUser,
+  },
 )(Login);

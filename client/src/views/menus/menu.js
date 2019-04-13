@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
-//actions
-import { getMenu, deleteMenuOption } from "../../actions/menuActions";
+// actions
+import { getMenu, deleteMenuOption } from '../../actions/menuActions';
 
 class Menu extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      tags: []
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      tags: [],
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -48,12 +48,12 @@ class Menu extends Component {
 
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/menus/");
+    this.props.history.push('/menus/');
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -77,7 +77,7 @@ class Menu extends Component {
         price,
         category,
         tags,
-        menuOptions
+        menuOptions,
       } = nextProps.menus.current;
 
       this.setState({
@@ -86,7 +86,7 @@ class Menu extends Component {
         price,
         category,
         tags,
-        menuOptions
+        menuOptions,
       });
     }
   }
@@ -150,7 +150,7 @@ class Menu extends Component {
                 className="form-control-plaintext"
                 id="category"
                 name="category"
-                value={this.state.category.name || ""}
+                value={this.state.category.name || ''}
               />
             </div>
           </div>
@@ -185,7 +185,10 @@ class Menu extends Component {
                           X
                         </button>
                         {o.description}
-                        <span>&pound;{o.additionalCost}</span>
+                        <span>
+&pound;
+                          {o.additionalCost}
+                        </span>
                       </div>
                     </li>
                   ))}
@@ -205,7 +208,7 @@ class Menu extends Component {
           <button
             type="button"
             className="btn btn-outline-primary"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               const { id } = this.props.match.params;
               this.props.history.push(`/menus/${id}/edit`);
@@ -236,10 +239,10 @@ class Menu extends Component {
 }
 
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
-  { getMenu, deleteMenuOption }
+  { getMenu, deleteMenuOption },
 )(Menu);

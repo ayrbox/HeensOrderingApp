@@ -21,7 +21,8 @@
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src --ignore-pattern .gitignore"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {

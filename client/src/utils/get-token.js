@@ -1,8 +1,8 @@
-import jwt_decode from "jwt-decode";
-import store from "../store";
-import setToken from "./set-token";
-import { SET_USER } from "../actions/types";
-import { logoutUser } from "../actions/authActions";
+import jwt_decode from 'jwt-decode';
+import store from '../store';
+import setToken from './set-token';
+import { SET_USER } from '../actions/types';
+import { logoutUser } from '../actions/authActions';
 
 export const getToken = () => {
   if (localStorage.token) {
@@ -12,13 +12,13 @@ export const getToken = () => {
 
     store.dispatch({
       type: SET_USER,
-      payload: user
+      payload: user,
     });
 
     const now = Date.now() / 1000;
     if (user.exp < now) {
       store.dispatch(logoutUser());
-      window.location.href = "/login";
+      window.location.href = '/login';
     }
   }
 };

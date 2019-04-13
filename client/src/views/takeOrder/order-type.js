@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Modal, {
   ModalHeader,
   ModalBody,
-  ModalFooter
-} from "../../components/Modal";
+  ModalFooter,
+} from '../../components/Modal';
 
-//@actions
-import { setOrderType } from "../../actions/takeOrderActions";
+// @actions
+import { setOrderType } from '../../actions/takeOrderActions';
 
 class OrderType extends Component {
   constructor(props) {
@@ -16,17 +17,16 @@ class OrderType extends Component {
 
     this.state = {
       orderTypes: {
-        delivery: "Delivery",
-        collection: "Collection",
-        table: "Table Order"
+        delivery: 'Delivery',
+        collection: 'Collection',
+        table: 'Table Order',
       },
-      orderType: "delivery",
-      tableNo: "",
-      name: "",
-      address: "",
-      postCode: "",
-      contactNo: "",
-      errors: {}
+      orderType: 'delivery',
+      tableNo: '',
+      name: '',
+      address: '',
+      postCode: '',
+      contactNo: '',
     };
 
     this.handleCancel = this.handleCancel.bind(this);
@@ -35,17 +35,18 @@ class OrderType extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     e.preventDefault();
 
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   handleCancel(e) {
     e.preventDefault();
-    this.props.history.push("/orders");
+    const { history } = this.props;
+    history.push('/orders');
   }
 
   handleConfirm(e) {
@@ -57,7 +58,7 @@ class OrderType extends Component {
       name,
       address,
       postCode,
-      contactNo
+      contactNo,
     } = this.state;
 
     const o = {
@@ -67,15 +68,28 @@ class OrderType extends Component {
         name,
         address,
         postCode,
-        contactNo
-      }
+        contactNo,
+      },
     };
-    this.props.setOrderType(o);
-    this.props.history.push("/takeorder");
+
+    const {
+      setOrderType: handleSetOrderType,
+      history,
+    } = this.props;
+    handleSetOrderType(o);
+    history.push('/takeorder');
   }
 
   render() {
-    const { orderTypes, orderType } = this.state;
+    const {
+      orderTypes,
+      orderType,
+      name,
+      address,
+      postCode,
+      contactNo,
+      tableNo,
+    } = this.state;
     return (
       <Modal onClose={this.handleCancel} size="large">
         <ModalHeader title="Order Type" onClose={this.handleCancel} />
@@ -89,7 +103,7 @@ class OrderType extends Component {
                 className="form-control"
                 id="orderType"
                 name="orderType"
-                value={this.state.orderType}
+                value={orderType}
                 onChange={this.handleChange}
               >
                 {Object.keys(orderTypes).map(t => (
@@ -100,7 +114,7 @@ class OrderType extends Component {
               </select>
             </div>
           </div>
-          {orderType === "delivery" ? (
+          {orderType === 'delivery' ? (
             <div>
               <hr />
               <h4>Delivery Detail</h4>
@@ -114,7 +128,7 @@ class OrderType extends Component {
                     className="form-control"
                     name="name"
                     id="name"
-                    value={this.state.name}
+                    value={name}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -129,7 +143,7 @@ class OrderType extends Component {
                     className="form-control"
                     name="address"
                     id="address"
-                    value={this.state.address}
+                    value={address}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -144,7 +158,7 @@ class OrderType extends Component {
                     className="form-control"
                     name="postCode"
                     id="postCode"
-                    value={this.state.postCode}
+                    value={postCode}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -159,14 +173,14 @@ class OrderType extends Component {
                     className="form-control"
                     name="contactNo"
                     id="contactNo"
-                    value={this.state.contactNo}
+                    value={contactNo}
                     onChange={this.handleChange}
                   />
                 </div>
               </div>
             </div>
           ) : null}
-          {orderType === "table" ? (
+          {orderType === 'table' ? (
             <div>
               <hr />
               <h4>Table Detail</h4>
@@ -180,7 +194,7 @@ class OrderType extends Component {
                     className="form-control"
                     name="tableNo"
                     id="tableNo"
-                    value={this.state.tableNo}
+                    value={tableNo}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -191,6 +205,7 @@ class OrderType extends Component {
         <ModalFooter>
           <div className="d-flex w-100 justify-content-between">
             <button
+              type="button"
               className="btn btn-outline-secondary"
               onClick={this.handleCancel}
             >
@@ -210,7 +225,14 @@ class OrderType extends Component {
   }
 }
 
+OrderType.propTypes = {
+  setOrderType: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default connect(
   null,
-  { setOrderType }
+  { setOrderType },
 )(OrderType);

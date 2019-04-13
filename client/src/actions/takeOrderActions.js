@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   SELECT_MENU_ITEM,
   SELECT_MENU_OPTION,
@@ -7,59 +7,55 @@ import {
   SET_ORDER_TYPE,
   SAVE_ORDER_REQUEST,
   SAVE_ORDER_SUCCESS,
-  SAVE_ORDER_ERROR
-} from "./types";
+  SAVE_ORDER_ERROR,
+} from './types';
 
-export const setOrderType = orderType => dispatch => {
+export const setOrderType = orderType => (dispatch) => {
   dispatch({
     type: SET_ORDER_TYPE,
-    payload: orderType
+    payload: orderType,
   });
 };
 
-export const selectMenuItem = menu => dispatch => {
+export const selectMenuItem = menu => (dispatch) => {
   dispatch({
     type: SELECT_MENU_ITEM,
-    payload: menu
+    payload: menu,
   });
 };
 
-export const confirmMenuItem = () => dispatch => {
+export const confirmMenuItem = () => (dispatch) => {
   dispatch({
-    type: CONFIRM_MENU_ITEM
+    type: CONFIRM_MENU_ITEM,
   });
 };
 
-export const cancelMenuItem = () => dispatch => {
+export const cancelMenuItem = () => (dispatch) => {
   dispatch({
-    type: CANCEL_MENU_ITEM
+    type: CANCEL_MENU_ITEM,
   });
 };
 
-export const selectOption = option => dispatch => {
+export const selectOption = option => (dispatch) => {
   dispatch({
     type: SELECT_MENU_OPTION,
-    payload: option
+    payload: option,
   });
 };
 
-export const saveOrder = order => dispatch => {
+export const saveOrder = order => (dispatch) => {
   dispatch({
-    type: SAVE_ORDER_REQUEST
+    type: SAVE_ORDER_REQUEST,
   });
 
   axios
-    .post("/api/orders/", order)
-    .then(res =>
-      dispatch({
-        type: SAVE_ORDER_SUCCESS,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: SAVE_ORDER_ERROR,
-        payload: err.response.data
-      })
-    );
+    .post('/api/orders/', order)
+    .then(res => dispatch({
+      type: SAVE_ORDER_SUCCESS,
+      payload: res.data,
+    }))
+    .catch(err => dispatch({
+      type: SAVE_ORDER_ERROR,
+      payload: err.response.data,
+    }));
 };

@@ -1,28 +1,28 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
-//actions
-import { getMenu, updateMenu } from "../../actions/menuActions";
-import { getCategories } from "../../actions/categoryActions";
+// actions
+import { getMenu, updateMenu } from '../../actions/menuActions';
+import { getCategories } from '../../actions/categoryActions';
 
 class EditMenu extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      tags: ""
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      tags: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -44,7 +44,7 @@ class EditMenu extends Component {
         description,
         price,
         category,
-        tags
+        tags,
       } = nextProps.menus.current;
 
       this.setState({
@@ -52,7 +52,7 @@ class EditMenu extends Component {
         description,
         price,
         category: category._id,
-        tags: tags.join(",")
+        tags: tags.join(','),
       });
     }
   }
@@ -65,14 +65,16 @@ class EditMenu extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   handleSave(e) {
     e.preventDefault();
     const { id } = this.props.match.params;
-    const { name, description, price, category, tags } = this.state;
+    const {
+      name, description, price, category, tags,
+    } = this.state;
     this.props.updateMenu(
       id,
       {
@@ -80,9 +82,9 @@ class EditMenu extends Component {
         description,
         price,
         category,
-        tags
+        tags,
       },
-      this.props.history
+      this.props.history,
     );
   }
 
@@ -107,8 +109,8 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.name
+                className={classnames('form-control', {
+                  'is-invalid': errors.name,
                 })}
                 id="name"
                 name="name"
@@ -126,8 +128,8 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <textarea
-                className={classnames("form-control", {
-                  "is-invalid": errors.description
+                className={classnames('form-control', {
+                  'is-invalid': errors.description,
                 })}
                 id="description"
                 name="description"
@@ -145,8 +147,8 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.price
+                className={classnames('form-control', {
+                  'is-invalid': errors.price,
                 })}
                 id="price"
                 name="price"
@@ -166,12 +168,12 @@ class EditMenu extends Component {
             <div className="col-sm-8">
               <select
                 value={this.state.category}
-                defaultValue={""}
+                defaultValue=""
                 name="category"
                 id="category"
                 onChange={this.handleChange}
-                className={classnames("form-control", {
-                  "is-invalid": errors.category
+                className={classnames('form-control', {
+                  'is-invalid': errors.category,
                 })}
               >
                 <option value="">--Select Category--</option>
@@ -192,8 +194,8 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.tags
+                className={classnames('form-control', {
+                  'is-invalid': errors.tags,
                 })}
                 id="tags"
                 name="tags"
@@ -230,7 +232,7 @@ class EditMenu extends Component {
 
 const mapStateToProps = state => ({
   menus: state.menus,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
@@ -238,6 +240,6 @@ export default connect(
   {
     getMenu,
     updateMenu,
-    getCategories
-  }
+    getCategories,
+  },
 )(EditMenu);

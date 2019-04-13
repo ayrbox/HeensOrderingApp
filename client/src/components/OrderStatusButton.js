@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import { Object } from "core-js";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { Object } from 'core-js';
 
 class OrderStatusButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
     this.handleToggleMenu = this.handleToggleMenu.bind(this);
   }
@@ -16,7 +16,7 @@ class OrderStatusButton extends Component {
   handleToggleMenu(e) {
     e.preventDefault();
     this.setState(prevState => ({
-      open: !prevState.open
+      open: !prevState.open,
     }));
   }
 
@@ -25,8 +25,8 @@ class OrderStatusButton extends Component {
     const { currentStatus } = this.props;
     return (
       <div
-        className={classnames("btn-group", {
-          show: this.state.open
+        className={classnames('btn-group', {
+          show: this.state.open,
         })}
         role="group"
       >
@@ -42,8 +42,8 @@ class OrderStatusButton extends Component {
         />
         {orderStatuses ? (
           <div
-            className={classnames("dropdown-menu dropdown-menu-right", {
-              show: this.state.open
+            className={classnames('dropdown-menu dropdown-menu-right', {
+              show: this.state.open,
             })}
             aria-labelledby="btnGroupDrop1"
           >
@@ -51,7 +51,7 @@ class OrderStatusButton extends Component {
               <button
                 key={key}
                 className="dropdown-item"
-                onClick={e => {
+                onClick={(e) => {
                   this.handleToggleMenu(e);
                   this.props.onItemClick(key);
                 }}
@@ -68,11 +68,11 @@ class OrderStatusButton extends Component {
 
 OrderStatusButton.propTypes = {
   takeOrder: PropTypes.object.isRequired,
-  onItemClick: PropTypes.func.isRequired
+  onItemClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  takeOrder: state.takeOrder
+  takeOrder: state.takeOrder,
 });
 
 export default connect(mapStateToProps)(OrderStatusButton);

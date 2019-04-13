@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import isEmpty from "../../utils/is-empty";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import isEmpty from '../../utils/is-empty';
 
-//components
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
+// components
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
 
-//actions
-import { getCustomer, updateCustomer } from "../../actions/customerActions";
+// actions
+import { getCustomer, updateCustomer } from '../../actions/customerActions';
 
 class EditCustomer extends Component {
   constructor(props, context) {
@@ -20,7 +20,7 @@ class EditCustomer extends Component {
       postCode: undefined,
       phoneNo: undefined,
       note: undefined,
-      errors: {}
+      errors: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,21 +29,23 @@ class EditCustomer extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const { name, phoneNo, address, postCode, note } = this.state;
+    const {
+      name, phoneNo, address, postCode, note,
+    } = this.state;
     const { id } = this.props.match.params;
     this.props.updateCustomer(id, {
       name,
       phoneNo,
       address,
       postCode,
-      note
+      note,
     });
   }
 
@@ -54,20 +56,20 @@ class EditCustomer extends Component {
         address,
         postCode,
         phoneNo,
-        note
+        note,
       } = nextProps.customers.current;
       this.setState({
         name,
         address,
         postCode,
         phoneNo,
-        note
+        note,
       });
     }
 
     if (nextProps.customers.errors) {
       this.setState({
-        errors: nextProps.customers.errors || {}
+        errors: nextProps.customers.errors || {},
       });
     }
   }
@@ -109,8 +111,8 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="name"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.name
+                    className={classnames('form-control', {
+                      'is-invalid': errors.name,
                     })}
                     id="name"
                     name="name"
@@ -130,8 +132,8 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="phoneNo"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.phoneNo
+                    className={classnames('form-control', {
+                      'is-invalid': errors.phoneNo,
                     })}
                     id="phoneNo"
                     name="phoneNo"
@@ -151,8 +153,8 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="address"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.address
+                    className={classnames('form-control', {
+                      'is-invalid': errors.address,
                     })}
                     id="address"
                     name="address"
@@ -172,8 +174,8 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="postCode"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.postCode
+                    className={classnames('form-control', {
+                      'is-invalid': errors.postCode,
                     })}
                     id="postCode"
                     name="postCode"
@@ -193,8 +195,8 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <textarea
                     type="note"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.note
+                    className={classnames('form-control', {
+                      'is-invalid': errors.note,
                     })}
                     id="note"
                     name="note"
@@ -228,10 +230,10 @@ class EditCustomer extends Component {
   }
 }
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
   mapStateToProps,
-  { getCustomer, updateCustomer }
+  { getCustomer, updateCustomer },
 )(EditCustomer);

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-//@components
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
-import OrderStatusButton from "../../components/OrderStatusButton";
+// @components
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
+import OrderStatusButton from '../../components/OrderStatusButton';
 
-import { getOrders, updateOrder } from "../../actions/orderActions";
+import { getOrders, updateOrder } from '../../actions/orderActions';
 
 class OrderList extends Component {
   constructor(props) {
@@ -32,27 +32,36 @@ class OrderList extends Component {
       content = list.map(order => (
         <div className="m-3 p-3 border" key={order._id}>
           <div className="d-flex w-100 justify-content-between">
-            {order.orderType === "table" ? (
-              <div style={{ width: "250px" }}>
+            {order.orderType === 'table' ? (
+              <div style={{ width: '250px' }}>
                 <strong>
-                  {orderTypes[order.orderType]} <br /> {order.tableNo}
+                  {orderTypes[order.orderType]}
+                  {' '}
+                  <br />
+                  {' '}
+                  {order.tableNo}
                 </strong>
               </div>
             ) : null}
-            {order.orderType === "delivery" ? (
-              <div style={{ width: "250px" }}>
+            {order.orderType === 'delivery' ? (
+              <div style={{ width: '250px' }}>
                 <strong>{orderTypes[order.orderType]}</strong>
                 <br />
                 <small>
-                  {order.deliveryAddress.name} <br />
-                  {order.deliveryAddress.address}{" "}
-                  {order.deliveryAddress.postCode} <br />
+                  {order.deliveryAddress.name}
+                  {' '}
+                  <br />
+                  {order.deliveryAddress.address}
+                  {' '}
+                  {order.deliveryAddress.postCode}
+                  {' '}
+                  <br />
                   {order.deliveryAddress.contactNo}
                 </small>
               </div>
             ) : null}
-            {order.orderType === "collection" ? (
-              <div style={{ width: "250px" }}>
+            {order.orderType === 'collection' ? (
+              <div style={{ width: '250px' }}>
                 <strong>{orderTypes[order.orderType]}</strong>
               </div>
             ) : null}
@@ -60,13 +69,18 @@ class OrderList extends Component {
             <div>
               <strong>{orderStatuses[order.orderStatus]}</strong>
               <br />
-              <span>&pound; {order.orderTotal.toFixed(2)} </span>
+              <span>
+&pound;
+                {order.orderTotal.toFixed(2)}
+                {' '}
+
+              </span>
             </div>
 
             <div>
               <OrderStatusButton
                 currentStatus={order.orderStatus}
-                onItemClick={status => {
+                onItemClick={(status) => {
                   this.updateOrderStatus(order._id, status);
                 }}
               />
@@ -96,10 +110,10 @@ class OrderList extends Component {
 
 const mapStateToProps = state => ({
   orders: state.orders,
-  takeOrder: state.takeOrder
+  takeOrder: state.takeOrder,
 });
 
 export default connect(
   mapStateToProps,
-  { getOrders, updateOrder }
+  { getOrders, updateOrder },
 )(OrderList);

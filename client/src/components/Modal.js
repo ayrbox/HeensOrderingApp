@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 class Modal extends Component {
   render() {
@@ -13,13 +13,13 @@ class Modal extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{
-          display: "block",
-          backgroundColor: "rgba(0,0,0,.6)"
+          display: 'block',
+          backgroundColor: 'rgba(0,0,0,.6)',
         }}
       >
         <div
-          className={classnames("modal-dialog modal-dialog-centered", {
-            "modal-lg": this.props.size === "large"
+          className={classnames('modal-dialog modal-dialog-centered', {
+            'modal-lg': this.props.size === 'large',
           })}
           role="document"
         >
@@ -33,7 +33,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
 };
 
 const ModalBody = ({ children }) => (
@@ -63,7 +63,7 @@ const ModalHeader = ({ title, onClose }) => (
 
 ModalHeader.propTypes = {
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default Modal;

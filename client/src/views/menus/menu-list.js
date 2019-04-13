@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-//views
-import MainLayout from "../viewcomponents/MainLayout";
+// views
+import MainLayout from '../viewcomponents/MainLayout';
 
-//actions
-import { getMenus } from "../../actions/menuActions";
+// actions
+import { getMenus } from '../../actions/menuActions';
 
 class MenuList extends Component {
   componentDidMount() {
     this.props.getMenus();
   }
-  
+
   render() {
     const { list, loading } = this.props.menus;
 
-    let listContent = "";
+    let listContent = '';
 
     if (loading) {
-      listContent = "Loading.....";
+      listContent = 'Loading.....';
     } else if (list.length === 0) {
       listContent = (
         <div className="row">
@@ -46,7 +46,10 @@ class MenuList extends Component {
                   <Link to={`/menus/${m._id}`}>{m.name}</Link>
                 </td>
                 <td>{m.description}</td>
-                <td>&pound;{m.price}</td>
+                <td>
+&pound;
+                  {m.price}
+                </td>
                 <td>
                   {m.category.name}
                   <br />
@@ -79,8 +82,8 @@ class MenuList extends Component {
               <Link
                 className="btn btn-primary"
                 to={{
-                  pathname: `/menus/add`,
-                  state: { modal: true }
+                  pathname: '/menus/add',
+                  state: { modal: true },
                 }}
               >
                 New Menu
@@ -95,12 +98,12 @@ class MenuList extends Component {
 }
 
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
   {
-    getMenus
-  }
+    getMenus,
+  },
 )(MenuList);

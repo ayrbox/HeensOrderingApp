@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getCustomer } from "../../actions/customerActions";
-import { Link } from "react-router-dom";
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getCustomer } from '../../actions/customerActions';
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
 
 class CustomerDetail extends Component {
   componentDidMount() {
     this.props.getCustomer(this.props.match.params.id);
   }
+
   render() {
     const { current, loading } = this.props.customers;
 
@@ -107,7 +108,7 @@ class CustomerDetail extends Component {
               <div className="form-group row">
                 <div className="col-sm-2" />
                 <div className="col-sm-5">
-                  <Link className="btn btn-outline-primary" to={"/customers"}>
+                  <Link className="btn btn-outline-primary" to="/customers">
                     Back
                   </Link>
                   <Link
@@ -127,10 +128,10 @@ class CustomerDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
   mapStateToProps,
-  { getCustomer }
+  { getCustomer },
 )(CustomerDetail);

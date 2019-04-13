@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
-import { Link } from "react-router-dom";
-import { fetchCustomers, clearCustomers } from "../../actions/customerActions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
+import { fetchCustomers, clearCustomers } from '../../actions/customerActions';
 
 class CustomerIndex extends Component {
   componentDidMount() {
@@ -91,10 +91,10 @@ class CustomerIndex extends Component {
 }
 
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchCustomers, clearCustomers }
+  { fetchCustomers, clearCustomers },
 )(CustomerIndex);

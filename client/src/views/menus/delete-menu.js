@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import classnames from "classnames";
 
-//actions
-import { getMenu, deleteMenu } from "../../actions/menuActions";
+// actions
+import { getMenu, deleteMenu } from '../../actions/menuActions';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
 class DeleteMenu extends Component {
   constructor(props, context) {
@@ -97,7 +97,7 @@ class DeleteMenu extends Component {
                   className="form-control-plaintext"
                   id="category"
                   name="category"
-                  value={current.category.name || ""}
+                  value={current.category.name || ''}
                 />
               </div>
             </div>
@@ -127,10 +127,10 @@ class DeleteMenu extends Component {
 }
 
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
-  { getMenu, deleteMenu }
+  { getMenu, deleteMenu },
 )(DeleteMenu);

@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalBody,
-  ModalFooter
-} from "../../components/Modal";
+  ModalFooter,
+} from '../../components/Modal';
 
-//actions
-import { getMenu, addMenuOption } from "../../actions/menuActions";
+// actions
+import { getMenu, addMenuOption } from '../../actions/menuActions';
 
 class AddMenuOption extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      description: "",
+      description: '',
       additionalCost: 0,
-      errors: {}
+      errors: {},
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -37,7 +37,7 @@ class AddMenuOption extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.menus.errors) {
       this.setState({
-        errors: nextProps.menus.errors
+        errors: nextProps.menus.errors,
       });
     }
   }
@@ -50,7 +50,7 @@ class AddMenuOption extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -62,7 +62,7 @@ class AddMenuOption extends Component {
 
     const option = {
       description,
-      additionalCost
+      additionalCost,
     };
 
     this.props.addMenuOption(id, option, this.props.history);
@@ -94,8 +94,8 @@ class AddMenuOption extends Component {
               </label>
               <div className="col-sm-8">
                 <input
-                  className={classnames("form-control", {
-                    "is-invalid": errors.description
+                  className={classnames('form-control', {
+                    'is-invalid': errors.description,
                   })}
                   id="description"
                   name="description"
@@ -117,8 +117,8 @@ class AddMenuOption extends Component {
               </label>
               <div className="col-sm-8">
                 <input
-                  className={classnames("form-control", {
-                    "is-invalid": errors.additionalCost
+                  className={classnames('form-control', {
+                    'is-invalid': errors.additionalCost,
                   })}
                   id="additionalCost"
                   name="additionalCost"
@@ -156,13 +156,13 @@ class AddMenuOption extends Component {
 }
 
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
   {
     getMenu,
-    addMenuOption
-  }
+    addMenuOption,
+  },
 )(AddMenuOption);
