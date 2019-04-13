@@ -1,5 +1,6 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 const Header = ({ title }) => (
   <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -64,5 +65,9 @@ const Header = ({ title }) => (
     </div>
   </nav>
 );
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;
