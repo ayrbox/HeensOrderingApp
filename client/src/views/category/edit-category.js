@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getCategory, updateCategory } from "../../actions/categoryActions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCategory, updateCategory } from '../../actions/categoryActions';
 
 class EditCategory extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: ""
+      name: '',
+      description: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -17,46 +18,54 @@ class EditCategory extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getCategory(id);
+    const {
+      match: { params: { id } },
+      getCategory: handleGetCategory,
+    } = this.props;
+    handleGetCategory(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.categories.current) {
-      const { name, description } = nextProps.categories.current;
-
+    const { categories: { current } } = nextProps;
+    if (current) {
+      const { name, description } = current;
       this.setState({
-        name: name || "",
-        description: description || ""
+        name: name || '',
+        description: description || '',
       });
     }
   }
 
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/categories");
+    const { history } = this.props;
+    history.push('/categories');
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
+    const {
+      match: { params: { id } },
+      updateCategory: handleUpdateCategory,
+    } = this.props;
 
     const { name, description } = this.state;
 
-    this.props.updateCategory(id, {
+    handleUpdateCategory(id, {
       name,
-      description
+      description,
     });
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   render() {
-    const { msg } = this.props.categories;
+    const { categories: { msg } } = this.props;
+    const { name, description } = this.state;
 
     return (
       <div
@@ -67,8 +76,8 @@ class EditCategory extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{
-          display: "block",
-          backgroundColor: "rgba(0,0,0,.6)"
+          display: 'block',
+          backgroundColor: 'rgba(0,0,0,.6)',
         }}
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
@@ -102,7 +111,7 @@ class EditCategory extends Component {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -113,7 +122,7 @@ class EditCategory extends Component {
                 </label>
                 <div className="col-sm-8">
                   <textarea
-                    value={this.state.description}
+                    value={description}
                     className="form-control"
                     name="description"
                     id="description"
@@ -142,14 +151,39 @@ class EditCategory extends Component {
   }
 }
 
+EditCategory.propTypes = {
+  categories: PropTypes.shape({
+    msg: PropTypes.string,
+    current: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+    }),
+    categories: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+    }),
+  }).isRequired,
+  getCategory: PropTypes.func.isRequired,
+  updateCategory: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
-  mapStateToProps,
-  {
+  mapStateToProps, {
     getCategory,
-    updateCategory
-  }
+    updateCategory,
+  },
 )(EditCategory);

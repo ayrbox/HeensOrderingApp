@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { getCategory } from "../../actions/categoryActions";
+import { getCategory } from '../../actions/categoryActions';
 
 class Category extends Component {
   constructor(props, context) {
@@ -9,18 +10,21 @@ class Category extends Component {
 
     this.handleClose = this.handleClose.bind(this);
   }
+
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getCategory(id);
+    const { getCategory: handleGetCategory, match: { params: { id } } } = this.props;
+    handleGetCategory(id);
   }
 
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/categories/");
+    const { history } = this.props;
+    history.push('/categories/');
   }
 
   render() {
-    const category = this.props.categories.current;
+    const { categories: { current } } = this.props;
+    const category = current;
     return (
       <div
         className="modal fade show"
@@ -30,8 +34,8 @@ class Category extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{
-          display: "block",
-          backgroundColor: "rgba(0,0,0,.6)"
+          display: 'block',
+          backgroundColor: 'rgba(0,0,0,.6)',
         }}
       >
         <div
@@ -61,13 +65,7 @@ class Category extends Component {
                       Name
                     </label>
                     <div className="col-sm-8">
-                      <input
-                        type="name"
-                        className="form-control-plaintext"
-                        id="name"
-                        name="name"
-                        value={category.name}
-                      />
+                      <div className="form-control-plaintext">{category.name}</div>
                     </div>
                   </div>
                   <div className="form-group row">
@@ -75,10 +73,7 @@ class Category extends Component {
                       Description
                     </label>
                     <div className="col-sm-8">
-                      <textarea
-                        value={category.description}
-                        className="form-control-plaintext"
-                      />
+                      <div className="form-control-plaintext">{category.description}</div>
                     </div>
                   </div>
                 </form>
@@ -101,11 +96,25 @@ class Category extends Component {
   }
 }
 
+Category.propTypes = {
+  categories: PropTypes.shape({}).isRequired,
+  getCategory: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
-  mapStateToProps,
-  { getCategory }
+  mapStateToProps, {
+    getCategory,
+  },
 )(Category);

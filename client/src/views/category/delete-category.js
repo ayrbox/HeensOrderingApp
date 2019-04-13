@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getCategory, deleteCategory } from "../../actions/categoryActions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCategory, deleteCategory } from '../../actions/categoryActions';
 
 class DeleteCategory extends Component {
   constructor(props, context) {
@@ -11,25 +12,33 @@ class DeleteCategory extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getCategory(id);
+    const {
+      match: { params: { id } },
+      getCategory: handleGetCategory,
+    } = this.props;
+    handleGetCategory(id);
   }
 
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/categories");
+    const { history } = this.props;
+    history.push('/categories');
   }
 
   handleDelete(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    this.props.deleteCategory(id);
+    const {
+      match: { params: { id } },
+      deleteCategory: handleDeleteCategory,
+      history,
+    } = this.props;
+    handleDeleteCategory(id);
 
-    this.props.history.push("/categories");
+    history.push('/categories');
   }
 
   render() {
-    const { current, msg } = this.props.categories;
+    const { categories: { current, msg } } = this.props;
     if (!current) return null;
 
     return (
@@ -41,8 +50,8 @@ class DeleteCategory extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{
-          display: "block",
-          backgroundColor: "rgba(0,0,0,.6)"
+          display: 'block',
+          backgroundColor: 'rgba(0,0,0,.6)',
         }}
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
@@ -126,14 +135,35 @@ class DeleteCategory extends Component {
   }
 }
 
+DeleteCategory.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  categories: PropTypes.shape({
+    current: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+    }),
+    msg: PropTypes.string,
+  }).isRequired,
+  deleteCategory: PropTypes.func.isRequired,
+  getCategory: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
   mapStateToProps,
   {
     deleteCategory,
-    getCategory
-  }
+    getCategory,
+  },
 )(DeleteCategory);

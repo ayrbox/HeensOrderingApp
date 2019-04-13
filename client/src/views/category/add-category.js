@@ -130,7 +130,9 @@ class AddCategory extends Component {
 }
 
 AddCategory.propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   createCategory: PropTypes.func.isRequired,
   categories: PropTypes.shape({
     msg: PropTypes.string,
