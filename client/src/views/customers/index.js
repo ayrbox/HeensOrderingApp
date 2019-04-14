@@ -13,7 +13,7 @@ class CustomerIndex extends Component {
   }
 
   componentWillUnmount() {
-    const { clearCustomer: handleClearCustomers } = this.props;
+    const { clearCustomers: handleClearCustomers } = this.props;
     handleClearCustomers();
   }
 
@@ -111,7 +111,7 @@ CustomerIndex.propTypes = {
     errors: PropTypes.shape(),
   })).isRequired,
   fetchCustomers: PropTypes.func.isRequired,
-  clearCustomer: PropTypes.func.isRequired,
+  clearCustomers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
