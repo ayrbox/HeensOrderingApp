@@ -1,26 +1,27 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
-//actions
-import { getMenu, deleteMenuOption } from "../../actions/menuActions";
+// actions
+import { getMenu, deleteMenuOption } from '../../actions/menuActions';
 
 class Menu extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      tags: []
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      tags: [],
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -30,55 +31,25 @@ class Menu extends Component {
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
   }
 
-  handleAddOption(e) {
-    e.preventDefault();
-
-    const { id } = this.props.match.params;
-
-    this.props.history.push(`/menus/${id}/options/add`);
-  }
-
-  handleDelete(e) {
-    e.preventDefault();
-
-    const { id } = this.props.match.params;
-
-    this.props.history.push(`/menus/${id}/delete`);
-  }
-
-  handleClose(e) {
-    e.preventDefault();
-    this.props.history.push("/menus/");
-  }
-
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  handleDeleteOption(optionId, e) {
-    e.preventDefault();
-
-    const { id } = this.props.match.params;
-    this.props.deleteMenuOption(id, optionId, this.props.history);
-  }
-
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getMenu(id);
+    const {
+      match: { params: { id } },
+      getMenu: handleGetMenu,
+    } = this.props;
+    handleGetMenu(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.menus.current) {
+    const { menus: { current } } = nextProps;
+    if (current) {
       const {
         name,
         description,
         price,
         category,
         tags,
-        menuOptions
-      } = nextProps.menus.current;
+        menuOptions,
+      } = current;
 
       this.setState({
         name,
@@ -86,12 +57,66 @@ class Menu extends Component {
         price,
         category,
         tags,
-        menuOptions
+        menuOptions,
       });
     }
   }
 
+  handleAddOption(e) {
+    e.preventDefault();
+
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+
+    history.push(`/menus/${id}/options/add`);
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+
+    history.push(`/menus/${id}/delete`);
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    const { history } = this.props;
+    history.push('/menus/');
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  handleDeleteOption(optionId, e) {
+    e.preventDefault();
+
+    const {
+      match: { params: { id } },
+      deleteMenuOption: handleDeleteMenuOption,
+      history,
+    } = this.props;
+    handleDeleteMenuOption(id, optionId, history);
+  }
+
+
   render() {
+    const {
+      name,
+      description,
+      price,
+      category,
+      tags,
+      menuOptions,
+    } = this.state;
     return (
       <Modal size="large">
         <ModalHeader title="Menu" onClose={this.handleClose} />
@@ -106,7 +131,7 @@ class Menu extends Component {
                 className="form-control-plaintext"
                 id="name"
                 name="name"
-                value={this.state.name}
+                value={name}
               />
             </div>
           </div>
@@ -120,7 +145,7 @@ class Menu extends Component {
                 className="form-control-plaintext"
                 id="description"
                 name="description"
-                value={this.state.description}
+                value={description}
                 readOnly
               />
             </div>
@@ -135,7 +160,7 @@ class Menu extends Component {
                 className="form-control-plaintext"
                 id="price"
                 name="price"
-                value={this.state.price}
+                value={price}
                 readOnly
               />
             </div>
@@ -150,7 +175,7 @@ class Menu extends Component {
                 className="form-control-plaintext"
                 id="category"
                 name="category"
-                value={this.state.category.name || ""}
+                value={category.name || ''}
               />
             </div>
           </div>
@@ -159,9 +184,9 @@ class Menu extends Component {
               Tags
             </label>
             <div className="col-sm-8">
-              {this.state.tags.map((t, i) => (
+              {tags.map(t => (
                 <label
-                  key={i}
+                  key={`${t}`}
                   className="badge badge-pill badge-dark mb-1 mr-1"
                 >
                   {t}
@@ -171,21 +196,28 @@ class Menu extends Component {
           </div>
 
           <div className="form-group row">
-            <label className="col-sm-4 col-form-label">Menu Options</label>
+            <div className="col-sm-4 col-form-label">Menu Options</div>
             <div className="col-sm-8">
-              {this.state.menuOptions ? (
+              {menuOptions ? (
                 <ul className="list-group">
-                  {this.state.menuOptions.map(o => (
-                    <li key={o._id} className="list-group-item">
+                  {menuOptions.map(({
+                    _id: optionId,
+                    description: optionDesc,
+                    additionalCost,
+                  }) => (
+                    <li key={optionId} className="list-group-item">
                       <div className="d-flex w-100 justify-content-between">
                         <button
+                          type="button"
                           className="btn btn-sm btn-outline-danger"
-                          onClick={e => this.handleDeleteOption(o._id, e)}
+                          onClick={e => this.handleDeleteOption(optionId, e)}
                         >
                           X
                         </button>
-                        {o.description}
-                        <span>&pound;{o.additionalCost}</span>
+                        {optionDesc}
+                        <span>
+                          {`&pound; ${additionalCost}`}
+                        </span>
                       </div>
                     </li>
                   ))}
@@ -205,10 +237,13 @@ class Menu extends Component {
           <button
             type="button"
             className="btn btn-outline-primary"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
-              const { id } = this.props.match.params;
-              this.props.history.push(`/menus/${id}/edit`);
+              const {
+                match: { params: { id } },
+                history,
+              } = this.props;
+              history.push(`/menus/${id}/edit`);
             }}
           >
             Edit
@@ -235,11 +270,27 @@ class Menu extends Component {
   }
 }
 
+Menu.propTypes = {
+  menus: PropTypes.shape({
+    current: PropTypes.shape(),
+  }).isRequired,
+  getMenu: PropTypes.func.isRequired,
+  deleteMenuOption: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
-  { getMenu, deleteMenuOption }
+  { getMenu, deleteMenuOption },
 )(Menu);

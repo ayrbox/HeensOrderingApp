@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-// import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-//actions
-import { getMenu, deleteMenu } from "../../actions/menuActions";
+import { getMenu, deleteMenu } from '../../actions/menuActions';
 
-//components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
 class DeleteMenu extends Component {
   constructor(props, context) {
@@ -20,24 +18,34 @@ class DeleteMenu extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
+  componentDidMount() {
+    const {
+      match: { params: { id } },
+      getMenu: handleGetMenu,
+    } = this.props;
+    handleGetMenu(id);
+  }
+
   handleClose(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    this.props.history.push(`/menus/${id}`);
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+    history.push(`/menus/${id}`);
   }
 
   handleDelete(e) {
-    const { id } = this.props.match.params;
-    this.props.deleteMenu(id, this.props.history);
-  }
-
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getMenu(id);
+    e.preventDefault();
+    const {
+      match: { params: { id } },
+      deleteMenu: handleDeleteMenu,
+    } = this.props;
+    handleDeleteMenu(id);
   }
 
   render() {
-    const { current } = this.props.menus;
+    const { menus: { current } } = this.props;
     return (
       <Modal>
         <ModalHeader title="Confirm Delete" onClose={this.handleClose} />
@@ -97,7 +105,7 @@ class DeleteMenu extends Component {
                   className="form-control-plaintext"
                   id="category"
                   name="category"
-                  value={current.category.name || ""}
+                  value={current.category.name || ''}
                 />
               </div>
             </div>
@@ -126,11 +134,27 @@ class DeleteMenu extends Component {
   }
 }
 
+DeleteMenu.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  deleteMenu: PropTypes.func.isRequired,
+  getMenu: PropTypes.func.isRequired,
+  menus: PropTypes.shape({
+    current: PropTypes.shape(),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
   mapStateToProps,
-  { getMenu, deleteMenu }
+  { getMenu, deleteMenu },
 )(DeleteMenu);

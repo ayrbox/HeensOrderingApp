@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class ExternalLayout extends Component {
-  render() {
-    return <div className="app-container">{this.props.children}</div>;
-  }
-}
+const ExternalLayout = ({ children }) => (
+  <div className="app-container">{children}</div>
+);
+
+ExternalLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ExternalLayout;

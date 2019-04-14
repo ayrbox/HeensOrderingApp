@@ -1,63 +1,85 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-import { createCustomer } from "../../actions/customerActions";
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
-import isEmpty from "../../utils/is-empty";
+import { createCustomer } from '../../actions/customerActions';
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
+import isEmpty from '../../utils/is-empty';
 
 class AddCustomer extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      phoneNo: "",
-      address: "",
-      postCode: "",
-      note: "",
-      errors: {}
+      name: '',
+      phoneNo: '',
+      address: '',
+      postCode: '',
+      note: '',
+      errors: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {
+      customers: { current, errors },
+      history,
+    } = nextProps;
+    if (errors) {
+      this.setState({
+        errors: errors || {},
+      });
+    }
+
+    if (current) {
+      history.push('/customers'); // redirect if customer is created successfully
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
-    const { name, phoneNo, address, postCode, note } = this.state;
-    this.props.createCustomer({
+    const {
       name,
       phoneNo,
       address,
       postCode,
-      note
+      note,
+    } = this.state;
+
+    const { createCustomer: handleCreateCustomer } = this.props;
+
+    handleCreateCustomer({
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
     });
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.customers.errors) {
-      this.setState({
-        errors: nextProps.customers.errors || {}
-      });
-    }
-
-    if (nextProps.customers.current) {
-      this.props.history.push("/customers"); //redirect if customer is created successfully
-    }
-  }
-
   render() {
-    const { loading } = this.props.customers;
-    const { errors } = this.state;
+    const { customers: { loading } } = this.props;
+    const {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+      errors,
+    } = this.state;
+
 
     return (
       <MainLayout>
@@ -85,12 +107,12 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="name"
-                  className={classnames("form-control", {
-                    "is-invalid": errors.name
+                  className={classnames('form-control', {
+                    'is-invalid': errors.name,
                   })}
                   id="name"
                   name="name"
-                  value={this.state.name}
+                  value={name}
                   placeholder="Enter customer name..."
                   onChange={this.handleChange}
                 />
@@ -106,12 +128,12 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="phoneNo"
-                  className={classnames("form-control", {
-                    "is-invalid": errors.phoneNo
+                  className={classnames('form-control', {
+                    'is-invalid': errors.phoneNo,
                   })}
                   id="phoneNo"
                   name="phoneNo"
-                  value={this.state.phoneNo}
+                  value={phoneNo}
                   placeholder="Mobile/Home no..."
                   onChange={this.handleChange}
                 />
@@ -127,12 +149,12 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="address"
-                  className={classnames("form-control", {
-                    "is-invalid": errors.address
+                  className={classnames('form-control', {
+                    'is-invalid': errors.address,
                   })}
                   id="address"
                   name="address"
-                  value={this.state.address}
+                  value={address}
                   placeholder="address..."
                   onChange={this.handleChange}
                 />
@@ -148,12 +170,12 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <input
                   type="postCode"
-                  className={classnames("form-control", {
-                    "is-invalid": errors.postCode
+                  className={classnames('form-control', {
+                    'is-invalid': errors.postCode,
                   })}
                   id="postCode"
                   name="postCode"
-                  value={this.state.postCode}
+                  value={postCode}
                   placeholder="postcode..."
                   onChange={this.handleChange}
                 />
@@ -169,12 +191,12 @@ class AddCustomer extends Component {
               <div className="col-sm-5">
                 <textarea
                   type="note"
-                  className={classnames("form-control", {
-                    "is-invalid": errors.note
+                  className={classnames('form-control', {
+                    'is-invalid': errors.note,
                   })}
                   id="note"
                   name="note"
-                  value={this.state.note}
+                  value={note}
                   placeholder="Note about customer..."
                   onChange={this.handleChange}
                 />
@@ -203,11 +225,22 @@ class AddCustomer extends Component {
   }
 }
 
+AddCustomer.propTypes = {
+  customers: PropTypes.shape({
+    loading: PropTypes.bool,
+  }).isRequired,
+  createCustomer: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { createCustomer }
+  mapStateToProps, {
+    createCustomer,
+  },
 )(AddCustomer);

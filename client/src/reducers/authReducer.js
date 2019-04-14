@@ -1,23 +1,23 @@
-import { SET_USER, LOGOUT } from "../actions/types";
-import isEmpty from "../utils/is-empty";
+import { SET_USER, LOGOUT } from '../actions/types';
+import isEmpty from '../utils/is-empty';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return {
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        user: action.payload,
       };
 
     case LOGOUT:
       return {
         isAuthenticated: false,
-        user: undefined
+        user: undefined,
       };
     default:
       return state;

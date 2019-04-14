@@ -11,34 +11,34 @@ import {
   CUSTOMER_GET_ERROR,
   CUSTOMER_UPDATE_REQUEST,
   CUSTOMER_UPDATE_SUCCESS,
-  CUSTOMER_UPDATE_ERROR
-} from "../actions/types";
+  CUSTOMER_UPDATE_ERROR,
+} from '../actions/types';
 
 const initialState = {
   loading: false,
   list: [],
   current: undefined,
-  errors: undefined
+  errors: undefined,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case FETCHING_CUSTOMER:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case FETCH_CUSTOMER_SUCCESS:
       return {
         loading: false,
         list: action.payload,
-        errors: {}
+        errors: {},
       };
     case FETCH_CUSTOMER_ERROR:
       return {
         loading: false,
         list: [],
-        errors: action.payload
+        errors: action.payload,
       };
     case CLEAR_CUSTOMER:
       return initialState;
@@ -46,47 +46,47 @@ export default function(state = initialState, action) {
     case CUSTOMER_CREATE_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case CUSTOMER_CREATE_SUCCESS:
       return {
         ...state,
         loading: false,
         current: action.payload,
-        errors: undefined
+        errors: undefined,
       };
     case CUSTOMER_CREATE_ERROR:
       return {
         ...state,
         loading: false,
         current: undefined,
-        errors: action.payload
+        errors: action.payload,
       };
 
     case CUSTOMER_GET_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case CUSTOMER_GET_SUCCESS:
       return {
         ...state,
         loading: false,
         current: action.payload,
-        errors: undefined
+        errors: undefined,
       };
     case CUSTOMER_GET_ERROR:
       return {
         ...state,
         loading: false,
         current: undefined,
-        errors: action.payload
+        errors: action.payload,
       };
 
     case CUSTOMER_UPDATE_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     case CUSTOMER_UPDATE_SUCCESS:
@@ -94,13 +94,13 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         current: action.payload,
-        errors: undefined
+        errors: undefined,
       };
     case CUSTOMER_UPDATE_ERROR:
       return {
         ...state,
         loading: false,
-        errors: action.payload
+        errors: action.payload,
       };
     default:
       return state;

@@ -1,16 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getCustomer } from "../../actions/customerActions";
-import { Link } from "react-router-dom";
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getCustomer } from '../../actions/customerActions';
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
 
 class CustomerDetail extends Component {
   componentDidMount() {
-    this.props.getCustomer(this.props.match.params.id);
+    const {
+      getCustomer: handleGetCustomer,
+      match: { params: { id } },
+    } = this.props;
+    handleGetCustomer(id);
   }
+
   render() {
-    const { current, loading } = this.props.customers;
+    const { customers: { current, loading } } = this.props;
+    const { _id: customerId } = current;
 
     return (
       <MainLayout>
@@ -107,12 +114,12 @@ class CustomerDetail extends Component {
               <div className="form-group row">
                 <div className="col-sm-2" />
                 <div className="col-sm-5">
-                  <Link className="btn btn-outline-primary" to={"/customers"}>
+                  <Link className="btn btn-outline-primary" to="/customers">
                     Back
                   </Link>
                   <Link
                     className="btn btn-outline-danger"
-                    to={`/customer/${current._id}/edit`}
+                    to={`/customer/${customerId}/edit`}
                   >
                     Edit
                   </Link>
@@ -126,11 +133,25 @@ class CustomerDetail extends Component {
   }
 }
 
+CustomerDetail.propTypes = {
+  customers: PropTypes.shape({
+    current: PropTypes.shape({}),
+    loading: PropTypes.bool,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  getCustomer: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { getCustomer }
+  mapStateToProps, {
+    getCustomer,
+  },
 )(CustomerDetail);

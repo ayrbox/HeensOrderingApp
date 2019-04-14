@@ -13,24 +13,24 @@ import {
   CATEGORY_UPDATE_ERROR,
   CATEGORY_DELETE_REQUEST,
   CATEGORY_DELETE_SUCCESS,
-  CATEGORY_DELETE_ERRROR
-} from "../actions/types";
+  CATEGORY_DELETE_ERRROR,
+} from '../actions/types';
 
 const initialState = {
   loading: false,
   list: [],
   current: undefined,
   errors: undefined,
-  msg: undefined
+  msg: undefined,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case CATEGORY_FETCH_REQUEST:
       return {
         ...state,
         loading: true,
-        msg: "Requesting list of categories..."
+        msg: 'Requesting list of categories...',
       };
     case CATEGORY_FETCH_SUCCESS:
       return {
@@ -38,7 +38,7 @@ export default function(state = initialState, action) {
         loading: false,
         list: action.payload,
         error: {},
-        msg: undefined
+        msg: undefined,
       };
     case CATEGORY_FETCH_ERROR:
       return {
@@ -46,14 +46,14 @@ export default function(state = initialState, action) {
         loading: false,
         list: [],
         errors: action.errors,
-        msg: "There is a problem fetching categories..."
+        msg: 'There is a problem fetching categories...',
       };
 
     case CATEGORY_GET_REQUEST:
       return {
         ...state,
         loading: true,
-        msg: "Getting category details"
+        msg: 'Getting category details',
       };
 
     case CATEGORY_GET_SUCCESS:
@@ -62,7 +62,7 @@ export default function(state = initialState, action) {
         loading: false,
         current: action.payload,
         errors: {},
-        msg: undefined
+        msg: undefined,
       };
 
     case CATEGORY_GET_ERROR:
@@ -71,14 +71,14 @@ export default function(state = initialState, action) {
         loading: false,
         current: undefined,
         errors: action.payload,
-        msg: "There is a problem getting category"
+        msg: 'There is a problem getting category',
       };
 
     case CATEGORY_CREATE_REQUEST:
       return {
         ...state,
         loading: true,
-        msg: "Saving category"
+        msg: 'Saving category',
       };
     case CATEGORY_CREATE_SUCCESS:
       return {
@@ -87,7 +87,7 @@ export default function(state = initialState, action) {
         loading: false,
         current: action.payload,
         errors: {},
-        msg: "Category saved"
+        msg: 'Category saved',
       };
     case CATEGORY_CREATE_ERROR:
       return {
@@ -95,75 +95,73 @@ export default function(state = initialState, action) {
         loading: false,
         current: undefined,
         errors: action.payload,
-        msg: "There is a problem creating category"
+        msg: 'There is a problem creating category',
       };
 
     case CATEGORY_UPDATE_REQUEST:
       return {
         ...state,
         loading: true,
-        msg: "Updating category"
+        msg: 'Updating category',
       };
 
-    case CATEGORY_UPDATE_SUCCESS:
-      //Immutable array update
-      //https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#inserting-and-removing-items-in-arrays
+    case CATEGORY_UPDATE_SUCCESS: {
+      // Immutable array update
+      // https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#inserting-and-removing-items-in-arrays
 
-      const updateIndex = state.list.findIndex(c => {
-        return c._id === action.payload._id;
-      });
+      const { _id: idToUpdate } = action.payload;
+      const updateIndex = state.list.findIndex(({ _id: categoryId }) => categoryId === idToUpdate);
       return {
         ...state,
         list: [
           ...state.list.slice(0, updateIndex),
           action.payload,
-          ...state.list.slice(updateIndex + 1)
+          ...state.list.slice(updateIndex + 1),
         ],
         loading: false,
         current: action.payload,
         errors: {},
-        msg: "Category updated"
+        msg: 'Category updated',
       };
-
+    }
     case CATEGORY_UPDATE_ERROR:
       return {
         ...state,
         loading: false,
         current: undefined,
         errors: action.payload,
-        msg: "There is problem updating category"
+        msg: 'There is problem updating category',
       };
 
     case CATEGORY_DELETE_REQUEST:
       return {
         ...state,
         loading: true,
-        msg: "Deleteing category"
+        msg: 'Deleteing category',
       };
 
-    case CATEGORY_DELETE_SUCCESS:
-      const deleteIndex = state.list.findIndex(c => {
-        return c._id === action.payload._id;
-      });
+    case CATEGORY_DELETE_SUCCESS: {
+      const { idToDelete } = action.payload;
+      const deleteIndex = state.list.findIndex(({ _id: categoryId }) => categoryId === idToDelete);
       return {
         ...state,
         list: [
           ...state.list.slice(0, deleteIndex),
-          ...state.list.slice(deleteIndex + 1)
+          ...state.list.slice(deleteIndex + 1),
         ],
         loading: false,
         current: undefined,
         errors: {},
-        msg: "Category delected"
+        msg: 'Category delected',
       };
-
+    }
     case CATEGORY_DELETE_ERRROR:
       return {
         ...state,
         loading: false,
         current: undefined,
         errors: action.payload,
-        msg: "There is a problem deleting categories"
+        msg: 'There is a problem deleting categories',
       };
 
     default:

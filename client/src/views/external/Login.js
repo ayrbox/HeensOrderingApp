@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { loginUser } from "../../actions/authActions";
-
-import ExternalLayout from "../viewcomponents/ExternalLayout";
+import { loginUser } from '../../actions/authActions';
+import ExternalLayout from '../viewcomponents/ExternalLayout';
 
 class Login extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      email: "",
-      password: "",
-      errors: {}
+      email: '',
+      password: '',
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -20,36 +20,43 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    const { isAuthenticated } = this.props.auth;
+    const {
+      auth: { isAuthenticated },
+      history,
+    } = this.props;
     if (isAuthenticated) {
-      this.props.history.push("/orders"); //todo main page after login
+      history.push('/orders'); // todo main page after login
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      console.log(nextProps.errors);
-      this.setState({ errors: nextProps.errors });
+  componentWillReceiveProps({ errors }) {
+    if (errors) {
+      this.setState({ errors });
     }
   }
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    var loginModel = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    this.props.loginUser(loginModel, this.props.history);
+    const { email, password } = this.state;
+    const {
+      loginUser: handleLoginUser,
+      history,
+    } = this.props;
+    handleLoginUser({ email, password }, history);
   }
 
   render() {
+    const {
+      email,
+      password,
+      errors,
+    } = this.state;
     return (
       <ExternalLayout>
         <form
@@ -68,12 +75,11 @@ class Login extends Component {
             className="form-control"
             placeholder="Email address"
             required=""
-            autoFocus
-            value={this.state.email}
+            value={email}
             onChange={this.onChange}
           />
-          {this.state.errors.email ? (
-            <div className="text-help">{this.state.errors.email}</div>
+          {errors.email ? (
+            <div className="text-help">{errors.email}</div>
           ) : null}
           <label htmlFor="inputPassword" className="sr-only">
             Password
@@ -85,15 +91,16 @@ class Login extends Component {
             className="form-control"
             placeholder="Password"
             required=""
-            value={this.state.password}
+            value={password}
             onChange={this.onChange}
           />
-          {this.state.errors.password ? (
-            <div className="text-help">{this.state.errors.password}</div>
+          {errors.password ? (
+            <div className="text-help">{errors.password}</div>
           ) : null}
           <div className="checkbox mb-3">
             <label>
-              <input type="checkbox" value="remember-me" /> Remember me
+              <input type="checkbox" value="remember-me" />
+              {' Remember me'}
             </label>
           </div>
           <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -105,14 +112,25 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+  }).isRequired,
+  errors: PropTypes.arrayOf(PropTypes.shape({
+  })).isRequired,
+  loginUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(
-  mapStateToProps,
-  {
-    loginUser
-  }
+  mapStateToProps, {
+    loginUser,
+  },
 )(Login);

@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import isEmpty from "../../utils/is-empty";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import isEmpty from '../../utils/is-empty';
 
-//components
-import MainLayout from "../viewcomponents/MainLayout";
-import Spinner from "../../components/Spinner";
+// components
+import MainLayout from '../viewcomponents/MainLayout';
+import Spinner from '../../components/Spinner';
 
-//actions
-import { getCustomer, updateCustomer } from "../../actions/customerActions";
+// actions
+import { getCustomer, updateCustomer } from '../../actions/customerActions';
 
 class EditCustomer extends Component {
   constructor(props, context) {
@@ -20,65 +21,87 @@ class EditCustomer extends Component {
       postCode: undefined,
       phoneNo: undefined,
       note: undefined,
-      errors: {}
+      errors: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-
-    const { name, phoneNo, address, postCode, note } = this.state;
-    const { id } = this.props.match.params;
-    this.props.updateCustomer(id, {
-      name,
-      phoneNo,
-      address,
-      postCode,
-      note
-    });
+  componentDidMount() {
+    const {
+      getCustomer: handleGetCustomer,
+      match: { params: { id } },
+    } = this.props;
+    handleGetCustomer(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.customers.current) {
+    const { customers: { current, errors } } = nextProps;
+    if (current) {
       const {
         name,
         address,
         postCode,
         phoneNo,
-        note
-      } = nextProps.customers.current;
+        note,
+      } = current;
       this.setState({
         name,
         address,
         postCode,
         phoneNo,
-        note
+        note,
       });
     }
 
-    if (nextProps.customers.errors) {
+    if (errors) {
       this.setState({
-        errors: nextProps.customers.errors || {}
+        errors: errors || {},
       });
     }
   }
 
-  componentDidMount() {
-    this.props.getCustomer(this.props.match.params.id);
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    } = this.state;
+
+    const {
+      match: { params: { id } },
+      updateCustomer: handleUpdateCustomer,
+    } = this.props;
+
+    handleUpdateCustomer(id, {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    });
   }
 
   render() {
-    const { current, loading } = this.props.customers;
-    const { errors } = this.state;
+    const { customers: { current, loading } } = this.props;
+    const {
+      errors,
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    } = this.state;
 
     return (
       <MainLayout>
@@ -109,12 +132,12 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="name"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.name
+                    className={classnames('form-control', {
+                      'is-invalid': errors.name,
                     })}
                     id="name"
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     placeholder="Enter customer name..."
                     onChange={this.handleChange}
                   />
@@ -130,12 +153,12 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="phoneNo"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.phoneNo
+                    className={classnames('form-control', {
+                      'is-invalid': errors.phoneNo,
                     })}
                     id="phoneNo"
                     name="phoneNo"
-                    value={this.state.phoneNo}
+                    value={phoneNo}
                     placeholder="Mobile/Home no..."
                     onChange={this.handleChange}
                   />
@@ -151,12 +174,12 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="address"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.address
+                    className={classnames('form-control', {
+                      'is-invalid': errors.address,
                     })}
                     id="address"
                     name="address"
-                    value={this.state.address}
+                    value={address}
                     placeholder="address..."
                     onChange={this.handleChange}
                   />
@@ -172,12 +195,12 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <input
                     type="postCode"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.postCode
+                    className={classnames('form-control', {
+                      'is-invalid': errors.postCode,
                     })}
                     id="postCode"
                     name="postCode"
-                    value={this.state.postCode}
+                    value={postCode}
                     placeholder="postcode..."
                     onChange={this.handleChange}
                   />
@@ -193,12 +216,12 @@ class EditCustomer extends Component {
                 <div className="col-sm-5">
                   <textarea
                     type="note"
-                    className={classnames("form-control", {
-                      "is-invalid": errors.note
+                    className={classnames('form-control', {
+                      'is-invalid': errors.note,
                     })}
                     id="note"
                     name="note"
-                    value={this.state.note}
+                    value={note}
                     placeholder="Note about customer..."
                     onChange={this.handleChange}
                   />
@@ -227,11 +250,28 @@ class EditCustomer extends Component {
     );
   }
 }
+
+EditCustomer.propTypes = {
+  customers: PropTypes.shape({
+    loading: PropTypes.bool,
+    current: PropTypes.shape({}),
+  }).isRequired,
+  getCustomer: PropTypes.func.isRequired,
+  updateCustomer: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  customers: state.customers
+  customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { getCustomer, updateCustomer }
+  mapStateToProps, {
+    getCustomer,
+    updateCustomer,
+  },
 )(EditCustomer);

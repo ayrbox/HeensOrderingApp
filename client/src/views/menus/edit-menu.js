@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-//components
+// components
 import Modal, {
   ModalHeader,
   ModalFooter,
-  ModalBody
-} from "../../components/Modal";
+  ModalBody,
+} from '../../components/Modal';
 
-//actions
-import { getMenu, updateMenu } from "../../actions/menuActions";
-import { getCategories } from "../../actions/categoryActions";
+// actions
+import { getMenu, updateMenu } from '../../actions/menuActions';
+import { getCategories } from '../../actions/categoryActions';
 
 class EditMenu extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      tags: ""
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      tags: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -31,64 +32,88 @@ class EditMenu extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    const {
+      match: { params: { id } },
+      getCategories: handleGetCategories,
+      getMenu: handleGetMenu,
+    } = this.props;
 
-    this.props.getCategories();
-    this.props.getMenu(id);
+    handleGetCategories();
+    handleGetMenu(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.menus.current) {
+    const { menus: { current } } = nextProps;
+    if (current) {
       const {
         name,
         description,
         price,
-        category,
-        tags
-      } = nextProps.menus.current;
+        category: { _id: categoryId },
+        tags,
+      } = current;
 
       this.setState({
         name,
         description,
         price,
-        category: category._id,
-        tags: tags.join(",")
+        category: categoryId,
+        tags: tags.join(','),
       });
     }
   }
 
   handleClose(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    this.props.history.push(`/menus/${id}/`);
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+    history.push(`/menus/${id}/`);
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   handleSave(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    const { name, description, price, category, tags } = this.state;
-    this.props.updateMenu(
+    const {
+      match: { params: { id } },
+      updateMenu: handleUpdateMenu,
+      history,
+    } = this.props;
+    const {
+      name, description, price, category, tags,
+    } = this.state;
+    handleUpdateMenu(
       id,
       {
         name,
         description,
         price,
         category,
-        tags
+        tags,
       },
-      this.props.history
+      history,
     );
   }
 
   render() {
-    const categories = this.props.categories.list;
-    const { errors, msg } = this.props.menus;
+    const {
+      categories: { categoryList },
+      menus: { errors, msg },
+    } = this.props;
+
+    const {
+      name,
+      description,
+      price,
+      category,
+      tags,
+    } = this.state;
 
     return (
       <Modal>
@@ -107,12 +132,12 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.name
+                className={classnames('form-control', {
+                  'is-invalid': errors.name,
                 })}
                 id="name"
                 name="name"
-                value={this.state.name}
+                value={name}
                 onChange={this.handleChange}
               />
               {errors.name ? (
@@ -126,12 +151,12 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <textarea
-                className={classnames("form-control", {
-                  "is-invalid": errors.description
+                className={classnames('form-control', {
+                  'is-invalid': errors.description,
                 })}
                 id="description"
                 name="description"
-                value={this.state.description}
+                value={description}
                 onChange={this.handleChange}
               />
               {errors.description ? (
@@ -145,12 +170,12 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.price
+                className={classnames('form-control', {
+                  'is-invalid': errors.price,
                 })}
                 id="price"
                 name="price"
-                value={this.state.price}
+                value={price}
                 onChange={this.handleChange}
                 type="number"
               />
@@ -165,19 +190,22 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <select
-                value={this.state.category}
-                defaultValue={""}
+                value={category}
+                defaultValue=""
                 name="category"
                 id="category"
                 onChange={this.handleChange}
-                className={classnames("form-control", {
-                  "is-invalid": errors.category
+                className={classnames('form-control', {
+                  'is-invalid': errors.category,
                 })}
               >
                 <option value="">--Select Category--</option>
-                {categories.map(o => (
-                  <option key={o._id} value={o._id}>
-                    {o.name}
+                {categoryList.map(({
+                  _id: categoryId,
+                  name: categoryName,
+                }) => (
+                  <option key={categoryId} value={categoryId}>
+                    {categoryName}
                   </option>
                 ))}
               </select>
@@ -192,12 +220,12 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.tags
+                className={classnames('form-control', {
+                  'is-invalid': errors.tags,
                 })}
                 id="tags"
                 name="tags"
-                value={this.state.tags}
+                value={tags}
                 onChange={this.handleChange}
               />
               {errors.tags ? (
@@ -228,9 +256,21 @@ class EditMenu extends Component {
   }
 }
 
+EditMenu.propTypes = {
+  menus: PropTypes.shape().isRequired,
+  categories: PropTypes.shape().isRequired,
+  getMenu: PropTypes.func.isRequired,
+  updateMenu: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
+  match: PropTypes.shape().isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   menus: state.menus,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
@@ -238,6 +278,6 @@ export default connect(
   {
     getMenu,
     updateMenu,
-    getCategories
-  }
+    getCategories,
+  },
 )(EditMenu);

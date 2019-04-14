@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { createCategory } from "../../actions/categoryActions";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createCategory } from '../../actions/categoryActions';
 
 class AddCategory extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: ""
+      name: '',
+      description: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -18,28 +19,31 @@ class AddCategory extends Component {
 
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/categories");
+    const { history } = this.props;
+    history.push('/categories');
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
     const { name, description } = this.state;
+    const { createCategory: handleCreateCategory } = this.props;
 
-    this.props.createCategory({
+    handleCreateCategory({
       name,
-      description
+      description,
     });
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   render() {
-    const { msg } = this.props.categories;
+    const { categories: { msg } } = this.props;
+    const { name, description } = this.state;
 
     return (
       <div
@@ -50,8 +54,8 @@ class AddCategory extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{
-          display: "block",
-          backgroundColor: "rgba(0,0,0,.6)"
+          display: 'block',
+          backgroundColor: 'rgba(0,0,0,.6)',
         }}
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
@@ -85,7 +89,7 @@ class AddCategory extends Component {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -96,7 +100,7 @@ class AddCategory extends Component {
                 </label>
                 <div className="col-sm-8">
                   <textarea
-                    value={this.state.description}
+                    value={description}
                     className="form-control"
                     name="description"
                     id="description"
@@ -125,13 +129,22 @@ class AddCategory extends Component {
   }
 }
 
+AddCategory.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  createCategory: PropTypes.func.isRequired,
+  categories: PropTypes.shape({
+    msg: PropTypes.string,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(
-  mapStateToProps,
-  {
-    createCategory
-  }
+  mapStateToProps, {
+    createCategory,
+  },
 )(AddCategory);

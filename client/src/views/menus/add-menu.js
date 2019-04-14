@@ -1,28 +1,27 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-//actions
-import { getCategories } from "../../actions/categoryActions";
-import { createMenu } from "../../actions/menuActions";
+import { getCategories } from '../../actions/categoryActions';
+import { createMenu } from '../../actions/menuActions';
 
-//components
 import Modal, {
   ModalHeader,
   ModalBody,
-  ModalFooter
-} from "../../components/Modal";
+  ModalFooter,
+} from '../../components/Modal';
 
 class AddMenu extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      tags: ""
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      tags: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -30,37 +29,57 @@ class AddMenu extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { getCategories: handleGetCategories } = this.props;
+    handleGetCategories();
+  }
+
   handleClose(e) {
     e.preventDefault();
-    this.props.history.push("/menus");
+    const { history } = this.props;
+    history.push('/menus');
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const { name, description, price, category, tags } = this.state;
-
-    this.props.createMenu({
+    const {
       name,
       description,
       price,
       category,
-      tags
+      tags,
+    } = this.state;
+    const { createMenu: handleCreateMenu } = this.props;
+
+    handleCreateMenu({
+      name,
+      description,
+      price,
+      category,
+      tags,
     });
-  }
-  componentDidMount() {
-    this.props.getCategories();
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   render() {
-    const categories = this.props.categories.list;
-    const { errors, msg } = this.props.menus;
+    const {
+      categories: { list: { categories } },
+      menus: { errors, msg },
+    } = this.props;
+
+    const {
+      name,
+      description,
+      price,
+      category,
+      tags,
+    } = this.state;
 
     return (
       <Modal onSubmit={this.handleSubmit}>
@@ -79,12 +98,12 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.name
+                className={classnames('form-control', {
+                  'is-invalid': errors.name,
                 })}
                 id="name"
                 name="name"
-                value={this.state.name}
+                value={name}
                 onChange={this.handleChange}
               />
               {errors.name ? (
@@ -98,12 +117,12 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <textarea
-                className={classnames("form-control", {
-                  "is-invalid": errors.description
+                className={classnames('form-control', {
+                  'is-invalid': errors.description,
                 })}
                 id="description"
                 name="description"
-                value={this.state.description}
+                value={description}
                 onChange={this.handleChange}
               />
               {errors.description ? (
@@ -117,12 +136,12 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.price
+                className={classnames('form-control', {
+                  'is-invalid': errors.price,
                 })}
                 id="price"
                 name="price"
-                value={this.state.price}
+                value={price}
                 onChange={this.handleChange}
                 type="number"
               />
@@ -137,20 +156,21 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <select
-                value={this.state.category}
-                defaultValue={""}
+                value={category}
+                defaultValue=""
                 name="category"
                 id="category"
                 onChange={this.handleChange}
-                className={classnames("form-control", {
-                  "is-invalid": errors.category
+                className={classnames('form-control', {
+                  'is-invalid': errors.category,
                 })}
               >
                 <option value="">--Select Category--</option>
-                {categories.map(o => (
-                  <option key={o._id} value={o._id}>
-                    {o.name}
-                  </option>
+                {categories.map(({
+                  _id: menuId,
+                  name: menuName,
+                }) => (
+                  <option key={menuId} value={menuId}>{menuName}</option>
                 ))}
               </select>
               {errors.category ? (
@@ -164,12 +184,12 @@ class AddMenu extends Component {
             </label>
             <div className="col-sm-8">
               <input
-                className={classnames("form-control", {
-                  "is-invalid": errors.tags
+                className={classnames('form-control', {
+                  'is-invalid': errors.tags,
                 })}
                 id="tags"
                 name="tags"
-                value={this.state.tags}
+                value={tags}
                 onChange={this.handleChange}
               />
               {errors.tags ? (
@@ -196,12 +216,31 @@ class AddMenu extends Component {
   }
 }
 
+AddMenu.propTypes = {
+  categories: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.shape()),
+    current: PropTypes.shape(),
+    loading: PropTypes.bool,
+  }).isRequired,
+  menus: PropTypes.shape({
+    msg: PropTypes.string,
+    errors: PropTypes.shape(),
+  }).isRequired,
+  getCategories: PropTypes.func.isRequired,
+  createMenu: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   categories: state.categories,
-  menus: state.menus
+  menus: state.menus,
 });
 
 export default connect(
-  mapStateToProps,
-  { getCategories, createMenu }
+  mapStateToProps, {
+    getCategories,
+    createMenu,
+  },
 )(AddMenu);
