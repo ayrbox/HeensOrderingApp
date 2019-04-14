@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-// components
 import Modal, {
   ModalHeader,
   ModalBody,
   ModalFooter,
 } from '../../components/Modal';
 
-// actions
 import { getMenu, addMenuOption } from '../../actions/menuActions';
 
 class AddMenuOption extends Component {
@@ -28,24 +27,32 @@ class AddMenuOption extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.menus.current) {
-      const { id } = this.props.match.params;
-      this.props.getMenu(id);
+    const {
+      menus: { current },
+      match: { params: { id } },
+      getMenu: handleGetMenu,
+    } = this.props;
+    if (!current) {
+      handleGetMenu(id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.menus.errors) {
+    const { menus: { errors } } = nextProps;
+    if (errors) {
       this.setState({
-        errors: nextProps.menus.errors,
+        errors,
       });
     }
   }
 
   handleClose(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    this.props.history.push(`/menus/${id}`);
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+    history.push(`/menus/${id}`);
   }
 
   handleChange(e) {
@@ -56,21 +63,26 @@ class AddMenuOption extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const { id } = this.props.match.params;
+    const {
+      match: { params: { id } },
+      addMenuOption: handleAddMenuOption,
+      history,
+    } = this.props;
     const { description, additionalCost } = this.state;
 
-    const option = {
+    handleAddMenuOption(id, {
       description,
       additionalCost,
-    };
-
-    this.props.addMenuOption(id, option, this.props.history);
+    }, history);
   }
 
   render() {
-    const { current } = this.props.menus;
-    const { errors } = this.state;
+    const { menus: { current } } = this.props;
+    const {
+      errors,
+      description,
+      additionalCost,
+    } = this.state;
     return (
       <Modal onSubmit={this.handleSubmit}>
         <ModalHeader title="Add Menu Option" onClose={this.handleClose} />
@@ -99,7 +111,7 @@ class AddMenuOption extends Component {
                   })}
                   id="description"
                   name="description"
-                  value={this.state.description}
+                  value={description}
                   onChange={this.handleChange}
                   placeholder="Option Description"
                 />
@@ -122,7 +134,7 @@ class AddMenuOption extends Component {
                   })}
                   id="additionalCost"
                   name="additionalCost"
-                  value={this.state.additionalCost}
+                  value={additionalCost}
                   onChange={this.handleChange}
                   type="number"
                 />
@@ -155,13 +167,26 @@ class AddMenuOption extends Component {
   }
 }
 
+AddMenuOption.propTypes = {
+  menus: PropTypes.shape().isRequired,
+  getMenu: PropTypes.func.isRequired,
+  addMenuOption: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   menus: state.menus,
 });
 
 export default connect(
-  mapStateToProps,
-  {
+  mapStateToProps, {
     getMenu,
     addMenuOption,
   },

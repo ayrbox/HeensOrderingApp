@@ -17,7 +17,7 @@ import MenuIndex from './views/menus';
 import TakeOrderIndex from './views/takeOrder';
 
 // actions
-import { getToken } from './utils/get-token';
+import getToken from './utils/get-token';
 
 // check the token
 getToken();

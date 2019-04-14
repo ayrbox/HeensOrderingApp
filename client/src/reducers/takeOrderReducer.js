@@ -34,7 +34,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SET_ORDER_TYPE:
+    case SET_ORDER_TYPE: {
       const { orderType, deliveryAddress, tableNo } = action.payload;
       return {
         ...state,
@@ -45,14 +45,17 @@ export default function (state = initialState, action) {
           tableNo,
         },
       };
-
+    }
     case SELECT_MENU_ITEM:
       return {
         ...state,
         menuItem: action.payload,
       };
     case SELECT_MENU_OPTION: {
-      const optionIndex = state.menuItem.menuOptions.findIndex(o => o._id === action.payload._id);
+      const { _id: selectedOptionId } = action.payload;
+      const optionIndex = state.menuItem.menuOptions.findIndex(({
+        _id: optionId,
+      }) => optionId === selectedOptionId);
 
       return {
         ...state,
@@ -66,7 +69,7 @@ export default function (state = initialState, action) {
         },
       };
     }
-    case CONFIRM_MENU_ITEM:
+    case CONFIRM_MENU_ITEM: {
       const mItem = {
         ...state.menuItem,
         menuOptions: state.menuItem.menuOptions.filter(o => o.selected),
@@ -80,12 +83,12 @@ export default function (state = initialState, action) {
         },
         menuItem: undefined,
       };
+    }
     case CANCEL_MENU_ITEM:
       return {
         ...state,
         menuItem: undefined,
       };
-
     case SAVE_ORDER_REQUEST:
       return {
         ...state,

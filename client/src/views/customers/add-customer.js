@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -24,13 +25,36 @@ class AddCustomer extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {
+      customers: { current, errors },
+      history,
+    } = nextProps;
+    if (errors) {
+      this.setState({
+        errors: errors || {},
+      });
+    }
+
+    if (current) {
+      history.push('/customers'); // redirect if customer is created successfully
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
     const {
-      name, phoneNo, address, postCode, note,
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
     } = this.state;
-    this.props.createCustomer({
+
+    const { createCustomer: handleCreateCustomer } = this.props;
+
+    handleCreateCustomer({
       name,
       phoneNo,
       address,
@@ -45,21 +69,17 @@ class AddCustomer extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.customers.errors) {
-      this.setState({
-        errors: nextProps.customers.errors || {},
-      });
-    }
-
-    if (nextProps.customers.current) {
-      this.props.history.push('/customers'); // redirect if customer is created successfully
-    }
-  }
-
   render() {
-    const { loading } = this.props.customers;
-    const { errors } = this.state;
+    const { customers: { loading } } = this.props;
+    const {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+      errors,
+    } = this.state;
+
 
     return (
       <MainLayout>
@@ -92,7 +112,7 @@ class AddCustomer extends Component {
                   })}
                   id="name"
                   name="name"
-                  value={this.state.name}
+                  value={name}
                   placeholder="Enter customer name..."
                   onChange={this.handleChange}
                 />
@@ -113,7 +133,7 @@ class AddCustomer extends Component {
                   })}
                   id="phoneNo"
                   name="phoneNo"
-                  value={this.state.phoneNo}
+                  value={phoneNo}
                   placeholder="Mobile/Home no..."
                   onChange={this.handleChange}
                 />
@@ -134,7 +154,7 @@ class AddCustomer extends Component {
                   })}
                   id="address"
                   name="address"
-                  value={this.state.address}
+                  value={address}
                   placeholder="address..."
                   onChange={this.handleChange}
                 />
@@ -155,7 +175,7 @@ class AddCustomer extends Component {
                   })}
                   id="postCode"
                   name="postCode"
-                  value={this.state.postCode}
+                  value={postCode}
                   placeholder="postcode..."
                   onChange={this.handleChange}
                 />
@@ -176,7 +196,7 @@ class AddCustomer extends Component {
                   })}
                   id="note"
                   name="note"
-                  value={this.state.note}
+                  value={note}
                   placeholder="Note about customer..."
                   onChange={this.handleChange}
                 />
@@ -205,11 +225,22 @@ class AddCustomer extends Component {
   }
 }
 
+AddCustomer.propTypes = {
+  customers: PropTypes.shape({
+    loading: PropTypes.bool,
+  }).isRequired,
+  createCustomer: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { createCustomer },
+  mapStateToProps, {
+    createCustomer,
+  },
 )(AddCustomer);

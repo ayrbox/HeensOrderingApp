@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import isEmpty from '../../utils/is-empty';
@@ -27,6 +28,40 @@ class EditCustomer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const {
+      getCustomer: handleGetCustomer,
+      match: { params: { id } },
+    } = this.props;
+    handleGetCustomer(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { customers: { current, errors } } = nextProps;
+    if (current) {
+      const {
+        name,
+        address,
+        postCode,
+        phoneNo,
+        note,
+      } = current;
+      this.setState({
+        name,
+        address,
+        postCode,
+        phoneNo,
+        note,
+      });
+    }
+
+    if (errors) {
+      this.setState({
+        errors: errors || {},
+      });
+    }
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
@@ -35,12 +70,20 @@ class EditCustomer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const {
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    } = this.state;
 
     const {
-      name, phoneNo, address, postCode, note,
-    } = this.state;
-    const { id } = this.props.match.params;
-    this.props.updateCustomer(id, {
+      match: { params: { id } },
+      updateCustomer: handleUpdateCustomer,
+    } = this.props;
+
+    handleUpdateCustomer(id, {
       name,
       phoneNo,
       address,
@@ -49,38 +92,16 @@ class EditCustomer extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.customers.current) {
-      const {
-        name,
-        address,
-        postCode,
-        phoneNo,
-        note,
-      } = nextProps.customers.current;
-      this.setState({
-        name,
-        address,
-        postCode,
-        phoneNo,
-        note,
-      });
-    }
-
-    if (nextProps.customers.errors) {
-      this.setState({
-        errors: nextProps.customers.errors || {},
-      });
-    }
-  }
-
-  componentDidMount() {
-    this.props.getCustomer(this.props.match.params.id);
-  }
-
   render() {
-    const { current, loading } = this.props.customers;
-    const { errors } = this.state;
+    const { customers: { current, loading } } = this.props;
+    const {
+      errors,
+      name,
+      phoneNo,
+      address,
+      postCode,
+      note,
+    } = this.state;
 
     return (
       <MainLayout>
@@ -116,7 +137,7 @@ class EditCustomer extends Component {
                     })}
                     id="name"
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     placeholder="Enter customer name..."
                     onChange={this.handleChange}
                   />
@@ -137,7 +158,7 @@ class EditCustomer extends Component {
                     })}
                     id="phoneNo"
                     name="phoneNo"
-                    value={this.state.phoneNo}
+                    value={phoneNo}
                     placeholder="Mobile/Home no..."
                     onChange={this.handleChange}
                   />
@@ -158,7 +179,7 @@ class EditCustomer extends Component {
                     })}
                     id="address"
                     name="address"
-                    value={this.state.address}
+                    value={address}
                     placeholder="address..."
                     onChange={this.handleChange}
                   />
@@ -179,7 +200,7 @@ class EditCustomer extends Component {
                     })}
                     id="postCode"
                     name="postCode"
-                    value={this.state.postCode}
+                    value={postCode}
                     placeholder="postcode..."
                     onChange={this.handleChange}
                   />
@@ -200,7 +221,7 @@ class EditCustomer extends Component {
                     })}
                     id="note"
                     name="note"
-                    value={this.state.note}
+                    value={note}
                     placeholder="Note about customer..."
                     onChange={this.handleChange}
                   />
@@ -229,11 +250,28 @@ class EditCustomer extends Component {
     );
   }
 }
+
+EditCustomer.propTypes = {
+  customers: PropTypes.shape({
+    loading: PropTypes.bool,
+    current: PropTypes.shape({}),
+  }).isRequired,
+  getCustomer: PropTypes.func.isRequired,
+  updateCustomer: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { getCustomer, updateCustomer },
+  mapStateToProps, {
+    getCustomer,
+    updateCustomer,
+  },
 )(EditCustomer);

@@ -105,11 +105,12 @@ export default function (state = initialState, action) {
         msg: 'Updating category',
       };
 
-    case CATEGORY_UPDATE_SUCCESS:
+    case CATEGORY_UPDATE_SUCCESS: {
       // Immutable array update
       // https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns#inserting-and-removing-items-in-arrays
 
-      const updateIndex = state.list.findIndex(c => c._id === action.payload._id);
+      const { _id: idToUpdate } = action.payload;
+      const updateIndex = state.list.findIndex(({ _id: categoryId }) => categoryId === idToUpdate);
       return {
         ...state,
         list: [
@@ -122,7 +123,7 @@ export default function (state = initialState, action) {
         errors: {},
         msg: 'Category updated',
       };
-
+    }
     case CATEGORY_UPDATE_ERROR:
       return {
         ...state,
@@ -139,8 +140,9 @@ export default function (state = initialState, action) {
         msg: 'Deleteing category',
       };
 
-    case CATEGORY_DELETE_SUCCESS:
-      const deleteIndex = state.list.findIndex(c => c._id === action.payload._id);
+    case CATEGORY_DELETE_SUCCESS: {
+      const { idToDelete } = action.payload;
+      const deleteIndex = state.list.findIndex(({ _id: categoryId }) => categoryId === idToDelete);
       return {
         ...state,
         list: [
@@ -152,7 +154,7 @@ export default function (state = initialState, action) {
         errors: {},
         msg: 'Category delected',
       };
-
+    }
     case CATEGORY_DELETE_ERRROR:
       return {
         ...state,

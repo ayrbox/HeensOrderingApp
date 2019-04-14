@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MainLayout from '../viewcomponents/MainLayout';
@@ -7,15 +8,17 @@ import { fetchCustomers, clearCustomers } from '../../actions/customerActions';
 
 class CustomerIndex extends Component {
   componentDidMount() {
-    this.props.fetchCustomers();
+    const { fetchCustomers: handleFetchCustomers } = this.props;
+    handleFetchCustomers();
   }
 
   componentWillUnmount() {
-    this.props.clearCustomers();
+    const { clearCustomer: handleClearCustomers } = this.props;
+    handleClearCustomers();
   }
 
   render() {
-    const { loading, list, errors } = this.props.customers;
+    const { customers: { loading, list, errors } } = this.props;
 
     let pageContent;
 
@@ -35,19 +38,25 @@ class CustomerIndex extends Component {
               </tr>
             </thead>
             <tbody>
-              {list.map(c => (
-                <tr key={c._id}>
-                  <td>{c.name}</td>
-                  <td>{c.phoneNo}</td>
-                  <td>{c.address}</td>
-                  <td>{c.postCode}</td>
+              {list.map(({
+                _id: customerId,
+                name,
+                phoneNo,
+                address,
+                postCode,
+              }) => (
+                <tr key={customerId}>
+                  <td>{name}</td>
+                  <td>{phoneNo}</td>
+                  <td>{address}</td>
+                  <td>{postCode}</td>
                   <td>
-                    <Link className="btn btn-link" to={`/customers/${c._id}`}>
+                    <Link className="btn btn-link" to={`/customers/${customerId}`}>
                       View
                     </Link>
                     <Link
                       className="btn btn-link"
-                      to={`/customer/${c._id}/edit`}
+                      to={`/customer/${customerId}/edit`}
                     >
                       Edit
                     </Link>
@@ -90,11 +99,28 @@ class CustomerIndex extends Component {
   }
 }
 
+CustomerIndex.propTypes = {
+  customers: PropTypes.arrayOf(PropTypes.shape({
+    loading: PropTypes.bool,
+    list: PropTypes.arrayOf({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      address: PropTypes.string,
+      postCode: PropTypes.string,
+    }),
+    errors: PropTypes.shape(),
+  })).isRequired,
+  fetchCustomers: PropTypes.func.isRequired,
+  clearCustomer: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
   customers: state.customers,
 });
 
 export default connect(
-  mapStateToProps,
-  { fetchCustomers, clearCustomers },
+  mapStateToProps, {
+    fetchCustomers,
+    clearCustomers,
+  },
 )(CustomerIndex);

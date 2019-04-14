@@ -1,40 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-class Modal extends Component {
-  render() {
-    return (
-      <div
-        className="modal fade show"
-        id="exampleModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        style={{
-          display: 'block',
-          backgroundColor: 'rgba(0,0,0,.6)',
-        }}
-      >
-        <div
-          className={classnames('modal-dialog modal-dialog-centered', {
-            'modal-lg': this.props.size === 'large',
-          })}
-          role="document"
-        >
-          <form onSubmit={this.props.onSubmit} className="modal-content">
-            {this.props.children}
-          </form>
-        </div>
-      </div>
-    );
-  }
-}
-
-Modal.propTypes = {
-  onSubmit: PropTypes.func,
-};
 
 const ModalBody = ({ children }) => (
   <div className="modal-body">{children}</div>
@@ -61,9 +27,57 @@ const ModalHeader = ({ title, onClose }) => (
   </div>
 );
 
+const Modal = ({
+  children,
+  size,
+  onSubmit,
+}) => (
+  <div
+    className="modal fade show"
+    id="exampleModal"
+    tabIndex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style={{
+      display: 'block',
+      backgroundColor: 'rgba(0,0,0,.6)',
+    }}
+  >
+    <div
+      className={classnames('modal-dialog modal-dialog-centered', {
+        'modal-lg': size === 'large',
+      })}
+      role="document"
+    >
+      <form onSubmit={onSubmit} className="modal-content">
+        {children}
+      </form>
+    </div>
+  </div>
+);
+
+Modal.defaultProps = {
+  size: '',
+};
+
+Modal.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  size: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
 ModalHeader.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+};
+
+ModalBody.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+ModalFooter.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;

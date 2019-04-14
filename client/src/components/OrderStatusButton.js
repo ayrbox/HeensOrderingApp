@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Object } from 'core-js';
 
 class OrderStatusButton extends Component {
   constructor(props) {
@@ -21,12 +20,16 @@ class OrderStatusButton extends Component {
   }
 
   render() {
-    const { orderStatuses } = this.props.takeOrder;
-    const { currentStatus } = this.props;
+    const {
+      takeOrder: { orderStatuses },
+      currentStatus,
+      onItemClick,
+    } = this.props;
+    const { open } = this.state;
     return (
       <div
         className={classnames('btn-group', {
-          show: this.state.open,
+          show: open,
         })}
         role="group"
       >
@@ -43,17 +46,18 @@ class OrderStatusButton extends Component {
         {orderStatuses ? (
           <div
             className={classnames('dropdown-menu dropdown-menu-right', {
-              show: this.state.open,
+              show: open,
             })}
             aria-labelledby="btnGroupDrop1"
           >
             {Object.keys(orderStatuses).map(key => (
               <button
+                type="button"
                 key={key}
                 className="dropdown-item"
                 onClick={(e) => {
                   this.handleToggleMenu(e);
-                  this.props.onItemClick(key);
+                  onItemClick(key);
                 }}
               >
                 {orderStatuses[key]}
@@ -67,8 +71,9 @@ class OrderStatusButton extends Component {
 }
 
 OrderStatusButton.propTypes = {
-  takeOrder: PropTypes.object.isRequired,
+  takeOrder: PropTypes.shape().isRequired,
   onItemClick: PropTypes.func.isRequired,
+  currentStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
