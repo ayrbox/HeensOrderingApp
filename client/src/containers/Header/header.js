@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const Header = ({ title }) => (
+const Header = ({ title, testState }) => (
   <nav className="navbar navbar-expand-md navbar-main">
     <div className="container">
       <NavLink to="/" className="navbar-brand">
@@ -46,6 +46,12 @@ const Header = ({ title }) => (
               Categories
             </NavLink>
           </li>
+
+          <li className="nav-item">
+            <button type="button" className="nav-link" onClick={() => console.log(testState)}>
+              + New Order
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -54,6 +60,7 @@ const Header = ({ title }) => (
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  testState: PropTypes.shape().isRequired,
 };
 
 export default Header;
