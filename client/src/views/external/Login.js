@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { loginUser } from '../../actions/authActions';
-
 import ExternalLayout from '../viewcomponents/ExternalLayout';
 
 class Login extends Component {
@@ -20,16 +20,18 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    const { isAuthenticated } = this.props.auth;
+    const {
+      auth: { isAuthenticated },
+      history,
+    } = this.props;
     if (isAuthenticated) {
-      this.props.history.push('/orders'); // todo main page after login
+      history.push('/orders'); // todo main page after login
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      console.log(nextProps.errors);
-      this.setState({ errors: nextProps.errors });
+  componentWillReceiveProps({ errors }) {
+    if (errors) {
+      this.setState({ errors });
     }
   }
 
@@ -41,15 +43,20 @@ class Login extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const loginModel = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-
-    this.props.loginUser(loginModel, this.props.history);
+    const { email, password } = this.state;
+    const {
+      loginUser: handleLoginUser,
+      history,
+    } = this.props;
+    handleLoginUser({ email, password }, history);
   }
 
   render() {
+    const {
+      email,
+      password,
+      errors,
+    } = this.state;
     return (
       <ExternalLayout>
         <form
@@ -68,12 +75,11 @@ class Login extends Component {
             className="form-control"
             placeholder="Email address"
             required=""
-            autoFocus
-            value={this.state.email}
+            value={email}
             onChange={this.onChange}
           />
-          {this.state.errors.email ? (
-            <div className="text-help">{this.state.errors.email}</div>
+          {errors.email ? (
+            <div className="text-help">{errors.email}</div>
           ) : null}
           <label htmlFor="inputPassword" className="sr-only">
             Password
@@ -85,17 +91,16 @@ class Login extends Component {
             className="form-control"
             placeholder="Password"
             required=""
-            value={this.state.password}
+            value={password}
             onChange={this.onChange}
           />
-          {this.state.errors.password ? (
-            <div className="text-help">{this.state.errors.password}</div>
+          {errors.password ? (
+            <div className="text-help">{errors.password}</div>
           ) : null}
           <div className="checkbox mb-3">
             <label>
               <input type="checkbox" value="remember-me" />
-              {' '}
-Remember me
+              {' Remember me'}
             </label>
           </div>
           <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -107,14 +112,25 @@ Remember me
   }
 }
 
+Login.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+  }).isRequired,
+  errors: PropTypes.arrayOf(PropTypes.shape({
+  })).isRequired,
+  loginUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
 });
 
 export default connect(
-  mapStateToProps,
-  {
+  mapStateToProps, {
     loginUser,
   },
 )(Login);

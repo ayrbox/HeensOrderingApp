@@ -1,14 +1,14 @@
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import store from '../store';
 import setToken from './set-token';
 import { SET_USER } from '../actions/types';
 import { logoutUser } from '../actions/authActions';
 
-export const getToken = () => {
+const getToken = () => {
   if (localStorage.token) {
     setToken(localStorage.token);
 
-    const user = jwt_decode(localStorage.token);
+    const user = jwtDecode(localStorage.token);
 
     store.dispatch({
       type: SET_USER,
@@ -22,3 +22,5 @@ export const getToken = () => {
     }
   }
 };
+
+export default getToken;
