@@ -5,7 +5,8 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 body {
-  font-family: 'Poppins';
+  font-family: Poppins;
+  background-color: #f5f5f5;
 }
 
 .form-signin {
@@ -14,3 +15,5 @@ body {
   padding: 15px;
   margin: auto;
 }
+
+@import "./components/header.scss";

@@ -1,0 +1,24 @@
+.navbar-main { 
+  background-color: #fff;
+
+  .navbar-brand { 
+    color: #888;
+    font-size: 2rem;
+    font-weight: bolder;
+  }
+
+  .nav-item { 
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    .nav-link {
+      line-height: 5rem;
+      color: #888;
+
+      &.active { 
+        font-weight: bolder;
+        color: $primary;
+      }
+    }
+  }
+}
