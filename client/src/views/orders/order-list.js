@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // @components
@@ -15,73 +16,76 @@ class OrderList extends Component {
     this.updateOrderStatus = this.updateOrderStatus.bind(this);
   }
 
-  updateOrderStatus(id, status) {
-    this.props.updateOrder(id, status);
+  componentDidMount() {
+    const { getOrders: handleGetOrders } = this.props;
+    handleGetOrders();
   }
 
-  componentDidMount() {
-    this.props.getOrders();
+  updateOrderStatus(id, status) {
+    const { updateOrder: handleUpdateOrder } = this.props;
+    handleUpdateOrder(id, status);
   }
+
 
   render() {
-    const { loading, list } = this.props.orders;
-    const { orderStatuses, orderTypes } = this.props.takeOrder;
+    const {
+      orders: { loading, list },
+      takeOrder: { orderStatuses, orderTypes },
+    } = this.props;
 
     let content = <Spinner />;
     if (!loading) {
-      content = list.map(order => (
-        <div className="m-3 p-3 border" key={order._id}>
+      content = list.map(({
+        _id: orderId,
+        orderType,
+        tableNo,
+        deliveryAddress,
+        orderTotal,
+        orderStatus,
+      }) => (
+        <div className="m-3 p-3 border" key={orderId}>
           <div className="d-flex w-100 justify-content-between">
-            {order.orderType === 'table' ? (
+            {orderType === 'table' ? (
               <div style={{ width: '250px' }}>
                 <strong>
-                  {orderTypes[order.orderType]}
-                  {' '}
+                  {`${orderTypes[orderType]} `}
                   <br />
-                  {' '}
-                  {order.tableNo}
+                  {` ${tableNo}`}
                 </strong>
               </div>
             ) : null}
-            {order.orderType === 'delivery' ? (
+            {orderType === 'delivery' ? (
               <div style={{ width: '250px' }}>
-                <strong>{orderTypes[order.orderType]}</strong>
+                <strong>{orderTypes[orderType]}</strong>
                 <br />
                 <small>
-                  {order.deliveryAddress.name}
-                  {' '}
-                  <br />
-                  {order.deliveryAddress.address}
-                  {' '}
-                  {order.deliveryAddress.postCode}
-                  {' '}
-                  <br />
-                  {order.deliveryAddress.contactNo}
+                  {`
+                    ${deliveryAddress.name}
+                    ${deliveryAddress.address}
+                    ${deliveryAddress.postCode}
+                    ${deliveryAddress.contactNo}
+                  `}
                 </small>
               </div>
             ) : null}
-            {order.orderType === 'collection' ? (
+            {orderType === 'collection' ? (
               <div style={{ width: '250px' }}>
-                <strong>{orderTypes[order.orderType]}</strong>
+                <strong>{orderTypes[orderType]}</strong>
               </div>
             ) : null}
-
             <div>
-              <strong>{orderStatuses[order.orderStatus]}</strong>
+              <strong>{orderStatuses[orderStatus]}</strong>
               <br />
               <span>
-&pound;
-                {order.orderTotal.toFixed(2)}
-                {' '}
-
+                {`&pound; ${orderTotal.toFixed(2)} `}
               </span>
             </div>
 
             <div>
               <OrderStatusButton
-                currentStatus={order.orderStatus}
+                currentStatus={orderStatus}
                 onItemClick={(status) => {
-                  this.updateOrderStatus(order._id, status);
+                  this.updateOrderStatus(orderId, status);
                 }}
               />
             </div>
@@ -100,13 +104,33 @@ class OrderList extends Component {
         <div className="container">
           <div className="row">
             <div className="col-12">{content}</div>
-            {/* <pre>{JSON.stringify(this.props.orders, null, 2)}</pre> */}
           </div>
         </div>
       </MainLayout>
     );
   }
 }
+
+OrderList.propTypes = {
+  getOrders: PropTypes.func.isRequired,
+  updateOrder: PropTypes.func.isRequired,
+  orders: PropTypes.shape({
+    _id: PropTypes.string,
+    orderType: PropTypes.string,
+    tableNo: PropTypes.string,
+    deliveryAddress: PropTypes.string,
+    orderTotal: PropTypes.string,
+    orderStatus: PropTypes.string,
+  }).isRequired,
+  takeOrder: PropTypes.shape({
+    orderStatuses: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    orderTypes: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+  }).isRequired,
+};
 
 const mapStateToProps = state => ({
   orders: state.orders,

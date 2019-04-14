@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,11 +11,12 @@ import { getMenus } from '../../actions/menuActions';
 
 class MenuList extends Component {
   componentDidMount() {
-    this.props.getMenus();
+    const { getMenus: handleGetMenus } = this.props;
+    handleGetMenus();
   }
 
   render() {
-    const { list, loading } = this.props.menus;
+    const { menus: { list, loading } } = this.props;
 
     let listContent = '';
 
@@ -40,22 +42,26 @@ class MenuList extends Component {
             </tr>
           </thead>
           <tbody>
-            {list.map(m => (
-              <tr key={m._id}>
+            {list.map(({
+              _id: menuId,
+              name,
+              description,
+              price,
+              category,
+              tags,
+            }) => (
+              <tr key={menuId}>
                 <td>
-                  <Link to={`/menus/${m._id}`}>{m.name}</Link>
+                  <Link to={`/menus/${menuId}`}>{name}</Link>
                 </td>
-                <td>{m.description}</td>
+                <td>{description}</td>
+                <td>{`&pound; ${price}`}</td>
                 <td>
-&pound;
-                  {m.price}
-                </td>
-                <td>
-                  {m.category.name}
+                  {category.name}
                   <br />
-                  {m.tags.map((t, i) => (
+                  {tags.map(t => (
                     <label
-                      key={i}
+                      key={t}
                       className="badge badge-pill badge-dark ml-1 mb-1"
                     >
                       {t}
@@ -96,6 +102,14 @@ class MenuList extends Component {
     );
   }
 }
+
+MenuList.propTypes = {
+  getMenus: PropTypes.func.isRequired,
+  menus: PropTypes.shape({
+    loading: PropTypes.bool,
+    list: PropTypes.arrayOf(PropTypes.shape()),
+  }).isRequired,
+};
 
 const mapStateToProps = state => ({
   menus: state.menus,

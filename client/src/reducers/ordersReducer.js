@@ -39,8 +39,9 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
-    case UPDATE_ORDER_STATUS_SUCCESS:
-      const updateIndex = state.list.findIndex(o => o._id === action.payload._id);
+    case UPDATE_ORDER_STATUS_SUCCESS: {
+      const { _id: orderIdToUpdate } = action.payload;
+      const updateIndex = state.list.findIndex(({ _id: orderId }) => orderId === orderIdToUpdate);
       return {
         ...state,
         loading: false,
@@ -50,6 +51,7 @@ export default function (state = initialState, action) {
           ...state.list.slice(updateIndex + 1),
         ],
       };
+    }
     case UPDATE_ORDER_STATUS_ERROR:
       return {
         ...state,

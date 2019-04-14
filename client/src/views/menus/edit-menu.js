@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -31,27 +32,32 @@ class EditMenu extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    const {
+      match: { params: { id } },
+      getCategories: handleGetCategories,
+      getMenu: handleGetMenu,
+    } = this.props;
 
-    this.props.getCategories();
-    this.props.getMenu(id);
+    handleGetCategories();
+    handleGetMenu(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.menus.current) {
+    const { menus: { current } } = nextProps;
+    if (current) {
       const {
         name,
         description,
         price,
-        category,
+        category: { _id: categoryId },
         tags,
-      } = nextProps.menus.current;
+      } = current;
 
       this.setState({
         name,
         description,
         price,
-        category: category._id,
+        category: categoryId,
         tags: tags.join(','),
       });
     }
@@ -59,8 +65,11 @@ class EditMenu extends Component {
 
   handleClose(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
-    this.props.history.push(`/menus/${id}/`);
+    const {
+      match: { params: { id } },
+      history,
+    } = this.props;
+    history.push(`/menus/${id}/`);
   }
 
   handleChange(e) {
@@ -71,11 +80,15 @@ class EditMenu extends Component {
 
   handleSave(e) {
     e.preventDefault();
-    const { id } = this.props.match.params;
+    const {
+      match: { params: { id } },
+      updateMenu: handleUpdateMenu,
+      history,
+    } = this.props;
     const {
       name, description, price, category, tags,
     } = this.state;
-    this.props.updateMenu(
+    handleUpdateMenu(
       id,
       {
         name,
@@ -84,13 +97,23 @@ class EditMenu extends Component {
         category,
         tags,
       },
-      this.props.history,
+      history,
     );
   }
 
   render() {
-    const categories = this.props.categories.list;
-    const { errors, msg } = this.props.menus;
+    const {
+      categories: { categoryList },
+      menus: { errors, msg },
+    } = this.props;
+
+    const {
+      name,
+      description,
+      price,
+      category,
+      tags,
+    } = this.state;
 
     return (
       <Modal>
@@ -114,7 +137,7 @@ class EditMenu extends Component {
                 })}
                 id="name"
                 name="name"
-                value={this.state.name}
+                value={name}
                 onChange={this.handleChange}
               />
               {errors.name ? (
@@ -133,7 +156,7 @@ class EditMenu extends Component {
                 })}
                 id="description"
                 name="description"
-                value={this.state.description}
+                value={description}
                 onChange={this.handleChange}
               />
               {errors.description ? (
@@ -152,7 +175,7 @@ class EditMenu extends Component {
                 })}
                 id="price"
                 name="price"
-                value={this.state.price}
+                value={price}
                 onChange={this.handleChange}
                 type="number"
               />
@@ -167,7 +190,7 @@ class EditMenu extends Component {
             </label>
             <div className="col-sm-8">
               <select
-                value={this.state.category}
+                value={category}
                 defaultValue=""
                 name="category"
                 id="category"
@@ -177,9 +200,12 @@ class EditMenu extends Component {
                 })}
               >
                 <option value="">--Select Category--</option>
-                {categories.map(o => (
-                  <option key={o._id} value={o._id}>
-                    {o.name}
+                {categoryList.map(({
+                  _id: categoryId,
+                  name: categoryName,
+                }) => (
+                  <option key={categoryId} value={categoryId}>
+                    {categoryName}
                   </option>
                 ))}
               </select>
@@ -199,7 +225,7 @@ class EditMenu extends Component {
                 })}
                 id="tags"
                 name="tags"
-                value={this.state.tags}
+                value={tags}
                 onChange={this.handleChange}
               />
               {errors.tags ? (
@@ -229,6 +255,18 @@ class EditMenu extends Component {
     );
   }
 }
+
+EditMenu.propTypes = {
+  menus: PropTypes.shape().isRequired,
+  categories: PropTypes.shape().isRequired,
+  getMenu: PropTypes.func.isRequired,
+  updateMenu: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
+  match: PropTypes.shape().isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const mapStateToProps = state => ({
   menus: state.menus,
