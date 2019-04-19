@@ -1,66 +1,75 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-const Header = ({ title, testState }) => (
-  <nav className="navbar navbar-expand-md navbar-main">
-    <div className="container">
-      <NavLink to="/" className="navbar-brand">
-        {title}
-      </NavLink>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-        aria-controls="navbarCollapse"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-      <div className="collapse navbar-collapse" id="navbarCollapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/takeorder">
-              Take Order
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/orders">
-              Orders
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/customers">
-              Customers
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/menus">
-              Menu
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/categories">
-              Categories
-            </NavLink>
-          </li>
+import styles from './styles';
 
-          <li className="nav-item">
-            <button type="button" className="nav-link" onClick={() => console.log(testState)}>
-              + New Order
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+const Header = ({
+  title,
+  testState,
+  classes,
+}) => (
+  <Fragment>
+    <AppBar position="absolute" className={classes.root}>
+      <Toolbar>
+        <Typography variant="h5" color="inherit" noWrap onClick={() => console.log('terohead')}>
+          {title}
+        </Typography>
+        <Button
+          component={NavLink}
+          className={classes.navItem}
+          color="inherit"
+          to="/orders"
+        >
+          Orders
+        </Button>
+        <Button
+          component={NavLink}
+          className={classes.navItem}
+          color="inherit"
+          to="/customers"
+        >
+          Customers
+        </Button>
+        <Button
+          component={NavLink}
+          className={classes.navItem}
+          color="inherit"
+          to="/menus"
+        >
+          Menus
+        </Button>
+        <Button
+          component={NavLink}
+          className={classes.navItem}
+          color="inherit"
+          to="/categories"
+        >
+          Categories
+        </Button>
+        <Button
+          component={NavLink}
+          className={classes.navItem}
+          color="inherit"
+          to="/takeorder"
+          onClick={() => console.log(testState)}
+        >
+          + New Order
+        </Button>
+      </Toolbar>
+    </AppBar>
+  </Fragment>
 );
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   testState: PropTypes.shape().isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
-export default Header;
+export default withStyles(styles)(Header);
