@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withTheme } from '@material-ui/core/styles';
+import {
+  TextField,
+  Grid,
+  Button,
+  FormHelperText,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from '@material-ui/core';
 
 import { loginUser } from '../../actions/authActions';
 import ExternalLayout from '../viewcomponents/ExternalLayout';
@@ -36,6 +47,7 @@ class Login extends Component {
   }
 
   onChange(e) {
+    e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -51,6 +63,13 @@ class Login extends Component {
     handleLoginUser({ email, password }, history);
   }
 
+  handleChange = name => (e) => {
+    e.preventDefault();
+    this.setState({
+      [name]: e.target.value,
+    });
+  }
+
   render() {
     const {
       email,
@@ -59,54 +78,81 @@ class Login extends Component {
     } = this.state;
     return (
       <ExternalLayout>
-        <form
-          className="form-signin text-center"
-          onSubmit={this.onSubmit}
-          noValidate
-        >
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label htmlFor="inputEmail" className="sr-only">
-            Email address
-          </label>
-          <input
-            type="email"
-            id="inputEmail"
-            name="email"
-            className="form-control"
-            placeholder="Email address"
-            required=""
-            value={email}
-            onChange={this.onChange}
-          />
-          {errors.email ? (
-            <div className="text-help">{errors.email}</div>
-          ) : null}
-          <label htmlFor="inputPassword" className="sr-only">
-            Password
-          </label>
-          <input
-            type="password"
-            id="inputPassword"
-            name="password"
-            className="form-control"
-            placeholder="Password"
-            required=""
-            value={password}
-            onChange={this.onChange}
-          />
-          {errors.password ? (
-            <div className="text-help">{errors.password}</div>
-          ) : null}
-          <div className="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me" />
-              {' Remember me'}
-            </label>
-          </div>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">
-            Sign in
-          </button>
-        </form>
+        <Grid container style={{ justifyContent: 'center' }}>
+          <Grid item xs={12} sm={12} md={4}>
+            <form
+              onSubmit={this.onSubmit}
+              noValidate
+            >
+              <Typography
+                variant="h1"
+                style={{ textAlign: 'center', paddingBottom: '2rem' }}
+              >
+                Heens Restaurant
+              </Typography>
+              <FormControl
+                error={errors.email}
+                fullWidth
+              >
+                <TextField
+                  id="email"
+                  label="Email"
+                  type="email"
+                  value={email}
+                  margin="normal"
+                  onChange={this.handleChange('email')}
+                  fullWidth
+                  error={errors.email}
+                />
+                {errors.email ? (
+                  <FormHelperText
+                    className="text-help"
+                  >
+                    {errors.email}
+                  </FormHelperText>
+                ) : null}
+              </FormControl>
+              <FormControl error={errors.password} fullWidth>
+                <TextField
+                  id="password"
+                  type="password"
+                  margin="normal"
+                  label="Password"
+                  onChange={this.handleChange('password')}
+                  error={errors.password}
+                  value={password}
+                />
+                {errors.password ? (
+                  <FormHelperText id="component-error-text">{errors.password}</FormHelperText>
+                ) : null}
+              </FormControl>
+              <FormControl
+                fullWidth
+              >
+                <FormControlLabel
+                  control={(
+                    <Checkbox
+                      disabled
+                      value="rememberme"
+                    />
+                  )}
+                  label="Remember me"
+                />
+              </FormControl>
+              <FormControl
+                fullWidth
+              >
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  Login
+                </Button>
+              </FormControl>
+            </form>
+          </Grid>
+        </Grid>
       </ExternalLayout>
     );
   }
@@ -116,8 +162,8 @@ Login.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool,
   }).isRequired,
-  errors: PropTypes.arrayOf(PropTypes.shape({
-  })).isRequired,
+  errors: PropTypes.shape({
+  }).isRequired,
   loginUser: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -133,4 +179,4 @@ export default connect(
   mapStateToProps, {
     loginUser,
   },
-)(Login);
+)(withTheme()(Login));

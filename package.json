@@ -31,6 +31,7 @@
     "lint:client": "eslint ./client --cache --ignore-pattern .gitignore --ignore-pattern node_module",
     "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
     "test": "NODE_ENV=test mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
+    "test:app": "npm test --prefix client",
     "tt": "NODE_ENV=test mocha"
   },
   "eslintConfig": {

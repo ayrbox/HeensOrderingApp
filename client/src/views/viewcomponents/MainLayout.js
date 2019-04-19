@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from './Footer';
-import Header from './Header';
+import Header from '../../containers/Header';
 
 const MainLayout = ({ children }) => (
   <div className="app-container">

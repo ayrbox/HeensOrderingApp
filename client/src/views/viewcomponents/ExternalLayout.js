@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-const ExternalLayout = ({ children }) => (
-  <div className="app-container">{children}</div>
+import styles from './styles';
+
+const ExternalLayout = ({ classes, children }) => (
+  <div className={classes.root}>{children}</div>
 );
 
 ExternalLayout.propTypes = {
+  classes: PropTypes.shape().isRequired,
   children: PropTypes.node.isRequired,
 };
 
-export default ExternalLayout;
+export default withStyles(styles)(ExternalLayout);
