@@ -16,51 +16,53 @@ const Header = ({
 }) => (
   <Fragment>
     <AppBar position="absolute" className={classes.root}>
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <Typography variant="h5" color="inherit" noWrap onClick={() => console.log('terohead')}>
           {title}
         </Typography>
-        <Button
-          component={NavLink}
-          className={classes.navItem}
-          color="inherit"
-          to="/orders"
-        >
-          Orders
-        </Button>
-        <Button
-          component={NavLink}
-          className={classes.navItem}
-          color="inherit"
-          to="/customers"
-        >
-          Customers
-        </Button>
-        <Button
-          component={NavLink}
-          className={classes.navItem}
-          color="inherit"
-          to="/menus"
-        >
-          Menus
-        </Button>
-        <Button
-          component={NavLink}
-          className={classes.navItem}
-          color="inherit"
-          to="/categories"
-        >
-          Categories
-        </Button>
-        <Button
-          component={NavLink}
-          className={classes.navItem}
-          color="inherit"
-          to="/takeorder"
-          onClick={() => console.log(testState)}
-        >
-          + New Order
-        </Button>
+        <div className={classes.navItemsContainer}>
+          <Button
+            component={NavLink}
+            className={classes.navItem}
+            color="inherit"
+            to="/orders"
+          >
+            Orders
+          </Button>
+          <Button
+            component={NavLink}
+            className={classes.navItem}
+            color="inherit"
+            to="/customers"
+          >
+            Customers
+          </Button>
+          <Button
+            component={NavLink}
+            className={classes.navItem}
+            color="inherit"
+            to="/menus"
+          >
+            Menus
+          </Button>
+          <Button
+            component={NavLink}
+            className={classes.navItem}
+            color="inherit"
+            to="/categories"
+          >
+            Categories
+          </Button>
+          <Button
+            component={NavLink}
+            className={classes.navItem}
+            color="inherit"
+            to="/takeorder"
+            onClick={() => console.log(testState)}
+          >
+            + New Order
+          </Button>
+        </div>
       </Toolbar>
     </AppBar>
   </Fragment>

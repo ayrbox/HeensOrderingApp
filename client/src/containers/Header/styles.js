@@ -2,6 +2,12 @@ const styles = {
   root: {
     flexGrow: 1,
   },
+  toolbar: {
+    justifyContent: 'space-between',
+  },
+  navItemsContainer: {
+    display: 'flex',
+  },
   navItem: {
     display: 'flex',
   },
