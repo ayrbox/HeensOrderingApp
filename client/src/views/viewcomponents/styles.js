@@ -6,6 +6,7 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     backgroundColor: theme.palette.background.default,
+    paddingTop: '10rem',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,

@@ -1,36 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-// const heensPalette = {
-//   type: 'heens',
-//   primary: {
-//     light: '#d8cfb3',
-//     main: '#7F6000',
-//     dark: '#654c00',
-//   },
-//   secondary: {
-//     light: '#9097A1',
-//     main: '#656E7C',
-//     dark: '#353F50',
-//   },
-//   error: {
-//     light: '#fe8796',
-//     main: '#fe3851',
-//     dark: '#cb2c40',
-//   },
-//   divider: '#454e5e',
-//   background: {
-//     default: '#000',
-//     paper: '#1a222f',
-//     secondary: '#353F50',
-//   },
-// };
-
-
 const palette = {
-  type: 'dark',
+  type: 'light',
   primary: {
     light: '#d8cfb3',
-    main: '#7F6000',
+    main: '#3f323c',
     dark: '#654c00',
   },
   secondary: {
@@ -45,8 +19,8 @@ const palette = {
   },
   divider: '#454e5e',
   background: {
-    default: '#535353',
-    paper: '#1a222f',
+    default: '#ecdbc3',
+    paper: '#d2bda0',
     secondary: '#353F50',
   },
 };
@@ -54,12 +28,11 @@ const palette = {
 
 const typography = {
   useNextVariants: true /* [1] */,
-  fontFamily: 'Montserrat, sans-serif',
+  fontFamily: 'Poppins, sans-serif',
   h1: {
     fontWeight: 800,
     fontSize: '2rem',
     lineHeight: 1.2,
-    textTransform: 'uppercase',
     letterSpacing: 1,
   },
   h2: {
