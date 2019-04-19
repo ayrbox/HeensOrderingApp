@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Header from '../../containers/Header';
 
 const MainLayout = ({ children }) => (
-  <div className="app-container">
+  <div className="app-container" style={{ paddingTop: '4rem' }}>
     <Header title="Heens" />
     {children}
     <Footer />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
 
 import MainLayout from '../viewcomponents/MainLayout';
 
@@ -61,28 +62,29 @@ class Categories extends Component {
 
     return (
       <MainLayout>
-        <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Menu Categories</h1>
-          <p className="lead">List of Menu Categories</p>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-12 text-right mb-3">
-              <Link
-                className="btn btn-primary"
-                to={{
-                  pathname: '/categories/add',
-                  state: { modal: true },
-                }}
-              >
-                New Category
-              </Link>
-            </div>
-
-            {listContent}
+        <Paper elevation={5}>
+          <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 className="display-4">Menu Categories</h1>
+            <p className="lead">List of Menu Categories</p>
           </div>
-        </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-12 text-right mb-3">
+                <Link
+                  className="btn btn-primary"
+                  to={{
+                    pathname: '/categories/add',
+                    state: { modal: true },
+                  }}
+                >
+                  New Category
+                </Link>
+              </div>
+
+              {listContent}
+            </div>
+          </div>
+        </Paper>
       </MainLayout>
     );
   }

@@ -19,8 +19,8 @@ const palette = {
   },
   divider: '#454e5e',
   background: {
-    default: '#ecdbc3',
-    paper: '#d2bda0',
+    default: '#d2bda0',
+    paper: '#ecdbc3',
     secondary: '#353F50',
   },
 };
