@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withTheme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 
 import { loginUser } from '../../actions/authActions';
 import ExternalLayout from '../viewcomponents/ExternalLayout';
@@ -64,6 +67,12 @@ class Login extends Component {
           onSubmit={this.onSubmit}
           noValidate
         >
+          <TextField
+            id="standard-name"
+            label="Name"
+            value="THIS IS THEME TESt"
+            margin="normal"
+          />
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
           <label htmlFor="inputEmail" className="sr-only">
             Email address
@@ -133,4 +142,4 @@ export default connect(
   mapStateToProps, {
     loginUser,
   },
-)(Login);
+)(withTheme()(Login));

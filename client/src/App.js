@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import PrivateRoute from './components/PrivateRoute';
 import store from './store';
+import { heens } from './theme';
+import GlobalStyle from './components/GlobalStyle';
 
 // @views
 import Landing from './views/external';
@@ -25,44 +29,47 @@ getToken();
 
 // class App extends Component {
 const App = () => (
-  <Provider store={store}>
-    <Router>
-      <div className="app-container">
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/login" component={Login} />
+  <MuiThemeProvider theme={heens}>
+    <GlobalStyle />
+    <Provider store={store}>
+      <Router>
+        <div className="app-container">
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
 
-        <Switch>
-          <PrivateRoute exact path="/orders" component={Orders} />
-          <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
-          <PrivateRoute exact path="/customers" component={CustomerIndex} />
-        </Switch>
+          <Switch>
+            <PrivateRoute exact path="/orders" component={Orders} />
+            <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
+            <PrivateRoute exact path="/customers" component={CustomerIndex} />
+          </Switch>
 
-        <Switch>
-          <PrivateRoute
-            exact
-            path="/customers/add"
-            component={AddCustomer}
-          />
-          <PrivateRoute
-            exact
-            path="/customers/:id"
-            component={CustomerDetail}
-          />
-          <PrivateRoute
-            exact
-            path="/customer/:id/edit"
-            component={EditCustomer}
-          />
-        </Switch>
-        <Switch>
-          <PrivateRoute path="/categories" component={CategoryIndex} />
-        </Switch>
-        <Switch>
-          <PrivateRoute path="/menus" component={MenuIndex} />
-        </Switch>
-      </div>
-    </Router>
-  </Provider>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/customers/add"
+              component={AddCustomer}
+            />
+            <PrivateRoute
+              exact
+              path="/customers/:id"
+              component={CustomerDetail}
+            />
+            <PrivateRoute
+              exact
+              path="/customer/:id/edit"
+              component={EditCustomer}
+            />
+          </Switch>
+          <Switch>
+            <PrivateRoute path="/categories" component={CategoryIndex} />
+          </Switch>
+          <Switch>
+            <PrivateRoute path="/menus" component={MenuIndex} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>
 );
 
 export default App;
