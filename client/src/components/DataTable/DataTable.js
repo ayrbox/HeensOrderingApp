@@ -37,8 +37,8 @@ const renderRow = (
   const id = row[keyName];
   return (
     <TableRow>
-      {columns.map(({ name }) => (
-        <TableCell>{row[name]}</TableCell>
+      {columns.map(({ name, render }) => (
+        <TableCell>{(render) ? render(row[name], id) : row[name]}</TableCell>
       ))}
       <TableCell>
         {onView && (

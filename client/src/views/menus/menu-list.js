@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { withStyles } from '@material-ui/core/styles';
+
 // views
 import MainLayout from '../viewcomponents/MainLayout';
+import DataTable from '../../components/DataTable';
+import PageHeader from '../../components/PageHeader';
 
 // actions
 import { getMenus } from '../../actions/menuActions';
+
+import styles from './styles';
 
 class MenuList extends Component {
   componentDidMount() {
@@ -16,7 +22,10 @@ class MenuList extends Component {
   }
 
   render() {
-    const { menus: { list, loading } } = this.props;
+    const {
+      menus: { list, loading },
+      classes,
+    } = this.props;
 
     let listContent = '';
 
@@ -32,70 +41,51 @@ class MenuList extends Component {
       );
     } else {
       listContent = (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Category / Tags</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list.map(({
-              _id: menuId,
-              name,
-              description,
-              price,
-              category,
-              tags,
-            }) => (
-              <tr key={menuId}>
-                <td>
-                  <Link to={`/menus/${menuId}`}>{name}</Link>
-                </td>
-                <td>{description}</td>
-                <td>{`&pound; ${price}`}</td>
-                <td>
-                  {category.name}
-                  <br />
-                  {tags.map(t => (
-                    <label
-                      key={t}
-                      className="badge badge-pill badge-dark ml-1 mb-1"
-                    >
-                      {t}
-                    </label>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={[
+            {
+              name: '_id',
+              label: 'Menu Id',
+              key: true,
+              hidden: true,
+            }, {
+              name: 'name',
+              label: 'name',
+              render: (name, menuId) => <Link to={`/menus/${menuId}`}>{name}</Link>,
+            }, {
+              name: 'description',
+              label: 'Description',
+            }, {
+              name: 'price',
+              label: 'Price',
+            }, {
+              name: 'category',
+              label: 'Category',
+              render: value => <span>{value.name}</span>,
+            }, {
+              name: 'tags',
+              label: 'Tags',
+              render: tag => tag.map(t => (
+                <label key={t}>{t}</label>
+              )),
+            },
+          ]}
+          data={list}
+        />
       );
     }
 
     return (
       <MainLayout>
-        <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Menu</h1>
-          <p className="lead">List of Menu</p>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-12 text-right mb-3">
-              <Link
-                className="btn btn-primary"
-                to={{
-                  pathname: '/menus/add',
-                  state: { modal: true },
-                }}
-              >
-                New Menu
-              </Link>
-            </div>
-          </div>
+        <div className={classes.contentWrapper}>
+          <PageHeader
+            title="Menu"
+            subTitle="List of menu"
+            addButtonLink={{
+              pathname: '/menus/add',
+              state: { modal: true },
+            }}
+          />
           {listContent}
         </div>
       </MainLayout>
@@ -109,6 +99,7 @@ MenuList.propTypes = {
     loading: PropTypes.bool,
     list: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -120,4 +111,4 @@ export default connect(
   {
     getMenus,
   },
-)(MenuList);
+)(withStyles(styles)(MenuList));

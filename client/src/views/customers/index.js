@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 import MainLayout from '../viewcomponents/MainLayout';
@@ -25,8 +24,9 @@ class CustomerIndex extends Component {
 
   render() {
     const {
-      customers: { loading, list, errors },
+      customers: { loading, list },
       classes,
+      history,
     } = this.props;
 
     let pageContent;
@@ -35,75 +35,33 @@ class CustomerIndex extends Component {
       pageContent = <Spinner />;
     } else {
       pageContent = (
-        <div>
-          <DataTable
-            data={list}
-            columns={[
-              {
-                name: '_id',
-                label: 'CustomerId',
-                key: true,
-                hidden: true,
-              },
-              {
-                name: 'name',
-                label: 'Name',
-              },
-              {
-                name: 'phoneNo',
-                label: 'Contact Number',
-              }, {
-                name: 'address',
-                label: 'Address',
-              }, {
-                name: 'postCode',
-                label: 'Post Code',
-              },
-            ]}
-            onEdit={id => alert(`EDIT ID ${id}`)}
-            onDelete={id => alert(`DELETE ID ${id}`)}
-          />
-          <div className="table-reponsive">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Contact Number</th>
-                  <th>Address</th>
-                  <th>Postcode</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {list.map(({
-                  _id: customerId,
-                  name,
-                  phoneNo,
-                  address,
-                  postCode,
-                }) => (
-                  <tr key={customerId}>
-                    <td>{name}</td>
-                    <td>{phoneNo}</td>
-                    <td>{address}</td>
-                    <td>{postCode}</td>
-                    <td>
-                      <Link className="btn btn-link" to={`/customers/${customerId}`}>
-                        View
-                      </Link>
-                      <Link
-                        className="btn btn-link"
-                        to={`/customer/${customerId}/edit`}
-                      >
-                        Edit
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <DataTable
+          data={list}
+          columns={[
+            {
+              name: '_id',
+              label: 'CustomerId',
+              key: true,
+              hidden: true,
+            },
+            {
+              name: 'name',
+              label: 'Name',
+            },
+            {
+              name: 'phoneNo',
+              label: 'Contact Number',
+            }, {
+              name: 'address',
+              label: 'Address',
+            }, {
+              name: 'postCode',
+              label: 'Post Code',
+            },
+          ]}
+          onEdit={customerId => history.push(`/customers/${customerId}`)}
+          onDelete={customerId => history.push(`/customers/${customerId}`)}
+        />
       );
     }
     return (
@@ -118,14 +76,6 @@ class CustomerIndex extends Component {
             }}
           />
           <div className="container">
-            {errors && errors.msg ? (
-              <div className="row">
-                <div className="col-12 mb-3">
-                  <div className="alert alert-warning">{errors.msg}</div>
-                </div>
-              </div>
-            ) : null}
-
             {pageContent}
           </div>
         </div>
@@ -148,6 +98,9 @@ CustomerIndex.propTypes = {
   fetchCustomers: PropTypes.func.isRequired,
   clearCustomers: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
