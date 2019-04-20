@@ -43,15 +43,15 @@ const PageHeader = ({
 );
 
 PageHeader.defaultProps = {
-  subTitle: undefined,
-  addButtonLink: undefined,
+  subTitle: null,
+  addButtonLink: null,
 };
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
   classes: PropTypes.shape().isRequired,
-  addButtonLink: PropTypes.oneOf([
+  addButtonLink: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]),
