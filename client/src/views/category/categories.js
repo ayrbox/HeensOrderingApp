@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import MainLayout from '../viewcomponents/MainLayout';
-
 import { getCategories } from '../../actions/categoryActions';
+import styles from './styles';
+
 
 class Categories extends Component {
   componentDidMount() {
@@ -14,7 +26,7 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories } = this.props;
+    const { categories, classes } = this.props;
     const { loading, list } = categories;
 
     let listContent;
@@ -22,66 +34,90 @@ class Categories extends Component {
       listContent = <p>Loading..... </p>;
     } else {
       listContent = (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
+        <Table className="table table-striped">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {list.map(({ _id: id, name, description }) => (
-              <tr key={id}>
-                <td>{name}</td>
-                <td>{description}</td>
-                <td>
-                  <Link to={`/categories/${id}`} className="btn btn-link">
-                    View
+              <TableRow
+                key={id}
+                hover
+                onClick={(e) => {
+                  console.log(e);
+                }}
+              >
+                <TableCell>
+                  <Link to={`/categories/${id}`}>
+                    {name}
                   </Link>
-                  <Link
+                </TableCell>
+                <TableCell>{description}</TableCell>
+                <TableCell>
+                  <Fab
+                    color="primary"
+                    aria-label="View"
+                    size="small"
+                    component={Link}
+                    to={`/categories/${id}`}
+                  >
+                    <AddIcon />
+                  </Fab>
+                  <Fab
+                    color="primary"
+                    aria-label="Add"
+                    className={classes.fab}
+                    size="small"
+                    component={Link}
                     to={`/categories/${id}/edit`}
-                    className="btn btn-link"
                   >
-                    Edit
-                  </Link>
-                  <Link
+                    <EditIcon />
+                  </Fab>
+                  <Fab
+                    color="primary"
+                    aria-label="Add"
+                    className={classes.fab}
+                    size="small"
+                    component={Link}
                     to={`/categories/${id}/delete`}
-                    className="btn btn-link"
                   >
-                    Delete
-                  </Link>
-                </td>
-              </tr>
+                    <DeleteIcon />
+                  </Fab>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       );
     }
 
     return (
       <MainLayout>
-        <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Menu Categories</h1>
-          <p className="lead">List of Menu Categories</p>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-12 text-right mb-3">
-              <Link
-                className="btn btn-primary"
-                to={{
-                  pathname: '/categories/add',
-                  state: { modal: true },
-                }}
-              >
-                New Category
-              </Link>
-            </div>
-
-            {listContent}
-          </div>
+        <div className={classes.contentWrapper}>
+          <Typography variant="title">
+            Menu Categories
+          </Typography>
+          <Typography variant="subheading">
+            List of menu categories
+          </Typography>
+          <Fab
+            color="primary"
+            aria-label="Add"
+            className={classes.fab}
+            size="small"
+            component={Link}
+            to={{
+              pathname: '/categories/add',
+              state: { modal: true },
+            }}
+          >
+            <AddIcon />
+          </Fab>
+          {listContent}
         </div>
       </MainLayout>
     );
@@ -99,6 +135,7 @@ Categories.propTypes = {
     current: PropTypes.shape(),
     msg: PropTypes.string,
   }).isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -109,4 +146,4 @@ export default connect(
   mapStateToProps, {
     getCategories,
   },
-)(Categories);
+)(withStyles(styles)(Categories));

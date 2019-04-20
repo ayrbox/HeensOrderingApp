@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Categories from './categories';
@@ -8,7 +8,7 @@ import AddCategory from './add-category';
 import DeleteCategory from './delete-category';
 
 const CategoryIndex = () => (
-  <div>
+  <Fragment>
     <Switch>
       <Route path="/categories" component={Categories} />
     </Switch>
@@ -22,7 +22,7 @@ const CategoryIndex = () => (
         component={DeleteCategory}
       />
     </Switch>
-  </div>
+  </Fragment>
 );
 
 export default CategoryIndex;
