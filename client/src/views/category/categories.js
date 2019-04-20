@@ -10,9 +10,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ZoomIn from '@material-ui/icons/ZoomIn';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import { getCategories } from '../../actions/categoryActions';
@@ -39,7 +42,7 @@ class Categories extends Component {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell />
+              <TableCell className={classes.actionCell} />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,9 +50,6 @@ class Categories extends Component {
               <TableRow
                 key={id}
                 hover
-                onClick={(e) => {
-                  console.log(e);
-                }}
               >
                 <TableCell>
                   <Link to={`/categories/${id}`}>
@@ -57,36 +57,31 @@ class Categories extends Component {
                   </Link>
                 </TableCell>
                 <TableCell>{description}</TableCell>
-                <TableCell>
-                  <Fab
-                    color="primary"
-                    aria-label="View"
+                <TableCell className={classes.actionCell}>
+                  <IconButton
+                    aria-label="Delete"
                     size="small"
                     component={Link}
                     to={`/categories/${id}`}
                   >
-                    <AddIcon />
-                  </Fab>
-                  <Fab
-                    color="primary"
-                    aria-label="Add"
-                    className={classes.fab}
+                    <ZoomIn />
+                  </IconButton>
+                  <IconButton
+                    aria-label="Delete"
                     size="small"
                     component={Link}
                     to={`/categories/${id}/edit`}
                   >
                     <EditIcon />
-                  </Fab>
-                  <Fab
-                    color="primary"
-                    aria-label="Add"
-                    className={classes.fab}
+                  </IconButton>
+                  <IconButton
+                    aria-label="Delete"
                     size="small"
                     component={Link}
                     to={`/categories/${id}/delete`}
                   >
                     <DeleteIcon />
-                  </Fab>
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
@@ -98,25 +93,36 @@ class Categories extends Component {
     return (
       <MainLayout>
         <div className={classes.contentWrapper}>
-          <Typography variant="title">
-            Menu Categories
-          </Typography>
-          <Typography variant="subheading">
-            List of menu categories
-          </Typography>
-          <Fab
-            color="primary"
-            aria-label="Add"
-            className={classes.fab}
-            size="small"
-            component={Link}
-            to={{
-              pathname: '/categories/add',
-              state: { modal: true },
-            }}
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
           >
-            <AddIcon />
-          </Fab>
+            <Grid item>
+              <Typography variant="title">
+                Menu Categories
+              </Typography>
+              <Typography variant="subheading">
+                List of menu categories
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Fab
+                color="primary"
+                aria-label="Add"
+                className={classes.fab}
+                size="small"
+                component={Link}
+                to={{
+                  pathname: '/categories/add',
+                  state: { modal: true },
+                }}
+              >
+                <AddIcon />
+              </Fab>
+            </Grid>
+          </Grid>
           {listContent}
         </div>
       </MainLayout>
