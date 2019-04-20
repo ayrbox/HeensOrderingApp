@@ -50,7 +50,7 @@ class MenuList extends Component {
               hidden: true,
             }, {
               name: 'name',
-              label: 'name',
+              label: 'Menu Name',
               render: (name, menuId) => <Link to={`/menus/${menuId}`}>{name}</Link>,
             }, {
               name: 'description',

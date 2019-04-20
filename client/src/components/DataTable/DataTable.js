@@ -32,6 +32,7 @@ const renderRow = (
   onView,
   onEdit,
   onDelete,
+  classes,
 ) => {
   const { name: keyName } = keyCol;
   const id = row[keyName];
@@ -40,7 +41,7 @@ const renderRow = (
       {columns.map(({ name, render }) => (
         <TableCell>{(render) ? render(row[name], id) : row[name]}</TableCell>
       ))}
-      <TableCell>
+      <TableCell className={classes.actionCell}>
         {onView && (
           <IconButton
             aria-label="View"
@@ -79,6 +80,7 @@ const DataTable = ({
   onView,
   onEdit,
   onDelete,
+  classes,
 }) => {
   const cols = displayColumns(columns);
   const key = keyColumn(columns);
@@ -86,7 +88,7 @@ const DataTable = ({
     <Table>
       {renderColumns(cols)}
       <TableBody>
-        {data.map(row => renderRow(cols, row, key, onView, onEdit, onDelete))}
+        {data.map(row => renderRow(cols, row, key, onView, onEdit, onDelete, classes))}
       </TableBody>
     </Table>
   );
@@ -104,6 +106,7 @@ DataTable.propTypes = {
   onDelete: PropTypes.func,
   onView: PropTypes.func,
   onEdit: PropTypes.func,
+  classes: PropTypes.shape().isRequired,
 };
 
 export default withStyles(styles)(DataTable);

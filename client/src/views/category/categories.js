@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ZoomIn from '@material-ui/icons/ZoomIn';
+
+import PageHeader from '../../components/PageHeader';
+import DataTable from '../../components/DataTable';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import { getCategories } from '../../actions/categoryActions';
@@ -29,7 +18,7 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories, classes } = this.props;
+    const { categories, classes, history } = this.props;
     const { loading, list } = categories;
 
     let listContent;
@@ -37,92 +26,39 @@ class Categories extends Component {
       listContent = <p>Loading..... </p>;
     } else {
       listContent = (
-        <Table className="table table-striped">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell className={classes.actionCell} />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {list.map(({ _id: id, name, description }) => (
-              <TableRow
-                key={id}
-                hover
-              >
-                <TableCell>
-                  <Link to={`/categories/${id}`}>
-                    {name}
-                  </Link>
-                </TableCell>
-                <TableCell>{description}</TableCell>
-                <TableCell className={classes.actionCell}>
-                  <IconButton
-                    aria-label="Delete"
-                    size="small"
-                    component={Link}
-                    to={`/categories/${id}`}
-                  >
-                    <ZoomIn />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Delete"
-                    size="small"
-                    component={Link}
-                    to={`/categories/${id}/edit`}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Delete"
-                    size="small"
-                    component={Link}
-                    to={`/categories/${id}/delete`}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <DataTable
+          data={list}
+          columns={[
+            {
+              name: '_id',
+              label: 'Category Id',
+              key: true,
+              hidden: true,
+            }, {
+              name: 'name',
+              label: 'Name',
+            }, {
+              name: 'description',
+              label: 'Description',
+            },
+          ]}
+          onEdit={categoryId => history.push(`/categories/${categoryId}/edit`)}
+          onDelete={categoryId => history.push(`/categories/${categoryId}/delete`)}
+        />
       );
     }
 
     return (
       <MainLayout>
         <div className={classes.contentWrapper}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <Grid item>
-              <Typography variant="title">
-                Menu Categories
-              </Typography>
-              <Typography variant="subheading">
-                List of menu categories
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Fab
-                color="primary"
-                aria-label="Add"
-                className={classes.fab}
-                size="small"
-                component={Link}
-                to={{
-                  pathname: '/categories/add',
-                  state: { modal: true },
-                }}
-              >
-                <AddIcon />
-              </Fab>
-            </Grid>
-          </Grid>
+          <PageHeader
+            title="Menu Categories"
+            subTitle="List of menu categories"
+            addButtonLink={{
+              pathname: '/categories/add',
+              state: { modal: true },
+            }}
+          />
           {listContent}
         </div>
       </MainLayout>
@@ -142,6 +78,9 @@ Categories.propTypes = {
     msg: PropTypes.string,
   }).isRequired,
   classes: PropTypes.shape().isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

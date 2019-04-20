@@ -1,7 +1,7 @@
-const styles = theme => ({
+const styles = {
   actionCell: {
-    width: `${theme.spacing.unit * 10}px`,
+    width: '200px',
   },
-});
+};
 
 export default styles;
