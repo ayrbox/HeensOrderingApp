@@ -21,8 +21,8 @@ const Categories = ({ classes, history }) => (
         }}
       />
       <Fetch url="/api/categories">
-        {({ loading: dataLoading, data }) => {
-          if (dataLoading) {
+        {({ loading, data }) => {
+          if (loading) {
             return <p>Loading....</p>;
           }
 
