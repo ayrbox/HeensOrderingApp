@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -33,7 +33,7 @@ const App = () => (
     <GlobalStyle />
     <Provider store={store}>
       <Router>
-        <div className="app-container">
+        <Fragment>
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
 
@@ -66,7 +66,7 @@ const App = () => (
           <Switch>
             <PrivateRoute path="/menus" component={MenuIndex} />
           </Switch>
-        </div>
+        </Fragment>
       </Router>
     </Provider>
   </MuiThemeProvider>

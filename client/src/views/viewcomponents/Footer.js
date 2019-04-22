@@ -1,20 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
-const Footer = () => {
+const styles = {
+  footerWrapper: {
+    margin: '0px 90px',
+  },
+};
+
+const Footer = ({ classes }) => {
   const year = new Date().getFullYear();
   return (
-    <footer className="container">
-      <p className="float-right">
-        <Link to="/">Back to top</Link>
-      </p>
-      <p>
-        {`&copy; ${year} Heens·`}
-        <Link to="/">Privacy</Link>
-        <Link to="/">Terms</Link>
-      </p>
+    <footer className={classes.footerWrapper}>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+      >
+        <Grid item>
+          <p>
+            &copy;
+            {` ${year} MIT License`}
+          </p>
+        </Grid>
+        <Grid item>
+          <p className="float-right">
+            <Link to="/#">Back to top</Link>
+          </p>
+        </Grid>
+      </Grid>
     </footer>
   );
 };
 
-export default Footer;
+Footer.propTypes = {
+  classes: PropTypes.shape().isRequired,
+};
+
+export default withStyles(styles)(Footer);

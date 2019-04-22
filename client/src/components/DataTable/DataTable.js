@@ -37,9 +37,11 @@ const renderRow = (
   const { name: keyName } = keyCol;
   const id = row[keyName];
   return (
-    <TableRow>
+    <TableRow
+      key={id}
+    >
       {columns.map(({ name, render }) => (
-        <TableCell>{(render) ? render(row[name], id) : row[name]}</TableCell>
+        <TableCell key={name}>{(render) ? render(row[name], id) : row[name]}</TableCell>
       ))}
       <TableCell className={classes.actionCell}>
         {onView && (

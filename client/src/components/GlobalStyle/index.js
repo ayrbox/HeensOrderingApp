@@ -8,15 +8,15 @@ const styles = ({ palette }) => ({
     },
 
     html: {
-      WebkitFontSmoothing: 'antialiased' /* [1] */,
-      MozOsxFontSmoothing: 'grayscale' /* [1] */,
+      WebkitFontSmoothing: 'antialiased',
+      MozOsxFontSmoothing: 'grayscale',
       boxSizing: 'border-box',
     },
 
     body: {
       minWidth: '320px',
       minHeight: '100vh',
-      margin: 0 /* [2] */,
+      margin: 0,
       backgroundColor: palette.background.default,
       '@media print': {
         backgroundColor: palette.common.white, /* [3] */

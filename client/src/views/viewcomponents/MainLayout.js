@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,7 +8,7 @@ import Header from '../../containers/Header';
 import styles from './mainLayoutStyles';
 
 const MainLayout = ({ children, classes }) => (
-  <div className="app-container" style={{ paddingTop: '4rem' }}>
+  <Fragment>
     <Header title="Heens" />
     <main className={classes.wrapper}>
       <div className={classes.container}>
@@ -16,7 +16,7 @@ const MainLayout = ({ children, classes }) => (
       </div>
     </main>
     <Footer />
-  </div>
+  </Fragment>
 );
 
 MainLayout.propTypes = {
