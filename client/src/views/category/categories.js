@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PageHeader from '../../components/PageHeader';
 import DataTable from '../../components/DataTable';
 import Fetch from '../../components/Fetch';
+import CategoryForm from './components/CategoryForm';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import styles from './styles';
@@ -49,6 +50,11 @@ const Categories = ({ classes, history }) => (
           );
         } }
       </Fetch>
+      <CategoryForm
+        open
+        onClose={() => console.log('Closing')}
+        onSubmit={(data) => console.log('Submittin', data)}
+      />
     </div>
   </MainLayout>
 );
