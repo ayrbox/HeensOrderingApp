@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import styles from './styles';
 
-class AddCategory extends Component {
+class CategoryForm extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -92,12 +92,12 @@ class AddCategory extends Component {
   }
 }
 
-AddCategory.defaultProps = {
+CategoryForm.defaultProps = {
   open: true,
   errors: null,
 };
 
-AddCategory.propTypes = {
+CategoryForm.propTypes = {
   classes: PropTypes.shape().isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -105,4 +105,4 @@ AddCategory.propTypes = {
   errors: PropTypes.shape(),
 };
 
-export default withStyles(styles)(AddCategory);
+export default withStyles(styles)(CategoryForm);
