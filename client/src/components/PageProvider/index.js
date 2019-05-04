@@ -48,6 +48,16 @@ const pageReducer = (state, { type, payload }) => {
         ...state,
         open: false,
       };
+    case ACTIONS.SAVING:
+      return {
+        ...state,
+        requestInProgress: true,
+      }
+    case ACTIONS.SAVED:
+      return {
+        ...state,
+        requestInProgress: false,
+      }
     default:
       return state;
   }

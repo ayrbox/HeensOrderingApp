@@ -9,6 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 import { usePageState, ACTIONS } from '../../../../components/PageProvider';
 
@@ -23,7 +25,7 @@ const CategoryForm = ({
   classes,
   errors,
 }) => {
-  const [{ open }, dispatch] = usePageState();
+  const [{ open, requestInProgress }, dispatch] = usePageState();
 
   const [state, setState] = useState(initialState);
   const { name, description } = state;
@@ -75,7 +77,20 @@ const CategoryForm = ({
         >
           Cancel
         </Button>
-        <Button onClick={() => console.log('Submit')} color="primary">
+        {requestInProgress && <CircularProgress size={16} />}
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch({
+              type: ACTIONS.SAVING
+            });
+            setTimeout(() => dispatch({
+              type:ACTIONS.SAVED
+            }), 10000);
+          }}
+          color="primary"
+          disabled={requestInProgress}
+        >
           Save
         </Button>
       </DialogActions>
