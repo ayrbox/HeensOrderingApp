@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -9,8 +9,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import CircularProgress from '@material-ui/core/CircularProgress'
+import FormHelperText from '@material-ui/core/FormHelperText';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+import {
+  getCategory,
+  createCategory,
+  updateCategory,
+} from 'api/categories';
 
 import { usePageState, ACTIONS } from '../../../../components/PageProvider';
 
@@ -21,30 +27,66 @@ const initialState = {
   description: '',
 };
 
-const CategoryForm = ({
-  classes,
-  errors,
-}) => {
-  const [{ open, requestInProgress }, dispatch] = usePageState();
+const CategoryForm = ({ classes, id }) => {
+  const [{
+    open,
+    requestInProgress,
+    errors,
+  }, dispatch] = usePageState();
 
   const [state, setState] = useState(initialState);
   const { name, description } = state;
-  const id = 'temp';
-
   const pageTitle = (id) ? 'Edit Category' : 'Add Category';
 
-  const handleChange = field => ({ target }) => setState(prev => ({ ...prev, [field]: target.value }));
+  const handleChange = field => ({ target }) => {
+    setState(prev => ({ ...prev, [field]: target.value }));
+  };
+
+  useEffect(() => {
+    if (id) {
+      getCategory(id).then(({ data }) => {
+        setState({
+          name: data.name,
+          description: data.description,
+        });
+      });
+    }
+  }, [id]);
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    dispatch({ type: ACTIONS.SAVING });
+    try {
+      if (id) {
+        await updateCategory(id, { name, description });
+      } else {
+        await createCategory({ name, description });
+      }
+      dispatch({
+        type: ACTIONS.SAVED,
+        payload: 'Category saved successfully.',
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
 
   return (
     <Dialog
       open={open}
       aria-labelledby={pageTitle}
     >
-      <DialogTitle id="dialog-title">{pageTitle}</DialogTitle>
+      <DialogTitle id="dialog-title">
+        {pageTitle}
+      </DialogTitle>
       <DialogContent>
         <FormControl
           fullWidth
           className={classes.formControl}
+          error={!!errors.name}
         >
           <TextField
             autoFocus
@@ -53,41 +95,50 @@ const CategoryForm = ({
             fullWidth
             value={name}
             onChange={handleChange('name')}
+            error={!!errors.name}
           />
+          {errors.name && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.name}
+            </FormHelperText>
+          )}
         </FormControl>
         <FormControl
           fullWidth
+          error={!!errors.description}
         >
           <TextField
             id="description"
             label="Description"
             fullWidth
+            multiline
             rows="4"
             value={description}
             onChange={handleChange('description')}
+            error={!!errors.description}
           />
+          {errors.description && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.description}
+            </FormHelperText>
+          )}
         </FormControl>
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => dispatch({
-            type: ACTIONS.CLOSE
-          })}
+          onClick={() => dispatch({ type: ACTIONS.CLOSE })}
           color="primary"
+          disabled={requestInProgress}
         >
           Cancel
         </Button>
         {requestInProgress && <CircularProgress size={16} />}
         <Button
-          onClick={(e) => {
-            e.preventDefault();
-            dispatch({
-              type: ACTIONS.SAVING
-            });
-            setTimeout(() => dispatch({
-              type:ACTIONS.SAVED
-            }), 10000);
-          }}
+          onClick={handleSave}
           color="primary"
           disabled={requestInProgress}
         >
@@ -99,12 +150,12 @@ const CategoryForm = ({
 };
 
 CategoryForm.defaultProps = {
-  errors: null,
+  id: undefined,
 };
 
 CategoryForm.propTypes = {
   classes: PropTypes.shape().isRequired,
-  errors: PropTypes.shape(),
+  id: PropTypes.string,
 };
 
 export default withStyles(styles)(CategoryForm);

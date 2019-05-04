@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,7 +12,7 @@ const PageHeader = ({
   title,
   subTitle,
   classes,
-  addButtonLink,
+  onAddClicked,
 }) => (
   <Grid
     container
@@ -26,14 +25,13 @@ const PageHeader = ({
       <Typography variant="h1">{title}</Typography>
       {subTitle && <Typography variant="subtitle1">{subTitle}</Typography>}
     </Grid>
-    {addButtonLink && (
+    {onAddClicked && (
       <Grid item>
         <Fab
           color="primary"
           aria-label="Add"
           size="small"
-          component={Link}
-          to={addButtonLink}
+          onClick={onAddClicked}
         >
           <AddIcon />
         </Fab>
@@ -44,17 +42,14 @@ const PageHeader = ({
 
 PageHeader.defaultProps = {
   subTitle: null,
-  addButtonLink: null,
+  onAddClicked: undefined
 };
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
   classes: PropTypes.shape().isRequired,
-  addButtonLink: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  onAddClicked: PropTypes.func,
 };
 
 export default withStyles(styles)(PageHeader);

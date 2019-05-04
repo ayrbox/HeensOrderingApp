@@ -2,32 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import { usePageState, ACTIONS } from '../../components/PageProvider';
-import PageHeader from '../../components/PageHeader';
-import DataTable from '../../components/DataTable';
-import Fetch from '../../components/Fetch';
+import { deleteCategory } from 'api/categories';
+import { usePageState, ACTIONS } from 'components/PageProvider';
+import PageHeader from 'components/PageHeader';
+import DataTable from 'components/DataTable';
+import Fetch from 'components/Fetch';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import CategoryForm from './components/CategoryForm';
 import styles from './styles';
 
+
 const Categories = ({ classes }) => {
-  const [ , dispatch ]= usePageState();
+  const [{ id }, dispatch] = usePageState();
   return (
     <MainLayout>
       <div className={classes.contentWrapper}>
         <PageHeader
           title="Menu Categories"
           subTitle="List of menu categories"
-          addButtonLink={{
-            pathname: '/categories/add',
-            state: { modal: true },
-          }}
+          onAddClicked={() => dispatch({ type: ACTIONS.ADD })}
         />
-        <button type="button" onClick={() => dispatch({
-          type: ACTIONS.ADD,
-          id: '293842938472938742938',
-        })}>Add Category</button>
         <Fetch url="/api/categories">
           {({ loading, data }) => {
             if (loading) {
@@ -50,14 +45,27 @@ const Categories = ({ classes }) => {
                     label: 'Description',
                   },
                 ]}
-                onEdit={categoryId => console.log(categoryId)}
-                onDelete={categoryId => console.log(categoryId)}
+                onEdit={categoryId => dispatch({
+                  type: ACTIONS.EDIT,
+                  payload: { id: categoryId },
+                })}
+                onDelete={async (categoryId) => {
+                  dispatch({
+                    type: ACTIONS.DELETING,
+                    payload: categoryId,
+                  });
+                  await deleteCategory(categoryId);
+                  dispatch({
+                    type: ACTIONS.DELETED,
+                    payload: 'Category deleted successfully',
+                  });
+                }}
               />
             );
           } }
         </Fetch>
       </div>
-      <CategoryForm />
+      <CategoryForm id={id} />
     </MainLayout>
   );
 };
