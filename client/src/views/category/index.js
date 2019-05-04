@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
+import PageProvider from '../../components/PageProvider'
 
 import Categories from './categories';
 
 const CategoryIndex = () => (
-  <Fragment>
+  <PageProvider>
     <Route path="/categories" component={Categories} />
-  </Fragment>
+  </PageProvider>
 );
 
 export default CategoryIndex;

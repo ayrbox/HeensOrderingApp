@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -10,98 +10,85 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 
+import { usePageState, ACTIONS } from '../../../../components/PageProvider';
+
 import styles from './styles';
 
-class CategoryForm extends Component {
-  constructor(props, context) {
-    super(props, context);
+const initialState = {
+  name: '',
+  description: '',
+};
 
-    this.state = {
-      name: '',
-      description: '',
-    };
-  }
+const CategoryForm = ({
+  classes,
+  errors,
+}) => {
+  const [{ open }, dispatch] = usePageState();
 
-  handleChange = name => (e) => {
-    e.preventDefault();
-    this.setState({
-      [name]: e.target.value,
-    });
-  }
+  const [state, setState] = useState(initialState);
+  const { name, description } = state;
+  const id = 'temp';
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { onSubmit } = this.props;
-    const { name, description } = this.state;
-    onSubmit({ name, description });
-  }
+  const pageTitle = (id) ? 'Edit Category' : 'Add Category';
 
-  render() {
-    const {
-      classes,
-      onClose,
-      open,
-      errors,
-    } = this.props;
-    const { name, description } = this.state;
+  const handleChange = field => ({ target }) => setState(prev => ({ ...prev, [field]: target.value }));
 
-    return (
-      <Dialog
-        open={open}
-        aria-labelledby="Add Category"
-      >
-        <DialogTitle id="dialog-title">Menu Category</DialogTitle>
-        <DialogContent>
-          <FormControl
+  return (
+    <Dialog
+      open={open}
+      aria-labelledby={pageTitle}
+    >
+      <DialogTitle id="dialog-title">{pageTitle}</DialogTitle>
+      <DialogContent>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+        >
+          <TextField
+            autoFocus
+            id="name"
+            label="Name"
             fullWidth
-            className={classes.formControl}
-          >
-            <TextField
-              autoFocus
-              id="name"
-              label="Name"
-              fullWidth
-              value={name}
-              onChange={this.handleChange('name')}
-            />
-          </FormControl>
-          <FormControl
+            value={name}
+            onChange={handleChange('name')}
+          />
+        </FormControl>
+        <FormControl
+          fullWidth
+        >
+          <TextField
+            id="description"
+            label="Description"
             fullWidth
-          >
-            <TextField
-              id="description"
-              label="Description"
-              fullWidth
-              multiline
-              rows="4"
-              value={description}
-              onChange={this.handleChange('description')}
-            />
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.handleSubmit} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
+            rows="4"
+            value={description}
+            onChange={handleChange('description')}
+          />
+        </FormControl>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={() => dispatch({
+            type: ACTIONS.CLOSE
+          })}
+          color="primary"
+        >
+          Cancel
+        </Button>
+        <Button onClick={() => console.log('Submit')} color="primary">
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 CategoryForm.defaultProps = {
-  open: true,
   errors: null,
 };
 
 CategoryForm.propTypes = {
   classes: PropTypes.shape().isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  open: PropTypes.bool,
   errors: PropTypes.shape(),
 };
 

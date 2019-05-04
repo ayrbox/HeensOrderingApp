@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import { PageContext, PageProvider } from '../../components/PageProvider';
+import { usePageState, ACTIONS } from '../../components/PageProvider';
 import PageHeader from '../../components/PageHeader';
 import DataTable from '../../components/DataTable';
 import Fetch from '../../components/Fetch';
-import CategoryForm from './components/CategoryForm';
 
 import MainLayout from '../viewcomponents/MainLayout';
+import CategoryForm from './components/CategoryForm';
 import styles from './styles';
 
-const Categories = ({ classes }) => (
-  <PageProvider>
+const Categories = ({ classes }) => {
+  const [ , dispatch ]= usePageState();
+  return (
     <MainLayout>
       <div className={classes.contentWrapper}>
         <PageHeader
@@ -23,48 +24,43 @@ const Categories = ({ classes }) => (
             state: { modal: true },
           }}
         />
-
-        <PageContext.Consumer>
-          {({ handleEdit, handleDelete }) => (
-            <Fetch url="/api/categories">
-              {({ loading, data }) => {
-                if (loading) {
-                  return <p>Loading....</p>;
-                }
-                return (
-                  <DataTable
-                    data={data}
-                    columns={[
-                      {
-                        name: '_id',
-                        label: 'Category Id',
-                        key: true,
-                        hidden: true,
-                      }, {
-                        name: 'name',
-                        label: 'Name',
-                      }, {
-                        name: 'description',
-                        label: 'Description',
-                      },
-                    ]}
-                    onEdit={categoryId => handleEdit(categoryId)}
-                    onDelete={categoryId => handleDelete(categoryId)}
-                  />
-                );
-              } }
-            </Fetch>
-          )}
-        </PageContext.Consumer>
-        <CategoryForm
-          open={false}
-          onClose={() => console.log('Closing')}
-          onSubmit={(data) => console.log('Submittin', data)}
-        />
+        <button type="button" onClick={() => dispatch({
+          type: ACTIONS.ADD,
+          id: '293842938472938742938',
+        })}>Add Category</button>
+        <Fetch url="/api/categories">
+          {({ loading, data }) => {
+            if (loading) {
+              return <p>Loading....</p>;
+            }
+            return (
+              <DataTable
+                data={data}
+                columns={[
+                  {
+                    name: '_id',
+                    label: 'Category Id',
+                    key: true,
+                    hidden: true,
+                  }, {
+                    name: 'name',
+                    label: 'Name',
+                  }, {
+                    name: 'description',
+                    label: 'Description',
+                  },
+                ]}
+                onEdit={categoryId => console.log(categoryId)}
+                onDelete={categoryId => console.log(categoryId)}
+              />
+            );
+          } }
+        </Fetch>
       </div>
+      <CategoryForm />
     </MainLayout>
-  </PageProvider>
-);
+  );
+};
 
 Categories.propTypes = {
   classes: PropTypes.shape().isRequired,
