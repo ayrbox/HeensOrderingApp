@@ -1,45 +1,68 @@
-import React, { Component } from 'react';
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+} from 'react';
 import PropTypes from 'prop-types';
 
-export const PageContext = React.createContext();
+export const PageContext = createContext();
 
-export class PageProvider extends Component {
-  state = {
-    requestInProgress: false
+// page actions that can be triggered by consumers
+export const ACTIONS = {
+  ADD: 'ADD',
+  EDIT: 'EDIT',
+  DELETE: 'DELETE',
+  CLOSE: 'CLOSE',
+  SAVING: 'SAVING',
+  SAVED: 'SAVED',
+};
+
+const initialState = {
+  id: undefined,
+  requestInProgress: false,
+  open: false,
+};
+
+const pageReducer = (state, { type, payload }) => {
+  switch (type) {
+    case ACTIONS.ADD:
+      return {
+        ...state,
+        open: true,
+        id: null,
+      };
+    case ACTIONS.EDIT:
+      return {
+        ...state,
+        open: true,
+        id: payload.id,
+      };
+    case ACTIONS.DELETE:
+      return {
+        ...state,
+        open: false,
+        id: payload.id,
+      };
+    case ACTIONS.CLOSE:
+      return {
+        ...state,
+        open: false,
+      };
+    default:
+      return state;
   }
+};
 
-  handleEdit = (id) => {
-    console.log('Handle edit', id);
-    this.setState({
-      requestInProgress: true,
-    });
-  }
-
-  handleDelete = (id) => {
-    console.log('Handle delete', id);
-    this.setState({
-      requestInProgress: true,
-    });
-  }
-
-  render() {
-    const { children } = this.props;
-    const { requestInProgress } = this.props;
-
-    return (
-      <PageContext.Provider value={{
-        requestInProgress,
-        handleDelete: this.handleDelete,
-        handleEdit: this.handleEdit,
-      }}
-      >
-        {children}
-      </PageContext.Provider>
-    );
-  }
-}
-
+const PageProvider = ({ children }) => (
+  <PageContext.Provider value={useReducer(pageReducer, initialState)}>
+    {children}
+  </PageContext.Provider>
+);
 
 PageProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export const usePageState = () => useContext(PageContext);
+
+export default PageProvider;
