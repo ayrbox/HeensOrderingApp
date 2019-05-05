@@ -50,6 +50,8 @@ const CategoryForm = ({ classes, id }) => {
           description: data.description,
         });
       });
+    } else {
+      setState(initialState);
     }
   }, [id]);
 
