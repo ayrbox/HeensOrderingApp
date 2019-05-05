@@ -27,7 +27,7 @@ const initialState = {
   description: '',
 };
 
-const CategoryForm = ({ classes, id }) => {
+const CategoryForm = ({ classes, id, reloadAction }) => {
   const [{
     open,
     requestInProgress,
@@ -73,6 +73,10 @@ const CategoryForm = ({ classes, id }) => {
         type: ACTIONS.ERROR,
         payload: err.response.data,
       });
+    }
+
+    if (reloadAction) {
+      reloadAction()
     }
   };
 
@@ -140,6 +144,7 @@ const CategoryForm = ({ classes, id }) => {
         </Button>
         {requestInProgress && <CircularProgress size={16} />}
         <Button
+          type="submit"
           onClick={handleSave}
           color="primary"
           disabled={requestInProgress}
@@ -153,11 +158,13 @@ const CategoryForm = ({ classes, id }) => {
 
 CategoryForm.defaultProps = {
   id: undefined,
+  reloadAction: undefined,
 };
 
 CategoryForm.propTypes = {
   classes: PropTypes.shape().isRequired,
   id: PropTypes.string,
+  reloadAction: PropTypes.func,
 };
 
 export default withStyles(styles)(CategoryForm);

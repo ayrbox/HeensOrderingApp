@@ -14,7 +14,7 @@ import styles from './styles';
 const Categories = ({ classes }) => {
   const [{ id, data, loading }, dispatch] = usePageState();
 
-  useEffect(() => {
+  const handleDataFetch = () => {
     dispatch({ type: ACTIONS.FETCHING });
     getCategories().then(({ data: categories }) => {
       dispatch({
@@ -22,7 +22,9 @@ const Categories = ({ classes }) => {
         payload: categories,
       });
     });
-  }, []);
+  };
+
+  useEffect(handleDataFetch, []);
 
   return (
     <MainLayout>
@@ -64,12 +66,13 @@ const Categories = ({ classes }) => {
                   type: ACTIONS.DELETED,
                   payload: 'Category deleted successfully',
                 });
+                handleDataFetch();
               }}
             />
           )
         }
       </div>
-      <CategoryForm id={id} />
+      <CategoryForm id={id} reloadAction={handleDataFetch} />
     </MainLayout>
   );
 };
