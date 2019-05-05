@@ -11,7 +11,10 @@ const ConfirmAction = ({ action, message, children }) => {
         <ConfirmationModal
           text={message}
           open={openModal}
-          action={action}
+          action={() => {
+            action();
+            setOpenModal(false);
+          }}
           onCancel={() => setOpenModal(false)}
         />
       )}

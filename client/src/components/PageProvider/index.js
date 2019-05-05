@@ -55,15 +55,16 @@ const pageReducer = (state, { type, payload }) => {
       return {
         ...state,
         requestInProgress: true,
-        id: payload,
         errors: {},
         message: undefined,
       };
     case ACTIONS.DELETED:
       return {
         ...state,
+        id: null,
         open: false,
-        requestInProgress: true,
+        requestInProgress: false,
+        loading: false,
         message: payload,
       };
     case ACTIONS.CLOSE:
@@ -80,6 +81,7 @@ const pageReducer = (state, { type, payload }) => {
       return {
         ...state,
         requestInProgress: false,
+        loading: false,
         open: false,
         errors: {},
         message: payload,
@@ -88,6 +90,7 @@ const pageReducer = (state, { type, payload }) => {
       return {
         ...state,
         requestInProgress: false,
+        loading: false,
         errors: payload,
       };
     case ACTIONS.FETCHING:
@@ -100,6 +103,7 @@ const pageReducer = (state, { type, payload }) => {
       return {
         ...state,
         loading: false,
+        requestInProgress: false,
         errors: {},
         data: payload,
       };
