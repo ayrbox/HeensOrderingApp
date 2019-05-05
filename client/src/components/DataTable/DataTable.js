@@ -11,6 +11,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomIn from '@material-ui/icons/ZoomIn';
 
+import ConfirmAction from 'components/ConfirmAction';
+
 import styles from './styles';
 
 const displayColumns = columns => columns.filter(({ hidden }) => !hidden);
@@ -63,13 +65,17 @@ const renderRow = (
           </IconButton>
         )}
         {onDelete && (
-          <IconButton
-            aria-label="Delete"
-            size="small"
-            onClick={() => onDelete(id)}
+          <ConfirmAction
+            action={() => onDelete(id)}
+            message="Are you sure you want to delete ?"
           >
-            <DeleteIcon />
-          </IconButton>
+            <IconButton
+              aria-label="Delete"
+              size="small"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </ConfirmAction>
         )}
       </TableCell>
     </TableRow>
