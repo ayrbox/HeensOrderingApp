@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+export const getCategories = async () => {
+  try {
+    return await axios.get('/api/categories');
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const getCategory = async (id) => {
   try {
     return await axios.get(`/api/categories/${id}`);

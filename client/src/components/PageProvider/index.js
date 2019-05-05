@@ -19,6 +19,8 @@ export const ACTIONS = {
   SAVING: 'SAVING',
   SAVED: 'SAVED',
   ERROR: 'ERROR',
+  FETCHING: 'FETCHING',
+  FETCHED: 'FETCHED',
 };
 
 const initialState = {
@@ -27,6 +29,8 @@ const initialState = {
   open: false,
   message: undefined,
   errors: {},
+  loading: false,
+  data: [],
 };
 
 const pageReducer = (state, { type, payload }) => {
@@ -85,6 +89,19 @@ const pageReducer = (state, { type, payload }) => {
         ...state,
         requestInProgress: false,
         errors: payload,
+      };
+    case ACTIONS.FETCHING:
+      return {
+        ...state,
+        loading: true,
+        errors: {},
+      };
+    case ACTIONS.FETCHED:
+      return {
+        ...state,
+        loading: false,
+        errors: {},
+        data: payload,
       };
     default:
       return state;
