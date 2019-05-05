@@ -7,6 +7,7 @@ import { usePageState, ACTIONS } from '../../components/PageProvider';
 import MainLayout from '../viewcomponents/MainLayout';
 import DataTable from '../../components/DataTable';
 import PageHeader from '../../components/PageHeader';
+import MenuForm from './MenuForm';
 import { getMenus, deleteMenu } from '../../api/menus';
 
 import styles from './styles';
@@ -91,6 +92,7 @@ const MenuList = ({ classes }) => {
           )
         }
       </div>
+      <MenuForm />
     </MainLayout>
   );
 };
