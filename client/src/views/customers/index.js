@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,26 +8,38 @@ import styles from './styles';
 
 import PageHeader from '../../components/PageHeader';
 import DataTable from '../../components/DataTable';
-import Fetch from '../../components/Fetch';
 
-const CustomerIndex = ({ classes, history }) => (
-  <MainLayout>
-    <div className={classes.contentWrapper}>
-      <PageHeader
-        title="Customers"
-        subTitle="List of customers"
-        addButtonLink={{
-          pathname: '/customers/add',
-          state: { modal: true },
-        }}
-      />
-      <Fetch url="/api/customers">
-        {({ loading, data }) => {
-          if (loading) {
-            return <Spinner />;
-          }
+import PageProvider, { ACTIONS, usePageState } from '../../components/PageProvider';
+import { getCustomers, deleteCustomer } from '../../api/customers';
 
-          return (
+const CustomerIndex = ({ classes, history }) => {
+  const [{ data, loading }, dispatch] = usePageState();
+
+  const handleDataFetch = () => {
+    dispatch({ type: ACTIONS.FETCHING });
+    getCustomers().then(({ data: customers }) => {
+      dispatch({
+        type: ACTIONS.FETCHED,
+        payload: customers,
+      });
+    });
+  };
+
+  useEffect(handleDataFetch, []);
+
+  return (
+    <PageProvider>
+      <MainLayout>
+        <div className={classes.contentWrapper}>
+          <PageHeader
+            title="Customers"
+            subTitle="List of customers"
+            addButtonLink={{
+              pathname: '/customers/add',
+              state: { modal: true },
+            }}
+          />
+          { loading ? <Spinner /> : (
             <DataTable
               data={data}
               columns={[
@@ -53,14 +65,25 @@ const CustomerIndex = ({ classes, history }) => (
                 },
               ]}
               onEdit={customerId => history.push(`/customers/${customerId}`)}
-              onDelete={customerId => history.push(`/customers/${customerId}`)}
+              onDelete={async (customerId) => {
+                dispatch({
+                  type: ACTIONS.DELETING,
+                  payload: customerId,
+                });
+                await deleteCustomer(customerId);
+                dispatch({
+                  type: ACTIONS.DELETED,
+                  payload: 'Customer deleted successfully',
+                });
+                handleDataFetch();
+              }}
             />
-          );
-        }}
-      </Fetch>
-    </div>
-  </MainLayout>
-);
+          )}
+        </div>
+      </MainLayout>
+    </PageProvider>
+  );
+};
 
 CustomerIndex.propTypes = {
   classes: PropTypes.shape().isRequired,
