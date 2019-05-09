@@ -20,14 +20,14 @@ const Footer = ({ classes }) => {
         justify="space-between"
       >
         <Grid item>
-          <p>
+          <p data-testid="copyright-text">
             &copy;
             {` ${year} MIT License`}
           </p>
         </Grid>
         <Grid item>
           <p className="float-right">
-            <Link to="/#">Back to top</Link>
+            <Link data-testid="back-to-top" to="/#">Back to top</Link>
           </p>
         </Grid>
       </Grid>

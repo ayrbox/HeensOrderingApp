@@ -15,7 +15,7 @@ const MainLayout = ({ children, classes }) => (
         {children}
       </div>
     </main>
-    <Footer />
+    <Footer data-testid="footer" />
   </Fragment>
 );
 
