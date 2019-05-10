@@ -61,13 +61,14 @@ const MenuForm = ({ classes, id, reloadAction }) => {
   useEffect(() => {
     if (id) {
       getMenu(id).then(({ data }) => {
+        const { _id: categoryId } = data.category;
         setState(prev => ({
           ...prev,
           name: data.name,
           description: data.description,
           price: data.price,
-          category: data.category,
-          tags: data.tags,
+          category: categoryId,
+          tags: data.tags.join(', '),
         }));
       });
     } else {
@@ -113,16 +114,18 @@ const MenuForm = ({ classes, id, reloadAction }) => {
         type: ACTIONS.SAVED,
         payload: 'Menu saved successfully.',
       });
-      setState(initialState);
+      setState(prev => ({
+        ...initialState,
+        categories: prev.categories,
+      }));
+      if (reloadAction) {
+        reloadAction();
+      }
     } catch (err) {
       dispatch({
         type: ACTIONS.ERROR,
         payload: err.response.data,
       });
-    }
-
-    if (reloadAction) {
-      reloadAction();
     }
   };
 

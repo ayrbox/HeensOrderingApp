@@ -69,15 +69,14 @@ const CategoryForm = ({ classes, id, reloadAction }) => {
         payload: 'Category saved successfully.',
       });
       setState(initialState);
+      if (reloadAction) {
+        reloadAction();
+      }
     } catch (err) {
       dispatch({
         type: ACTIONS.ERROR,
         payload: err.response.data,
       });
-    }
-
-    if (reloadAction) {
-      reloadAction();
     }
   };
 

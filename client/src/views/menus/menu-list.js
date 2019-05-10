@@ -75,6 +75,12 @@ const MenuList = ({ classes }) => {
                 },
               ]}
               data={data}
+              onEdit={(menuId) => {
+                dispatch({
+                  type: ACTIONS.EDIT,
+                  payload: { id: menuId },
+                });
+              }}
               onDelete={async (menuId) => {
                 try {
                   dispatch({ type: ACTIONS.DELETING });
