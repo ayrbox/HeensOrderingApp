@@ -13,7 +13,7 @@ import { getMenus, deleteMenu } from '../../api/menus';
 import styles from './styles';
 
 const MenuList = ({ classes }) => {
-  const [{ loading, data }, dispatch] = usePageState();
+  const [{ id, loading, data }, dispatch] = usePageState();
 
   const handleFetch = () => {
     dispatch({
@@ -92,7 +92,7 @@ const MenuList = ({ classes }) => {
           )
         }
       </div>
-      <MenuForm />
+      <MenuForm id={id} reloadAction={handleFetch} />
     </MainLayout>
   );
 };
