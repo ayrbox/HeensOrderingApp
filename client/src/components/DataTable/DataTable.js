@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ZoomIn from '@material-ui/icons/ZoomIn';
 
-import ConfirmAction from 'components/ConfirmAction';
+import ConfirmAction from '../ConfirmAction';
 
 import styles from './styles';
 

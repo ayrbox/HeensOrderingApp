@@ -85,6 +85,7 @@ const pageReducer = (state, { type, payload }) => {
         open: false,
         errors: {},
         message: payload,
+        id: null,
       };
     case ACTIONS.ERROR:
       return {

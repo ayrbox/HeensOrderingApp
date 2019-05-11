@@ -13,7 +13,7 @@ import { getMenus, deleteMenu } from '../../api/menus';
 import styles from './styles';
 
 const MenuList = ({ classes }) => {
-  const [{ loading, data }, dispatch] = usePageState();
+  const [{ id, loading, data }, dispatch] = usePageState();
 
   const handleFetch = () => {
     dispatch({
@@ -75,6 +75,15 @@ const MenuList = ({ classes }) => {
                 },
               ]}
               data={data}
+              onView={(menuId) => {
+                console.log('View Menu ID to add option as well', menuId);
+              }}
+              onEdit={(menuId) => {
+                dispatch({
+                  type: ACTIONS.EDIT,
+                  payload: { id: menuId },
+                });
+              }}
               onDelete={async (menuId) => {
                 try {
                   dispatch({ type: ACTIONS.DELETING });
@@ -92,7 +101,7 @@ const MenuList = ({ classes }) => {
           )
         }
       </div>
-      <MenuForm />
+      <MenuForm id={id} reloadAction={handleFetch} />
     </MainLayout>
   );
 };
