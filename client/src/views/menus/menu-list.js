@@ -75,6 +75,9 @@ const MenuList = ({ classes }) => {
                 },
               ]}
               data={data}
+              onView={(menuId) => {
+                console.log('View Menu ID to add option as well', menuId);
+              }}
               onEdit={(menuId) => {
                 dispatch({
                   type: ACTIONS.EDIT,
