@@ -16,6 +16,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
 
 import {
   getMenu,
@@ -61,6 +66,14 @@ const MenuForm = ({ classes, id, reloadAction }) => {
     setState(prev => ({ ...prev, [field]: target.value }));
   };
 
+  const handleOptionChange = (field, index) => ({ target }) => {
+    setState(prev => ({
+      ...prev,
+      menuOptions:
+        menuOptions.map((_, idx) => ((idx === index) ? { ..._, [field]: target.value } : _)),
+    }));
+  };
+
   useEffect(() => {
     if (id) {
       getMenu(id).then(({ data }) => {
@@ -104,6 +117,7 @@ const MenuForm = ({ classes, id, reloadAction }) => {
           price,
           category,
           tags,
+          menuOptions,
         });
       } else {
         await createMenu({
@@ -112,6 +126,7 @@ const MenuForm = ({ classes, id, reloadAction }) => {
           price,
           category,
           tags,
+          menuOptions,
         });
       }
       dispatch({
@@ -137,133 +152,213 @@ const MenuForm = ({ classes, id, reloadAction }) => {
     <Dialog
       open={open}
       aria-labelledby={pageTitle}
-      fullWidth
-      maxWidth="lg"
+      scroll="body"
     >
       <DialogTitle id="dialog-title">
         {pageTitle}
       </DialogTitle>
       <DialogContent>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+          error={!!errors.name}
+        >
+          <TextField
+            autoFocus
+            id="name"
+            label="Name"
+            fullWidth
+            value={name}
+            onChange={handleChange('name')}
+            error={!!errors.name}
+          />
+          {errors.name && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.name}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          fullWidth
+          error={!!errors.description}
+          className={classes.formControl}
+        >
+          <TextField
+            id="description"
+            label="Description"
+            fullWidth
+            value={description}
+            onChange={handleChange('description')}
+            error={!!errors.description}
+          />
+          {errors.description && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.description}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+          error={!!errors.price}
+        >
+          <TextField
+            id="price"
+            label="Price"
+            fullWidth
+            value={price}
+            onChange={handleChange('price')}
+            error={!!errors.price}
+          />
+          {errors.price && (
+            <FormHelperText>{errors.price}</FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          className={classes.formControl}
+          fullWidth
+          error={!!errors.category}
+        >
+          <InputLabel htmlFor="category">Category</InputLabel>
+          <Select
+            value={category}
+            input={<Input name="category" id="category" />}
+            onChange={handleChange('category')}
+            error={!!errors.category}
+          >
+            {categories.map(({ _id: categoryId, name: categoryName }) => (
+              <MenuItem
+                key={`cat-${categoryId}`}
+                value={categoryId}
+              >
+                {categoryName}
+              </MenuItem>
+            ))}
+          </Select>
+          {errors.category && (
+            <FormHelperText>{errors.category}</FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+          error={!!errors.tags}
+        >
+          <TextField
+            id="tags"
+            label="Tags"
+            fullWidth
+            value={tags}
+            onChange={handleChange('tags')}
+            error={!!errors.tags}
+          />
+          {errors.tags && (
+            <FormHelperText>{errors.tags}</FormHelperText>
+          )}
+        </FormControl>
         <Grid
           container
           direction="row"
-          justify="center"
+          justify="space-between"
           alignItems="center"
         >
           <Grid
             item
-            md={6}
           >
-            <FormControl
-              fullWidth
-              className={classes.formControl}
-              error={!!errors.name}
-            >
-              <TextField
-                autoFocus
-                id="name"
-                label="Name"
-                fullWidth
-                value={name}
-                onChange={handleChange('name')}
-                error={!!errors.name}
-              />
-              {errors.name && (
-                <FormHelperText
-                  className="text-help"
-                >
-                  {errors.name}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              fullWidth
-              error={!!errors.description}
-              className={classes.formControl}
-            >
-              <TextField
-                id="description"
-                label="Description"
-                fullWidth
-                value={description}
-                onChange={handleChange('description')}
-                error={!!errors.description}
-              />
-              {errors.description && (
-                <FormHelperText
-                  className="text-help"
-                >
-                  {errors.description}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              fullWidth
-              className={classes.formControl}
-              error={!!errors.price}
-            >
-              <TextField
-                id="price"
-                label="Price"
-                fullWidth
-                value={price}
-                onChange={handleChange('price')}
-                error={!!errors.price}
-              />
-              {errors.price && (
-                <FormHelperText>{errors.price}</FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              className={classes.formControl}
-              fullWidth
-              error={!!errors.category}
-            >
-              <InputLabel htmlFor="category">Category</InputLabel>
-              <Select
-                value={category}
-                input={<Input name="category" id="category" />}
-                onChange={handleChange('category')}
-                error={!!errors.category}
-              >
-                {categories.map(({ _id: categoryId, name: categoryName }) => (
-                  <MenuItem
-                    key={`cat-${categoryId}`}
-                    value={categoryId}
-                  >
-                    {categoryName}
-                  </MenuItem>
-                ))}
-              </Select>
-              {errors.category && (
-                <FormHelperText>{errors.category}</FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              fullWidth
-              className={classes.formControl}
-              error={!!errors.tags}
-            >
-              <TextField
-                id="tags"
-                label="Tags"
-                fullWidth
-                value={tags}
-                onChange={handleChange('tags')}
-                error={!!errors.tags}
-              />
-              {errors.tags && (
-                <FormHelperText>{errors.tags}</FormHelperText>
-              )}
-            </FormControl>
+            <Typography variant="h5">
+              Menu Options
+            </Typography>
           </Grid>
           <Grid
             item
-            md={6}
           >
-            <pre>{JSON.stringify(menuOptions, null, 2)}</pre>
+            <IconButton
+              color="primary"
+              aria-label="Add"
+              size="small"
+              onClick={() => {
+                setState(prev => ({
+                  ...prev,
+                  menuOptions: [...menuOptions, {
+                    description: '',
+                    additionalCost: 0.00,
+                  }],
+                }));
+              }}
+            >
+              <AddIcon fontSize="small" />
+            </IconButton>
           </Grid>
         </Grid>
+        {menuOptions.map((option, index) => {
+          const itemKey = `options-${index}-${description}`;
+          return (
+            <Grid
+              container
+              key={itemKey}
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              spacing={24}
+            >
+              <Grid
+                item
+                xs={8}
+              >
+                <FormControl
+                  fullWidth
+                >
+                  <TextField
+                    value={option.description}
+                    onChange={handleOptionChange('description', index)}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+              >
+                <FormControl
+                  fullWidth
+                >
+                  <TextField
+                    inputProps={{
+                      style: { textAlign: 'right' },
+                    }}
+                    value={option.additionalCost}
+                    onChange={handleOptionChange('additionalCost', index)}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={1}
+              >
+                <IconButton
+                  color="primary"
+                  aria-label="Add"
+                  size="small"
+                  onClick={() => {
+                    setState((prev) => {
+                      const options = [...prev.menuOptions];
+                      options.splice(index, 1);
+                      return ({
+                        ...prev,
+                        menuOptions: [...options],
+                      });
+                    });
+                  }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </Grid>
+            </Grid>
+          );
+        })}
       </DialogContent>
       <DialogActions>
         <Button

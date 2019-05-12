@@ -48,13 +48,13 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       res.json(errors);
       return {};
     }
-
     return new Menu({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
       tags: (req.body.tags || '').split(','),
+      menuOptions: req.body.menuOptions,
     }).save()
       .then((m) => {
         res.status(201);
@@ -80,6 +80,7 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
       price: req.body.price,
       category: req.body.category,
       tags: (req.body.tags || '').split(','),
+      menuOptions: req.body.menuOptions,
     };
 
     return Menu.findOne({ _id: req.params.id }).then((menu) => {
