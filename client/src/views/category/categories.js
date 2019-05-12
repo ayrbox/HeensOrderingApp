@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+import { getCategories, deleteCategory } from '../../api/categories';
 import { usePageState, ACTIONS } from '../../components/PageProvider';
 import PageHeader from '../../components/PageHeader';
 import DataTable from '../../components/DataTable';
-import { getCategories, deleteCategory } from '../../api/categories';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import CategoryForm from './components/CategoryForm';

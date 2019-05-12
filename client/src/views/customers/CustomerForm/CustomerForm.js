@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,21 +13,27 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
-  getCategory,
-  createCategory,
-  updateCategory,
-} from '../../../../api/categories';
+  getCustomer,
+  createCustomer,
+  updateCustomer,
+} from '../../../api/customers';
 
-import { usePageState, ACTIONS } from '../../../../components/PageProvider';
 
+import { usePageState, ACTIONS } from '../../../components/PageProvider';
 import styles from './styles';
 
 const initialState = {
   name: '',
-  description: '',
+  phoneNo: '',
+  address: '',
+  postCode: '',
 };
 
-const CategoryForm = ({ classes, id, reloadAction }) => {
+const CustomerForm = ({
+  classes,
+  id,
+  reloadAction,
+}) => {
   const [{
     open,
     requestInProgress,
@@ -35,49 +41,63 @@ const CategoryForm = ({ classes, id, reloadAction }) => {
   }, dispatch] = usePageState();
 
   const [state, setState] = useState(initialState);
-  const { name, description } = state;
-  const pageTitle = (id) ? 'Edit Category' : 'Add Category';
-
-  const handleChange = field => ({ target }) => {
-    setState(prev => ({ ...prev, [field]: target.value }));
-  };
+  const {
+    name,
+    phoneNo,
+    address,
+    postCode,
+  } = state;
+  const pageTitle = (id) ? 'Edit Customer' : 'Add Customer';
 
   useEffect(() => {
     if (id) {
-      getCategory(id).then(({ data }) => {
-        setState({
-          name: data.name,
-          description: data.description,
-        });
+      getCustomer(id).then(({ data }) => {
+        setState({ ...data });
       });
     } else {
       setState(initialState);
     }
   }, [id]);
 
+
   const handleSave = async (e) => {
     e.preventDefault();
     dispatch({ type: ACTIONS.SAVING });
     try {
       if (id) {
-        await updateCategory(id, { name, description });
+        await updateCustomer(id, {
+          name,
+          phoneNo,
+          address,
+          postCode,
+        });
       } else {
-        await createCategory({ name, description });
+        await createCustomer({
+          name,
+          phoneNo,
+          address,
+          postCode,
+        });
       }
       dispatch({
         type: ACTIONS.SAVED,
-        payload: 'Category saved successfully.',
+        payload: 'Customer saved successfully.',
       });
       setState(initialState);
-      if (reloadAction) {
-        reloadAction();
-      }
     } catch (err) {
       dispatch({
         type: ACTIONS.ERROR,
         payload: err.response.data,
       });
     }
+
+    if (reloadAction) {
+      reloadAction();
+    }
+  };
+
+  const handleChange = field => ({ target }) => {
+    setState(prev => ({ ...prev, [field]: target.value }));
   };
 
   return (
@@ -113,23 +133,67 @@ const CategoryForm = ({ classes, id, reloadAction }) => {
         </FormControl>
         <FormControl
           fullWidth
-          error={!!errors.description}
+          className={classes.formControl}
+          error={!!errors.phoneNo}
         >
           <TextField
-            id="description"
-            label="Description"
+            autoFocus
+            id="phoneNo"
+            label="Phone Number"
             fullWidth
-            multiline
-            rows="4"
-            value={description}
-            onChange={handleChange('description')}
-            error={!!errors.description}
+            value={phoneNo}
+            onChange={handleChange('phoneNo')}
+            error={!!errors.phoneNo}
           />
-          {errors.description && (
+          {errors.phoneNo && (
             <FormHelperText
               className="text-help"
             >
-              {errors.description}
+              {errors.phoneNo}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+          error={!!errors.address}
+        >
+          <TextField
+            autoFocus
+            id="address"
+            label="Address"
+            fullWidth
+            value={address}
+            onChange={handleChange('address')}
+            error={!!errors.address}
+          />
+          {errors.address && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.address}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl
+          fullWidth
+          className={classes.formControl}
+          error={!!errors.postCode}
+        >
+          <TextField
+            autoFocus
+            id="postCode"
+            label="Post Code"
+            fullWidth
+            value={postCode}
+            onChange={handleChange('postCode')}
+            error={!!errors.postCode}
+          />
+          {errors.postCode && (
+            <FormHelperText
+              className="text-help"
+            >
+              {errors.postCode}
             </FormHelperText>
           )}
         </FormControl>
@@ -156,15 +220,16 @@ const CategoryForm = ({ classes, id, reloadAction }) => {
   );
 };
 
-CategoryForm.defaultProps = {
-  id: undefined,
+CustomerForm.defaultProps = {
+  id: null,
   reloadAction: undefined,
 };
 
-CategoryForm.propTypes = {
+CustomerForm.propTypes = {
   classes: PropTypes.shape().isRequired,
   id: PropTypes.string,
   reloadAction: PropTypes.func,
 };
 
-export default withStyles(styles)(CategoryForm);
+
+export default withStyles(styles)(CustomerForm);
