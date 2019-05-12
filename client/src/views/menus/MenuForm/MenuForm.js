@@ -16,6 +16,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
 
 import {
   getMenu,
@@ -61,6 +66,14 @@ const MenuForm = ({ classes, id, reloadAction }) => {
     setState(prev => ({ ...prev, [field]: target.value }));
   };
 
+  const handleOptionChange = (field, index) => ({ target }) => {
+    setState(prev => ({
+      ...prev,
+      menuOptions:
+        menuOptions.map((_, idx) => ((idx === index) ? { ..._, [field]: target.value } : _)),
+    }));
+  };
+
   useEffect(() => {
     if (id) {
       getMenu(id).then(({ data }) => {
@@ -104,6 +117,7 @@ const MenuForm = ({ classes, id, reloadAction }) => {
           price,
           category,
           tags,
+          menuOptions,
         });
       } else {
         await createMenu({
@@ -112,6 +126,7 @@ const MenuForm = ({ classes, id, reloadAction }) => {
           price,
           category,
           tags,
+          menuOptions,
         });
       }
       dispatch({
@@ -137,6 +152,7 @@ const MenuForm = ({ classes, id, reloadAction }) => {
     <Dialog
       open={open}
       aria-labelledby={pageTitle}
+      scroll="body"
     >
       <DialogTitle id="dialog-title">
         {pageTitle}
@@ -244,42 +260,101 @@ const MenuForm = ({ classes, id, reloadAction }) => {
             <FormHelperText>{errors.tags}</FormHelperText>
           )}
         </FormControl>
-        <Grid container>
-          <Grid item>
-            <h3>Options</h3>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid
+            item
+          >
+            <Typography variant="h5">
+              Menu Options
+            </Typography>
           </Grid>
-          <Grid item>
-            <Button onClick={() => {
-              setState(prev => ({
-                ...prev,
-                menuOptions: [...menuOptions, {
-                  description: 'new option description',
-                  additionalCost: 10,
-                }],
-              }));
-            }}
+          <Grid
+            item
+          >
+            <IconButton
+              color="primary"
+              aria-label="Add"
+              size="small"
+              onClick={() => {
+                setState(prev => ({
+                  ...prev,
+                  menuOptions: [...menuOptions, {
+                    description: '',
+                    additionalCost: 0.00,
+                  }],
+                }));
+              }}
             >
-              Add
-            </Button>
+              <AddIcon fontSize="small" />
+            </IconButton>
           </Grid>
         </Grid>
         {menuOptions.map((option, index) => {
           const itemKey = `options-${index}-${description}`;
           return (
-            <Grid container>
-              <Grid item>
-                <FormControl key={itemKey}>
+            <Grid
+              container
+              key={itemKey}
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              spacing={24}
+            >
+              <Grid
+                item
+                xs={8}
+              >
+                <FormControl
+                  fullWidth
+                >
                   <TextField
                     value={option.description}
+                    onChange={handleOptionChange('description', index)}
                   />
                 </FormControl>
               </Grid>
-              <Grid item>
-                <FormControl key={itemKey}>
+              <Grid
+                item
+                xs={3}
+              >
+                <FormControl
+                  fullWidth
+                >
                   <TextField
+                    inputProps={{
+                      style: { textAlign: 'right' },
+                    }}
                     value={option.additionalCost}
+                    onChange={handleOptionChange('additionalCost', index)}
                   />
                 </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={1}
+              >
+                <IconButton
+                  color="primary"
+                  aria-label="Add"
+                  size="small"
+                  onClick={() => {
+                    setState((prev) => {
+                      const options = [...prev.menuOptions];
+                      options.splice(index, 1);
+                      return ({
+                        ...prev,
+                        menuOptions: [...options],
+                      });
+                    });
+                  }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
               </Grid>
             </Grid>
           );
