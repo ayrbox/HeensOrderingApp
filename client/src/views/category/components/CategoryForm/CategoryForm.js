@@ -16,7 +16,7 @@ import {
   getCategory,
   createCategory,
   updateCategory,
-} from 'api/categories';
+} from '../../../../api/categories';
 
 import { usePageState, ACTIONS } from '../../../../components/PageProvider';
 
