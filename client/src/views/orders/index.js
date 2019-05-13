@@ -1,15 +1,13 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import PageProvider from '../../components/PageProvider';
 
 // @views
 import OrderList from './order-list';
 
 const OrderIndex = () => (
-  <div>
-    <Switch>
-      <Route path="/orders/" component={OrderList} />
-    </Switch>
-  </div>
+  <PageProvider>
+    <OrderList />
+  </PageProvider>
 );
 
 export default OrderIndex;
