@@ -1,12 +1,21 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import MotorcycleIcon from '@material-ui/icons/Motorcycle';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import Chip from '@material-ui/core/Chip';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 // @components
 import MainLayout from '../viewcomponents/MainLayout';
@@ -45,25 +54,44 @@ const OrderList = ({ classes }) => {
         />
         {
           loading ? <Spinner /> : data.map(order => (
-            <Card className={classes.card}>
+            <Card
+              className={classes.card}
+              elevation="4"
+            >
+              <CardHeader
+                title={ORDER_TYPES[order.orderType]}
+                avatar={(
+                  <Avatar aria-label="order-type" className={classes.avatar}>
+                    <LocalDiningIcon />
+                  </Avatar>
+                )}
+                action={(
+                  <IconButton>
+                    <ExpandMoreIcon />
+                  </IconButton>
+                )}
+              />
               <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {ORDER_TYPES[order.orderType]}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  <MotorcycleIcon />
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  {ORDER_STATUSES[order.orderStatus]}
-                </Typography>
-                <Typography component="p">
+                {false && <MotorcycleIcon fontSize="large" />}
+                {false && <LocalMallIcon fontSize="large" />}
+                <Typography variant="h1" component="h1">
                   &pound;
                   {order.orderTotal.toFixed(2)}
+                  <Chip
+                    color="primary"
+                    label={ORDER_STATUSES[order.orderStatus]}
+                  />
+                </Typography>
+                <Typography variant="p">
+                  {JSON.stringify(order.deliveryAddress)}
+                </Typography>
+                <Typography variant="p">
+                  {order.tableNo}
+                </Typography>
+                <Typography variant="p">
+                  {order.note}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button size="small">More</Button>
-              </CardActions>
             </Card>
           ))
         }
