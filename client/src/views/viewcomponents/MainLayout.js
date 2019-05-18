@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Header from '../../containers/Header';
 
 import styles from './mainLayoutStyles';
+import OrderModal from '../../containers/OrderModal';
 
 const MainLayout = ({ children, classes }) => (
   <Fragment>
@@ -15,6 +16,7 @@ const MainLayout = ({ children, classes }) => (
         {children}
       </div>
     </main>
+    <OrderModal />
     <Footer />
   </Fragment>
 );

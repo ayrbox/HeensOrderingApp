@@ -11,13 +11,18 @@ import styles from './styles';
 
 const Header = ({
   title,
-  testState,
   classes,
+  openOrderModal,
 }) => (
   <Fragment>
     <AppBar position="absolute" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h5" color="inherit" noWrap onClick={() => console.log('terohead')}>
+        <Typography
+          variant="h5"
+          color="inherit"
+          noWrap
+          onClick={() => console.log('terohead')}
+        >
           {title}
         </Typography>
         <div className={classes.navItemsContainer}>
@@ -54,11 +59,9 @@ const Header = ({
             Categories
           </Button>
           <Button
-            component={NavLink}
             className={classes.navItem}
             color="inherit"
-            to="/takeorder"
-            onClick={() => console.log(testState)}
+            onClick={openOrderModal}
           >
             + New Order
           </Button>
@@ -70,8 +73,8 @@ const Header = ({
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  testState: PropTypes.shape().isRequired,
   classes: PropTypes.shape().isRequired,
+  openOrderModal: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Header);
