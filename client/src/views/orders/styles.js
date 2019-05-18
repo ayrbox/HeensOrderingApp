@@ -18,6 +18,9 @@ const styles = {
   actionsContainer: {
     flex: true,
   },
+  column: {
+    flexBasis: '20%',
+  },
 };
 
 

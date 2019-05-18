@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -15,6 +10,13 @@ import MotorcycleIcon from '@material-ui/icons/Motorcycle';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import Chip from '@material-ui/core/Chip';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 
 
 // @components
@@ -54,45 +56,51 @@ const OrderList = ({ classes }) => {
         />
         {
           loading ? <Spinner /> : data.map(order => (
-            <Card
-              className={classes.card}
-              elevation="4"
-            >
-              <CardHeader
-                title={ORDER_TYPES[order.orderType]}
-                avatar={(
-                  <Avatar aria-label="order-type" className={classes.avatar}>
-                    <LocalDiningIcon />
-                  </Avatar>
-                )}
-                action={(
-                  <IconButton>
-                    <ExpandMoreIcon />
-                  </IconButton>
-                )}
-              />
-              <CardContent>
-                {false && <MotorcycleIcon fontSize="large" />}
-                {false && <LocalMallIcon fontSize="large" />}
-                <Typography variant="h1" component="h1">
-                  &pound;
-                  {order.orderTotal.toFixed(2)}
-                  <Chip
-                    color="primary"
-                    label={ORDER_STATUSES[order.orderStatus]}
-                  />
-                </Typography>
-                <Typography variant="p">
-                  {JSON.stringify(order.deliveryAddress)}
-                </Typography>
-                <Typography variant="p">
-                  {order.tableNo}
-                </Typography>
-                <Typography variant="p">
-                  {order.note}
-                </Typography>
-              </CardContent>
-            </Card>
+            <ExpansionPanel defaultExpanded>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Avatar aria-label="order-type" className={classes.avatar}>
+                      <LocalDiningIcon />
+                    </Avatar>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.heading}>
+                      {ORDER_TYPES[order.orderType]}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={classes.heading} variant="h1">
+                      &pound;
+                      {order.orderTotal}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Chip
+                      color="primary"
+                      label={ORDER_STATUSES[order.orderStatus]}
+                    />
+                  </Grid>
+                </Grid>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details}>
+                <pre>
+                  {JSON.stringify(order, null, 2)}
+                </pre>
+              </ExpansionPanelDetails>
+              <Divider />
+              <ExpansionPanelActions>
+                <Button size="small">Cancel</Button>
+                <Button size="small" color="primary">
+                  Save
+                </Button>
+              </ExpansionPanelActions>
+            </ExpansionPanel>
           ))
         }
       </div>
