@@ -1,143 +1,77 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+
+import OrderSummary from './components/OrderSummary';
+import OrderDetails from './components/OrderDetails';
+
 
 // @components
 import MainLayout from '../viewcomponents/MainLayout';
 import Spinner from '../../components/Spinner';
-import OrderStatusButton from '../../components/OrderStatusButton';
+// import OrderStatusButton from '../../components/OrderStatusButton';
+import PageHeader from '../../components/PageHeader';
 
-import { getOrders, updateOrder } from '../../actions/orderActions';
+// @actions
+import { usePageState, ACTIONS } from '../../components/PageProvider';
+import { getOrders } from '../../api/orders';
 
-class OrderList extends Component {
-  constructor(props) {
-    super(props);
+import styles from './styles';
 
-    this.updateOrderStatus = this.updateOrderStatus.bind(this);
-  }
+const OrderList = ({ classes }) => {
+  const [{ loading, data }, dispatch] = usePageState();
+  const handleFetch = () => {
+    dispatch({
+      type: ACTIONS.FETCHING,
+    });
 
-  componentDidMount() {
-    const { getOrders: handleGetOrders } = this.props;
-    handleGetOrders();
-  }
-
-  updateOrderStatus(id, status) {
-    const { updateOrder: handleUpdateOrder } = this.props;
-    handleUpdateOrder(id, status);
-  }
-
-
-  render() {
-    const {
-      orders: { loading, list },
-      takeOrder: { orderStatuses, orderTypes },
-    } = this.props;
-
-    let content = <Spinner />;
-    if (!loading) {
-      content = list.map(({
-        _id: orderId,
-        orderType,
-        tableNo,
-        deliveryAddress,
-        orderTotal,
-        orderStatus,
-      }) => (
-        <div className="m-3 p-3 border" key={orderId}>
-          <div className="d-flex w-100 justify-content-between">
-            {orderType === 'table' ? (
-              <div style={{ width: '250px' }}>
-                <strong>
-                  {`${orderTypes[orderType]} `}
-                  <br />
-                  {` ${tableNo}`}
-                </strong>
-              </div>
-            ) : null}
-            {orderType === 'delivery' ? (
-              <div style={{ width: '250px' }}>
-                <strong>{orderTypes[orderType]}</strong>
-                <br />
-                <small>
-                  {`
-                    ${deliveryAddress.name}
-                    ${deliveryAddress.address}
-                    ${deliveryAddress.postCode}
-                    ${deliveryAddress.contactNo}
-                  `}
-                </small>
-              </div>
-            ) : null}
-            {orderType === 'collection' ? (
-              <div style={{ width: '250px' }}>
-                <strong>{orderTypes[orderType]}</strong>
-              </div>
-            ) : null}
-            <div>
-              <strong>{orderStatuses[orderStatus]}</strong>
-              <br />
-              <span>
-                {`&pound; ${orderTotal.toFixed(2)} `}
-              </span>
-            </div>
-
-            <div>
-              <OrderStatusButton
-                currentStatus={orderStatus}
-                onItemClick={(status) => {
-                  this.updateOrderStatus(orderId, status);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      ));
-    }
-
-    return (
-      <MainLayout>
-        <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 className="display-4">Order List</h1>
-          <p className="lead">List or orders</p>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-12">{content}</div>
-          </div>
-        </div>
-      </MainLayout>
-    );
-  }
-}
-
-OrderList.propTypes = {
-  getOrders: PropTypes.func.isRequired,
-  updateOrder: PropTypes.func.isRequired,
-  orders: PropTypes.shape({
-    _id: PropTypes.string,
-    orderType: PropTypes.string,
-    tableNo: PropTypes.string,
-    deliveryAddress: PropTypes.string,
-    orderTotal: PropTypes.string,
-    orderStatus: PropTypes.string,
-  }).isRequired,
-  takeOrder: PropTypes.shape({
-    orderStatuses: PropTypes.arrayOf(
-      PropTypes.string,
-    ),
-    orderTypes: PropTypes.arrayOf(
-      PropTypes.string,
-    ),
-  }).isRequired,
+    getOrders().then(({ data: menus }) => {
+      dispatch({
+        type: ACTIONS.FETCHED,
+        payload: menus,
+      });
+    });
+  };
+  useEffect(handleFetch, []);
+  return (
+    <MainLayout>
+      <div className={classes.contentWrapper}>
+        <PageHeader
+          title="Order List"
+          subTitle="List of orders"
+        />
+        {
+          loading ? <Spinner /> : data.map(order => (
+            <ExpansionPanel>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <OrderSummary order={order} />
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details}>
+                <OrderDetails order={order} />
+              </ExpansionPanelDetails>
+              <ExpansionPanelActions>
+                <Button size="small">Cancel Order</Button>
+                <Button size="small" color="primary">
+                  Change Order State
+                </Button>
+              </ExpansionPanelActions>
+            </ExpansionPanel>
+          ))
+        }
+      </div>
+    </MainLayout>
+  );
 };
 
-const mapStateToProps = state => ({
-  orders: state.orders,
-  takeOrder: state.takeOrder,
-});
+OrderList.propTypes = {
+  classes: PropTypes.shape().isRequired,
+};
 
-export default connect(
-  mapStateToProps,
-  { getOrders, updateOrder },
-)(OrderList);
+export default withStyles(styles)(OrderList);
