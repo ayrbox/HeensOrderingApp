@@ -9,6 +9,7 @@ import {
   UPDATE_ORDER_STATUS_SUCCESS,
   UPDATE_ORDER_STATUS_ERROR,
   OPEN_ORDER_MODAL,
+  CLOSE_ORDER_MODAL,
 } from './types';
 
 // @action - getOrders
@@ -55,5 +56,11 @@ export const updateOrder = (id, status) => (dispatch) => {
 export const openOrderModal = () => (dispatch) => {
   dispatch({
     type: OPEN_ORDER_MODAL,
+  });
+};
+
+export const closeOrderModal = () => (dispatch) => {
+  dispatch({
+    type: CLOSE_ORDER_MODAL,
   });
 };
