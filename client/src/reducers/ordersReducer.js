@@ -5,12 +5,15 @@ import {
   UPDATE_ORDER_STATUS_REQUEST,
   UPDATE_ORDER_STATUS_SUCCESS,
   UPDATE_ORDER_STATUS_ERROR,
+  OPEN_ORDER_MODAL,
+  CLOSE_ORDER_MODAL,
 } from '../actions/types';
 
 const initialState = {
   loading: false,
   list: [],
   errors: {},
+  isOpenOrderModal: true,
 };
 
 export default function (state = initialState, action) {
@@ -57,6 +60,16 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         errors: action.payload,
+      };
+    case OPEN_ORDER_MODAL:
+      return {
+        ...state,
+        isOpenOrderModal: true,
+      };
+    case CLOSE_ORDER_MODAL:
+      return {
+        ...state,
+        isOpenOrderModal: false,
       };
     default:
       return state;

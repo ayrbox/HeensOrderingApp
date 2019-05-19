@@ -34,14 +34,10 @@ const App = () => (
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Switch>
-            <PrivateRoute exact path="/orders" component={Orders} />
+            <PrivateRoute path="/orders" component={Orders} />
             <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
-            <PrivateRoute exact path="/customers" component={CustomerIndex} />
-          </Switch>
-          <Switch>
+            <PrivateRoute path="/customers" component={CustomerIndex} />
             <PrivateRoute path="/categories" component={CategoryIndex} />
-          </Switch>
-          <Switch>
             <PrivateRoute path="/menus" component={MenuIndex} />
           </Switch>
         </Fragment>
