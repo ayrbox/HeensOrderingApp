@@ -16,7 +16,6 @@ import CustomerIndex from './views/customers';
 import CategoryIndex from './views/category';
 import MenuIndex from './views/menus';
 import TakeOrderIndex from './views/takeOrder';
-import OrderModal from './views/OrderModal';
 
 // actions
 import getToken from './utils/get-token';

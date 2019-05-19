@@ -13,7 +13,7 @@ const initialState = {
   loading: false,
   list: [],
   errors: {},
-  isOpenOrderModal: false,
+  isOpenOrderModal: true,
 };
 
 export default function (state = initialState, action) {
