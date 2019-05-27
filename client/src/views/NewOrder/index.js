@@ -1,3 +1,8 @@
+import { connect } from 'react-redux';
 import NewOrder from './NewOrder';
 
-export default NewOrder;
+const mapState = state => ({
+  orderType: state.orders.orderType,
+});
+
+export default connect(mapState, {})(NewOrder);
