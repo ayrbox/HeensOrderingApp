@@ -10,6 +10,7 @@ import {
   UPDATE_ORDER_STATUS_ERROR,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
+  SET_ORDER_TYPE,
 } from './types';
 
 // @action - getOrders
@@ -62,5 +63,13 @@ export const openOrderModal = () => (dispatch) => {
 export const closeOrderModal = () => (dispatch) => {
   dispatch({
     type: CLOSE_ORDER_MODAL,
+  });
+};
+
+// order taking process
+export const setOrderType = orderType => (dispatch) => {
+  dispatch({
+    type: SET_ORDER_TYPE,
+    payload: orderType,
   });
 };

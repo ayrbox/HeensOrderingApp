@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -14,8 +15,18 @@ const OrderModal = ({
   classes,
   isOpenOrderModal,
   closeOrderModal,
+  setOrderType,
+  history,
 }) => {
   const [modalStep, setModalStep] = useState(0);
+
+  const handleOrderType = (e, orderType) => {
+    e.preventDefault();
+    setOrderType(orderType);
+    history.push('/orders/new');
+    closeOrderModal();
+  };
+
   return (
     <Drawer
       open={isOpenOrderModal}
@@ -65,12 +76,13 @@ const OrderModal = ({
               className={classes.orderButton}
               size="large"
               fullWidth
+              onClick={e => handleOrderType(e, 'table')}
             >
               EAT IN
             </Button>
             <Button
               variant="outlined"
-              color="seconday"
+              color="secondary"
               className={classes.orderButton}
               size="large"
               fullWidth
@@ -91,15 +103,17 @@ const OrderModal = ({
               className={classes.orderButton}
               size="large"
               fullWidth
+              onClick={e => handleOrderType(e, 'delivery')}
             >
               DELIVERY
             </Button>
             <Button
               variant="outlined"
-              color="seconday"
+              color="secondary"
               className={classes.orderButton}
               size="large"
               fullWidth
+              onClick={e => handleOrderType(e, 'collection')}
             >
               COLLECTION
             </Button>
@@ -115,6 +129,10 @@ OrderModal.propTypes = {
   classes: PropTypes.shape().isRequired,
   isOpenOrderModal: PropTypes.bool.isRequired,
   closeOrderModal: PropTypes.func.isRequired,
+  setOrderType: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
-export default withStyles(styles)(OrderModal);
+export default withStyles(styles)(withRouter(OrderModal));

@@ -7,6 +7,7 @@ import {
   UPDATE_ORDER_STATUS_ERROR,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
+  SET_ORDER_TYPE,
 } from '../actions/types';
 
 const initialState = {
@@ -14,10 +15,12 @@ const initialState = {
   list: [],
   errors: {},
   isOpenOrderModal: true,
+  orderType: '',
 };
 
 export default function (state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case GET_ORDERS_REQUEST:
       return {
         ...state,
@@ -70,6 +73,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isOpenOrderModal: false,
+      };
+    case SET_ORDER_TYPE:
+      return {
+        ...state,
+        orderType: payload,
       };
     default:
       return state;
