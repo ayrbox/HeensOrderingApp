@@ -15,7 +15,7 @@ const initialState = {
   list: [],
   errors: {},
   isOpenOrderModal: true,
-  orderType: '',
+  orderType: 'table',
 };
 
 export default function (state = initialState, action) {
