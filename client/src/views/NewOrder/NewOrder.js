@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Drawer from '@material-ui/core/Drawer';
 
 import styles from './styles';
 
@@ -14,13 +15,8 @@ const NewOrder = ({
 }) => {
   useEffect(() => getMenus(), [])
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      spacing={0}
-    >
-      <Grid item xs={8}>
+    <div className={classes.root}>
+      <main className={classes.mainContent}>
         <div style={{ padding: '10px' }}>
           <Typography variant="h1">Menus</Typography>
           {menus.map((m) => {
@@ -37,19 +33,20 @@ const NewOrder = ({
             );
           })}
         </div>
-      </Grid>
-      <Grid item xs={4}>
-        <div
-          style={{
-            background: 'red',
-            height: '100vh',
-          }}
-        >
-          {orderType}
-          Test
+      </main>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="right"
+      >
+        <div className={classes.orderBar}>
+          <Typography variant="h5">Order Details</Typography>
         </div>
-      </Grid>
-    </Grid>
+      </Drawer>
+    </div>
   );
 };
 
