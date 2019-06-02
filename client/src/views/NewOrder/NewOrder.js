@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -11,13 +11,8 @@ import styles from './styles';
 const NewOrder = ({
   classes,
   orderType,
-  menus,
-  getMenus,
 }) => {
-  useEffect(() => getMenus(), [])
-
   const [categorySelected, setCategorySelected] = useState();
-
   return (
     <div className={classes.root}>
       <Drawer
@@ -40,6 +35,7 @@ const NewOrder = ({
       <main className={classes.mainContent}>
         <Menus
           category={categorySelected}
+          onSelect={menuId => console.log(`MenuId ${menuId}`)} // eslint-disable-line no-console
         />
       </main>
       <Drawer
@@ -52,6 +48,7 @@ const NewOrder = ({
       >
         <div className={classes.orderBar}>
           <Typography variant="h6">Order Details</Typography>
+          {orderType}
         </div>
       </Drawer>
     </div>
@@ -61,7 +58,6 @@ const NewOrder = ({
 NewOrder.propTypes = {
   classes: PropTypes.shape().isRequired,
   orderType: PropTypes.string.isRequired,
-  menus: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default withStyles(styles)(NewOrder);

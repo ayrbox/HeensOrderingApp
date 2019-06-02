@@ -16,6 +16,7 @@ import styles from './styles';
 const Menus = ({
   category,
   classes,
+  onSelect,
 }) => (
   <GridList
     cellHeight={160}
@@ -45,6 +46,10 @@ const Menus = ({
               >
                 <CardActionArea
                   className={classes.cardActionArea}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelect(id);
+                  }}
                 >
                   <CardContent>
                     <Typography gutterBottom variant="body1">
@@ -69,6 +74,7 @@ Menus.defaultProps = {
 Menus.propTypes = {
   category: PropTypes.string,
   classes: PropTypes.shape().isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Menus);
