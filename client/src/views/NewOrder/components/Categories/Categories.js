@@ -17,7 +17,7 @@ const Categories = ({
         if (loading) {
           return 'Loading....';
         }
-        return data.map(({
+        return [...data, { _id: '', name: 'All' }].map(({
           _id: id,
           name,
         }) => (
