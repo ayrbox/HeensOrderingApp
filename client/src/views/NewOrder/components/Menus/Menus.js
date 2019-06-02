@@ -36,18 +36,21 @@ const Menus = ({
             name,
             price,
           }) => (
-            <GridListTile>
+            <GridListTile
+              cols={1}
+            >
               <Card
                 key={id}
                 className={classes.card}
               >
-                <CardActionArea>
+                <CardActionArea
+                  className={classes.cardActionArea}
+                >
                   <CardContent>
-                    <Typography gutterBottom variant="h4">
+                    <Typography gutterBottom variant="body1">
                       {name}
-                    </Typography>
-                    <Typography gutterBottom variant="h6">
-                      {`£${price.toFixed(2)}`}
+                      {' '}
+                      <strong>{`£${price.toFixed(2)}`}</strong>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
