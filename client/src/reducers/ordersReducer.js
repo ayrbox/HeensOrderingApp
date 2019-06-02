@@ -8,6 +8,7 @@ import {
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
   SET_ORDER_TYPE,
+  ORDER_SELECT_CATEGORY,
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   errors: {},
   isOpenOrderModal: true,
   orderType: 'table',
+  selectedCategory: undefined,
 };
 
 export default function (state = initialState, action) {
@@ -79,6 +81,12 @@ export default function (state = initialState, action) {
         ...state,
         orderType: payload,
       };
+    case ORDER_SELECT_CATEGORY: {
+      return {
+        ...state,
+        category: payload,
+      };
+    }
     default:
       return state;
   }

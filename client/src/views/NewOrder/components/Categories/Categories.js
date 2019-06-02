@@ -8,8 +8,8 @@ import styles from './styles';
 
 const Categories = ({
   classes,
-  selected,
-  onSelect,
+  category,
+  setCategory,
 }) => (
   <div className={classes.content}>
     <Fetch url="/api/categories/">
@@ -26,10 +26,10 @@ const Categories = ({
             variant="extended"
             aria-label="Delete"
             className={classes.categoryButton}
-            color={selected === id ? 'primary' : 'default'}
+            color={category === id ? 'primary' : 'default'}
             onClick={(e) => {
               e.preventDefault();
-              onSelect(id);
+              setCategory(id);
             }}
           >
             {name}
@@ -41,13 +41,13 @@ const Categories = ({
 );
 
 Categories.defaultProps = {
-  selected: undefined,
+  category: undefined,
 };
 
 Categories.propTypes = {
   classes: PropTypes.shape().isRequired,
-  selected: PropTypes.string,
-  onSelect: PropTypes.func.isRequired,
+  category: PropTypes.string,
+  setCategory: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Categories);

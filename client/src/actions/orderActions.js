@@ -11,6 +11,7 @@ import {
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
   SET_ORDER_TYPE,
+  ORDER_SELECT_CATEGORY,
 } from './types';
 
 // @action - getOrders
@@ -71,5 +72,13 @@ export const setOrderType = orderType => (dispatch) => {
   dispatch({
     type: SET_ORDER_TYPE,
     payload: orderType,
+  });
+};
+
+
+export const setCategory = category => (dispatch) => {
+  dispatch({
+    type: ORDER_SELECT_CATEGORY,
+    payload: category,
   });
 };
