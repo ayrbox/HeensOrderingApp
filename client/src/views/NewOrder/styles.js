@@ -3,7 +3,7 @@ import baseStyles from '../../assets/jss/baseStyles';
 
 const { contentWrapper } = baseStyles;
 
-const DRAWER_WIDTH = 260;
+const DRAWER_WIDTH = 280;
 
 const styles = theme => ({
   contentWrapper: {
@@ -13,7 +13,7 @@ const styles = theme => ({
   mainContent: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: `${theme.spacing.unit * 3}px`,
+    padding: '0px',
     width: `calc(100% - ${DRAWER_WIDTH}px)`,
   },
   orderBar: {
