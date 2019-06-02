@@ -22,10 +22,11 @@ const Categories = ({
           name,
         }) => (
           <Fab
+            key={id}
             variant="extended"
             aria-label="Delete"
             className={classes.categoryButton}
-            color={selected === id ? 'primary' : ''}
+            color={selected === id ? 'primary' : 'default'}
             onClick={(e) => {
               e.preventDefault();
               onSelect(id);
