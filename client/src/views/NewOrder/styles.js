@@ -13,12 +13,16 @@ const styles = theme => ({
   mainContent: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: '0px',
+    paddingLeft: `${DRAWER_WIDTH}px`,
     width: `calc(100% - ${DRAWER_WIDTH}px)`,
   },
   orderBar: {
     width: `${DRAWER_WIDTH}px`,
     padding: `${theme.spacing.unit * 3}px`,
+  },
+  categoryContainer: {
+    width: `${DRAWER_WIDTH}px`,
+    // padding: `${theme.spacing.unit}px`,
   },
 });
 

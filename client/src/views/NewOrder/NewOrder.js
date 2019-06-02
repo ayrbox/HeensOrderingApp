@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
-import Grid from '@material-ui/core/Grid';
 
 import Categories from './components/Categories';
 import Menus from './components/Menus';
@@ -21,26 +20,27 @@ const NewOrder = ({
 
   return (
     <div className={classes.root}>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={classes.categoryContainer}>
+          <Categories
+            selected={categorySelected}
+            onSelect={(categoryId) => {
+              setCategorySelected(categoryId);
+            }}
+          />
+        </div>
+      </Drawer>
       <main className={classes.mainContent}>
-        <Grid
-          container
-          direction="row"
-          spacing={0}
-        >
-          <Grid item xs={3}>
-            <Categories
-              selected={categorySelected}
-              onSelect={(categoryId) => {
-                setCategorySelected(categoryId);
-              }}
-            />
-          </Grid>
-          <Grid item xs={9}>
-            <Menus
-              category={categorySelected}
-            />
-          </Grid>
-        </Grid>
+        <Menus
+          category={categorySelected}
+        />
       </main>
       <Drawer
         className={classes.drawer}
