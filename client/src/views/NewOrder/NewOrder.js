@@ -6,6 +6,7 @@ import Drawer from '@material-ui/core/Drawer';
 
 import Categories from './components/Categories';
 import Menus from './components/Menus';
+import MenuModal from './components/MenuModal';
 import styles from './styles';
 
 const NewOrder = ({
@@ -39,6 +40,7 @@ const NewOrder = ({
         <Typography variant="h6">Order Details</Typography>
       </div>
     </Drawer>
+    <MenuModal />
   </div>
 );
 

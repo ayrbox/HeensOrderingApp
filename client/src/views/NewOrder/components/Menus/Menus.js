@@ -16,7 +16,8 @@ import styles from './styles';
 const Menus = ({
   category,
   classes,
-  onSelect,
+  setMenu,
+
 }) => (
   <GridList
     cellHeight={160}
@@ -32,36 +33,35 @@ const Menus = ({
           .filter(({
             category: { _id: categoryId },
           }) => (category ? categoryId === category : true))
-          .map(({
-            _id: id,
-            name,
-            price,
-          }) => (
-            <GridListTile
-              cols={1}
-            >
-              <Card
-                key={id}
-                className={classes.card}
+          .map((menu) => {
+            const { _id: id, name, price } = menu;
+            return (
+              <GridListTile
+                cols={1}
               >
-                <CardActionArea
-                  className={classes.cardActionArea}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onSelect(id);
-                  }}
+                <Card
+                  key={id}
+                  className={classes.card}
                 >
-                  <CardContent>
-                    <Typography gutterBottom variant="body1">
-                      {name}
-                      {' '}
-                      <strong>{`£${price.toFixed(2)}`}</strong>
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </GridListTile>
-          ));
+                  <CardActionArea
+                    className={classes.cardActionArea}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMenu(menu);
+                    }}
+                  >
+                    <CardContent>
+                      <Typography gutterBottom variant="body1">
+                        {name}
+                        {' '}
+                        <strong>{`£${price.toFixed(2)}`}</strong>
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </GridListTile>
+            );
+          });
       }}
     </Fetch>
   </GridList>
@@ -74,7 +74,7 @@ Menus.defaultProps = {
 Menus.propTypes = {
   category: PropTypes.string,
   classes: PropTypes.shape().isRequired,
-  onSelect: PropTypes.func.isRequired,
+  setMenu: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Menus);

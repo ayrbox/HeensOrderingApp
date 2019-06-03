@@ -12,6 +12,8 @@ import {
   CLOSE_ORDER_MODAL,
   SET_ORDER_TYPE,
   ORDER_SELECT_CATEGORY,
+  ORDER_SELECT_MENU,
+  ORDER_MENU_RESET,
 } from './types';
 
 // @action - getOrders
@@ -80,5 +82,18 @@ export const setCategory = category => (dispatch) => {
   dispatch({
     type: ORDER_SELECT_CATEGORY,
     payload: category,
+  });
+};
+
+export const setMenu = menu => (dispatch) => {
+  dispatch({
+    type: ORDER_SELECT_MENU,
+    payload: menu,
+  });
+};
+
+export const resetMenu = () => (dispatch) => {
+  dispatch({
+    type: ORDER_MENU_RESET,
   });
 };

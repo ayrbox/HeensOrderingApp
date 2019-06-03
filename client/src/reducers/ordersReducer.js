@@ -9,6 +9,8 @@ import {
   CLOSE_ORDER_MODAL,
   SET_ORDER_TYPE,
   ORDER_SELECT_CATEGORY,
+  ORDER_SELECT_MENU,
+  ORDER_MENU_RESET,
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +20,8 @@ const initialState = {
   isOpenOrderModal: true,
   orderType: 'table',
   selectedCategory: undefined,
+  menu: undefined,
+  openMenu: false,
 };
 
 export default function (state = initialState, action) {
@@ -85,6 +89,20 @@ export default function (state = initialState, action) {
       return {
         ...state,
         category: payload,
+      };
+    }
+    case ORDER_SELECT_MENU: {
+      return {
+        ...state,
+        menu: payload,
+        openMenu: true,
+      };
+    }
+    case ORDER_MENU_RESET: {
+      return {
+        ...state,
+        menu: undefined,
+        openMenu: false,
       };
     }
     default:
