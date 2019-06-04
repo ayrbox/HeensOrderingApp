@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -27,25 +28,34 @@ const toogleOptionChecked = (id, items) => {
   ];
 };
 
+const getTotal = ({ price }, options) => options
+  .filter(({ isChecked: _ }) => _)
+  .reduce((total, { additionalCost: _ }) => total + _, price);
+
 const renderTotal = (menu, options) => !!options.length && (
   <Fragment>
     <Divider />
     <div style={{ padding: '8px', textAlign: 'right' }}>
       <Typography variant="h1">
         £
-        {options
-          .filter(({ isChecked: _ }) => _)
-          .reduce((total, { additionalCost: _ }) => total + _, menu.price)
-          .toFixed(2)}
+        {getTotal(menu, options).toFixed(2)}
       </Typography>
     </div>
   </Fragment>
 );
 
+const getOrderItem = (menu, options) => ({
+  ...pick(menu, ['name', 'description', 'price']),
+  menuOptions: options.filter(({ isChecked: _ }) => _)
+    .map(o => pick(o, ['description', 'additionalCost'])),
+  itemTotal: getTotal(menu, options),
+});
+
 const MenuModal = ({
   menu,
   open,
   resetMenu,
+  selectOrderItem,
 }) => {
   const [options, setOptions] = useState([]);
   useEffect(() => {
@@ -115,6 +125,11 @@ const MenuModal = ({
         <Button
           type="submit"
           color="primary"
+          onClick={(e) => {
+            e.preventDefault();
+            const orderItem = getOrderItem(menu, options);
+            selectOrderItem(orderItem);
+          }}
         >
           Select
         </Button>
@@ -127,6 +142,7 @@ MenuModal.propTypes = {
   menu: PropTypes.shape().isRequired,
   open: PropTypes.bool.isRequired,
   resetMenu: PropTypes.func.isRequired,
+  selectOrderItem: PropTypes.func.isRequired,
 };
 
 export default withStyles({})(MenuModal);

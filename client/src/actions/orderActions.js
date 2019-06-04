@@ -14,6 +14,7 @@ import {
   ORDER_SELECT_CATEGORY,
   ORDER_SELECT_MENU,
   ORDER_MENU_RESET,
+  ORDER_ITEM_SELECTED,
 } from './types';
 
 // @action - getOrders
@@ -95,5 +96,13 @@ export const setMenu = menu => (dispatch) => {
 export const resetMenu = () => (dispatch) => {
   dispatch({
     type: ORDER_MENU_RESET,
+  });
+};
+
+
+export const selectOrderItem = orderItem => (dispatch) => {
+  dispatch({
+    type: ORDER_ITEM_SELECTED,
+    payload: orderItem,
   });
 };

@@ -11,6 +11,7 @@ import {
   ORDER_SELECT_CATEGORY,
   ORDER_SELECT_MENU,
   ORDER_MENU_RESET,
+  ORDER_ITEM_SELECTED,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,10 @@ const initialState = {
   selectedCategory: undefined,
   menu: undefined,
   openMenu: false,
+  currentOrder: {
+    orderType: 'table',
+    orderItems: [],
+  },
 };
 
 export default function (state = initialState, action) {
@@ -83,7 +88,11 @@ export default function (state = initialState, action) {
     case SET_ORDER_TYPE:
       return {
         ...state,
-        orderType: payload,
+        orderType: payload, // TODO: remove ordertype
+        currentOrder: {
+          ...state.currentOrder,
+          orderType: payload,
+        },
       };
     case ORDER_SELECT_CATEGORY: {
       return {
@@ -101,6 +110,17 @@ export default function (state = initialState, action) {
     case ORDER_MENU_RESET: {
       return {
         ...state,
+        menu: undefined,
+        openMenu: false,
+      };
+    }
+    case ORDER_ITEM_SELECTED: {
+      return {
+        ...state,
+        currentOrder: {
+          ...state.currentOrder,
+          orderItems: [...state.currentOrder.orderItems, payload],
+        },
         menu: undefined,
         openMenu: false,
       };
