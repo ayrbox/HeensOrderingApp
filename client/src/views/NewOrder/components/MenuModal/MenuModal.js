@@ -21,14 +21,7 @@ import Typography from '@material-ui/core/Typography';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-
+import MenuOptions from './MenuOptions';
 
 
 const MenuModal = ({
@@ -67,22 +60,12 @@ const MenuModal = ({
               </Typography>
             </Grid>
           </Grid>
-          <List>
-            {
-              menu.menuOptions.map(({ description, additionalCost }) => (
-                <ListItem role={undefined} button>
-                  <Checkbox
-                    tabIndex={-1}
-                    disableRipple
-                  />
-                  <ListItemText primary={description} />
-                  { additionalCost && (
-                    <h1>{additionalCost}</h1>
-                  )}
-                </ListItem>
-              ))
-            }
-          </List>
+          <MenuOptions
+            options={menu.menuOptions}
+            onToggleSelect={value => () => {
+              console.log('optionId: ', value);
+            }}
+          />
         </Fragment>
       )}
 
