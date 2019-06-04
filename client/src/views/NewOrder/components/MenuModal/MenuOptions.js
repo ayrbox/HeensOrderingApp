@@ -23,9 +23,10 @@ const MenuOptions = ({
 }) => (
   <List>
     {options.map(({
-      _id: id,
+      id,
       description,
       additionalCost,
+      isChecked,
     }) => (
       <ListItem
         key={id}
@@ -38,6 +39,7 @@ const MenuOptions = ({
           tabIndex={-1}
           disableRipple
           className={classes.checkBox}
+          checked={isChecked}
         />
         <ListItemText primary={description} />
         <ListItemText
