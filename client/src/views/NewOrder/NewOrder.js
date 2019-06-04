@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 
-import Categories from './components/Categories';
-import Menus from './components/Menus';
-import MenuModal from './components/MenuModal';
+import OrderCategories from '../../containers/OrderCategories';
+import OrderMenus from '../../containers/OrderMenus';
+import MenuModal from '../../containers/MenuModal';
 import styles from './styles';
 
 const NewOrder = ({
@@ -22,11 +22,11 @@ const NewOrder = ({
       anchor="left"
     >
       <div className={classes.categoryContainer}>
-        <Categories />
+        <OrderCategories />
       </div>
     </Drawer>
     <main className={classes.mainContent}>
-      <Menus />
+      <OrderMenus />
     </main>
     <Drawer
       className={classes.drawer}

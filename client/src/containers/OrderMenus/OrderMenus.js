@@ -10,7 +10,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 
-import Fetch from '../../../../components/Fetch';
+import Fetch from '../../components/Fetch';
 import styles from './styles';
 
 const Menus = ({

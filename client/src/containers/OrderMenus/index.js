@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Menus from './Menus';
+import Menus from './OrderMenus';
 
-import { setMenu } from '../../../../actions/orderActions';
+import { setMenu } from '../../actions/orderActions';
 
 const mapState = state => ({
   orderType: state.orders.orderType,

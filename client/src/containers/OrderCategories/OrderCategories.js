@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import Fetch from '../../../../components/Fetch';
+import Fetch from '../../components/Fetch';
 
 import styles from './styles';
 
