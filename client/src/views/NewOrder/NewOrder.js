@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 
 import OrderCategories from '../../containers/OrderCategories';
 import OrderMenus from '../../containers/OrderMenus';
 import MenuModal from '../../containers/MenuModal';
+import OrderDetail from '../../containers/OrderDetail';
 import styles from './styles';
 
 const NewOrder = ({
@@ -37,7 +37,7 @@ const NewOrder = ({
       anchor="right"
     >
       <div className={classes.orderBar}>
-        <Typography variant="h6">Order Details</Typography>
+        <OrderDetail />
       </div>
     </Drawer>
     <MenuModal />
