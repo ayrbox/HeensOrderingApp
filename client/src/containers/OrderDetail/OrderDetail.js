@@ -2,9 +2,15 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
+import { ORDER_TYPES } from '../../constants';
+import styles from './styles';
 
 const OrderDetail = ({
+  classes,
   order,
 }) => {
   const {
@@ -14,38 +20,58 @@ const OrderDetail = ({
 
   return (
     <Fragment>
-      <Typography variant="h6">Order Details</Typography>
-      <Divider />
-      <Typography varaint="h1">
-        {orderType}
+      <Typography
+        variant="h6"
+        className={classes.title}
+      >
+        Order Details
       </Typography>
-
-      <table>
-        {orderItems.map(({ description, itemTotal }) => (
-          <tr>
-            <td>
-              <Typography variant="body1">
-                {description}
-              </Typography>
-            </td>
-            <td>
-              &pound;
-              {itemTotal.toFixed(2)}
-            </td>
-          </tr>
-        ))}
-      </table>
-
-      <pre style={{ fontSize: '0.5rem' }}>
-        {JSON.stringify(order, null, 2)}
-      </pre>
+      <Typography
+        varaint="h1"
+        className={classes.type}
+      >
+        {ORDER_TYPES[orderType]}
+      </Typography>
+      <Divider className={classes.spacer} />
+      <List className={classes.items}>
+        {
+          orderItems.map(({ description, itemTotal, menuOptions }) => (
+            <Fragment>
+              <ListItem
+                className={classes.item}
+              >
+                <Typography className={classes.itemText}>
+                  {description}
+                </Typography>
+                <Typography className={classes.itemTotal}>
+                  &pound;
+                  {itemTotal.toFixed(2)}
+                </Typography>
+              </ListItem>
+              {menuOptions.map(({ description: option, additionalCost: cost }) => (
+                <ListItem
+                  className={classes.option}
+                >
+                  <Typography className={classes.optionText}>
+                    {option}
+                  </Typography>
+                  <Typography className={classes.itemTotal}>
+                    {!!cost && `£${cost.toFixed(2)}`}
+                  </Typography>
+                </ListItem>
+              ))}
+            </Fragment>
+          ))
+        }
+      </List>
     </Fragment>
   );
 };
 
 
 OrderDetail.propTypes = {
-  order: PropTypes.shape().isRequired,
+  classes: PropTypes.shape().isRequired,
+  order: PropTypes.shape().isRequired, // TODO: list out all properties
 };
 
-export default OrderDetail;
+export default withStyles(styles)(OrderDetail);
