@@ -38,6 +38,10 @@ const styles = theme => ({
     color: TEXT_COLOR,
     fontSize: '0.65rem',
   },
+  orderTotal: {
+    color: TEXT_COLOR,
+    textAlign: 'right',
+  },
 });
 
 export default styles;

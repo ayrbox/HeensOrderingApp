@@ -5,9 +5,15 @@ import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
 
 import { ORDER_TYPES } from '../../constants';
 import styles from './styles';
+
+
+const subTotal = ({
+  orderItems,
+}) => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
 
 const OrderDetail = ({
   classes,
@@ -63,7 +69,38 @@ const OrderDetail = ({
             </Fragment>
           ))
         }
+        <Divider className={classes.spacer} />
+        <ListItem className={classes.item}>
+          <Typography>
+            Sub total:
+          </Typography>
+          <Typography variant="h3" className={classes.orderTotal}>
+            £
+            {subTotal(order).toFixed(2)}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.item}>
+          <Typography>
+            Discount:
+          </Typography>
+          <Typography variant="h3" className={classes.orderTotal}>
+            £
+            {subTotal(order).toFixed(2)}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.item}>
+          <Typography>
+            Total:
+          </Typography>
+          <Typography variant="h3" className={classes.orderTotal}>
+            £
+            {subTotal(order).toFixed(2)}
+          </Typography>
+        </ListItem>
       </List>
+      <Button variant="contained" color="primary">
+        Process Order
+      </Button>
     </Fragment>
   );
 };
