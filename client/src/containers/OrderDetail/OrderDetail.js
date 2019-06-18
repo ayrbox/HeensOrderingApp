@@ -18,11 +18,18 @@ const subTotal = ({
 const OrderDetail = ({
   classes,
   order,
+  saveOrder,
 }) => {
   const {
     orderType,
     orderItems,
   } = order;
+
+
+  const handleSaveOrder = (e) => {
+    e.preventDefault();
+    saveOrder(order);
+  };
 
   return (
     <Fragment>
@@ -80,7 +87,7 @@ const OrderDetail = ({
           </Typography>
         </ListItem>
       </List>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={handleSaveOrder}>
         Process Order
       </Button>
     </Fragment>
@@ -91,6 +98,7 @@ const OrderDetail = ({
 OrderDetail.propTypes = {
   classes: PropTypes.shape().isRequired,
   order: PropTypes.shape().isRequired, // TODO: list out all properties
+  saveOrder: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(OrderDetail);

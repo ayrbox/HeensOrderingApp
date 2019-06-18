@@ -15,6 +15,9 @@ import {
   ORDER_SELECT_MENU,
   ORDER_MENU_RESET,
   ORDER_ITEM_SELECTED,
+  SAVE_ORDER,
+  SAVE_ORDER_SUCCESS,
+  SAVE_ORDER_ERROR,
 } from './types';
 
 // @action - getOrders
@@ -105,4 +108,21 @@ export const selectOrderItem = orderItem => (dispatch) => {
     type: ORDER_ITEM_SELECTED,
     payload: orderItem,
   });
+};
+
+export const saveOrder = order => (dispatch) => {
+  dispatch({
+    type: SAVE_ORDER,
+  });
+
+  axios
+    .post('/api/orders/', order)
+    .then(res => dispatch({
+      type: SAVE_ORDER_SUCCESS,
+      payload: res.data,
+    }))
+    .catch(err => dispatch({
+      type: SAVE_ORDER_ERROR,
+      payload: err.response.data,
+    }));
 };
