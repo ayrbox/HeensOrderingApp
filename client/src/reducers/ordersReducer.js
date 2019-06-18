@@ -25,38 +25,7 @@ const initialState = {
   openMenu: false,
   currentOrder: {
     orderType: 'table',
-    orderItems: [
-      {
-        name: 'Vegetarian Mini Spring Rolls齐卷',
-        description: 'Vegetarian Mini Spring Rolls',
-        price: 4.9,
-        menuOptions: [],
-        itemTotal: 4.9,
-      },
-      {
-        name: 'Crispy Seaweed干貝',
-        description: 'Crispy Seaweed',
-        price: 4.9,
-        menuOptions: [],
-        itemTotal: 4.9,
-      },
-      {
-        name: 'Seafood Hors d\'oeuvres海先并',
-        description: 'Seafood Hors d\'oeuvres (For 2 Persons or More)',
-        price: 9.4,
-        menuOptions: [
-          {
-            description: 'Test',
-            additionalCost: 2,
-          },
-          {
-            description: 'Test Option',
-            additionalCost: 1.5,
-          },
-        ],
-        itemTotal: 12.9,
-      },
-    ],
+    orderItems: [],
   },
 };
 
