@@ -41,13 +41,13 @@ const OrderDetail = ({
       <Divider className={classes.spacer} />
       <List className={classes.items}>
         {
-          orderItems.map(({ description, itemTotal, menuOptions }) => (
+          orderItems.map(({ name, itemTotal, menuOptions }) => (
             <Fragment>
               <ListItem
                 className={classes.item}
               >
                 <Typography className={classes.itemText}>
-                  {description}
+                  {name}
                 </Typography>
                 <Typography className={classes.itemTotal}>
                   &pound;
@@ -71,25 +71,7 @@ const OrderDetail = ({
         }
         <Divider className={classes.spacer} />
         <ListItem className={classes.item}>
-          <Typography>
-            Sub total:
-          </Typography>
-          <Typography variant="h3" className={classes.orderTotal}>
-            £
-            {subTotal(order).toFixed(2)}
-          </Typography>
-        </ListItem>
-        <ListItem className={classes.item}>
-          <Typography>
-            Discount:
-          </Typography>
-          <Typography variant="h3" className={classes.orderTotal}>
-            £
-            {subTotal(order).toFixed(2)}
-          </Typography>
-        </ListItem>
-        <ListItem className={classes.item}>
-          <Typography>
+          <Typography className={classes.orderTotal}>
             Total:
           </Typography>
           <Typography variant="h3" className={classes.orderTotal}>
