@@ -26,4 +26,18 @@ export const formatOrder = (order) => {
   };
 };
 
+export const calculateTotal = (order) => {
+  const {
+    orderItems,
+    discount = 0,
+  } = order;
+  const subTotal = orderItems.reduce((total, { itemTotal }) => total + itemTotal, 0);
+
+  return {
+    subTotal,
+    discount,
+    orderTotal: subTotal - discount,
+  };
+};
+
 export default formatOrder;

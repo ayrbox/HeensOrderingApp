@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 
 import { ORDER_TYPES } from '../../constants';
-import formatOrder from '../../utils/format-order';
+import { formatOrder } from '../../utils/format-order';
 import styles from './styles';
 
 

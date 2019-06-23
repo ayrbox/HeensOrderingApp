@@ -1,3 +1,4 @@
+import { calculateTotal } from '../utils/format-order';
 import {
   GET_ORDERS_REQUEST,
   GET_ORDERS_SUCCESS,
@@ -12,6 +13,7 @@ import {
   ORDER_SELECT_MENU,
   ORDER_MENU_RESET,
   ORDER_ITEM_SELECTED,
+  ORDER_UPDATE_TOTAL,
 } from '../actions/types';
 
 const initialState = {
@@ -123,6 +125,15 @@ export default function (state = initialState, action) {
         },
         menu: undefined,
         openMenu: false,
+      };
+    }
+    case ORDER_UPDATE_TOTAL: {
+      return {
+        ...state,
+        currentOrder: {
+          ...state.currentOrder,
+          ...calculateTotal(state.currentOrder),
+        },
       };
     }
     default:

@@ -15,6 +15,7 @@ import {
   ORDER_SELECT_MENU,
   ORDER_MENU_RESET,
   ORDER_ITEM_SELECTED,
+  ORDER_UPDATE_TOTAL,
   SAVE_ORDER,
   SAVE_ORDER_SUCCESS,
   SAVE_ORDER_ERROR,
@@ -108,6 +109,12 @@ export const selectOrderItem = orderItem => (dispatch) => {
     type: ORDER_ITEM_SELECTED,
     payload: orderItem,
   });
+
+  setTimeout(() => {
+    dispatch({
+      type: ORDER_UPDATE_TOTAL,
+    });
+  }, 100);
 };
 
 export const saveOrder = order => (dispatch) => {
