@@ -4,9 +4,6 @@ import {
   CONFIRM_MENU_ITEM,
   CANCEL_MENU_ITEM,
   SET_ORDER_TYPE,
-  SAVE_ORDER_REQUEST,
-  SAVE_ORDER_SUCCESS,
-  SAVE_ORDER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -88,22 +85,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         menuItem: undefined,
-      };
-    case SAVE_ORDER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case SAVE_ORDER_SUCCESS:
-      return {
-        ...initialState,
-        msg: 'Order saved successfully',
-      };
-    case SAVE_ORDER_ERROR:
-      return {
-        ...state,
-        loading: false,
-        msg: 'Unable to save error',
       };
     default:
       return state;

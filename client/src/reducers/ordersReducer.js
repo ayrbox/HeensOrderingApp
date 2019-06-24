@@ -14,6 +14,9 @@ import {
   ORDER_MENU_RESET,
   ORDER_ITEM_SELECTED,
   ORDER_UPDATE_TOTAL,
+  SAVE_ORDER_REQUEST,
+  SAVE_ORDER_SUCCESS,
+  SAVE_ORDER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +32,7 @@ const initialState = {
     orderType: 'table',
     orderItems: [],
   },
+  requestSuccess: false,
 };
 
 export default function (state = initialState, action) {
@@ -136,6 +140,28 @@ export default function (state = initialState, action) {
         },
       };
     }
+    case SAVE_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        requestSuccess: false,
+      };
+    case SAVE_ORDER_SUCCESS:
+      return {
+        currentOrder: {
+          ...initialState.currentOrder,
+        },
+        loading: false,
+        requestSuccess: true,
+        msg: 'Order saved successfully',
+      };
+    case SAVE_ORDER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        requestSuccess: false,
+        msg: 'Unable to save error',
+      };
     default:
       return state;
   }

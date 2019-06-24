@@ -20,6 +20,9 @@ const OrderDetail = ({
   classes,
   order,
   saveOrder,
+  requestSuccess,
+  loading,
+  msg,
 }) => {
   const {
     orderType,
@@ -32,6 +35,7 @@ const OrderDetail = ({
     const orderToSave = formatOrder(order);
     saveOrder(orderToSave);
   };
+
 
   return (
     <Fragment>
@@ -89,18 +93,38 @@ const OrderDetail = ({
           </Typography>
         </ListItem>
       </List>
-      <Button variant="contained" color="primary" onClick={handleSaveOrder}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSaveOrder}
+        disabled={loading || requestSuccess}
+      >
         Process Order
       </Button>
+      {
+        requestSuccess && msg
+        && <Typography variant="h3" className={classes.msg}>{msg}</Typography>
+      }
+      {
+        !requestSuccess && msg
+        && <Typography variant="h3" className={classes.errormsg}>{msg}</Typography>
+      }
     </Fragment>
   );
 };
 
 
+OrderDetail.defaultProps = {
+  msg: undefined,
+};
+
 OrderDetail.propTypes = {
   classes: PropTypes.shape().isRequired,
   order: PropTypes.shape().isRequired, // TODO: list out all properties
   saveOrder: PropTypes.func.isRequired,
+  requestSuccess: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  msg: PropTypes.string,
 };
 
 export default withStyles(styles)(OrderDetail);

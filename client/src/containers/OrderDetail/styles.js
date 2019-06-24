@@ -42,6 +42,12 @@ const styles = theme => ({
     color: TEXT_COLOR,
     textAlign: 'right',
   },
+  msg: {
+    color: TEXT_COLOR,
+  },
+  errormsg: {
+    color: '#ff0000',
+  },
 });
 
 export default styles;
