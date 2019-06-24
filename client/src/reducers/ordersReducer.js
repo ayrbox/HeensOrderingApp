@@ -1,3 +1,4 @@
+import { calculateTotal } from '../utils/format-order';
 import {
   GET_ORDERS_REQUEST,
   GET_ORDERS_SUCCESS,
@@ -7,6 +8,15 @@ import {
   UPDATE_ORDER_STATUS_ERROR,
   OPEN_ORDER_MODAL,
   CLOSE_ORDER_MODAL,
+  SET_ORDER_TYPE,
+  ORDER_SELECT_CATEGORY,
+  ORDER_SELECT_MENU,
+  ORDER_MENU_RESET,
+  ORDER_ITEM_SELECTED,
+  ORDER_UPDATE_TOTAL,
+  SAVE_ORDER_REQUEST,
+  SAVE_ORDER_SUCCESS,
+  SAVE_ORDER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -14,10 +24,20 @@ const initialState = {
   list: [],
   errors: {},
   isOpenOrderModal: true,
+  orderType: 'table',
+  selectedCategory: undefined,
+  menu: undefined,
+  openMenu: false,
+  currentOrder: {
+    orderType: 'table',
+    orderItems: [],
+  },
+  requestSuccess: false,
 };
 
 export default function (state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case GET_ORDERS_REQUEST:
       return {
         ...state,
@@ -70,6 +90,77 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isOpenOrderModal: false,
+      };
+    case SET_ORDER_TYPE:
+      return {
+        ...state,
+        orderType: payload, // TODO: remove ordertype
+        currentOrder: {
+          ...state.currentOrder,
+          orderType: payload,
+        },
+      };
+    case ORDER_SELECT_CATEGORY: {
+      return {
+        ...state,
+        category: payload,
+      };
+    }
+    case ORDER_SELECT_MENU: {
+      return {
+        ...state,
+        menu: payload,
+        openMenu: true,
+      };
+    }
+    case ORDER_MENU_RESET: {
+      return {
+        ...state,
+        menu: undefined,
+        openMenu: false,
+      };
+    }
+    case ORDER_ITEM_SELECTED: {
+      return {
+        ...state,
+        currentOrder: {
+          ...state.currentOrder,
+          orderItems: [...state.currentOrder.orderItems, payload],
+        },
+        menu: undefined,
+        openMenu: false,
+      };
+    }
+    case ORDER_UPDATE_TOTAL: {
+      return {
+        ...state,
+        currentOrder: {
+          ...state.currentOrder,
+          ...calculateTotal(state.currentOrder),
+        },
+      };
+    }
+    case SAVE_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        requestSuccess: false,
+      };
+    case SAVE_ORDER_SUCCESS:
+      return {
+        currentOrder: {
+          ...initialState.currentOrder,
+        },
+        loading: false,
+        requestSuccess: true,
+        msg: 'Order saved successfully',
+      };
+    case SAVE_ORDER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        requestSuccess: false,
+        msg: 'Unable to save error',
       };
     default:
       return state;

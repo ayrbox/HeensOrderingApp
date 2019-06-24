@@ -13,7 +13,6 @@ import { getCategories } from '../../actions/categoryActions';
 import {
   selectMenuItem,
   confirmMenuItem,
-  saveOrder,
 } from '../../actions/takeOrderActions';
 
 class OrderDetail extends Component {
@@ -52,44 +51,6 @@ class OrderDetail extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  };
-
-  handleSaveOrder = (e) => {
-    e.preventDefault();
-
-    const {
-      takeOrder: { order },
-      saveOrder: handleSaveOrder,
-    } = this.props;
-    const { orderNote, orderStatus, discount } = this.state;
-
-    const newOrder = {
-      ...order,
-      orderItems: order.orderItems.map((item) => {
-        const {
-          name, description, price, menuOptions,
-        } = item;
-
-        return {
-          name,
-          description,
-          price,
-          menuOptions: menuOptions.map(o => ({ ...o })),
-          itemTotal: menuOptions.reduce((acc, o) => acc + o.additionalCost, price),
-        };
-      }),
-      orderNote,
-      orderStatus,
-      discount,
-    };
-
-    handleSaveOrder(newOrder);
-    this.setState({
-      orderStatus: 'ordered',
-      discount: 0,
-      orderNote: '',
-    });
-    // @todo Show order received msg (Toaster) after order saved
   };
 
   handleSelectMenuItem(menu) {
@@ -286,7 +247,6 @@ class OrderDetail extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={this.handleSaveOrder}
                 >
                   Save
                 </button>
@@ -354,7 +314,7 @@ OrderDetail.propTypes = {
   getCategories: PropTypes.func.isRequired,
   getMenus: PropTypes.func.isRequired,
   selectMenuItem: PropTypes.func.isRequired,
-  saveOrder: PropTypes.func.isRequired,
+  // saveOrder: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -366,6 +326,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getCategories, getMenus, selectMenuItem, confirmMenuItem, saveOrder,
+    getCategories, getMenus, selectMenuItem, confirmMenuItem,
   },
 )(OrderDetail);

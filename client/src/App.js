@@ -16,6 +16,7 @@ import CustomerIndex from './views/customers';
 import CategoryIndex from './views/category';
 import MenuIndex from './views/menus';
 import TakeOrderIndex from './views/takeOrder';
+import NewOrder from './views/NewOrder';
 
 // actions
 import getToken from './utils/get-token';
@@ -34,7 +35,8 @@ const App = () => (
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Switch>
-            <PrivateRoute path="/orders" component={Orders} />
+            <PrivateRoute exact path="/orders" component={Orders} />
+            <PrivateRoute exact path="/orders/new" component={NewOrder} />
             <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
             <PrivateRoute path="/customers" component={CustomerIndex} />
             <PrivateRoute path="/categories" component={CategoryIndex} />
