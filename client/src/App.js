@@ -15,7 +15,6 @@ import Orders from './views/orders';
 import CustomerIndex from './views/customers';
 import CategoryIndex from './views/category';
 import MenuIndex from './views/menus';
-import TakeOrderIndex from './views/takeOrder';
 import NewOrder from './views/NewOrder';
 
 // actions
@@ -37,7 +36,6 @@ const App = () => (
           <Switch>
             <PrivateRoute exact path="/orders" component={Orders} />
             <PrivateRoute exact path="/orders/new" component={NewOrder} />
-            <PrivateRoute path="/takeorder" component={TakeOrderIndex} />
             <PrivateRoute path="/customers" component={CustomerIndex} />
             <PrivateRoute path="/categories" component={CategoryIndex} />
             <PrivateRoute path="/menus" component={MenuIndex} />
