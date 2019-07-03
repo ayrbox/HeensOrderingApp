@@ -15,7 +15,7 @@ const Header = ({
   openOrderModal,
 }) => (
   <Fragment>
-    <AppBar position="absolute" className={classes.root}>
+    <AppBar position="fixed" className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Typography
           variant="h5"

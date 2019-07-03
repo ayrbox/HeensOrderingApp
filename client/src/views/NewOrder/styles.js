@@ -25,6 +25,11 @@ const styles = theme => ({
     width: `${DRAWER_WIDTH}px`,
     // padding: `${theme.spacing.unit}px`,
   },
+  drawer: {
+    width: `${DRAWER_WIDTH}px`,
+    flexShrink: 0,
+  },
+  toolbar: theme.mixins.toolbar,
 });
 
 
