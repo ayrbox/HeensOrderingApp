@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import InboxIcon from '@material-ui/icons/KeyboardArrowRight';
 import Fetch from '../../components/Fetch';
+
 
 import styles from './styles';
 
@@ -12,31 +17,36 @@ const Categories = ({
   setCategory,
 }) => (
   <div className={classes.content}>
-    <Fetch url="/api/categories/">
-      {({ data, loading }) => {
-        if (loading) {
-          return 'Loading....';
-        }
-        return [...data, { _id: '', name: 'All' }].map(({
-          _id: id,
-          name,
-        }) => (
-          <Fab
-            key={id}
-            variant="extended"
-            aria-label="Delete"
-            className={classes.categoryButton}
-            color={category === id ? 'primary' : 'default'}
-            onClick={(e) => {
-              e.preventDefault();
-              setCategory(id);
-            }}
-          >
-            {name}
-          </Fab>
-        ));
-      }}
-    </Fetch>
+    <List>
+      <Fetch url="/api/categories/">
+        {({ data, loading }) => {
+          if (loading) {
+            return 'Loading....';
+          }
+          return [{ _id: '', name: 'All' }, ...data].map(({
+            _id: id,
+            name,
+          }) => (
+            <ListItem
+              key={id}
+              button
+              aria-label="category"
+              onClick={(e) => {
+                e.preventDefault();
+                setCategory(id);
+              }}
+            >
+              <ListItemText>{name}</ListItemText>
+              {category === id && (
+                <ListItemIcon className={classes.categorySelectionIcon}>
+                  <InboxIcon />
+                </ListItemIcon>
+              )}
+            </ListItem>
+          ));
+        }}
+      </Fetch>
+    </List>
   </div>
 );
 

@@ -6,6 +6,9 @@ const styles = theme => ({
     width: '100%',
     marginBottom: '10px',
   },
+  categorySelectionIcon: {
+    marginRight: 0,
+  },
 });
 
 export default styles;
