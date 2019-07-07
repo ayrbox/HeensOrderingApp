@@ -51,7 +51,7 @@ const Categories = ({
 );
 
 Categories.defaultProps = {
-  category: undefined,
+  category: '',
 };
 
 Categories.propTypes = {
