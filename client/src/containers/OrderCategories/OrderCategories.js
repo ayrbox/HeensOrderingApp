@@ -16,38 +16,36 @@ const Categories = ({
   category,
   setCategory,
 }) => (
-  <div className={classes.content}>
-    <List>
-      <Fetch url="/api/categories/">
-        {({ data, loading }) => {
-          if (loading) {
-            return 'Loading....';
-          }
-          return [{ _id: '', name: 'All' }, ...data].map(({
-            _id: id,
-            name,
-          }) => (
-            <ListItem
-              key={id}
-              button
-              aria-label="category"
-              onClick={(e) => {
-                e.preventDefault();
-                setCategory(id);
-              }}
-            >
-              <ListItemText>{name}</ListItemText>
-              {category === id && (
-                <ListItemIcon className={classes.categorySelectionIcon}>
-                  <InboxIcon />
-                </ListItemIcon>
-              )}
-            </ListItem>
-          ));
-        }}
-      </Fetch>
-    </List>
-  </div>
+  <List>
+    <Fetch url="/api/categories/">
+      {({ data, loading }) => {
+        if (loading) {
+          return 'Loading....';
+        }
+        return [{ _id: '', name: 'All' }, ...data].map(({
+          _id: id,
+          name,
+        }) => (
+          <ListItem
+            key={id}
+            button
+            aria-label="category"
+            onClick={(e) => {
+              e.preventDefault();
+              setCategory(id);
+            }}
+          >
+            <ListItemText>{name}</ListItemText>
+            {category === id && (
+              <ListItemIcon className={classes.categorySelectionIcon}>
+                <InboxIcon />
+              </ListItemIcon>
+            )}
+          </ListItem>
+        ));
+      }}
+    </Fetch>
+  </List>
 );
 
 Categories.defaultProps = {
