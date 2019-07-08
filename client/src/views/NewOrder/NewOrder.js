@@ -38,7 +38,7 @@ const NewOrder = ({
         className={classes.drawer}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.orderDetailDrawer,
         }}
         anchor="right"
       >

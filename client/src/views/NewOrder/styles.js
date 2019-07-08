@@ -19,7 +19,6 @@ const styles = theme => ({
   orderBar: {
     width: `${DRAWER_WIDTH}px`,
     padding: `${theme.spacing.unit * 3}px`,
-    backgroundColor: '#777',
   },
   categoryContainer: {
     width: `${DRAWER_WIDTH}px`,
@@ -28,6 +27,9 @@ const styles = theme => ({
   drawer: {
     width: `${DRAWER_WIDTH}px`,
     flexShrink: 0,
+  },
+  orderDetailDrawer: {
+    backgroundColor: '#777',
   },
   toolbar: theme.mixins.toolbar,
 });
