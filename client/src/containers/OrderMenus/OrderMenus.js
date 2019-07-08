@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import Fetch from '../../components/Fetch';
 import styles from './styles';
@@ -19,7 +17,7 @@ const Menus = ({
   setMenu,
 
 }) => (
-  <GridList
+  <List
     cellHeight={160}
     className={classes.gridList}
     cols={3}
@@ -34,37 +32,41 @@ const Menus = ({
             category: { _id: categoryId },
           }) => (category ? categoryId === category : true))
           .map((menu) => {
-            const { _id: id, name, price } = menu;
+            const {
+              _id: id,
+              name,
+              price,
+              description,
+            } = menu;
             return (
-              <GridListTile
-                cols={1}
+              <ListItem
+                key={id}
+                button
+                alignItems="flex-start"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMenu(menu);
+                }}
               >
-                <Card
-                  key={id}
-                  className={classes.card}
-                >
-                  <CardActionArea
-                    className={classes.cardActionArea}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMenu(menu);
-                    }}
-                  >
-                    <CardContent>
-                      <Typography gutterBottom variant="body1">
-                        {name}
-                        {' '}
-                        <strong>{`£${price.toFixed(2)}`}</strong>
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </GridListTile>
+                <ListItemText
+                  primary={<strong>{name}</strong>}
+                  secondary={(
+                    <Typography component="span" className={classes.itemDesc}>
+                      {description}
+                    </Typography>
+                  )}
+                />
+                <ListItemSecondaryAction>
+                  <Typography variant="h6">
+                    {`£${price.toFixed(2)}`}
+                  </Typography>
+                </ListItemSecondaryAction>
+              </ListItem>
             );
           });
       }}
     </Fetch>
-  </GridList>
+  </List>
 );
 
 Menus.defaultProps = {
