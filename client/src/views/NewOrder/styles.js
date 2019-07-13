@@ -3,7 +3,8 @@ import baseStyles from '../../assets/jss/baseStyles';
 
 const { contentWrapper } = baseStyles;
 
-const DRAWER_WIDTH = 280;
+const ORDER_DETAIL_WIDTH = 380;
+const CATEGORY_CONTAINER_WIDTH = 200;
 
 const styles = theme => ({
   contentWrapper: {
@@ -13,20 +14,24 @@ const styles = theme => ({
   mainContent: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    paddingLeft: `${DRAWER_WIDTH}px`,
-    width: `calc(100% - ${DRAWER_WIDTH}px)`,
+    paddingLeft: `${CATEGORY_CONTAINER_WIDTH}px`,
+    width: `calc(100% - ${ORDER_DETAIL_WIDTH}px)`,
   },
   orderBar: {
-    width: `${DRAWER_WIDTH}px`,
+    width: `${ORDER_DETAIL_WIDTH}px`,
     padding: `${theme.spacing.unit * 3}px`,
   },
-  categoryContainer: {
-    width: `${DRAWER_WIDTH}px`,
-    // padding: `${theme.spacing.unit}px`,
-  },
   drawer: {
-    width: `${DRAWER_WIDTH}px`,
+    width: `${ORDER_DETAIL_WIDTH}px`,
     flexShrink: 0,
+  },
+  categoryDrawer: {
+    width: `${CATEGORY_CONTAINER_WIDTH}px`,
+    flexShrink: 0,
+  },
+  categoryContainer: {
+    width: `${CATEGORY_CONTAINER_WIDTH}px`,
+    // padding: `${theme.spacing.unit}px`,
   },
   orderDetailDrawer: {
     backgroundColor: '#777',

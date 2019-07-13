@@ -18,7 +18,7 @@ const NewOrder = ({
     <Header title="New Order" />
     <div className={classes.root}>
       <Drawer
-        className={classes.drawer}
+        className={classes.categoryDrawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
