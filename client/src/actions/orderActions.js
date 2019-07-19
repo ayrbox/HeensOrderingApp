@@ -8,12 +8,12 @@ import {
   UPDATE_ORDER_STATUS_REQUEST,
   UPDATE_ORDER_STATUS_SUCCESS,
   UPDATE_ORDER_STATUS_ERROR,
-  OPEN_ORDER_MODAL,
-  CLOSE_ORDER_MODAL,
-  SET_ORDER_TYPE,
+  ORDER_OPEN_UI_PANE,
+  ORDER_CLOSE_UI_PANE,
+  ORDER_SET_TYPE,
   ORDER_SELECT_CATEGORY,
   ORDER_SELECT_MENU,
-  ORDER_MENU_RESET,
+  ORDER_RESET,
   ORDER_ITEM_SELECTED,
   ORDER_UPDATE_TOTAL,
   SAVE_ORDER,
@@ -64,20 +64,20 @@ export const updateOrder = (id, status) => (dispatch) => {
 
 export const openOrderModal = () => (dispatch) => {
   dispatch({
-    type: OPEN_ORDER_MODAL,
+    type: ORDER_OPEN_UI_PANE,
   });
 };
 
 export const closeOrderModal = () => (dispatch) => {
   dispatch({
-    type: CLOSE_ORDER_MODAL,
+    type: ORDER_CLOSE_UI_PANE,
   });
 };
 
 // order taking process
 export const setOrderType = orderType => (dispatch) => {
   dispatch({
-    type: SET_ORDER_TYPE,
+    type: ORDER_SET_TYPE,
     payload: orderType,
   });
 };
@@ -99,7 +99,7 @@ export const setMenu = menu => (dispatch) => {
 
 export const resetMenu = () => (dispatch) => {
   dispatch({
-    type: ORDER_MENU_RESET,
+    type: ORDER_RESET,
   });
 };
 
