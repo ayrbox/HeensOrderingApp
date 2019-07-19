@@ -144,39 +144,50 @@ describe('newOrderReducer', () => {
         name: 'Menu Item',
         description: 'Menu Description',
         price: 10,
-        menuOptions: [
-          {
-            description: 'Sauce',
-            additionalCost: 0,
-          },
-        ],
+        menuOptions: [{
+          description: 'Sauce',
+          additionalCost: 0,
+        }, {
+          description: 'New Sauce',
+          additionalCost: 0.5,
+        }],
+        itemTotal: 10.5
       };
-      const { orderItems } = reducer(void 0, {
+      const { orderItems, subTotal } = reducer(void 0, {
         type: ORDER_ADD_ITEM,
         payload: sampleItem,
       });
       expect(orderItems).toContain(sampleItem);
+      expect(subTotal).toBe(10.5);
     });
   });
 
   describe('Remove menu item from order', () => {
     it('should return indexed menu item', () => {
       const sampleItems = [
-        { name: 'Item 1', description: 'Test Item 1', price: 10 },
-        { name: 'Item 2', description: 'Test Item 2', price: 20 },
-        { name: 'Item 3', description: 'Test Item 3', price: 30 },
-        { name: 'Item 4', description: 'Test Item 4', price: 40 },
+        { name: 'Item 1', description: 'Test Item 1', price: 10, itemTotal: 10 },
+        { name: 'Item 2', description: 'Test Item 2', price: 20, itemTotal: 20 },
+        { name: 'Item 3', description: 'Test Item 3', price: 30, itemTotal: 30 },
+        { name: 'Item 4', description: 'Test Item 4', price: 40, itemTotal: 40 },
       ];
+
+      const state = {
+        orderItems: sampleItems,
+        subTotal: 100,
+      };
+
+
       const expected = [
         { name: 'Item 2', description: 'Test Item 2', price: 20 },
       ];
-      const { orderItems } = reducer({ orderItems: sampleItems, }, {
+      const { orderItems, subTotal } = reducer(state, {
         type: ORDER_REMOVE_ITEM,
         payload: 1,
       });
       expect(orderItems).toEqual(
         expect.not.arrayContaining(expected),
       );
+      expect(subTotal).toBe(80);
     });
   });
 

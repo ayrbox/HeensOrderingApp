@@ -27,6 +27,9 @@ export const initialState = {
   note: '',
 };
 
+const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
+
+
 export default function (state = initialState, action) {
   const { type } = action;
   switch (type) {
@@ -55,21 +58,27 @@ export default function (state = initialState, action) {
         ...state,
         tableNo: state.orderType === 'eat-in' ? action.payload: undefined,
       };
-    case ORDER_ADD_ITEM:
+    case ORDER_ADD_ITEM: {
+      const orderItems = [
+        ...state.orderItems,
+        action.payload,
+      ];
+      const subTotal = getSubTotal(orderItems);
       return {
         ...state,
-        orderItems: [
-          ...state.orderItems,
-          action.payload,
-        ],
+        orderItems,
+        subTotal,
       };
+    }
     case ORDER_REMOVE_ITEM: {
       const orderItems = [ ...state.orderItems ];
       const itemIndex = action.payload;
       orderItems.splice(1, 1);
+      const subTotal = getSubTotal(orderItems);
       return {
         ...state,
         orderItems,
+        subTotal,
       };
     }
 
