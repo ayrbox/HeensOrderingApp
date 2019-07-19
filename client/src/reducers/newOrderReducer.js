@@ -8,10 +8,14 @@ import {
   ORDER_ADD_ITEM,
   ORDER_REMOVE_ITEM,
   ORDER_SET_DISCOUNT,
+  ORDER_ADD_NOTE,
+  ORDER_PROCESS_REQUEST,
+  ORDER_PROCESS_SUCCESS,
+  ORDER_PROCESS_FAILED,
 } from '../actions/types';
 
 export const initialState = {
-  requestInProgress: true,
+  requestInProgress: false,
   requestSuccess: false,
   categoryId: undefined, // Category selected
   openNewOrderPane: false,
@@ -92,6 +96,29 @@ export default function (state = initialState, action) {
         orderTotal,
       };
     }
+    case ORDER_ADD_NOTE:
+      return {
+        ...state,
+        note: action.payload,
+      };
+    case ORDER_PROCESS_REQUEST:
+      return {
+        ...state,
+        requestInProgress: true,
+        requestSuccess: false,
+      };
+    case ORDER_PROCESS_FAILED:
+      return {
+        ...state,
+        requestInProgress: false,
+        requestSuccess: false,
+      };
+    case ORDER_PROCESS_SUCCESS:
+      return {
+        ...state,
+        requestInProgress: false,
+        requestSuccess: true,
+      };
     case ORDER_RESET:
       return initialState;
     default:

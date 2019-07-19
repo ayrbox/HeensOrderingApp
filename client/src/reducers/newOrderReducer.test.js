@@ -8,10 +8,14 @@ import {
   ORDER_ADD_ITEM,
   ORDER_REMOVE_ITEM,
   ORDER_SET_DISCOUNT,
+  ORDER_ADD_NOTE,
+  ORDER_PROCESS_REQUEST,
+  ORDER_PROCESS_SUCCESS,
+  ORDER_PROCESS_FAILED,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
-describe('newOrderReducer', () => {
+describe('REDUCER: newOrderReducer', () => {
   it('should return initial state', () => {
     const state = reducer(void 0, {
       type: undefined,
@@ -211,10 +215,59 @@ describe('newOrderReducer', () => {
     })
   });
 
-  // describe('Set order note');
-  //
-  // describe('Save order', () => {
-  //   describe('when invalid order');
-  //   describe('when not is not present');
-  // });
+  describe('Set order note', () => {
+    it('should add note to order', () => {
+      const { note } = reducer(void 0, {
+        type: ORDER_ADD_NOTE,
+        payload: 'Sample Order Note.'
+      });
+      expect(note).toEqual('Sample Order Note.')
+    });
+  });
+
+  describe('order process', () => {
+    beforeEach(() => {
+      window.mx = {
+        availableProducts: jest.fn().mockReturnValue(products)
+      }
+      jest.spyOn(Storage.prototype, 'setItem')
+    });
+
+    describe('when order process requested', () => {
+      const {
+        requestInProgress,
+        requestSuccess,
+      } = reducer(void 0, {
+        type: ORDER_PROCESS_REQUEST,
+      });
+
+      expect(requestInProgress).toBe(true);
+      expect(requestSuccess).toBe(false);
+    });
+
+    describe('when order process failed', () => {
+      const {
+        requestInProgress,
+        requestSuccess,
+      } = reducer(void 0, {
+        type: ORDER_PROCESS_FAILED,
+        payload: {
+          error: 'Unable process order',
+        },
+      });
+      expect(requestInProgress).toBe(false);
+      expect(requestSuccess).toBe(false);
+    })
+
+    describe('when order process is successful', () => {
+      const {
+        requestInProgress,
+        requestSuccess,
+      } = reducer(void 0, {
+        type: ORDER_PROCESS_SUCCESS,
+      });
+      expect(requestInProgress).toBe(false);
+      expect(requestSuccess).toBe(true)
+    });
+  });
 });
