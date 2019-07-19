@@ -6,6 +6,7 @@ import {
   ORDER_SET_DELIVERY_ADDRESS,
   ORDER_SET_TABLE,
   ORDER_ADD_ITEM,
+  ORDER_REMOVE_ITEM,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -157,7 +158,27 @@ describe('newOrderReducer', () => {
     });
   });
 
-  // describe('Remove menu item from order');
+  describe('Remove menu item from order', () => {
+    it('should return indexed menu item', () => {
+      const sampleItems = [
+        { name: 'Item 1', description: 'Test Item 1', price: 10 },
+        { name: 'Item 2', description: 'Test Item 2', price: 20 },
+        { name: 'Item 3', description: 'Test Item 3', price: 30 },
+        { name: 'Item 4', description: 'Test Item 4', price: 40 },
+      ];
+      const expected = [
+        { name: 'Item 2', description: 'Test Item 2', price: 20 },
+      ];
+      const { orderItems } = reducer({ orderItems: sampleItems, }, {
+        type: ORDER_REMOVE_ITEM,
+        payload: 1,
+      });
+      expect(orderItems).toEqual(
+        expect.not.arrayContaining(expected),
+      );
+    });
+  });
+
   // describe('Set discount percentage (%) on order');
   //
   // describe('Set order note');

@@ -6,6 +6,7 @@ import {
   ORDER_SET_DELIVERY_ADDRESS,
   ORDER_SET_TABLE,
   ORDER_ADD_ITEM,
+  ORDER_REMOVE_ITEM,
 } from '../actions/types';
 
 export const initialState = {
@@ -59,8 +60,17 @@ export default function (state = initialState, action) {
         orderItems: [
           ...state.orderItems,
           action.payload,
-        ]
-      }
+        ],
+      };
+    case ORDER_REMOVE_ITEM: {
+      const orderItems = [ ...state.orderItems ];
+      const itemIndex = action.payload;
+      orderItems.splice(1, 1);
+      return {
+        ...state,
+        orderItems,
+      };
+    }
     case ORDER_RESET:
       return initialState;
     default:
