@@ -7,6 +7,7 @@ import {
   ORDER_SET_TABLE,
   ORDER_ADD_ITEM,
   ORDER_REMOVE_ITEM,
+  ORDER_SET_DISCOUNT,
 } from '../actions/types';
 
 export const initialState = {
@@ -69,6 +70,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         orderItems,
+      };
+    }
+
+    case ORDER_SET_DISCOUNT: {
+      const discount = action.payload;
+      const { subTotal } = state;
+      const orderTotal = (subTotal * (100 - discount)) / 100;
+      return {
+        ...state,
+        discount,
+        orderTotal,
       };
     }
     case ORDER_RESET:

@@ -7,6 +7,7 @@ import {
   ORDER_SET_TABLE,
   ORDER_ADD_ITEM,
   ORDER_REMOVE_ITEM,
+  ORDER_SET_DISCOUNT,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -179,8 +180,26 @@ describe('newOrderReducer', () => {
     });
   });
 
-  // describe('Set discount percentage (%) on order');
-  //
+  describe('Set discount percentage (%) on order', () => {
+    it('should set discount percentage', () => {
+      const { discount } = reducer(void 0, {
+        type: ORDER_SET_DISCOUNT,
+        payload: 10,
+      });
+      expect(discount).toBe(10);
+    });
+
+    it('should set discount and calculate order total', () => {
+      const state = { subTotal: 400, orderTotal: 400 }
+      const { discount, orderTotal } = reducer(state, {
+        type: ORDER_SET_DISCOUNT,
+        payload: 20,
+      });
+      expect(discount).toBe(20);
+      expect(orderTotal).toBe(320);
+    })
+  });
+
   // describe('Set order note');
   //
   // describe('Save order', () => {
