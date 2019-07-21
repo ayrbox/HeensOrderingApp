@@ -27,13 +27,13 @@ const OrderItems = ({
         price,
         menuOptions,
       }) => (
-        <Fragment>
+        <Fragment key={`order-${id}`}>
           <TableRow key={id}>
             <TableCell colSpan={2}>{name}</TableCell>
             <TableCell align="right">{price}</TableCell>
           </TableRow>
           {menuOptions.map(({ description, additionalCost }) => (
-            <TableRow>
+            <TableRow key={`order-item-${id}-${description}`}>
               <TableCell />
               <TableCell>{description}</TableCell>
               <TableCell align="right">{additionalCost}</TableCell>
