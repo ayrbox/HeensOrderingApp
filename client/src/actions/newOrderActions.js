@@ -14,31 +14,31 @@ import {
   ORDER_PROCESS_REQUEST,
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
-} from '../actions/types';
+} from './types';
 
 // Reset Order
-export const resetOrder = () => dispatch => {
+export const resetOrder = () => (dispatch) => {
   dispatch({
     type: ORDER_RESET,
   });
 };
 
 // Open Order Pane
-export const openOrderPane = () => dispatch => {
+export const openOrderPane = () => (dispatch) => {
   dispatch({
     type: ORDER_OPEN_UI_PANE,
   });
 };
 
 // Close Order Pane
-export const closeOrderPane = () => dispatch => {
+export const closeOrderPane = () => (dispatch) => {
   dispatch({
     type: ORDER_CLOSE_UI_PANE,
   });
 };
 
 // Set Order type
-export const setOrderType = orderType => dispatch => {
+export const setOrderType = orderType => (dispatch) => {
   dispatch({
     type: ORDER_SET_TYPE,
     payload: orderType,
@@ -46,7 +46,7 @@ export const setOrderType = orderType => dispatch => {
 };
 
 // Set Delivery address
-export const setDeliveryAddress = address => dispatch => {
+export const setDeliveryAddress = address => (dispatch) => {
   dispatch({
     type: ORDER_SET_DELIVERY_ADDRESS,
     payload: address,
@@ -54,7 +54,7 @@ export const setDeliveryAddress = address => dispatch => {
 };
 
 // Set Table
-export const setTable = tableNo => dispatch => {
+export const setTable = tableNo => (dispatch) => {
   dispatch({
     type: ORDER_SET_TABLE,
     payload: tableNo,
@@ -62,7 +62,7 @@ export const setTable = tableNo => dispatch => {
 };
 
 // Add Order Item
-export const addOrderItem = orderItem => dispatch => {
+export const addOrderItem = orderItem => (dispatch) => {
   dispatch({
     type: ORDER_ADD_ITEM,
     payload: orderItem,
@@ -70,7 +70,7 @@ export const addOrderItem = orderItem => dispatch => {
 };
 
 // Remove Order Item
-export const removeOrderItem = idx => dispatch => {
+export const removeOrderItem = idx => (dispatch) => {
   dispatch({
     type: ORDER_REMOVE_ITEM,
     payload: idx,
@@ -78,15 +78,15 @@ export const removeOrderItem = idx => dispatch => {
 };
 
 // Set Discount
-export const setDiscount = percent => dispatch => {
+export const setDiscount = percent => (dispatch) => {
   dispatch({
     type: ORDER_SET_DISCOUNT,
     payload: percent,
   });
-}
+};
 
 // Add Note
-export const addNote = note => dispatch => {
+export const addNote = note => (dispatch) => {
   dispatch({
     type: ORDER_ADD_NOTE,
     payload: note,
@@ -96,7 +96,7 @@ export const addNote = note => dispatch => {
 // Request Process
 // Process Successful
 // Process failed
-export const processOrder = order => dispatch => {
+export const processOrder = order => (dispatch) => {
   dispatch({
     type: ORDER_PROCESS_REQUEST,
   });
@@ -105,10 +105,10 @@ export const processOrder = order => dispatch => {
     .post('/api/orders/', order)
     .then(() => {
       dispatch({
-        type: ORDER_PROCESS_SUCCESS
+        type: ORDER_PROCESS_SUCCESS,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: ORDER_PROCESS_FAILED,
         payload: err.response.data,
