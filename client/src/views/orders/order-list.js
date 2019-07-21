@@ -48,8 +48,8 @@ const OrderList = ({ classes }) => {
           subTitle="List of orders"
         />
         {
-          loading ? <Spinner /> : data.map(order => (
-            <ExpansionPanel>
+          loading ? <Spinner /> : data.map(({ _id: orderId, ...order }) => (
+            <ExpansionPanel key={orderId}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <OrderSummary order={order} />
               </ExpansionPanelSummary>
