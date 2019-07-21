@@ -4,8 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
-import { ORDER_STATUSES } from '../../../../constants';
+import moment from 'moment';
 
+import { ORDER_STATUSES } from '../../../../constants';
 import OrderIcon from './OrderIcon';
 import Time from '../../../../components/Time';
 
@@ -29,7 +30,7 @@ const OrderSummary = ({ classes, order }) => {
         <OrderIcon type={orderType} />
       </Grid>
       <Grid item>
-        <Time date={date} />
+        <Time date={moment(date).toDate()} />
       </Grid>
       <Grid item>
         <Typography className={classes.heading} variant="h6">
