@@ -1,6 +1,7 @@
 import {
   isString,
   isEmpty,
+  pick,
 } from 'lodash';
 
 const defaultOrder = {
@@ -22,7 +23,15 @@ export const formatOrder = (order) => {
 
   return {
     ...defaultOrder,
-    ...order,
+    ...pick(order, [
+      'orderType',
+      'deliveryAddress',
+      'tableNo',
+      'orderItems',
+      'subTotal',
+      'discount',
+      'orderTotal',
+    ]),
   };
 };
 
