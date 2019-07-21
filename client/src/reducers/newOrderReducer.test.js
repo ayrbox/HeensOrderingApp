@@ -19,7 +19,7 @@ import reducer, { initialState } from './newOrderReducer';
 
 describe('REDUCER: newOrderReducer', () => {
   it('should return initial state', () => {
-    const state = reducer(void 0, {
+    const state = reducer(undefined, {
       type: undefined,
       payload: undefined,
     });
@@ -28,31 +28,31 @@ describe('REDUCER: newOrderReducer', () => {
 
   describe('Reset new order', () => {
     it('should return inital state', () => {
-      const state = reducer(void 0, { type: ORDER_RESET });
+      const state = reducer(undefined, { type: ORDER_RESET });
       expect(state).toEqual(initialState);
     });
   });
 
   describe('when open and closing Order UI Pane', () => {
     it('should return state with open pane', () => {
-      const result = reducer(void 0, {
-        type: ORDER_OPEN_UI_PANE
+      const result = reducer(undefined, {
+        type: ORDER_OPEN_UI_PANE,
       });
       expect(result.openNewOrderPane).toBe(true);
     });
 
     it('should return state with close pane', () => {
-      const result = reducer(void 0, {
-        type: ORDER_CLOSE_UI_PANE
+      const result = reducer(undefined, {
+        type: ORDER_CLOSE_UI_PANE,
       });
       expect(result.openNewOrderPane).toBe(false);
-    })
+    });
   });
 
   describe('setting order type', () => {
     describe('when order type is Collection', () => {
       it('should return orderType collection', () => {
-        const state = reducer(void 0, {
+        const state = reducer(undefined, {
           type: ORDER_SET_TYPE,
           payload: 'collection',
         });
@@ -61,16 +61,16 @@ describe('REDUCER: newOrderReducer', () => {
     });
     describe('when order type is Delivery', () => {
       it('should return orderType delivery', () => {
-        const state = reducer(void 0, {
+        const state = reducer(undefined, {
           type: ORDER_SET_TYPE,
           payload: 'delivery',
         });
         expect(state.orderType).toEqual('delivery');
-      })
+      });
     });
     describe('when setting order type as Eat In', () => {
       it('should return orderType eat-in', () => {
-        const state = reducer(void 0, {
+        const state = reducer(undefined, {
           type: ORDER_SET_TYPE,
           payload: 'eat-in',
         });
@@ -90,8 +90,8 @@ describe('REDUCER: newOrderReducer', () => {
       const { deliveryAddress } = reducer({
         orderType: 'delivery',
       }, {
-          type: ORDER_SET_DELIVERY_ADDRESS,
-          payload: sampleAddress,
+        type: ORDER_SET_DELIVERY_ADDRESS,
+        payload: sampleAddress,
       });
       expect(deliveryAddress).toEqual(sampleAddress);
     });
@@ -104,13 +104,13 @@ describe('REDUCER: newOrderReducer', () => {
         postCode: 'AB12 9XY',
       };
       const { deliveryAddress } = reducer({
-        orderType: 'collection'
+        orderType: 'collection',
       }, {
         type: ORDER_SET_DELIVERY_ADDRESS,
         payload: testAddress,
       });
       expect(deliveryAddress).toBeUndefined();
-    })
+    });
   });
 
   describe('Set table number', () => {
@@ -121,7 +121,7 @@ describe('REDUCER: newOrderReducer', () => {
           orderType: 'eat-in',
         }, {
           type: ORDER_SET_TABLE,
-          payload: sampleTableNo
+          payload: sampleTableNo,
         });
         expect(tableNo).toEqual(sampleTableNo);
       });
@@ -141,7 +141,7 @@ describe('REDUCER: newOrderReducer', () => {
 
   describe('Add new menu item on order', () => {
     it('should return empty array', () => {
-      const { orderItems } = reducer(void 0, { type: undefined });
+      const { orderItems } = reducer(undefined, { type: undefined });
       expect(orderItems.length).toBe(0);
     });
 
@@ -178,17 +178,34 @@ describe('REDUCER: newOrderReducer', () => {
   describe('Remove menu item from order', () => {
     it('should return indexed menu item', () => {
       const sampleItems = [
-        { name: 'Item 1', description: 'Test Item 1', price: 10, itemTotal: 10 },
-        { name: 'Item 2', description: 'Test Item 2', price: 20, itemTotal: 20 },
-        { name: 'Item 3', description: 'Test Item 3', price: 30, itemTotal: 30 },
-        { name: 'Item 4', description: 'Test Item 4', price: 40, itemTotal: 40 },
+        {
+          name: 'Item 1',
+          description: 'Test Item 1',
+          price: 10,
+          itemTotal: 10,
+        }, {
+          name: 'Item 2',
+          description: 'Test Item 2',
+          price: 20,
+          itemTotal: 20,
+        },
+        {
+          name: 'Item 3',
+          description: 'Test Item 3',
+          price: 30,
+          itemTotal: 30,
+        }, {
+          name: 'Item 4',
+          description: 'Test Item 4',
+          price: 40,
+          itemTotal: 40,
+        },
       ];
 
       const state = {
         orderItems: sampleItems,
         subTotal: 100,
       };
-
 
       const expected = [
         { name: 'Item 2', description: 'Test Item 2', price: 20 },
@@ -206,7 +223,7 @@ describe('REDUCER: newOrderReducer', () => {
 
   describe('Set discount percentage (%) on order', () => {
     it('should set discount percentage', () => {
-      const { discount } = reducer(void 0, {
+      const { discount } = reducer(undefined, {
         type: ORDER_SET_DISCOUNT,
         payload: 10,
       });
@@ -214,23 +231,23 @@ describe('REDUCER: newOrderReducer', () => {
     });
 
     it('should set discount and calculate order total', () => {
-      const state = { subTotal: 400, orderTotal: 400 }
+      const state = { subTotal: 400, orderTotal: 400 };
       const { discount, orderTotal } = reducer(state, {
         type: ORDER_SET_DISCOUNT,
         payload: 20,
       });
       expect(discount).toBe(20);
       expect(orderTotal).toBe(320);
-    })
+    });
   });
 
   describe('Set order note', () => {
     it('should add note to order', () => {
-      const { note } = reducer(void 0, {
+      const { note } = reducer(undefined, {
         type: ORDER_ADD_NOTE,
-        payload: 'Sample Order Note.'
+        payload: 'Sample Order Note.',
       });
-      expect(note).toEqual('Sample Order Note.')
+      expect(note).toEqual('Sample Order Note.');
     });
   });
 
@@ -284,7 +301,7 @@ describe('REDUCER: newOrderReducer', () => {
       const {
         requestInProgress,
         requestSuccess,
-      } = reducer(void 0, {
+      } = reducer(undefined, {
         type: ORDER_PROCESS_REQUEST,
       });
 
@@ -296,7 +313,7 @@ describe('REDUCER: newOrderReducer', () => {
       const {
         requestInProgress,
         requestSuccess,
-      } = reducer(void 0, {
+      } = reducer(undefined, {
         type: ORDER_PROCESS_FAILED,
         payload: {
           error: 'Unable process order',
@@ -304,17 +321,17 @@ describe('REDUCER: newOrderReducer', () => {
       });
       expect(requestInProgress).toBe(false);
       expect(requestSuccess).toBe(false);
-    })
+    });
 
     describe('when order process is successful', () => {
       const {
         requestInProgress,
         requestSuccess,
-      } = reducer(void 0, {
+      } = reducer(undefined, {
         type: ORDER_PROCESS_SUCCESS,
       });
       expect(requestInProgress).toBe(false);
-      expect(requestSuccess).toBe(true)
+      expect(requestSuccess).toBe(true);
     });
   });
 });

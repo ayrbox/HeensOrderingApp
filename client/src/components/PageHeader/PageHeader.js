@@ -42,7 +42,7 @@ const PageHeader = ({
 
 PageHeader.defaultProps = {
   subTitle: null,
-  onAddClicked: undefined
+  onAddClicked: undefined,
 };
 
 PageHeader.propTypes = {

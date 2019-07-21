@@ -60,12 +60,12 @@ export default function (state = initialState, action) {
     case ORDER_SET_DELIVERY_ADDRESS:
       return {
         ...state,
-        deliveryAddress: state.orderType === 'delivery' ? action.payload: undefined,
+        deliveryAddress: state.orderType === 'delivery' ? action.payload : undefined,
       };
     case ORDER_SET_TABLE:
       return {
         ...state,
-        tableNo: state.orderType === 'eat-in' ? action.payload: undefined,
+        tableNo: state.orderType === 'eat-in' ? action.payload : undefined,
       };
     case ORDER_ADD_ITEM: {
       const orderItems = [
@@ -82,9 +82,9 @@ export default function (state = initialState, action) {
       };
     }
     case ORDER_REMOVE_ITEM: {
-      const orderItems = [ ...state.orderItems ];
+      const orderItems = [...state.orderItems];
       const itemIndex = action.payload;
-      orderItems.splice(1, 1);
+      orderItems.splice(itemIndex, 1);
       const subTotal = getSubTotal(orderItems);
       return {
         ...state,

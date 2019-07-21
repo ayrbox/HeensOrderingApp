@@ -1,5 +1,21 @@
 import axios from 'axios';
-import ACTIONS from './types';
+import {
+  ORDER_OPEN_UI_PANE,
+  ORDER_CLOSE_UI_PANE,
+  ORDER_SET_TYPE,
+  ORDER_RESET,
+  ORDER_SET_TABLE,
+  ORDER_SET_DELIVERY_ADDRESS,
+  ORDER_ADD_ITEM,
+  ORDER_REMOVE_ITEM,
+  ORDER_SET_DISCOUNT,
+  ORDER_ADD_NOTE,
+  ORDER_PROCESS_REQUEST,
+  ORDER_PROCESS_SUCCESS,
+  ORDER_PROCESS_FAILED,
+  ORDER_SET_CATEGORY,
+  ORDER_SET_MENU,
+} from './types';
 
 import {
   resetOrder,
@@ -33,7 +49,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_RESET', () => {
       resetOrder()(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_RESET,
+        type: ORDER_RESET,
       });
     });
   });
@@ -42,7 +58,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_OPEN_UI_PANE', () => {
       openOrderPane()(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_OPEN_UI_PANE,
+        type: ORDER_OPEN_UI_PANE,
       });
     });
   });
@@ -52,7 +68,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_CLOSE_UI_PANE', () => {
       closeOrderPane()(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_CLOSE_UI_PANE,
+        type: ORDER_CLOSE_UI_PANE,
       });
     });
   });
@@ -62,7 +78,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_SET_TYPE', () => {
       setOrderType('eat-in')(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_TYPE,
+        type: ORDER_SET_TYPE,
         payload: 'eat-in',
       });
     });
@@ -79,7 +95,7 @@ describe('ACTIONS: newOrder', () => {
       };
       setDeliveryAddress(sampleAddress)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_DELIVERY_ADDRESS,
+        type: ORDER_SET_DELIVERY_ADDRESS,
         payload: sampleAddress,
       });
     });
@@ -90,7 +106,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_SET_TABLE', () => {
       setTable('TBL100')(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_TABLE,
+        type: ORDER_SET_TABLE,
         payload: 'TBL100',
       });
     });
@@ -107,7 +123,7 @@ describe('ACTIONS: newOrder', () => {
       };
       addOrderItem(item)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_ADD_ITEM,
+        type: ORDER_ADD_ITEM,
         payload: item,
       });
     });
@@ -118,7 +134,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_REMOVE_ITEM', () => {
       removeOrderItem(3)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_REMOVE_ITEM,
+        type: ORDER_REMOVE_ITEM,
         payload: 3,
       });
     });
@@ -129,7 +145,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_SET_DISCOUNT', () => {
       setDiscount(20)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_DISCOUNT,
+        type: ORDER_SET_DISCOUNT,
         payload: 20,
       });
     });
@@ -140,7 +156,7 @@ describe('ACTIONS: newOrder', () => {
     it('should dispatch action type ORDER_ADD_NOTE', () => {
       addNote('Hello')(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_ADD_NOTE,
+        type: ORDER_ADD_NOTE,
         payload: 'Hello',
       });
     });
@@ -158,10 +174,10 @@ describe('ACTIONS: newOrder', () => {
         };
         await processOrder(sampleOrder)(dispatch);
         expect(dispatch).toBeCalledWith({
-          type: ACTIONS.ORDER_PROCESS_REQUEST,
+          type: ORDER_PROCESS_REQUEST,
         });
         expect(dispatch).toBeCalledWith({
-          type: ACTIONS.ORDER_PROCESS_SUCCESS,
+          type: ORDER_PROCESS_SUCCESS,
         });
       });
     });
@@ -182,10 +198,10 @@ describe('ACTIONS: newOrder', () => {
         };
         await processOrder(sampleOrder)(dispatch);
         expect(dispatch).toBeCalledWith({
-          type: ACTIONS.ORDER_PROCESS_REQUEST,
+          type: ORDER_PROCESS_REQUEST,
         });
         expect(dispatch).toBeCalledWith({
-          type: ACTIONS.ORDER_PROCESS_FAILED,
+          type: ORDER_PROCESS_FAILED,
           payload: errorPayload,
         });
       });
@@ -198,7 +214,7 @@ describe('ACTIONS: newOrder', () => {
       const categoryId = '12345678900';
       setCategory(categoryId)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_CATEGORY,
+        type: ORDER_SET_CATEGORY,
         payload: {
           categoryId,
         },
@@ -216,7 +232,7 @@ describe('ACTIONS: newOrder', () => {
       };
       setMenu(sampleMenu)(dispatch);
       expect(dispatch).toBeCalledWith({
-        type: ACTIONS.ORDER_SET_MENU,
+        type: ORDER_SET_MENU,
         payload: sampleMenu,
       });
     });
