@@ -14,7 +14,7 @@ import styles from './styles';
 const OrderModal = ({
   classes,
   isOpenOrderModal,
-  closeOrderModal,
+  resetOrder,
   setOrderType,
   history,
 }) => {
@@ -24,14 +24,14 @@ const OrderModal = ({
     e.preventDefault();
     setOrderType(orderType);
     history.push('/orders/new');
-    closeOrderModal();
+    resetOrder();
   };
 
   return (
     <Drawer
       open={isOpenOrderModal}
       anchor="right"
-      onClose={closeOrderModal}
+      onClose={resetOrder}
     >
       <Grid
         container
@@ -62,7 +62,7 @@ const OrderModal = ({
             ) : <div />}
             <IconButton
               aria-label="Close"
-              onClick={closeOrderModal}
+              onClick={resetOrder}
             >
               <CloseIcon fontSize="small" />
             </IconButton>
@@ -128,7 +128,7 @@ const OrderModal = ({
 OrderModal.propTypes = {
   classes: PropTypes.shape().isRequired,
   isOpenOrderModal: PropTypes.bool.isRequired,
-  closeOrderModal: PropTypes.func.isRequired,
+  resetOrder: PropTypes.func.isRequired,
   setOrderType: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

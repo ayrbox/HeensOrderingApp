@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import OrderModal from './OrderModal';
 
-import { closeOrderModal, setOrderType } from '../../actions/orderActions';
-
+import { resetOrder, setOrderType } from '../../actions/newOrderActions';
 
 const mapState = state => ({
-  isOpenOrderModal: state.orders.isOpenOrderModal,
+  isOpenOrderModal: state.newOrder.openNewOrderPane,
 });
 
 export default connect(mapState, {
-  closeOrderModal,
+  resetOrder,
   setOrderType,
 })(OrderModal);

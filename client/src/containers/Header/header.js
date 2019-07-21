@@ -12,7 +12,7 @@ import styles from './styles';
 const Header = ({
   title,
   classes,
-  openOrderModal,
+  openOrderPane,
 }) => (
   <Fragment>
     <AppBar position="fixed" className={classes.root}>
@@ -21,7 +21,6 @@ const Header = ({
           variant="h5"
           color="inherit"
           noWrap
-          onClick={() => console.log('terohead')}
         >
           {title}
         </Typography>
@@ -61,7 +60,7 @@ const Header = ({
           <Button
             className={classes.navItem}
             color="inherit"
-            onClick={openOrderModal}
+            onClick={openOrderPane}
           >
             + New Order
           </Button>
@@ -74,7 +73,7 @@ const Header = ({
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   classes: PropTypes.shape().isRequired,
-  openOrderModal: PropTypes.func.isRequired,
+  openOrderPane: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Header);

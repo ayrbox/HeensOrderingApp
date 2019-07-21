@@ -4,12 +4,12 @@ import Header from './header';
 // TODO: import action to open order modal (that will just toggle open)
 // import
 
-import { openOrderModal } from '../../actions/orderActions';
+import { openOrderPane } from '../../actions/newOrderActions';
 
 const mapState = state => ({
   testState: state.auth,
 });
 
 export default connect(mapState, {
-  openOrderModal,
+  openOrderPane,
 })(Header);
