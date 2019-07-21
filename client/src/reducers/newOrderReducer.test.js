@@ -13,6 +13,7 @@ import {
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
   ORDER_SET_CATEGORY,
+  ORDER_SET_MENU,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -156,14 +157,21 @@ describe('REDUCER: newOrderReducer', () => {
           description: 'New Sauce',
           additionalCost: 0.5,
         }],
-        itemTotal: 10.5
+        itemTotal: 10.5,
       };
-      const { orderItems, subTotal } = reducer(void 0, {
+      const {
+        orderItems,
+        subTotal,
+        selectedMenu,
+        openMenuModal,
+      } = reducer(undefined, {
         type: ORDER_ADD_ITEM,
         payload: sampleItem,
       });
       expect(orderItems).toContain(sampleItem);
       expect(subTotal).toBe(10.5);
+      expect(selectedMenu).toBeUndefined();
+      expect(openMenuModal).toBe(false);
     });
   });
 
@@ -249,6 +257,25 @@ describe('REDUCER: newOrderReducer', () => {
         });
         expect(categoryId).toEqual('');
       });
+    });
+  });
+
+  describe('setMenu', () => {
+    it('should set menu Id and openModal', () => {
+      const sampleMenu = {
+        name: 'Test',
+        description: 'Test Menu Item',
+        price: 10,
+      };
+
+      const { selectedMenu, openMenuModal } = reducer(undefined, {
+        type: ORDER_SET_MENU,
+        payload: {
+          menuId: sampleMenu,
+        },
+      });
+      expect(selectedMenu).toEqual(sampleMenu);
+      expect(openMenuModal).toBe(true);
     });
   });
 

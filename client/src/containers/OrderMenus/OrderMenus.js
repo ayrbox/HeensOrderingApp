@@ -15,7 +15,6 @@ const Menus = ({
   category,
   classes,
   setMenu,
-
 }) => (
   <List
     cellHeight={160}

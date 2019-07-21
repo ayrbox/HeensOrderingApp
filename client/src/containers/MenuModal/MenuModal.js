@@ -54,8 +54,8 @@ const getOrderItem = (menu, options) => ({
 const MenuModal = ({
   menu,
   open,
-  resetMenu,
-  selectOrderItem,
+  resetOrder,
+  addOrderItem,
 }) => {
   const [options, setOptions] = useState([]);
   useEffect(() => {
@@ -78,7 +78,7 @@ const MenuModal = ({
       open={open}
       aria-labelledby="Order Menu Modal"
       scroll="body"
-      onClose={resetMenu}
+      onClose={resetOrder}
     >
       <DialogContent>
         {menu && (
@@ -117,7 +117,7 @@ const MenuModal = ({
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={resetMenu}
+          onClick={resetOrder}
           color="primary"
         >
           Cancel
@@ -128,7 +128,7 @@ const MenuModal = ({
           onClick={(e) => {
             e.preventDefault();
             const orderItem = getOrderItem(menu, options);
-            selectOrderItem(orderItem);
+            addOrderItem(orderItem);
           }}
         >
           Select
@@ -141,8 +141,8 @@ const MenuModal = ({
 MenuModal.propTypes = {
   menu: PropTypes.shape().isRequired,
   open: PropTypes.bool.isRequired,
-  resetMenu: PropTypes.func.isRequired,
-  selectOrderItem: PropTypes.func.isRequired,
+  resetOrder: PropTypes.func.isRequired,
+  addOrderItem: PropTypes.func.isRequired,
 };
 
 export default withStyles({})(MenuModal);

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import ACTIONS from '../actions/types';
+import ACTIONS from './types';
+
 import {
   resetOrder,
   openOrderPane,
@@ -13,6 +14,7 @@ import {
   addNote,
   processOrder,
   setCategory,
+  setMenu,
 } from './newOrderActions';
 
 jest.mock('axios');
@@ -21,7 +23,7 @@ describe('ACTIONS: newOrder', () => {
   let dispatch;
   beforeEach(() => {
     dispatch = jest.fn();
-  })
+  });
 
   afterEach(() => {
     dispatch.mockClear();
@@ -200,6 +202,22 @@ describe('ACTIONS: newOrder', () => {
         payload: {
           categoryId,
         },
+      });
+    });
+  });
+
+  // setMenu
+  describe('setMenu', () => {
+    it('should dispatch action ORDER_SET_MENU', () => {
+      const sampleMenu = {
+        name: 'Test',
+        description: 'Test Menu Item',
+        price: 10,
+      };
+      setMenu(sampleMenu)(dispatch);
+      expect(dispatch).toBeCalledWith({
+        type: ACTIONS.ORDER_SET_MENU,
+        payload: sampleMenu,
       });
     });
   });

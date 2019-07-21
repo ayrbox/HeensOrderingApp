@@ -13,6 +13,7 @@ import {
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
   ORDER_SET_CATEGORY,
+  ORDER_SET_MENU,
 } from '../actions/types';
 
 export const initialState = {
@@ -30,6 +31,9 @@ export const initialState = {
   discount: 0,
   orderTotal: 0,
   note: '',
+
+  selectedMenu: undefined,
+  openMenuModal: false,
 };
 
 const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
@@ -73,6 +77,8 @@ export default function (state = initialState, action) {
         ...state,
         orderItems,
         subTotal,
+        selectedMenu: undefined,
+        openMenuModal: false,
       };
     }
     case ORDER_REMOVE_ITEM: {
@@ -124,6 +130,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         categoryId: action.payload.categoryId,
+      };
+    case ORDER_SET_MENU:
+      return {
+        ...state,
+        selectedMenu: action.payload,
+        openMenuModal: true,
       };
     case ORDER_RESET:
       return initialState;

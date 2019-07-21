@@ -15,6 +15,7 @@ import {
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
   ORDER_SET_CATEGORY,
+  ORDER_SET_MENU,
 } from './types';
 
 // Reset Order
@@ -123,5 +124,12 @@ export const setCategory = categoryId => (dispatch) => {
     payload: {
       categoryId,
     },
+  });
+};
+
+export const setMenu = menu => (dispatch) => {
+  dispatch({
+    type: ORDER_SET_MENU,
+    payload: menu,
   });
 };

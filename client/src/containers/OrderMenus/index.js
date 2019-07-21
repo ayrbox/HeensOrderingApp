@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Menus from './OrderMenus';
 
-// import { setMenu } from '../../actions/newOrderActions';
+import { setMenu } from '../../actions/newOrderActions';
 
 const mapState = state => ({
   orderType: state.newOrder.orderType,
@@ -9,5 +9,5 @@ const mapState = state => ({
 });
 
 export default connect(mapState, {
-  setMenu: () => {},
+  setMenu,
 })(Menus);
