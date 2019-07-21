@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import Categories from './OrderCategories';
 
-import { setCategory } from '../../actions/orderActions';
+import { setCategory } from '../../actions/newOrderActions';
 
 const mapState = state => ({
-  orderType: state.orders.orderType,
-  category: state.orders.category,
+  categoryId: state.newOrder.categoryId,
 });
 
 export default connect(mapState, {

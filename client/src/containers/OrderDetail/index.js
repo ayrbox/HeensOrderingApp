@@ -1,15 +1,12 @@
 import { connect } from 'react-redux';
 
 import OrderDetail from './OrderDetail';
-import { saveOrder } from '../../actions/orderActions';
+import { processOrder } from '../../actions/newOrderActions';
 
 const mapState = state => ({
-  order: state.orders.currentOrder,
-  requestSuccess: state.orders.requestSuccess,
-  loading: state.orders.loading,
-  msg: state.orders.msg,
+  newOrder: state.newOrder,
 });
 
 export default connect(mapState, {
-  saveOrder,
+  processOrder,
 })(OrderDetail);

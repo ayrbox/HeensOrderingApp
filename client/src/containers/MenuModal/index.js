@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import MenuModal from './MenuModal';
 
-import { resetMenu, selectOrderItem } from '../../actions/orderActions';
+// import { resetMenu, selectOrderItem } from '../../actions/newOrderActions';
 
 const mapState = state => ({
-  menu: state.orders.menu,
-  open: state.orders.openMenu,
+  menu: state.newOrder.menu,
+  open: state.newOrder.openMenu,
 });
 
 export default connect(mapState, {
-  resetMenu,
-  selectOrderItem,
+  resetMenu: () => {},
+  selectOrderItem: () => {},
 })(MenuModal);

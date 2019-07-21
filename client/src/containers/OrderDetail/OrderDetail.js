@@ -18,24 +18,19 @@ const subTotal = ({
 
 const OrderDetail = ({
   classes,
-  order,
-  saveOrder,
-  requestSuccess,
-  loading,
-  msg,
+  newOrder,
+  processOrder,
 }) => {
   const {
     orderType,
     orderItems,
-  } = order;
-
+  } = newOrder;
 
   const handleSaveOrder = (e) => {
     e.preventDefault();
-    const orderToSave = formatOrder(order);
-    saveOrder(orderToSave);
+    const orderToSave = formatOrder(newOrder);
+    processOrder(orderToSave);
   };
-
 
   return (
     <Fragment>
@@ -89,7 +84,7 @@ const OrderDetail = ({
           </Typography>
           <Typography variant="h3" className={classes.orderTotal}>
             £
-            {subTotal(order).toFixed(2)}
+            {subTotal(newOrder).toFixed(2)}
           </Typography>
         </ListItem>
       </List>
@@ -97,34 +92,36 @@ const OrderDetail = ({
         variant="contained"
         color="primary"
         onClick={handleSaveOrder}
-        disabled={loading || requestSuccess}
       >
         Process Order
       </Button>
-      {
+      {/*
         requestSuccess && msg
         && <Typography variant="h3" className={classes.msg}>{msg}</Typography>
-      }
-      {
+      */}
+      {/*
         !requestSuccess && msg
         && <Typography variant="h3" className={classes.errormsg}>{msg}</Typography>
-      }
+      */}
     </Fragment>
   );
 };
 
-
-OrderDetail.defaultProps = {
-  msg: undefined,
-};
-
 OrderDetail.propTypes = {
   classes: PropTypes.shape().isRequired,
-  order: PropTypes.shape().isRequired, // TODO: list out all properties
-  saveOrder: PropTypes.func.isRequired,
-  requestSuccess: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
-  msg: PropTypes.string,
+  newOrder: PropTypes.shape({
+    requestInProgress: PropTypes.bool,
+    requestSuccess: PropTypes.bool,
+    orderType: PropTypes.string,
+    deliveryAddress: PropTypes.shape(),
+    tableNo: PropTypes.string,
+    orderItems: PropTypes.arrayOf(PropTypes.shape()),
+    subTotal: PropTypes.number,
+    discount: PropTypes.number,
+    orderTotal: PropTypes.number,
+    note: PropTypes.string,
+  }).isRequired, // TODO: list out all properties
+  processOrder: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(OrderDetail);

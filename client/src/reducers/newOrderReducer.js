@@ -12,6 +12,7 @@ import {
   ORDER_PROCESS_REQUEST,
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
+  ORDER_SET_CATEGORY,
 } from '../actions/types';
 
 export const initialState = {
@@ -118,6 +119,11 @@ export default function (state = initialState, action) {
         ...state,
         requestInProgress: false,
         requestSuccess: true,
+      };
+    case ORDER_SET_CATEGORY:
+      return {
+        ...state,
+        categoryId: action.payload.categoryId,
       };
     case ORDER_RESET:
       return initialState;

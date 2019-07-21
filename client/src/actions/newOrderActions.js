@@ -14,6 +14,7 @@ import {
   ORDER_PROCESS_REQUEST,
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
+  ORDER_SET_CATEGORY,
 } from './types';
 
 // Reset Order
@@ -114,4 +115,13 @@ export const processOrder = order => (dispatch) => {
         payload: err.response.data,
       });
     });
+};
+
+export const setCategory = categoryId => (dispatch) => {
+  dispatch({
+    type: ORDER_SET_CATEGORY,
+    payload: {
+      categoryId,
+    },
+  });
 };

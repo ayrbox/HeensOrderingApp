@@ -13,7 +13,7 @@ import styles from './styles';
 
 const Categories = ({
   classes,
-  category,
+  categoryId,
   setCategory,
 }) => (
   <List>
@@ -36,7 +36,7 @@ const Categories = ({
             }}
           >
             <ListItemText>{name}</ListItemText>
-            {category === id && (
+            {categoryId === id && (
               <ListItemIcon className={classes.categorySelectionIcon}>
                 <InboxIcon />
               </ListItemIcon>
@@ -49,12 +49,12 @@ const Categories = ({
 );
 
 Categories.defaultProps = {
-  category: '',
+  categoryId: '',
 };
 
 Categories.propTypes = {
   classes: PropTypes.shape().isRequired,
-  category: PropTypes.string,
+  categoryId: PropTypes.string,
   setCategory: PropTypes.func.isRequired,
 };
 

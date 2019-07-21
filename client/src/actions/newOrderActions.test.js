@@ -12,6 +12,7 @@ import {
   setDiscount,
   addNote,
   processOrder,
+  setCategory,
 } from './newOrderActions';
 
 jest.mock('axios');
@@ -185,6 +186,20 @@ describe('ACTIONS: newOrder', () => {
           type: ACTIONS.ORDER_PROCESS_FAILED,
           payload: errorPayload,
         });
+      });
+    });
+  });
+
+  // Set Category
+  describe('set category', () => {
+    it('should dispatch action ORDER_SET_CATEGORY', () => {
+      const categoryId = '12345678900';
+      setCategory(categoryId)(dispatch);
+      expect(dispatch).toBeCalledWith({
+        type: ACTIONS.ORDER_SET_CATEGORY,
+        payload: {
+          categoryId,
+        },
       });
     });
   });

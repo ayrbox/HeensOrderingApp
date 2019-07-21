@@ -12,6 +12,7 @@ import {
   ORDER_PROCESS_REQUEST,
   ORDER_PROCESS_SUCCESS,
   ORDER_PROCESS_FAILED,
+  ORDER_SET_CATEGORY,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -225,14 +226,33 @@ describe('REDUCER: newOrderReducer', () => {
     });
   });
 
-  describe('order process', () => {
-    beforeEach(() => {
-      window.mx = {
-        availableProducts: jest.fn().mockReturnValue(products)
-      }
-      jest.spyOn(Storage.prototype, 'setItem')
+  describe('Set category', () => {
+    describe('when setting category', () => {
+      it('should set category Id', () => {
+        const { categoryId } = reducer(undefined, {
+          type: ORDER_SET_CATEGORY,
+          payload: {
+            categoryId: 'categoryId-293742938',
+          },
+        });
+        expect(categoryId).toEqual('categoryId-293742938');
+      });
     });
 
+    describe('when setting category to undefined/null', () => {
+      it('should set category Id to all i.e undefind or empty string', () => {
+        const { categoryId } = reducer(undefined, {
+          type: ORDER_SET_CATEGORY,
+          payload: {
+            categoryId: '',
+          },
+        });
+        expect(categoryId).toEqual('');
+      });
+    });
+  });
+
+  describe('order process', () => {
     describe('when order process requested', () => {
       const {
         requestInProgress,
