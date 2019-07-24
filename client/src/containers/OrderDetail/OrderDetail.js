@@ -8,9 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 
 import { ORDER_TYPES } from '../../constants';
-import { formatOrder } from '../../utils/format-order';
 import styles from './styles';
-
 
 const subTotal = ({
   orderItems,
@@ -19,7 +17,7 @@ const subTotal = ({
 const OrderDetail = ({
   classes,
   newOrder,
-  processOrder,
+  showSummary,
 }) => {
   const {
     orderType,
@@ -28,8 +26,7 @@ const OrderDetail = ({
 
   const handleSaveOrder = (e) => {
     e.preventDefault();
-    const orderToSave = formatOrder(newOrder);
-    processOrder(orderToSave);
+    showSummary();
   };
 
   return (
@@ -120,8 +117,8 @@ OrderDetail.propTypes = {
     discount: PropTypes.number,
     orderTotal: PropTypes.number,
     note: PropTypes.string,
-  }).isRequired, // TODO: list out all properties
-  processOrder: PropTypes.func.isRequired,
+  }).isRequired,
+  showSummary: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(OrderDetail);

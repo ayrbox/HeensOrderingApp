@@ -14,6 +14,7 @@ import {
   ORDER_PROCESS_FAILED,
   ORDER_SET_CATEGORY,
   ORDER_SET_MENU,
+  ORDER_SHOW_SUMMARY,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -293,6 +294,15 @@ describe('REDUCER: newOrderReducer', () => {
       });
       expect(selectedMenu).toEqual(sampleMenu);
       expect(openMenuModal).toBe(true);
+    });
+  });
+
+  describe('Show Summary', () => {
+    it('should return show summary true', () => {
+      const { showSummary } = reducer({
+        type: ORDER_SHOW_SUMMARY,
+      });
+      expect(showSummary).toBe(true);
     });
   });
 

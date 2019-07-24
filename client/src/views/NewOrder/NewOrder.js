@@ -8,6 +8,7 @@ import OrderCategories from '../../containers/OrderCategories';
 import OrderMenus from '../../containers/OrderMenus';
 import MenuModal from '../../containers/MenuModal';
 import OrderDetail from '../../containers/OrderDetail';
+import OrderSummaryModal from '../../containers/OrderSummaryModal';
 import styles from './styles';
 
 
@@ -48,6 +49,7 @@ const NewOrder = ({
         </div>
       </Drawer>
       <MenuModal />
+      <OrderSummaryModal />
     </div>
   </>
 );

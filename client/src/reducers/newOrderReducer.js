@@ -14,27 +14,87 @@ import {
   ORDER_PROCESS_FAILED,
   ORDER_SET_CATEGORY,
   ORDER_SET_MENU,
+  ORDER_SHOW_SUMMARY,
 } from '../actions/types';
 
 export const initialState = {
   requestInProgress: false,
   requestSuccess: false,
-  categoryId: undefined, // Category selected
   openNewOrderPane: false,
-
-  orderType: 'table', // TODO: no default but need to validate
-  deliveryAddress: undefined, // TODO: conditional validation before saving
-  tableNo: undefined, // TODO: conditional validation required
-
-  orderItems: [], // TODO: validate before saving
-  subTotal: 0,
+  orderType: 'table',
+  orderItems: [{
+    name: 'Heen\'s Mixed Hors D\'oeuvres并',
+    description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
+    price: 7.9,
+    menuOptions: [
+      {
+        description: 'Chilli Oil',
+        additionalCost: 0.5,
+      },
+    ],
+    itemTotal: 8.4,
+  }, {
+    name: 'Vegetarian Mini Spring Rolls齐卷',
+    description: 'Vegetarian Mini Spring Rolls',
+    price: 4.9,
+    menuOptions: [],
+    itemTotal: 4.9,
+  }, {
+    name: 'Whole Soft Shell Crab Salted Chilli & Garlic軟蚧',
+    description: 'Whole Soft Shell Crab Salted Chilli & Garlic (Dry) - Seasonal Price',
+    price: 9.8,
+    menuOptions: [],
+    itemTotal: 9.8,
+  }, {
+    name: 'Sizzling Lamb in Honey & Black Pepper Sauce铁蜜召羊',
+    description: 'Sizzling Lamb in Honey & Black Pepper Sauce',
+    price: 10.5,
+    menuOptions: [],
+    itemTotal: 10.5,
+  }, {
+    name: 'Heen\'s Mixed Hors D\'oeuvres并',
+    description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
+    price: 7.9,
+    menuOptions: [
+      {
+        description: 'Chilli Oil',
+        additionalCost: 0.5,
+      },
+      {
+        description: 'Tomato Ketchup',
+        additionalCost: 1,
+      },
+    ],
+    itemTotal: 9.4,
+  }],
+  subTotal: 43,
   discount: 0,
   orderTotal: 0,
   note: '',
-
-  selectedMenu: undefined,
   openMenuModal: false,
+  openSummary: false,
 };
+
+// export const initialState = {
+//   requestInProgress: false,
+//   requestSuccess: false,
+//   categoryId: undefined, // Category selected
+//   openNewOrderPane: false,
+//
+//   orderType: 'table', // TODO: no default but need to validate
+//   deliveryAddress: undefined, // TODO: conditional validation before saving
+//   tableNo: undefined, // TODO: conditional validation required
+//
+//   orderItems: [], // TODO: validate before saving
+//   subTotal: 0,
+//   discount: 0,
+//   orderTotal: 0,
+//   note: '',
+//
+//   selectedMenu: undefined,
+//   openMenuModal: false,
+//   openSummary: false,
+// };
 
 const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
 
@@ -136,6 +196,11 @@ export default function (state = initialState, action) {
         ...state,
         selectedMenu: action.payload,
         openMenuModal: true,
+      };
+    case ORDER_SHOW_SUMMARY:
+      return {
+        ...state,
+        openSummary: true,
       };
     case ORDER_RESET:
       return initialState;
