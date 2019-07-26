@@ -4,6 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import pick from 'lodash/pick';
+
 import OrderDetails from './components/OrderDetails';
 import ConfirmAction from '../../components/ConfirmAction';
 
@@ -14,6 +16,23 @@ const OrderSummaryModal = ({
   processOrder,
 }) => {
   const { openSummary } = order;
+
+  const handleProcesOrder = () => {
+    const orderToProcess = {
+      ...pick(order, [
+        'orderType',
+        'deliveryAddress',
+        'tableNo',
+        'orderItems',
+        'subTotal',
+        'discount',
+        'orderTotal',
+      ]),
+      date: new Date(),
+    };
+    processOrder(orderToProcess);
+  };
+
   return (
     <Dialog
       open={openSummary}
@@ -30,7 +49,7 @@ const OrderSummaryModal = ({
       </DialogContent>
       <DialogActions>
         <ConfirmAction
-          action={processOrder}
+          action={handleProcesOrder}
           message="Please click yes to confirm and process order?"
         >
           <Button
