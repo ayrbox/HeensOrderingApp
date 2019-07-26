@@ -4,10 +4,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import pick from 'lodash/pick';
 
-import OrderDetails from './components/OrderDetails';
 import ConfirmAction from '../../components/ConfirmAction';
+import DeliveryAddress from './components/DeliveryAddress';
+import OrderTable from './components/OrderTable';
+import OrderItems from './components/OrderItems';
 
 const OrderSummaryModal = ({
   order,
@@ -15,7 +18,16 @@ const OrderSummaryModal = ({
   setDeliveryAddress,
   processOrder,
 }) => {
-  const { openSummary } = order;
+  const {
+    orderType,
+    deliveryAddress,
+    subTotal,
+    discount,
+    orderTotal,
+    orderItems,
+    tableNo,
+    openSummary,
+  } = order;
 
   const handleProcesOrder = () => {
     const orderToProcess = {
@@ -41,11 +53,33 @@ const OrderSummaryModal = ({
       maxWidth="xl"
     >
       <DialogContent>
-        <OrderDetails
-          order={order}
-          onTableNoChange={setTable}
-          onDeliveryAddressChange={setDeliveryAddress}
-        />
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={6}>
+            <OrderItems
+              orderItems={orderItems}
+              subTotal={subTotal}
+              discount={discount}
+              total={orderTotal}
+            />
+          </Grid>
+          <Grid item xs={6} style={{ padding: '16px' }}>
+            <DeliveryAddress
+              type={orderType}
+              deliveryAddress={deliveryAddress}
+              onChange={setDeliveryAddress}
+            />
+            <OrderTable
+              type={orderType}
+              tableNo={tableNo}
+              onChange={setTable}
+            />
+          </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <ConfirmAction
