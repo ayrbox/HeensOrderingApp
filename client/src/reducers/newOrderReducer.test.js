@@ -73,9 +73,9 @@ describe('REDUCER: newOrderReducer', () => {
       it('should return orderType eat-in', () => {
         const state = reducer(undefined, {
           type: ORDER_SET_TYPE,
-          payload: 'eat-in',
+          payload: 'table',
         });
-        expect(state.orderType).toEqual('eat-in');
+        expect(state.orderType).toEqual('table');
       });
     });
   });

@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import OrderDetails from './components/OrderDetails';
+import ConfirmAction from '../../components/ConfirmAction';
 
 const OrderSummaryModal = ({
   order,
+  setTable,
+  setDeliveryAddress,
+  processOrder,
 }) => {
   const { openSummary } = order;
   return (
@@ -14,15 +19,28 @@ const OrderSummaryModal = ({
       open={openSummary}
       aria-labelledby="Order Summary"
       scroll="body"
+      maxWidth="xl"
     >
       <DialogContent>
-        <Typography>Hello</Typography>
-        <pre>
-          {JSON.stringify(order, null, 2)}
-        </pre>
+        <OrderDetails
+          order={order}
+          onTableNoChange={setTable}
+          onDeliveryAddressChange={setDeliveryAddress}
+        />
       </DialogContent>
       <DialogActions>
-        <Typography>Buttons</Typography>
+        <ConfirmAction
+          action={processOrder}
+          message="Please click yes to confirm and process order?"
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+          >
+            Confirm Order
+          </Button>
+        </ConfirmAction>
       </DialogActions>
     </Dialog>
   );
@@ -30,6 +48,9 @@ const OrderSummaryModal = ({
 
 OrderSummaryModal.propTypes = {
   order: PropTypes.shape().isRequired,
+  setTable: PropTypes.func.isRequired,
+  setDeliveryAddress: PropTypes.func.isRequired,
+  processOrder: PropTypes.func.isRequired,
 };
 
 export default OrderSummaryModal;

@@ -34,23 +34,11 @@ export const initialState = {
     ],
     itemTotal: 8.4,
   }, {
-    name: 'Vegetarian Mini Spring Rolls齐卷',
-    description: 'Vegetarian Mini Spring Rolls',
-    price: 4.9,
-    menuOptions: [],
-    itemTotal: 4.9,
-  }, {
     name: 'Whole Soft Shell Crab Salted Chilli & Garlic軟蚧',
     description: 'Whole Soft Shell Crab Salted Chilli & Garlic (Dry) - Seasonal Price',
     price: 9.8,
     menuOptions: [],
     itemTotal: 9.8,
-  }, {
-    name: 'Sizzling Lamb in Honey & Black Pepper Sauce铁蜜召羊',
-    description: 'Sizzling Lamb in Honey & Black Pepper Sauce',
-    price: 10.5,
-    menuOptions: [],
-    itemTotal: 10.5,
   }, {
     name: 'Heen\'s Mixed Hors D\'oeuvres并',
     description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
@@ -72,7 +60,7 @@ export const initialState = {
   orderTotal: 0,
   note: '',
   openMenuModal: false,
-  openSummary: false,
+  openSummary: true,
 };
 
 // export const initialState = {
@@ -125,7 +113,7 @@ export default function (state = initialState, action) {
     case ORDER_SET_TABLE:
       return {
         ...state,
-        tableNo: state.orderType === 'eat-in' ? action.payload : undefined,
+        tableNo: state.orderType === 'table' ? action.payload : undefined,
       };
     case ORDER_ADD_ITEM: {
       const orderItems = [
