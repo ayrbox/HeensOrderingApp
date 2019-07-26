@@ -21,7 +21,7 @@ export const initialState = {
   requestInProgress: false,
   requestSuccess: false,
   openNewOrderPane: false,
-  orderType: 'table',
+  orderType: 'delivery',
   orderItems: [{
     name: 'Heen\'s Mixed Hors D\'oeuvres并',
     description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
