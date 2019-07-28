@@ -31,7 +31,10 @@ const Discount = ({
         }}
       >
         {DISCOUNT_PERCENTAGES.map(value => (
-          <MenuItem value={value}>{value}</MenuItem>
+          <MenuItem value={value}>
+            {value}
+            %
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
