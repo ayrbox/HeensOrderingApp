@@ -1,5 +1,7 @@
 module.exports = (Order, { validateOrder }) => {
-  const getOrders = (req, res) => Order.find().then((orders) => {
+  const getOrders = (req, res) => Order.find().sort({
+    date: -1,
+  }).then((orders) => {
     if (orders.length === 0) {
       res.status(404);
       res.json({ msg: 'No orders were found' });
