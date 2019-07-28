@@ -6,7 +6,7 @@ export const ORDER_TYPES = {
 
 export const ORDER_STATUSES = {
   ordered: 'Ordered',
-  paid: 'Paid',
+  paid: 'Paid', // TODO: separate out to different status
   processing: 'Processing',
   delivered: 'Delivered',
   cancelled: 'Cancelled',

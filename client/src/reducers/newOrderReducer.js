@@ -15,6 +15,7 @@ import {
   ORDER_SET_CATEGORY,
   ORDER_SET_MENU,
   ORDER_SHOW_SUMMARY,
+  ORDER_SET_STATUS,
 } from '../actions/types';
 
 export const initialState = {
@@ -61,6 +62,7 @@ export const initialState = {
   note: 'Regular customer. Deliver at 8:00 sharp',
   openMenuModal: false,
   openSummary: true,
+  status: 'ordered',
 };
 
 // export const initialState = {
@@ -82,6 +84,7 @@ export const initialState = {
 //   selectedMenu: undefined,
 //   openMenuModal: false,
 //   openSummary: false,
+//   status: 'ordered'
 // };
 
 const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
@@ -184,6 +187,11 @@ export default function (state = initialState, action) {
         ...state,
         selectedMenu: action.payload,
         openMenuModal: true,
+      };
+    case ORDER_SET_STATUS:
+      return {
+        ...state,
+        status: action.payload,
       };
     case ORDER_SHOW_SUMMARY:
       return {

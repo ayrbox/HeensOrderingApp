@@ -15,6 +15,7 @@ import {
   ORDER_SET_CATEGORY,
   ORDER_SET_MENU,
   ORDER_SHOW_SUMMARY,
+  ORDER_SET_STATUS,
 } from '../actions/types';
 import reducer, { initialState } from './newOrderReducer';
 
@@ -303,6 +304,16 @@ describe('REDUCER: newOrderReducer', () => {
         type: ORDER_SHOW_SUMMARY,
       });
       expect(showSummary).toBe(true);
+    });
+  });
+
+  describe('Set status', () => {
+    it('should return order with new status', () => {
+      const { status } = reducer({
+        type: ORDER_SET_STATUS,
+        payload: 'ordered',
+      });
+      expect(status).toEqual('ordered');
     });
   });
 
