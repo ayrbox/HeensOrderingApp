@@ -317,7 +317,7 @@ describe('REDUCER: newOrderReducer', () => {
         expect(showSummary).toBe(true);
       });
     });
-   
+
     describe('when payload is given false', () => {
       it('should return show summary false', () => {
         const { showSummary } = reducer({

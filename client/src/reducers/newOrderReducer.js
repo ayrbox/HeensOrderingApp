@@ -97,7 +97,7 @@ const calculateTotal = (subTotal, discount) => (subTotal * (100 - discount)) / 1
 // Return subtotal, total with discount
 const getTotals = (orderItems, discount) => {
   const subTotal = getSubTotal(orderItems);
-  const orderTotal = calculateTotal(subTotal, discount); 
+  const orderTotal = calculateTotal(subTotal, discount);
   return {
     subTotal,
     orderTotal,
