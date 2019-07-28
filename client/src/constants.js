@@ -14,7 +14,18 @@ export const ORDER_STATUSES = {
   served: 'Served',
 };
 
+export const DISCOUNT_PERCENTAGES = [
+  0,
+  5,
+  10,
+  15,
+  20,
+  25,
+];
+
+
 export default {
   ORDER_TYPES,
   ORDER_STATUSES,
+  DISCOUNT_PERCENTAGES,
 };
