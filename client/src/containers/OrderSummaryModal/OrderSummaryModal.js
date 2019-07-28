@@ -13,6 +13,7 @@ import OrderTable from './components/OrderTable';
 import OrderItems from './components/OrderItems';
 import OrderNote from './components/OrderNote';
 import Discount from './components/Discount';
+import Status from './components/Status';
 
 const OrderSummaryModal = ({
   order,
@@ -20,6 +21,7 @@ const OrderSummaryModal = ({
   setDeliveryAddress,
   addNote,
   setDiscount,
+  setStatus,
   processOrder,
 }) => {
   const {
@@ -32,6 +34,7 @@ const OrderSummaryModal = ({
     tableNo,
     openSummary,
     note,
+    status,
   } = order;
 
   const handleProcesOrder = () => {
@@ -85,6 +88,7 @@ const OrderSummaryModal = ({
             />
             <OrderNote onChange={addNote} note={note} />
             <Discount onChange={setDiscount} discount={discount} />
+            <Status onChange={setStatus} status={status} />
           </Grid>
         </Grid>
       </DialogContent>
@@ -111,6 +115,7 @@ OrderSummaryModal.propTypes = {
   setTable: PropTypes.func.isRequired,
   setDeliveryAddress: PropTypes.func.isRequired,
   setDiscount: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   addNote: PropTypes.func.isRequired,
   processOrder: PropTypes.func.isRequired,
 };

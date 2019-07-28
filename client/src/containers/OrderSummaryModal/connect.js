@@ -5,6 +5,7 @@ import {
   setTable,
   setDeliveryAddress,
   setDiscount,
+  setStatus,
   addNote,
   processOrder,
 } from '../../actions/newOrderActions';
@@ -18,5 +19,6 @@ export default connect(mapState, {
   setDeliveryAddress,
   addNote,
   setDiscount,
+  setStatus,
   processOrder,
 })(OrderSummaryModal);
