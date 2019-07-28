@@ -30,7 +30,7 @@ const MenuOptions = ({
     }) => (
       <ListItem
         key={id}
-        role="Menu Option"
+        role="button"
         dense
         button
         onClick={onToggleSelect(id)}
