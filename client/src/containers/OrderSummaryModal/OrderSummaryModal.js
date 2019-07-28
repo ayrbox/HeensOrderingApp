@@ -11,11 +11,13 @@ import ConfirmAction from '../../components/ConfirmAction';
 import DeliveryAddress from './components/DeliveryAddress';
 import OrderTable from './components/OrderTable';
 import OrderItems from './components/OrderItems';
+import OrderNote from './components/OrderNote';
 
 const OrderSummaryModal = ({
   order,
   setTable,
   setDeliveryAddress,
+  addNote,
   processOrder,
 }) => {
   const {
@@ -27,6 +29,7 @@ const OrderSummaryModal = ({
     orderItems,
     tableNo,
     openSummary,
+    note,
   } = order;
 
   const handleProcesOrder = () => {
@@ -78,6 +81,7 @@ const OrderSummaryModal = ({
               tableNo={tableNo}
               onChange={setTable}
             />
+            <OrderNote onChange={addNote} note={note} />
           </Grid>
         </Grid>
       </DialogContent>
@@ -103,6 +107,7 @@ OrderSummaryModal.propTypes = {
   order: PropTypes.shape().isRequired,
   setTable: PropTypes.func.isRequired,
   setDeliveryAddress: PropTypes.func.isRequired,
+  addNote: PropTypes.func.isRequired,
   processOrder: PropTypes.func.isRequired,
 };
 

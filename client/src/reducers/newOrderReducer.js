@@ -58,7 +58,7 @@ export const initialState = {
   subTotal: 43,
   discount: 0,
   orderTotal: 0,
-  note: '',
+  note: 'Regular customer. Deliver at 8:00 sharp',
   openMenuModal: false,
   openSummary: true,
 };

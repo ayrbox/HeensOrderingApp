@@ -36,7 +36,7 @@ const DeliveryAddress = ({
       </Typography>
       <Typography variant="h3">Delivery Address</Typography>
       <Grid container spacing={8}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             required
             id="name"
@@ -60,7 +60,7 @@ const DeliveryAddress = ({
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={2} md={3}>
+        <Grid item xs={12} md={3}>
           <TextField
             required
             id="postCode"
