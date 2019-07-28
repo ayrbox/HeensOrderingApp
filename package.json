@@ -1,7 +1,7 @@
 {
    "private": true,
    "name": "heens-ordering-app",
-   "workspaces": ["api", "app"],
+   "workspaces": ["packages/*"],
    "scripts": {
       "client": "yarn workspace api start",
       "server": "yarn workspace app start"
