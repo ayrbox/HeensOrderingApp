@@ -66,6 +66,7 @@ const OrderSummaryModal = ({
       aria-labelledby="Order Summary"
       scroll="body"
       maxWidth="xl"
+      onClose={handleCloseSummary}
     >
       <DialogContent>
         <Grid
