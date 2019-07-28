@@ -21,77 +21,22 @@ import {
 export const initialState = {
   requestInProgress: false,
   requestSuccess: false,
+  categoryId: undefined,
   openNewOrderPane: false,
-  orderType: 'delivery',
-  orderItems: [{
-    name: 'Heen\'s Mixed Hors D\'oeuvres并',
-    description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
-    price: 7.9,
-    menuOptions: [
-      {
-        description: 'Chilli Oil',
-        additionalCost: 0.5,
-      },
-    ],
-    itemTotal: 8.4,
-  }, {
-    name: 'Whole Soft Shell Crab Salted Chilli & Garlic軟蚧',
-    description: 'Whole Soft Shell Crab Salted Chilli & Garlic (Dry) - Seasonal Price',
-    price: 9.8,
-    menuOptions: [],
-    itemTotal: 9.8,
-  }, {
-    name: 'Heen\'s Mixed Hors D\'oeuvres并',
-    description: 'Mixed Hors D\'oeuvres (For 2 Persons or More)',
-    price: 7.9,
-    menuOptions: [
-      {
-        description: 'Chilli Oil',
-        additionalCost: 0.5,
-      },
-      {
-        description: 'Tomato Ketchup',
-        additionalCost: 1,
-      },
-    ],
-    itemTotal: 9.4,
-  }],
-  subTotal: 43,
+  orderType: 'table',
+  deliveryAddress: undefined,
+  tableNo: undefined,
+  orderItems: [],
+  subTotal: 0,
   discount: 0,
   orderTotal: 0,
-  note: 'Regular customer. Deliver at 8:00 sharp',
+  note: '',
+
+  selectedMenu: undefined,
   openMenuModal: false,
   openSummary: false,
   status: 'ordered',
-  deliveryAddress: {
-    name: 'Test',
-    address: '1 Test Road',
-    postCode: 'T3 ST',
-    contactNo: '238423099238',
-  },
 };
-
-// export const initialState = {
-//   requestInProgress: false,
-//   requestSuccess: false,
-//   categoryId: undefined, // Category selected
-//   openNewOrderPane: false,
-//
-//   orderType: 'table', // TODO: no default but need to validate
-//   deliveryAddress: undefined, // TODO: conditional validation before saving
-//   tableNo: undefined, // TODO: conditional validation required
-//
-//   orderItems: [], // TODO: validate before saving
-//   subTotal: 0,
-//   discount: 0,
-//   orderTotal: 0,
-//   note: '',
-//
-//   selectedMenu: undefined,
-//   openMenuModal: false,
-//   openSummary: false,
-//   status: 'ordered'
-// };
 
 // TODO: move methods utils with tests.
 // Get sub total from order items.
