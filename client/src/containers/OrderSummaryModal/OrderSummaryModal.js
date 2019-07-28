@@ -5,7 +5,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import pick from 'lodash/pick';
+import { withRouter } from 'react-router-dom';
 
 import ConfirmAction from '../../components/ConfirmAction';
 import DeliveryAddress from './components/DeliveryAddress';
@@ -24,6 +26,7 @@ const OrderSummaryModal = ({
   setStatus,
   processOrder,
   showSummary,
+  history,
 }) => {
   const {
     orderType,
@@ -36,6 +39,8 @@ const OrderSummaryModal = ({
     openSummary,
     note,
     status,
+    requestInProgress,
+    requestSuccess,
   } = order;
 
   const handleProcessOrder = () => {
@@ -101,24 +106,44 @@ const OrderSummaryModal = ({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={handleCloseSummary}
-          size="large"
-        >
-          Close
-        </Button>
-        <ConfirmAction
-          action={handleProcessOrder}
-          message="Please click yes to confirm and process order?"
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            Confirm Order
-          </Button>
-        </ConfirmAction>
+        {!requestInProgress && !requestSuccess && (
+          <>
+            <Button
+              onClick={handleCloseSummary}
+              size="large"
+            >
+              Close
+            </Button>
+            <ConfirmAction
+              action={handleProcessOrder}
+              message="Please click yes to confirm and process order?"
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+              >
+                Confirm Order
+              </Button>
+            </ConfirmAction>
+          </>
+        )}
+        {!requestInProgress && requestSuccess && (
+          <>
+            <Typography
+              variant="body1"
+              style={{ color: 'green' }}
+            >
+              Order saved.
+            </Typography>
+            <Button
+              size="large"
+              onClick={() => history.push('/orders')}
+            >
+              Go to orders
+            </Button>
+          </>
+        )}
       </DialogActions>
     </Dialog>
   );
@@ -133,6 +158,7 @@ OrderSummaryModal.propTypes = {
   addNote: PropTypes.func.isRequired,
   processOrder: PropTypes.func.isRequired,
   showSummary: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
-export default OrderSummaryModal;
+export default withRouter(OrderSummaryModal);

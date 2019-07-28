@@ -63,6 +63,12 @@ export const initialState = {
   openMenuModal: false,
   openSummary: false,
   status: 'ordered',
+  deliveryAddress: {
+    name: 'Test',
+    address: '1 Test Road',
+    postCode: 'T3 ST',
+    contactNo: '238423099238',
+  },
 };
 
 // export const initialState = {
