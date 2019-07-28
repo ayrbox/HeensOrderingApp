@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const app = require('./app');
-const db = require('./config/keys').mongoURI;
+const db = require('../config/keys').mongoURI;
 
 // database connection
 mongoose

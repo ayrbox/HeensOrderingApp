@@ -3,7 +3,7 @@
    "name": "heens-ordering-app",
    "workspaces": ["packages/*"],
    "scripts": {
-      "develop:api": "yarn workspace api run start",
+      "develop:api": "yarn workspace api run develop",
       "develop:app": "yarn workspace app run start",
       "develop": "concurrently \"yarn develop:api\" \"yarn develop:app\"",
       "test:api": "yarn workspace api run test",

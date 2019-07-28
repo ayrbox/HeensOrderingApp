@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken');
-const { secretKey } = require('../../config/keys');
+const { secretKey } = require('../../../config/keys');
 
 const makeAuth = userId => (request) => {
   const validToken = jsonwebtoken.sign({

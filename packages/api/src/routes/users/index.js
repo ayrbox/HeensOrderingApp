@@ -4,7 +4,7 @@ const {
   validateLogin,
 } = require('../../validation/userValidation');
 
-const { secretKey } = require('../../config/keys');
+const { secretKey } = require('../../../config/keys');
 const userHandlers = require('./users');
 
 const {

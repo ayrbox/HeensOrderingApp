@@ -2,7 +2,7 @@
   "name": "api",
   "version": "2.0.0",
   "description": "Ordering taking application for Heens Restuarant",
-  "main": "index.js",
+  "main": "./src/index.js",
   "repository": "https://github.com/sawbeanraz/HeensOrderingApp.git",
   "author": "Sabin Raj <sawbean.raz@googlemail.com>",
   "license": "MIT",
@@ -21,10 +21,10 @@
     "pdfkit": "^0.8.3"
   },
   "scripts": {
-    "start": "node index.js",
-    "develop": "nodemon index.js --ignore client/",
-    "client": "npm start --prefix client",
-    "develop1": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node ./src/index.js",
+    "develop": "nodemon ./src/index.js",
+    "remove:client": "npm start --prefix client",
+    "remove:develop1": "concurrently \"npm run server\" \"npm run client\"",
     "seed": "node ./bin/seed.js",
     "cleardb": "node ./bin/seed.js --clear",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",

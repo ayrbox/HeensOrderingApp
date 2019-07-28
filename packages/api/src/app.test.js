@@ -1,7 +1,7 @@
 const request = require('supertest');
 const { expect } = require('chai');
 const mongoose = require('mongoose');
-const testdb = require('./config/keys').mongoURI;
+const testdb = require('../config/keys').mongoURI;
 
 const app = require('./app');
 const { makeAuth } = require('./utils/test');
