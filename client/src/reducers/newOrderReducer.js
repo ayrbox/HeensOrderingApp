@@ -87,12 +87,19 @@ export const initialState = {
 //   status: 'ordered'
 // };
 
+// TODO: move methods utils with tests.
+// Get sub total from order items.
+const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
+
+// Calculate total from subTotal and discount.
+const calculateTotal = (subTotal, discount) => (subTotal * (100 - discount)) / 100;
+
+// Return subtotal, total with discount
 const getTotals = (orderItems, discount) => {
-  const subTotal = orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
-  const orderTotal = (subTotal * (100 - discount)) / 100;
+  const subTotal = getSubTotal(orderItems);
+  const orderTotal = calculateTotal(subTotal, discount); 
   return {
     subTotal,
-    discount,
     orderTotal,
   };
 };
@@ -154,7 +161,7 @@ export default function (state = initialState, action) {
     case ORDER_SET_DISCOUNT: {
       const discount = action.payload;
       const { subTotal } = state;
-      const orderTotal = (subTotal * (100 - discount)) / 100;
+      const orderTotal = calculateTotal(subTotal, discount);
       return {
         ...state,
         discount,
