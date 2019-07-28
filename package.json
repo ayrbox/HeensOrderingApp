@@ -1,53 +1,9 @@
 {
-  "name": "HeensOrderingApp",
-  "version": "2.0.0",
-  "description": "Ordering taking application for Heens Restuarant",
-  "main": "index.js",
-  "repository": "https://github.com/sawbeanraz/HeensOrderingApp.git",
-  "author": "Sabin Raj <sawbean.raz@googlemail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "concurrently": "^3.6.0",
-    "express": "^4.16.3",
-    "faker": "^4.1.0",
-    "joi": "^13.4.0",
-    "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.2.0",
-    "nodemon": "^1.18.3",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "pdfkit": "^0.8.3"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js --ignore client/",
-    "client": "npm start --prefix client",
-    "develop": "concurrently \"npm run server\" \"npm run client\"",
-    "seed": "node ./bin/seed.js",
-    "cleardb": "node ./bin/seed.js --clear",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",
-    "lint:client": "eslint ./client --cache --ignore-pattern .gitignore --ignore-pattern node_module",
-    "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
-    "test": "NODE_ENV=test mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
-    "test:app": "npm test --prefix client",
-    "tt": "NODE_ENV=test mocha"
-  },
-  "eslintConfig": {
-    "extends": "airbnb"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "chai": "^4.2.0",
-    "eslint": "^5.12.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-dev": "^2.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.3",
-    "mocha": "^5.2.0",
-    "sinon": "^7.2.3",
-    "supertest": "^4.0.2"
-  }
+   "private": true,
+   "name": "heens-ordering-app",
+   "workspaces": ["api", "app"],
+   "scripts": {
+      "client": "yarn workspace api start",
+      "server": "yarn workspace app start"
+   }
 }
