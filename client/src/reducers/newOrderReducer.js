@@ -61,7 +61,7 @@ export const initialState = {
   orderTotal: 0,
   note: 'Regular customer. Deliver at 8:00 sharp',
   openMenuModal: false,
-  openSummary: true,
+  openSummary: false,
   status: 'ordered',
 };
 
@@ -196,7 +196,7 @@ export default function (state = initialState, action) {
     case ORDER_SHOW_SUMMARY:
       return {
         ...state,
-        openSummary: true,
+        openSummary: action.payload || false,
       };
     case ORDER_RESET:
       return initialState;

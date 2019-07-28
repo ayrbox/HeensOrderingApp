@@ -8,6 +8,7 @@ import {
   setStatus,
   addNote,
   processOrder,
+  showSummary,
 } from '../../actions/newOrderActions';
 
 const mapState = state => ({
@@ -21,4 +22,5 @@ export default connect(mapState, {
   setDiscount,
   setStatus,
   processOrder,
+  showSummary,
 })(OrderSummaryModal);

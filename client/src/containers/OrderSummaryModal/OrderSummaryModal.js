@@ -23,6 +23,7 @@ const OrderSummaryModal = ({
   setDiscount,
   setStatus,
   processOrder,
+  showSummary,
 }) => {
   const {
     orderType,
@@ -37,7 +38,7 @@ const OrderSummaryModal = ({
     status,
   } = order;
 
-  const handleProcesOrder = () => {
+  const handleProcessOrder = () => {
     const orderToProcess = {
       ...pick(order, [
         'orderType',
@@ -52,6 +53,11 @@ const OrderSummaryModal = ({
       date: new Date(),
     };
     processOrder(orderToProcess);
+  };
+
+  const handleCloseSummary = (e) => {
+    e.preventDefault();
+    showSummary(false);
   };
 
   return (
@@ -94,8 +100,14 @@ const OrderSummaryModal = ({
         </Grid>
       </DialogContent>
       <DialogActions>
+        <Button
+          onClick={handleCloseSummary}
+          size="large"
+        >
+          Close
+        </Button>
         <ConfirmAction
-          action={handleProcesOrder}
+          action={handleProcessOrder}
           message="Please click yes to confirm and process order?"
         >
           <Button
@@ -119,6 +131,7 @@ OrderSummaryModal.propTypes = {
   setStatus: PropTypes.func.isRequired,
   addNote: PropTypes.func.isRequired,
   processOrder: PropTypes.func.isRequired,
+  showSummary: PropTypes.func.isRequired,
 };
 
 export default OrderSummaryModal;

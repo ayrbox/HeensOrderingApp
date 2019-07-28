@@ -299,11 +299,33 @@ describe('REDUCER: newOrderReducer', () => {
   });
 
   describe('Show Summary', () => {
-    it('should return show summary true', () => {
-      const { showSummary } = reducer({
-        type: ORDER_SHOW_SUMMARY,
+    describe('when no payload given', () => {
+      it('should return show summary false', () => {
+        const { showSummary } = reducer({
+          type: ORDER_SHOW_SUMMARY,
+        });
+        expect(showSummary).toBe(false);
       });
-      expect(showSummary).toBe(true);
+    });
+
+    describe('when payload is given true', () => {
+      it('should return show summary true', () => {
+        const { showSummary } = reducer({
+          type: ORDER_SHOW_SUMMARY,
+          payload: true,
+        });
+        expect(showSummary).toBe(true);
+      });
+    });
+   
+    describe('when payload is given false', () => {
+      it('should return show summary false', () => {
+        const { showSummary } = reducer({
+          type: ORDER_SHOW_SUMMARY,
+          payload: false,
+        });
+        expect(showSummary).toBe(false);
+      });
     });
   });
 

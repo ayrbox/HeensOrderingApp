@@ -24,7 +24,7 @@ const OrderDetail = ({
     orderItems,
   } = newOrder;
 
-  const handleSaveOrder = (e) => {
+  const handleShowSummary = (e) => {
     e.preventDefault();
     showSummary();
   };
@@ -88,7 +88,7 @@ const OrderDetail = ({
       <Button
         variant="contained"
         color="primary"
-        onClick={handleSaveOrder}
+        onClick={handleShowSummary}
       >
         Process Order
       </Button>

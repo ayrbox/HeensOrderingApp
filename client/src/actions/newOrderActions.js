@@ -136,9 +136,10 @@ export const setMenu = menu => (dispatch) => {
   });
 };
 
-export const showSummary = () => (dispatch) => {
+export const showSummary = (show = true) => (dispatch) => {
   dispatch({
     type: ORDER_SHOW_SUMMARY,
+    payload: show,
   });
 };
 
