@@ -47,6 +47,7 @@ const OrderSummaryModal = ({
         'subTotal',
         'discount',
         'orderTotal',
+        'status',
       ]),
       date: new Date(),
     };
