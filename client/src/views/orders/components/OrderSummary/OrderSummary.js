@@ -23,22 +23,23 @@ const OrderSummary = ({ classes, order }) => {
     <Grid
       container
       direction="row"
-      justify="space-between"
+      justify="flex-start"
       alignItems="center"
+      spacing={12}
     >
-      <Grid item>
+      <Grid item xs>
         <OrderIcon type={orderType} />
       </Grid>
-      <Grid item>
+      <Grid item md>
         <Time date={moment(date).toDate()} />
       </Grid>
-      <Grid item>
-        <Typography className={classes.heading} variant="h6">
+      <Grid item md>
+        <Typography className={classes.orderTotal} variant="h6">
           &pound;
-          {orderTotal}
+          {orderTotal.toFixed(2)}
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs className={classes.statusGrid}>
         <Chip
           color="primary"
           label={ORDER_STATUSES[status]}

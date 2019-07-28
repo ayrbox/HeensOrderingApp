@@ -23,7 +23,7 @@ const OrderIcon = ({ classes, type }) => {
     <Grid
       container
       direction="row"
-      justify="space-between"
+      justify="flex-start"
       alignItems="center"
     >
       <Grid item>

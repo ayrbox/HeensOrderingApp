@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import AccessItemIcon from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
-const Time = ({ date }) => (
+const styles = theme => ({
+  timeGrid: {
+    paddingRight: `${theme.spacing.unit}px`,
+  },
+});
+
+const Time = ({ date, classes }) => (
   <Grid container>
-    <Grid item>
+    <Grid item className={classes.timeGrid}>
       <AccessItemIcon />
     </Grid>
     <Grid item>
@@ -20,6 +27,7 @@ const Time = ({ date }) => (
 
 Time.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
-export default Time;
+export default withStyles(styles)(Time);

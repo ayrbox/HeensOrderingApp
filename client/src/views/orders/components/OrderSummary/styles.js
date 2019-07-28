@@ -21,6 +21,13 @@ const styles = {
   column: {
     flexBasis: '20%',
   },
+  orderTotal: {
+    textAlign: 'right',
+    paddingRight: '20px',
+  },
+  statusGrid: {
+    textAlign: 'center',
+  },
 };
 
 
