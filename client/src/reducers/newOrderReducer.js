@@ -87,8 +87,15 @@ export const initialState = {
 //   status: 'ordered'
 // };
 
-const getSubTotal = orderItems => orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
-
+const getTotals = (orderItems, discount) => {
+  const subTotal = orderItems.reduce((_, { itemTotal }) => _ + itemTotal, 0);
+  const orderTotal = (subTotal * (100 - discount)) / 100;
+  return {
+    subTotal,
+    discount,
+    orderTotal,
+  };
+};
 
 export default function (state = initialState, action) {
   const { type } = action;
@@ -123,24 +130,24 @@ export default function (state = initialState, action) {
         ...state.orderItems,
         action.payload,
       ];
-      const subTotal = getSubTotal(orderItems);
+      const { discount } = state;
       return {
         ...state,
         orderItems,
-        subTotal,
         selectedMenu: undefined,
         openMenuModal: false,
+        ...getTotals(orderItems, discount),
       };
     }
     case ORDER_REMOVE_ITEM: {
       const orderItems = [...state.orderItems];
       const itemIndex = action.payload;
       orderItems.splice(itemIndex, 1);
-      const subTotal = getSubTotal(orderItems);
+      const { discount } = state;
       return {
         ...state,
         orderItems,
-        subTotal,
+        ...getTotals(orderItems, discount),
       };
     }
 
