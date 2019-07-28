@@ -17,6 +17,7 @@ import {
   ORDER_SET_CATEGORY,
   ORDER_SET_MENU,
   ORDER_SHOW_SUMMARY,
+  ORDER_SET_STATUS,
 } from './types';
 
 // Reset Order
@@ -138,5 +139,12 @@ export const setMenu = menu => (dispatch) => {
 export const showSummary = () => (dispatch) => {
   dispatch({
     type: ORDER_SHOW_SUMMARY,
+  });
+};
+
+export const setStatus = status => (dispatch) => {
+  dispatch({
+    type: ORDER_SET_STATUS,
+    payload: status,
   });
 };
