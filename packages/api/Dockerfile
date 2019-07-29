@@ -1,17 +1,16 @@
-FROM node:latest
+FROM node:10.10
 
-RUN mkdir /usr/src/app
+RUN mkdir -p /usr/app
 
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
-COPY . . 
+COPY ./package.json .
 
-RUN npm install --prefix client
+RUN yarn install
 
-RUN npm run build --prefix client
-
-RUN npm install
+COPY ./bin/ ./bin
+COPY ./config/ ./config
 
 EXPOSE 5000
 
-ENTRYPOINT ["sh", "./bin/docker-entrypoint.sh"]
+CMD ["yarn", "develop"]
