@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const db = require('../config/keys').mongoURI;
 
-const Category = require('../models/categoryModel');
-const Menu = require('../models/menuModel');
-const User = require('../models/user');
-const Customer = require('../models/customerModel');
+const Category = require('../src/models/categoryModel');
+const Menu = require('../src/models/menuModel');
+const User = require('../src/models/user');
+const Customer = require('../src/models/customerModel');
 
 // data
-const categoryData = require('./data/categories.json');
+const categoryData = require('./data/categoriesjson');
 const menuData = require('./data/menu.json');
 const userData = require('./data/users.json');
 const generateFakeCustomers = require('./data/customer');
