@@ -7,6 +7,7 @@
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "http-proxy-middleware": "^0.19.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
@@ -26,7 +27,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ignore-pattern .gitignore --ignore-pattern registerServiceWorker.js"
   },
-  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "airbnb"
   },

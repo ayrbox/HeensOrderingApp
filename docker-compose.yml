@@ -32,6 +32,8 @@ services:
       - ./packages/app/src:/usr/app/src
     ports:
       - "3000:3000"
+    environment:
+      PROXY_URL: http://api:5000/
     depends_on:
       - api
 volumes: 
