@@ -7,7 +7,7 @@ const User = require('../src/models/user');
 const Customer = require('../src/models/customerModel');
 
 // data
-const categoryData = require('./data/categoriesjson');
+const categoryData = require('./data/categories.json');
 const menuData = require('./data/menu.json');
 const userData = require('./data/users.json');
 const generateFakeCustomers = require('./data/customer');
