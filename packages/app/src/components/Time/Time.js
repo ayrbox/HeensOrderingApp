@@ -18,7 +18,7 @@ const Time = ({ date, classes }) => (
       <AccessItemIcon />
     </Grid>
     <Grid item>
-      <Typography variant="body1">
+      <Typography variant="body1" data-testid="time-label">
         {moment(date).format('LT')}
       </Typography>
     </Grid>
