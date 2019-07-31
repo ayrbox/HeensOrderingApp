@@ -9,6 +9,7 @@ import {
   addNote,
   processOrder,
   showSummary,
+  resetOrder,
 } from '../../store/newOrder';
 
 const mapState = state => ({
@@ -23,4 +24,5 @@ export default connect(mapState, {
   setStatus,
   processOrder,
   showSummary,
+  resetOrder
 })(OrderSummaryModal);

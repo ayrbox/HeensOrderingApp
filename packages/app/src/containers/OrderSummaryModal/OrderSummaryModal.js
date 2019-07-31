@@ -26,6 +26,7 @@ const OrderSummaryModal = ({
   setStatus,
   processOrder,
   showSummary,
+  resetOrder,
   history,
 }) => {
   const {
@@ -138,7 +139,10 @@ const OrderSummaryModal = ({
             </Typography>
             <Button
               size="large"
-              onClick={() => history.push('/orders')}
+              onClick={() => {
+                resetOrder();
+                history.push('/orders');
+              }}
             >
               Go to orders
             </Button>
@@ -158,6 +162,7 @@ OrderSummaryModal.propTypes = {
   addNote: PropTypes.func.isRequired,
   processOrder: PropTypes.func.isRequired,
   showSummary: PropTypes.func.isRequired,
+  resetOrder: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
 };
 
