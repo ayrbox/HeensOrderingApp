@@ -24,5 +24,5 @@ export default connect(mapState, {
   setStatus,
   processOrder,
   showSummary,
-  resetOrder
+  resetOrder,
 })(OrderSummaryModal);

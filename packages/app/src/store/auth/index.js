@@ -21,30 +21,28 @@ export const initialState = {
   user: {},
 };
 
-export const loginUser = (loginModel, history) => (dispatch) => {
-  return axios
-    .post('/api/users/login', loginModel)
-    .then((res) => {
-      const { token } = res.data;
+export const loginUser = (loginModel, history) => dispatch => axios
+  .post('/api/users/login', loginModel)
+  .then((res) => {
+    const { token } = res.data;
 
-      localStorage.setItem('token', token);
-      setToken(token);
+    localStorage.setItem('token', token);
+    setToken(token);
 
-      const decoded = jwtDecode(token);
-      dispatch({
-        type: SET_USER,
-        payload: decoded,
-      });
-
-      history.push('/orders');
-    })
-    .catch((err) => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
-      });
+    const decoded = jwtDecode(token);
+    dispatch({
+      type: SET_USER,
+      payload: decoded,
     });
-};
+
+    history.push('/orders');
+  })
+  .catch((err) => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    });
+  });
 
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('token');
