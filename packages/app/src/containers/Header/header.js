@@ -21,6 +21,7 @@ const Header = ({
           variant="h5"
           color="inherit"
           noWrap
+          data-testid="title"
         >
           {title}
         </Typography>
@@ -61,6 +62,7 @@ const Header = ({
             className={classes.navItem}
             color="inherit"
             onClick={openOrderPane}
+            data-testid="new-order-button"
           >
             + New Order
           </Button>

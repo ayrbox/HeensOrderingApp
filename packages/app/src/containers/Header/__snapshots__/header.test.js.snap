@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> spec renders the component 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <header
+        class="MuiPaper-root-15 MuiPaper-elevation4-21 MuiAppBar-root-6 MuiAppBar-positionFixed-7 MuiAppBar-colorPrimary-13 mui-fixed Header-root-1"
+      >
+        <div
+          class="MuiToolbar-root-42 MuiToolbar-regular-44 MuiToolbar-gutters-43 Header-toolbar-2"
+        >
+          <h5
+            class="MuiTypography-root-46 MuiTypography-h5-62 MuiTypography-colorInherit-75 MuiTypography-noWrap-72"
+            data-testid="title"
+          >
+            TestTitle
+          </h5>
+          <div
+            class="Header-navItemsContainer-3"
+          >
+            <a
+              class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+              href="/orders"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="MuiButton-label-83"
+              >
+                Orders
+              </span>
+              <span
+                class="MuiTouchRipple-root-111"
+              />
+            </a>
+            <a
+              class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+              href="/customers"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="MuiButton-label-83"
+              >
+                Customers
+              </span>
+              <span
+                class="MuiTouchRipple-root-111"
+              />
+            </a>
+            <a
+              class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+              href="/menus"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="MuiButton-label-83"
+              >
+                Menus
+              </span>
+              <span
+                class="MuiTouchRipple-root-111"
+              />
+            </a>
+            <a
+              class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+              href="/categories"
+              role="button"
+              tabindex="0"
+            >
+              <span
+                class="MuiButton-label-83"
+              >
+                Categories
+              </span>
+              <span
+                class="MuiTouchRipple-root-111"
+              />
+            </a>
+            <button
+              class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+              data-testid="new-order-button"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-label-83"
+              >
+                + New Order
+              </span>
+              <span
+                class="MuiTouchRipple-root-111"
+              />
+            </button>
+          </div>
+        </div>
+      </header>
+    </div>
+  </body>,
+  "container": <div>
+    <header
+      class="MuiPaper-root-15 MuiPaper-elevation4-21 MuiAppBar-root-6 MuiAppBar-positionFixed-7 MuiAppBar-colorPrimary-13 mui-fixed Header-root-1"
+    >
+      <div
+        class="MuiToolbar-root-42 MuiToolbar-regular-44 MuiToolbar-gutters-43 Header-toolbar-2"
+      >
+        <h5
+          class="MuiTypography-root-46 MuiTypography-h5-62 MuiTypography-colorInherit-75 MuiTypography-noWrap-72"
+          data-testid="title"
+        >
+          TestTitle
+        </h5>
+        <div
+          class="Header-navItemsContainer-3"
+        >
+          <a
+            class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+            href="/orders"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="MuiButton-label-83"
+            >
+              Orders
+            </span>
+            <span
+              class="MuiTouchRipple-root-111"
+            />
+          </a>
+          <a
+            class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+            href="/customers"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="MuiButton-label-83"
+            >
+              Customers
+            </span>
+            <span
+              class="MuiTouchRipple-root-111"
+            />
+          </a>
+          <a
+            class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+            href="/menus"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="MuiButton-label-83"
+            >
+              Menus
+            </span>
+            <span
+              class="MuiTouchRipple-root-111"
+            />
+          </a>
+          <a
+            class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+            href="/categories"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="MuiButton-label-83"
+            >
+              Categories
+            </span>
+            <span
+              class="MuiTouchRipple-root-111"
+            />
+          </a>
+          <button
+            class="MuiButtonBase-root-108 MuiButton-root-82 MuiButton-text-84 MuiButton-flat-87 MuiButton-colorInherit-103 Header-navItem-4"
+            data-testid="new-order-button"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label-83"
+            >
+              + New Order
+            </span>
+            <span
+              class="MuiTouchRipple-root-111"
+            />
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
