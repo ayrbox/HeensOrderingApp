@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Categories from './OrderCategories';
 
-import { setCategory } from '../../actions/newOrderActions';
+import { setCategory } from '../../store/newOrder';
 
 const mapState = state => ({
   categoryId: state.newOrder.categoryId,

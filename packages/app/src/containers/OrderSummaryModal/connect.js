@@ -9,7 +9,7 @@ import {
   addNote,
   processOrder,
   showSummary,
-} from '../../actions/newOrderActions';
+} from '../../store/newOrder';
 
 const mapState = state => ({
   order: state.newOrder,

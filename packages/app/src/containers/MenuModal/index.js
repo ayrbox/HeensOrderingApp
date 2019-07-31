@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import MenuModal from './MenuModal';
 
-import { resetOrder, addOrderItem } from '../../actions/newOrderActions';
+import { resetOrder, addOrderItem } from '../../store/newOrder';
 
 const mapState = state => ({
   menu: state.newOrder.selectedMenu,

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import OrderDetail from './OrderDetail';
-import { showSummary } from '../../actions/newOrderActions';
+import { showSummary } from '../../store/newOrder';
 
 const mapState = state => ({
   newOrder: state.newOrder,

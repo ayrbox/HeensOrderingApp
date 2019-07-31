@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { loginUser } from '../../actions/authActions';
+import { loginUser } from '../../store/auth';
 import ExternalLayout from '../viewcomponents/ExternalLayout';
 
 class Login extends Component {

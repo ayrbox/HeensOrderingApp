@@ -1,8 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import store from '../store';
 import setToken from './set-token';
-import { SET_USER } from '../actions/types';
-import { logoutUser } from '../actions/authActions';
+import { SET_USER, logoutUser } from '../store/auth';
 
 const getToken = () => {
   if (localStorage.token) {
