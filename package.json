@@ -10,5 +10,9 @@
       "test:app": "yarn workspace app run test",
       "heroku-postbuild": "yarn workspace app run build && mv ./packages/app/build/ ./packages/api/public/",
       "start": "yarn workspace api run start"
+   },
+   "engines": {
+      "node": "6.11.1",
+      "yarn": "1.15.2"
    }
 }
