@@ -8,8 +8,7 @@
       "develop": "concurrently \"yarn develop:api\" \"yarn develop:app\"",
       "test:api": "yarn workspace api run test",
       "test:app": "yarn workspace app run test",
-      "heroku-postbuild": "./scripts/heroku.build",
-      "11heroku-postbuild": "yarn workspace app run build && mv ./packages/app/build/ ./packages/api/public/",
+      "heroku-postbuild": "yarn workspace app run build && mv ./packages/app/build/ ./packages/api/public/",
       "start": "yarn workspace api run start"
    },
    "engines": {
