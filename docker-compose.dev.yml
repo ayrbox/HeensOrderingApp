@@ -1,0 +1,40 @@
+version: "3.1"
+services: 
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:      
+      MONGO_INITDB_DATABASE: HeensOrdering
+    volumes: 
+      - heens_data:/var/lib/mysql  
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    image: orderingapp/api
+    volumes: 
+      - ./packages/api/src:/usr/app/src/
+    ports: 
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/db_heens
+      NODE_ENV: development 
+      SECRET_KEY: th15isMYs3cr3tk3y
+    depends_on: 
+      - mongodb
+  app:
+    build:
+      context: ./packages/app
+      dockerfile: Dockerfile
+    image: orderingapp/app
+    volumes:
+      - ./packages/app/src:/usr/app/src
+    ports:
+      - "3000:3000"
+    environment:
+      PROXY_URL: http://api:5000/
+    depends_on:
+      - api
+volumes: 
+  heens_data:
