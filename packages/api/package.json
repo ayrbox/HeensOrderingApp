@@ -21,7 +21,7 @@
     "pdfkit": "^0.8.3"
   },
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js",
     "develop": "nodemon ./src/index.js",
     "remove:client": "npm start --prefix client",
     "remove:develop1": "concurrently \"npm run server\" \"npm run client\"",
