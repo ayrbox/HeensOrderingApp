@@ -7,7 +7,7 @@ services:
     environment:      
       MONGO_INITDB_DATABASE: HeensOrdering
   orderingapp:
-    image: heens/orderingapp 
+    image: sawbeanraz/heensorderingapp 
     build: .
     ports: 
       - "5000:5000"
