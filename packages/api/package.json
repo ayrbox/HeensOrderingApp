@@ -8,7 +8,7 @@
   "license": "MIT",
   "bin": {
     "seed": "./bin/seed.js",
-    "cleardb": "./bin/seed.js --clear"
+    "cleardb": "./bin/clear.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -9,17 +9,18 @@ RUN yarn build
 
 # Node application
 FROM node:10.10
-RUN mkdir -p /usr/HeenOrderingApp
+RUN mkdir -p /usr/HeensOrderingApp
 WORKDIR /usr/HeensOrderingApp
+
 COPY ./packages/api/package.json .
-RUN yarn install
+RUN yarn install --production
 
 COPY ./packages/api/ .
 
 COPY --from=app_builder /usr/app/build ./public
 
-RUN npm link
+RUN yarn link
 
-# EXPOSE 5000
+EXPOSE 5000
 CMD yarn start
 
