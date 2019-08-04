@@ -141,6 +141,9 @@ module.exports = (Menu, { validateMenu, validateOption }) => {
 
       const { description, additionalCost } = req.body;
 
+      // eslint-disable-next-line no-param-reassign
+      menu.menuOptions = menu.menuOptions || [];
+
       menu.menuOptions.push({
         description,
         additionalCost,

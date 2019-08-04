@@ -889,14 +889,12 @@ describe('app routes', () => {
               name,
               description,
               price,
-              menuOptions,
             } = res.body;
 
             expect(_id).to.equal(menuId);
             expect(name).to.equal(updatedMenu.name);
             expect(description).to.equal(updatedMenu.description);
             expect(price).to.equal(updatedMenu.price);
-            expect(Array.isArray(menuOptions)).to.equal(true);
             done();
           });
       });

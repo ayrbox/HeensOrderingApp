@@ -88,7 +88,9 @@ describe('#test order route handlers', () => {
 
   describe('#get orders', () => {
     it('should return 404 with error', async () => {
-      find.resolves([]);
+      find.returns({
+        sort: sinon.stub().resolves([]),
+      });
       await handlers.getOrders(undefined, res);
 
       sinon.assert.calledWith(res.status, 404);
@@ -98,8 +100,9 @@ describe('#test order route handlers', () => {
     });
 
     it('should return order list ', async () => {
-      find.resolves(sampleOrders);
-
+      find.returns({
+        sort: sinon.stub().resolves(sampleOrders),
+      });
       await handlers.getOrders(undefined, res);
       sinon.assert.calledWith(res.json, sampleOrders);
     });
