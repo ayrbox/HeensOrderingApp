@@ -12,7 +12,7 @@
       "start": "yarn start"
    },
    "engines": {
-      "node": "6.11.1",
+      "node": "10.15",
       "yarn": "1.15.2"
    }
 }
