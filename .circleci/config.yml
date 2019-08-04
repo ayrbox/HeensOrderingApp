@@ -1,0 +1,10 @@
+version: 2
+jobs: 
+  build:
+    docker: 
+      - image: circle/node:10
+    working_directory: ~/tmp
+  steps:
+      - checkout
+      - run: yarn install
+      - run: yarn workspace api run test 
