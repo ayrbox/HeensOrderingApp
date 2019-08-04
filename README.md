@@ -1,5 +1,7 @@
 # Heens Ordering App
 
+[![CircleCI](https://circleci.com/gh/ayrbox/HeensOrderingApp.svg?style=svg)](https://circleci.com/gh/ayrbox/HeensOrderingApp)
+
 Demo: Ordering web app for a Heens Restaurant.
 
 
