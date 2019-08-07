@@ -6,7 +6,6 @@ import '@testing-library/jest-dom/extend-expect';
 import Header from './header';
 
 describe('<Header /> spec', () => {
-
   const mockOpen = jest.fn();
   let container;
 

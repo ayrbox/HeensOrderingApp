@@ -9,6 +9,9 @@
       "test:api": "yarn workspace api run test",
       "test:app": "yarn workspace app run test",
       "heroku-postbuild": "yarn workspace app run build && mv ./packages/app/build/ ./packages/api/public/",
-      "start": "yarn start"
+      "start": "yarn start",
+      "lint:api": "yarn workspace api lint",
+      "lint:app": "yarn workspace app lint",
+      "lint": "yarn lint:api && yarn lint:app"
    }
 }

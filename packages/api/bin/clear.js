@@ -24,7 +24,6 @@ const clearDatabase = async () => {
 
     await clearDatabase();
     console.log('Database cleared...'); // eslint-disable-line no-console
-    
     process.exit();
   } catch (error) {
     console.log('Error: Unable to run seed', error); // eslint-disable-line no-console

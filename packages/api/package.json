@@ -33,7 +33,7 @@
     "cleardb": "node ./bin/seed.js --clear",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && NPM_CONFIG_PRODUCTION=true",
     "lint:client": "eslint ./client --cache --ignore-pattern .gitignore --ignore-pattern node_module",
-    "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern client",
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore --ignore-pattern public",
     "test": "NODE_ENV=test mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
     "test:app": "npm test --prefix client",
     "tt": "NODE_ENV=test mocha"
