@@ -16,15 +16,26 @@ const ConfirmationModal = ({
   <Dialog
     open={open}
     aria-labelledby={text}
+    data-testid="confirm-modal"
   >
     <DialogContent>
-      <Typography variant="body1">
+      <Typography variant="body1" data-testid="message-label">
         {text}
       </Typography>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onCancel}>No</Button>
-      <Button onClick={action}>Yes</Button>
+      <Button
+        onClick={onCancel}
+        data-testid="no-button"
+      >
+         No
+      </Button>
+      <Button
+        onClick={action}
+        data-testid="yes-button"
+      >
+        Yes
+      </Button>
     </DialogActions>
   </Dialog>
 );
