@@ -10,7 +10,7 @@ import '@testing-library/jest-dom/extend-expect';
 import ConfirmAction from './ConfirmAction';
 
 
-describe('<Header /> spec', () => {
+describe('<ConfirmationAction/> spec', () => {
   const mockAction = jest.fn();
   const confirmMessage = 'Please confirm action or cancel';
   let container;
