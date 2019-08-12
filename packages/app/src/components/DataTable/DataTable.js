@@ -51,6 +51,7 @@ const renderRow = (
             aria-label="View"
             size="small"
             onClick={() => onView(id)}
+            data-testid="button-view"
           >
             <ZoomIn />
           </IconButton>
@@ -60,6 +61,7 @@ const renderRow = (
             aria-label="Edit"
             size="small"
             onClick={() => onEdit(id)}
+            data-testid="button-edit"
           >
             <EditIcon />
           </IconButton>
@@ -72,6 +74,7 @@ const renderRow = (
             <IconButton
               aria-label="Delete"
               size="small"
+              data-testid="button-delete"
             >
               <DeleteIcon />
             </IconButton>
