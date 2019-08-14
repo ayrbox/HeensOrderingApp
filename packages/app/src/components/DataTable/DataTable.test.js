@@ -147,3 +147,10 @@ describe('<DataTable />', () => {
     });
   });
 });
+
+/*
+ * TODO: Further test to be done on different data set
+ * Test numbers of buttons being render depending on method
+ * Test no action column is rendered if no methods are supplied
+ * Test no hidden columns are rendered is specified as hidden 
+ */
