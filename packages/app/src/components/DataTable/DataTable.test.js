@@ -5,7 +5,7 @@ import {
 } from '@testing-library/react';
 import DataTable from './DataTable';
 import '@testing-library/jest-dom/extend-expect';
-import { getByTestId as hasTestId } from '@testing-library/dom'
+import { getByTestId as hasTestId, getByText } from '@testing-library/dom'
 
 describe('<DataTable />', () => {
   let wrapper;
@@ -49,7 +49,12 @@ describe('<DataTable />', () => {
     debug = wrapper.debug;
   });
 
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    mockView.mockClear();
+    mockEdit.mockClear();
+    mockDelete.mockClear();
+  });
 
   describe('Render', () => {
     it.skip('renders correctly', () => {
@@ -86,20 +91,59 @@ describe('<DataTable />', () => {
   
   describe('Behaviour', () => {
     describe('onClick of view button', () => {
-      it.skip('should call onView action', () => {
+      it('should call onView action', () => {
         const { getByTestId } = wrapper;
         const tableBody = getByTestId('data-table-body');
-        // const row = tableBody.firstChild();
-        console.log(tableBody.children);
+        const firstRow = tableBody.querySelector('tr'); // get first match
+        hasTestId(firstRow, 'button-view').click();
+
+        expect(mockView).toHaveBeenCalledWith(data[0].id); // onView is to be called with id of first data
       });
     });
 
     describe('onClick of edit button', () => {
-      it.todo('should call onEdit action');
+      it('should call onEdit action', () => {
+        const { getByTestId } = wrapper;
+        const tableBody = getByTestId('data-table-body');
+        const firstRow = tableBody.querySelector('tr'); // get first match
+        hasTestId(firstRow, 'button-edit').click();
+
+        expect(mockEdit).toHaveBeenCalledWith(data[0].id); // onEdit is to be called with id of first data
+      });
     });
 
     describe('onClick of button', () => {
-      it.todo('should call onDelete action');
+      it('should call onDelete action', () => {
+        const { getByTestId, debug } = wrapper;
+        const tableBody = getByTestId('data-table-body');
+        const firstRow = tableBody.querySelector('tr'); // get first match
+        hasTestId(firstRow, 'button-delete').click();
+        
+        // wait for confirmation modal
+        getByTestId('confirm-modal');
+        const modalMessageLabel = getByTestId('message-label');
+        expect(modalMessageLabel).toHaveTextContent('Are you sure you want to delete ?');
+        getByTestId('yes-button').click();
+
+        // onDelete is to be called with id of first data
+        expect(mockDelete).toHaveBeenCalledWith(data[0].id); 
+      });
+
+      it('should not call onDelete action when no button is clicked', () => {
+        const { getByTestId } = wrapper;
+        const tableBody = getByTestId('data-table-body');
+        const firstRow = tableBody.querySelector('tr'); // get first match
+        hasTestId(firstRow, 'button-delete').click();
+        
+        // wait for confirmation modal
+        getByTestId('confirm-modal');
+        const modalMessageLabel = getByTestId('message-label');
+        expect(modalMessageLabel).toHaveTextContent('Are you sure you want to delete ?');
+        getByTestId('no-button').click();
+
+        // onDelete is not to be called with if no button is clicked 
+        expect(mockDelete).not.toHaveBeenCalled();
+      });
     });
   });
 });
