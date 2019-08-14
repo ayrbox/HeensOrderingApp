@@ -5,6 +5,7 @@ import {
 } from '@testing-library/react';
 import DataTable from './DataTable';
 import '@testing-library/jest-dom/extend-expect';
+import { getByTestId as hasTestId } from '@testing-library/dom'
 
 describe('<DataTable />', () => {
   let wrapper;
@@ -59,7 +60,7 @@ describe('<DataTable />', () => {
       const { getByTestId } = wrapper;
       getByTestId('data-table-headers');
       const row = getByTestId('data-table-headers-row');
-      expect(row.children.length).toBe(3); // 1 hidden columne, 2 data colums, 1 action column
+      expect(row.children.length).toBe(3); // 1 hidden column, 2 data colums, 1 action column
     });
 
     it('renders rows number correctly', () => {
@@ -69,25 +70,16 @@ describe('<DataTable />', () => {
       const rows = Array.from(tableBody.children);
       expect(rows.length).toBe(data.length);
       rows.forEach((row, idx) => {
+        // test if visible data are rendered correctly
         const cells = Array.from(row.children);
         expect(cells[0]).toHaveTextContent(data[idx]['name']); 
         expect(cells[1]).toHaveTextContent(data[idx]['description']);
 
-        const buttons = Array.from(cells[2].children);
-        expect(buttons.length).toBe(3);
-
-        // const b = wrapper.container.querySelectorAll('[data-testid=button-view]')
-        // console.log('B>>>>>>>>>>>', b)
-        // buttons.find(b => {
-        //   console.log(b['data-testid'], '\n\n>>>>', b);
-        //   return true;
-        // })
-
-        // expect(buttons)
-        // ('button-view');
-        // getByTestId('button-edit');
-        // getByTestId('button-delete');
-        
+        // test if all buttons are present
+        const actionCell = cells[2];
+        hasTestId(actionCell, 'button-view');
+        hasTestId(actionCell, 'button-edit');
+        hasTestId(actionCell, 'button-delete')
       });
     });
   });
