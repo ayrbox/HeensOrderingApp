@@ -14,6 +14,7 @@ Object {
         >
           <tr
             class="MuiTableRow-root-4 MuiTableRow-head-7"
+            data-testid="data-table-headers-row"
           >
             <th
               class="MuiTableCell-root-9 MuiTableCell-head-10"
@@ -35,6 +36,7 @@ Object {
         </thead>
         <tbody
           class="MuiTableBody-root-21"
+          data-testid="data-table-body"
         >
           <tr
             class="MuiTableRow-root-4"
@@ -55,6 +57,7 @@ Object {
               <button
                 aria-label="View"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-view"
                 tabindex="0"
                 type="button"
               >
@@ -87,6 +90,7 @@ Object {
               <button
                 aria-label="Edit"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-edit"
                 tabindex="0"
                 type="button"
               >
@@ -116,6 +120,7 @@ Object {
               <button
                 aria-label="Delete"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-delete"
                 tabindex="0"
                 type="button"
               >
@@ -163,6 +168,7 @@ Object {
               <button
                 aria-label="View"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-view"
                 tabindex="0"
                 type="button"
               >
@@ -195,6 +201,7 @@ Object {
               <button
                 aria-label="Edit"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-edit"
                 tabindex="0"
                 type="button"
               >
@@ -224,6 +231,7 @@ Object {
               <button
                 aria-label="Delete"
                 class="MuiButtonBase-root-28 MuiIconButton-root-22"
+                data-testid="button-delete"
                 tabindex="0"
                 type="button"
               >
@@ -266,6 +274,7 @@ Object {
       >
         <tr
           class="MuiTableRow-root-4 MuiTableRow-head-7"
+          data-testid="data-table-headers-row"
         >
           <th
             class="MuiTableCell-root-9 MuiTableCell-head-10"
@@ -287,6 +296,7 @@ Object {
       </thead>
       <tbody
         class="MuiTableBody-root-21"
+        data-testid="data-table-body"
       >
         <tr
           class="MuiTableRow-root-4"
@@ -307,6 +317,7 @@ Object {
             <button
               aria-label="View"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-view"
               tabindex="0"
               type="button"
             >
@@ -339,6 +350,7 @@ Object {
             <button
               aria-label="Edit"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-edit"
               tabindex="0"
               type="button"
             >
@@ -368,6 +380,7 @@ Object {
             <button
               aria-label="Delete"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-delete"
               tabindex="0"
               type="button"
             >
@@ -415,6 +428,7 @@ Object {
             <button
               aria-label="View"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-view"
               tabindex="0"
               type="button"
             >
@@ -447,6 +461,7 @@ Object {
             <button
               aria-label="Edit"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-edit"
               tabindex="0"
               type="button"
             >
@@ -476,6 +491,7 @@ Object {
             <button
               aria-label="Delete"
               class="MuiButtonBase-root-28 MuiIconButton-root-22"
+              data-testid="button-delete"
               tabindex="0"
               type="button"
             >

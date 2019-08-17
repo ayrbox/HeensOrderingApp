@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageHeader /> renders correctly 1`] = `
+<div>
+  <div
+    class="MuiGrid-container-2 MuiGrid-align-items-xs-center-10 MuiGrid-justify-xs-space-between-21 PageHeader-header-1"
+  >
+    <div
+      class="MuiGrid-item-3"
+    >
+      <h1
+        class="MuiTypography-root-99 MuiTypography-h1-111"
+        data-testid="mainTitle"
+      >
+        Page Title
+      </h1>
+      <h6
+        class="MuiTypography-root-99 MuiTypography-subtitle1-117"
+        data-testid="sub-title"
+      >
+        Sub Title
+      </h6>
+    </div>
+    <div
+      class="MuiGrid-item-3"
+    >
+      <button
+        aria-label="Add"
+        class="MuiButtonBase-root-145 MuiFab-root-135 MuiFab-primary-137 MuiFab-sizeSmall-143"
+        data-testid="btn-add"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiFab-label-136"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-148"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root-157"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;

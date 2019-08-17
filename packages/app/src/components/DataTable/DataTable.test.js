@@ -57,7 +57,7 @@ describe('<DataTable />', () => {
   });
 
   describe('Render', () => {
-    it.skip('renders correctly', () => {
+    it('renders correctly', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
