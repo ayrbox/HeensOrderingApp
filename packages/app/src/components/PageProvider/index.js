@@ -23,7 +23,7 @@ export const ACTIONS = {
   FETCHED: 'FETCHED',
 };
 
-const initialState = {
+export const initialState = {
   id: undefined,
   requestInProgress: false,
   open: false,
