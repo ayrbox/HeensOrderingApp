@@ -1,6 +1,12 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  cleanup,
+  act,
+} from '@testing-library/react';
 import PageProvider, { ACTIONS, usePageState, initialState } from '.';
+import '@testing-library/jest-dom/extend-expect';
 
 const TestConsumer = () => {
   const [state, dispatch] = usePageState();
@@ -9,11 +15,11 @@ const TestConsumer = () => {
     dispatch({ type: ACTIONS.SAVING });
     setTimeout(() => {
       dispatch({ type: ACTIONS.SAVED });
-    }, 1000);
+    }, 200);
   };
   return (
     <>
-      <div data-testid="state-data">{JSON.stringify(state)}</div>
+      <div data-testid="state">{JSON.stringify(state)}</div>
       <button
         type="button"
         data-testid="addButton"
@@ -23,7 +29,7 @@ const TestConsumer = () => {
       </button>
       <button
         type="button"
-        data-testid="btnSave"
+        data-testid="saveButton"
         onClick={handleSave}
       >
         Save
@@ -35,26 +41,29 @@ const TestConsumer = () => {
 const makeConsumer = () => render(
   <PageProvider>
     <TestConsumer />
-  </PageProvider>
+  </PageProvider>,
 );
 
 afterEach(cleanup);
 
 describe('<PageProvider />', () => {
   it('should have default state', () => {
-    const { debug, getByTestId } = makeConsumer();
-    debug();
-    fireEvent.click(getByTestId('btnSave'));
-    debug();
+    const { getByTestId } = makeConsumer();
+    const state = getByTestId('state');
+    expect(state).toHaveTextContent(JSON.stringify(initialState));
   });
 
   describe('when add action is trigger', () => {
-    const { debug, getByTestId } = makeConsumer();
-    fireEvent.click(getByTestId('addButton'));
-
     it('should change open state to true', () => {
-      debug();
-      const s = getByTestId('state-data');
+      const { getByTestId } = makeConsumer();
+      fireEvent.click(getByTestId('saveButton'));
+      const state = getByTestId('state');
+      expect(state).toHaveTextContent(JSON.stringify({
+        ...initialState,
+        requestInProgress: true,
+      }));
+
+      // TODO: test if requestInProcess change back to false after 1s
     });
   });
 
