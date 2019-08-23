@@ -3,13 +3,13 @@ import {
   render,
   cleanup,
 } from '@testing-library/react';
+import { getByTestId as hasTestId } from '@testing-library/dom';
+
 import DataTable from './DataTable';
 import '@testing-library/jest-dom/extend-expect';
-import { getByTestId as hasTestId, getByText } from '@testing-library/dom'
 
 describe('<DataTable />', () => {
   let wrapper;
-  let debug;
   const mockView = jest.fn();
   const mockEdit = jest.fn();
   const mockDelete = jest.fn();
@@ -46,7 +46,6 @@ describe('<DataTable />', () => {
         onDelete={mockDelete}
       />,
     );
-    debug = wrapper.debug;
   });
 
   afterEach(() => {
@@ -77,18 +76,18 @@ describe('<DataTable />', () => {
       rows.forEach((row, idx) => {
         // test if visible data are rendered correctly
         const cells = Array.from(row.children);
-        expect(cells[0]).toHaveTextContent(data[idx]['name']); 
-        expect(cells[1]).toHaveTextContent(data[idx]['description']);
+        expect(cells[0]).toHaveTextContent(data[idx].name);
+        expect(cells[1]).toHaveTextContent(data[idx].description);
 
         // test if all buttons are present
         const actionCell = cells[2];
         hasTestId(actionCell, 'button-view');
         hasTestId(actionCell, 'button-edit');
-        hasTestId(actionCell, 'button-delete')
+        hasTestId(actionCell, 'button-delete');
       });
     });
   });
-  
+
   describe('Behaviour', () => {
     describe('onClick of view button', () => {
       it('should call onView action', () => {
@@ -97,7 +96,8 @@ describe('<DataTable />', () => {
         const firstRow = tableBody.querySelector('tr'); // get first match
         hasTestId(firstRow, 'button-view').click();
 
-        expect(mockView).toHaveBeenCalledWith(data[0].id); // onView is to be called with id of first data
+        // onView is to be called with id of first data
+        expect(mockView).toHaveBeenCalledWith(data[0].id);
       });
     });
 
@@ -108,17 +108,18 @@ describe('<DataTable />', () => {
         const firstRow = tableBody.querySelector('tr'); // get first match
         hasTestId(firstRow, 'button-edit').click();
 
-        expect(mockEdit).toHaveBeenCalledWith(data[0].id); // onEdit is to be called with id of first data
+        // onEdit is to be called with id of first data
+        expect(mockEdit).toHaveBeenCalledWith(data[0].id);
       });
     });
 
     describe('onClick of button', () => {
       it('should call onDelete action', () => {
-        const { getByTestId, debug } = wrapper;
+        const { getByTestId } = wrapper;
         const tableBody = getByTestId('data-table-body');
         const firstRow = tableBody.querySelector('tr'); // get first match
         hasTestId(firstRow, 'button-delete').click();
-        
+
         // wait for confirmation modal
         getByTestId('confirm-modal');
         const modalMessageLabel = getByTestId('message-label');
@@ -126,7 +127,7 @@ describe('<DataTable />', () => {
         getByTestId('yes-button').click();
 
         // onDelete is to be called with id of first data
-        expect(mockDelete).toHaveBeenCalledWith(data[0].id); 
+        expect(mockDelete).toHaveBeenCalledWith(data[0].id);
       });
 
       it('should not call onDelete action when no button is clicked', () => {
@@ -134,14 +135,14 @@ describe('<DataTable />', () => {
         const tableBody = getByTestId('data-table-body');
         const firstRow = tableBody.querySelector('tr'); // get first match
         hasTestId(firstRow, 'button-delete').click();
-        
+
         // wait for confirmation modal
         getByTestId('confirm-modal');
         const modalMessageLabel = getByTestId('message-label');
         expect(modalMessageLabel).toHaveTextContent('Are you sure you want to delete ?');
         getByTestId('no-button').click();
 
-        // onDelete is not to be called with if no button is clicked 
+        // onDelete is not to be called with if no button is clicked
         expect(mockDelete).not.toHaveBeenCalled();
       });
     });
@@ -152,5 +153,5 @@ describe('<DataTable />', () => {
  * TODO: Further test to be done on different data set
  * Test numbers of buttons being render depending on method
  * Test no action column is rendered if no methods are supplied
- * Test no hidden columns are rendered is specified as hidden 
+ * Test no hidden columns are rendered is specified as hidden
  */

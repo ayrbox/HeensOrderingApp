@@ -3,7 +3,6 @@ import {
   render,
   fireEvent,
   cleanup,
-  act,
 } from '@testing-library/react';
 import PageProvider, { ACTIONS, usePageState, initialState } from '.';
 import '@testing-library/jest-dom/extend-expect';

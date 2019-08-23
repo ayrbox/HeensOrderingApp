@@ -4,7 +4,6 @@ import PageHeader from './PageHeader';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('<PageHeader />', () => {
-  let wrapper;
   const mockAdd = jest.fn();
 
   const makePageHeader = (
@@ -16,7 +15,7 @@ describe('<PageHeader />', () => {
       title={title}
       subTitle={subtitle}
       onAddClicked={onAdd}
-    />
+    />,
   );
 
   afterEach(() => {
@@ -30,8 +29,8 @@ describe('<PageHeader />', () => {
   });
 
   it('renders title and sub title', () => {
-    const { getByTestId } =  makePageHeader();
-    const h1 = getByTestId('mainTitle')
+    const { getByTestId } = makePageHeader();
+    const h1 = getByTestId('mainTitle');
     expect(h1).toHaveTextContent('Page Title');
 
     expect(getByTestId('sub-title')).toHaveTextContent('Sub Title');
@@ -47,7 +46,7 @@ describe('<PageHeader />', () => {
   describe('when subtitle and add func not supplied', () => {
     it('should not content subtitle and add button', () => {
       const { queryByTestId } = render(
-        <PageHeader title="here is a title"/>
+        <PageHeader title="here is a title" />,
       );
 
       expect(queryByTestId('sub-title')).toBeNull();
@@ -55,4 +54,3 @@ describe('<PageHeader />', () => {
     });
   });
 });
-
