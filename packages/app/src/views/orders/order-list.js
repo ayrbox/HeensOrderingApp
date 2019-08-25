@@ -16,7 +16,6 @@ import OrderDetails from './components/OrderDetails';
 // @components
 import MainLayout from '../viewcomponents/MainLayout';
 import Spinner from '../../components/Spinner';
-// import OrderStatusButton from '../../components/OrderStatusButton';
 import PageHeader from '../../components/PageHeader';
 
 // @actions
