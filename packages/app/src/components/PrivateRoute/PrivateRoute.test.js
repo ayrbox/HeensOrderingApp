@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   render,
-  cleanup
+  cleanup,
+  waitForElement,
 } from '@testing-library/react';
 
 import PrivateRoute from './PrivateRoute';
-import { waitForElement } from '@testing-library/dom';
 
 const makeTestRoute = auth => render(
   <Router>
@@ -27,7 +27,8 @@ const makeTestRoute = auth => render(
 );
 
 describe('<PrivateRoute />', () => {
-  afterEach(cleanup)
+  afterEach(cleanup);
+
   describe('when not authenticated', () => {
     it('should render login route', () => {
       const { getByTestId } = makeTestRoute({
