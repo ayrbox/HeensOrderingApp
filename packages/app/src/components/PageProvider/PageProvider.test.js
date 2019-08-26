@@ -8,7 +8,6 @@ import {
 } from '@testing-library/react';
 import PageProvider, { ACTIONS, usePageState, initialState } from '.';
 import '@testing-library/jest-dom/extend-expect';
-// import { waitForElement } from '@testing-library/dom';
 
 const TestConsumer = ({ dispatchAction }) => {
   const [state, dispatch] = usePageState();

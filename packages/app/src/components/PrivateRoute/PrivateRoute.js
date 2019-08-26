@@ -1,8 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
+import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
@@ -20,11 +18,7 @@ PrivateRoute.propTypes = {
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool,
   }).isRequired,
-  component: PropTypes.node.isRequired,
+  component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;
