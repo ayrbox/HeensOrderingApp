@@ -79,6 +79,7 @@ const MenuModal = ({
       aria-labelledby="Order Menu Modal"
       scroll="body"
       onClose={resetOrder}
+      data-testid="menu-dialog"
     >
       <DialogContent>
         {menu && (
@@ -91,15 +92,24 @@ const MenuModal = ({
               spacing={8}
             >
               <Grid item>
-                <Typography variant="h3">
+                <Typography
+                  variant="h3"
+                  data-testid="menu-name"
+                >
                   {menu.name}
                 </Typography>
-                <Typography variant="body1">
+                <Typography
+                  variant="body1"
+                  data-testid="menu-description"
+                >
                   {menu.description}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="h1">
+                <Typography
+                  variant="h1"
+                  data-testid="menu-price"
+                >
                   £
                   {menu.price.toFixed(2)}
                 </Typography>
@@ -119,6 +129,7 @@ const MenuModal = ({
         <Button
           onClick={resetOrder}
           color="primary"
+          data-testid="button-cancel"
         >
           Cancel
         </Button>
@@ -130,6 +141,7 @@ const MenuModal = ({
             const orderItem = getOrderItem(menu, options);
             addOrderItem(orderItem);
           }}
+          data-testid="button-select"
         >
           Select
         </Button>
