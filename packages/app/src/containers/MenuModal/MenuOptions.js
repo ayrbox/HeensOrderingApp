@@ -21,7 +21,7 @@ const MenuOptions = ({
   options,
   onToggleSelect,
 }) => (
-  <List>
+  <List data-testid="menu-option-list">
     {options.map(({
       id,
       description,
@@ -34,6 +34,7 @@ const MenuOptions = ({
         dense
         button
         onClick={onToggleSelect(id)}
+        data-testid="menu-option-item"
       >
         <Checkbox
           tabIndex={-1}
