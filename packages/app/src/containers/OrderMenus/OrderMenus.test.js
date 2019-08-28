@@ -3,6 +3,7 @@ import {
   render,
   waitForElement,
   cleanup,
+  fireEvent,
 } from '@testing-library/react';
 import mockAxios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
@@ -96,6 +97,11 @@ describe('<OrderMenus />', () => {
     
     expect(menus).toHaveLength(menusForCategory.length);
 
+    menus.forEach(m => fireEvent.click(m));
+    expect(mockSetMenu).toHaveBeenCalledTimes(menus.length);
+
     expect(container).toMatchSnapshot();
+
+
   });
 });
