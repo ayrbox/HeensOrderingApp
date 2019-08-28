@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
 import mockAxios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 
 import OrderCategories from './OrderCategories';
-import { waitForElement } from '@testing-library/dom';
 
 const sampleCategories = [{
   _id: '5b3dfd4116987b4e407f8652',
