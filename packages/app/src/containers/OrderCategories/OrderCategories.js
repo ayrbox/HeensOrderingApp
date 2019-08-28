@@ -16,7 +16,7 @@ const Categories = ({
   categoryId,
   setCategory,
 }) => (
-  <List>
+  <List data-testid="category-list">
     <Fetch url="/api/categories/">
       {({ data, loading }) => {
         if (loading) {
@@ -34,6 +34,7 @@ const Categories = ({
               e.preventDefault();
               setCategory(id);
             }}
+            data-testid="category-item"
           >
             <ListItemText>{name}</ListItemText>
             {categoryId === id && (
