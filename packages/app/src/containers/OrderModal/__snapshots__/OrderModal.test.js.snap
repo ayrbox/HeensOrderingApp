@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderModal /> should render correctly 1`] = `
+<div
+  aria-hidden="true"
+/>
+`;
+
+exports[`<OrderModal /> when eat in button is clicked should trigger set order and close 1`] = `
+<div
+  aria-hidden="true"
+/>
+`;
+
+exports[`<OrderModal /> when eat-in button is clicked should trigger set order and close 1`] = `
+<div
+  aria-hidden="true"
+/>
+`;
+
+exports[`<OrderModal /> when takeaway button is clicked should reveal delivery and collection button 1`] = `
+<div
+  aria-hidden="true"
+/>
+`;
