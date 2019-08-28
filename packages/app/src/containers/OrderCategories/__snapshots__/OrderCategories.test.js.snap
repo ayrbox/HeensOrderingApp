@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderCategories /> should render correctly 1`] = `
+<div>
+  <ul
+    class="MuiList-root-2 MuiList-padding-3"
+    data-testid="category-list"
+  >
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          All
+        </span>
+      </div>
+      <div
+        class="MuiListItemIcon-root-63 Categories-categorySelectionIcon-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root-64"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+          />
+          <path
+            d="M0 0h24v24H0V0z"
+            fill="none"
+          />
+        </svg>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Appetisers
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Black Bean
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Beef
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Chicken
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Curry
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Drinks
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Duck
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+    <div
+      aria-label="category"
+      class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15"
+      data-testid="category-item"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemText-root-21"
+      >
+        <span
+          class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
+        >
+          Desert
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-73"
+      />
+    </div>
+  </ul>
+</div>
+`;
