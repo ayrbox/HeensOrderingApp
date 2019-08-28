@@ -34,22 +34,31 @@ const OrderDetail = ({
       <Typography
         variant="h6"
         className={classes.title}
+        data-testid="title"
       >
         Order Details
       </Typography>
       <Typography
         varaint="h1"
         className={classes.type}
+        data-testid="order-type"
       >
         {ORDER_TYPES[orderType]}
       </Typography>
       <Divider className={classes.spacer} />
-      <List className={classes.items}>
+      <List
+        className={classes.items}
+        data-testid="item-list"
+      >
         {
-          orderItems.map(({ name, itemTotal, menuOptions }) => (
-            <Fragment>
+          orderItems.map(({ name, itemTotal, menuOptions }, idx) => (
+            <Fragment
+              key={`fragment-${name}-${idx}`} // eslint-disable-line react/no-array-index-key
+            >
               <ListItem
                 className={classes.item}
+                key={`menu-${name}-${idx}`} // eslint-disable-line react/no-array-index-key
+                data-testid="order-item"
               >
                 <Typography className={classes.itemText}>
                   {name}
@@ -62,6 +71,8 @@ const OrderDetail = ({
               {menuOptions.map(({ description: option, additionalCost: cost }) => (
                 <ListItem
                   className={classes.option}
+                  key={`option-${name}-${option}-${cost}`}
+                  data-testid="order-item-option"
                 >
                   <Typography className={classes.optionText}>
                     {option}
@@ -79,7 +90,11 @@ const OrderDetail = ({
           <Typography className={classes.orderTotal}>
             Total:
           </Typography>
-          <Typography variant="h3" className={classes.orderTotal}>
+          <Typography
+            variant="h3"
+            className={classes.orderTotal}
+            data-testid="order-total"
+          >
             £
             {subTotal(newOrder).toFixed(2)}
           </Typography>
@@ -89,6 +104,7 @@ const OrderDetail = ({
         variant="contained"
         color="primary"
         onClick={handleShowSummary}
+        data-testid="button-process"
       >
         Process Order
       </Button>
