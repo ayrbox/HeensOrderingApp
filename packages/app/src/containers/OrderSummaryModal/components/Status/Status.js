@@ -29,10 +29,17 @@ const Status = ({
         inputProps={{
           name: 'status',
           id: 'status-dropdown',
+          'data-testid': 'status-dropdown',
         }}
       >
         {Object.entries(ORDER_STATUSES).map(([key, value]) => (
-          <MenuItem value={key}>{value}</MenuItem>
+          <MenuItem
+            key={key}
+            value={key}
+            data-testid="status-dropdown-item"
+          >
+            {value}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
