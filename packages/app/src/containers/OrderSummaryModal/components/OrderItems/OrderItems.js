@@ -35,7 +35,7 @@ const OrderItems = ({
           menuOptions,
         }) => (
           <Fragment key={`order-${id}`}>
-            <TableRow key={id}>
+            <TableRow key={id} data-testid="order-item">
               <TableCell>{name}</TableCell>
               <TableCell align="right">
                 &pound;
@@ -55,7 +55,7 @@ const OrderItems = ({
         ))}
         <TableRow>
           <TableCell>Subtotal</TableCell>
-          <TableCell align="right">
+          <TableCell align="right" data-testid="sub-total">
             <strong>
               &pound;
               {subTotal.toFixed(2)}
@@ -64,14 +64,14 @@ const OrderItems = ({
         </TableRow>
         <TableRow>
           <TableCell>Discount</TableCell>
-          <TableCell align="right">
+          <TableCell align="right" data-testid="discount">
             {discount}
             {'%'}
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Total</TableCell>
-          <TableCell align="right">
+          <TableCell align="right" data-testid="total">
             <strong>
               &pound;
               {total.toFixed(2)}
