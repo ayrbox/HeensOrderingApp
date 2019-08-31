@@ -30,7 +30,7 @@ describe('<Status />', () => {
     const items = await waitForElement(() => getAllByTestId('status-dropdown-item'));
     expect(items).toHaveLength(Object.keys(ORDER_STATUSES).length);
 
-    // Assert get by rendered 
+    // Assert get by rendered
     const paidItem = getByText(ORDER_STATUSES.paid);
     fireEvent.click(paidItem);
 
