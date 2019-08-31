@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect';
 import OrderTable from './OrderTable';
 
 describe('<OrderTable />', () => {
-
   afterEach(cleanup);
 
   it('should not render if not table', () => {

@@ -31,7 +31,7 @@ const OrderNote = ({
 };
 
 OrderNote.propTypes = {
-  note: PropTypes.func.isRequired,
+  note: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.shape().isRequired,
 };
