@@ -112,6 +112,7 @@ const OrderSummaryModal = ({
             <Button
               onClick={handleCloseSummary}
               size="large"
+              data-testid="close-order-button"
             >
               Close
             </Button>
@@ -123,6 +124,7 @@ const OrderSummaryModal = ({
                 variant="contained"
                 color="primary"
                 size="large"
+                data-testid="confirm-order-button"
               >
                 Confirm Order
               </Button>
