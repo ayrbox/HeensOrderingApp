@@ -31,7 +31,11 @@ const DeliveryAddress = ({
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        data-testid="delivery-title"
+      >
         {`${ORDER_TYPES[type]}`}
       </Typography>
       <Typography variant="h3">Delivery Address</Typography>
