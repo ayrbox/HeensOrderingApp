@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MenuModal /> renders correctly 1`] = `<div />`;
-
 exports[`<MenuModal /> when open is false should not renders dialog 1`] = `<div />`;
 
 exports[`<MenuModal /> when open is true should render dialog correctly 1`] = `

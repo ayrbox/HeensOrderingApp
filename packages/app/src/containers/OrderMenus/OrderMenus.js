@@ -17,7 +17,6 @@ const Menus = ({
   setMenu,
 }) => (
   <List
-    cellHeight={160}
     className={classes.gridList}
     cols={3}
     data-testid="order-menu-list"

@@ -1,138 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<OrderMenus /> should render correctly 1`] = `
-<div>
-  <ul
-    cellheight="160"
-    class="MuiList-root-2 MuiList-padding-3"
-    cols="3"
-    data-testid="order-menu-list"
-  >
-    <li
-      class="MuiListItem-container-7"
-    >
-      <div
-        class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15 MuiListItem-alignItemsFlexStart-11 MuiListItem-secondaryAction-16"
-        data-testid="order-menu-item"
-        role="button"
-        tabindex="0"
-      >
-        <div
-          class="MuiListItemText-root-21"
-        >
-          <span
-            class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
-          >
-            <strong>
-              Menu Item 1
-            </strong>
-          </span>
-          <span
-            class="MuiTypography-root-27 MuiTypography-body1-36 Menus-itemDesc-1"
-          >
-            Sample menu item 1
-          </span>
-        </div>
-        <span
-          class="MuiTouchRipple-root-64"
-        />
-      </div>
-      <div
-        class="MuiListItemSecondaryAction-root-63"
-      >
-        <h6
-          class="MuiTypography-root-27 MuiTypography-h6-44"
-        >
-          £7.99
-        </h6>
-      </div>
-    </li>
-    <li
-      class="MuiListItem-container-7"
-    >
-      <div
-        class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15 MuiListItem-alignItemsFlexStart-11 MuiListItem-secondaryAction-16"
-        data-testid="order-menu-item"
-        role="button"
-        tabindex="0"
-      >
-        <div
-          class="MuiListItemText-root-21"
-        >
-          <span
-            class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
-          >
-            <strong>
-              Menu Item 2
-            </strong>
-          </span>
-          <span
-            class="MuiTypography-root-27 MuiTypography-body1-36 Menus-itemDesc-1"
-          >
-            Sample menu item 2
-          </span>
-        </div>
-        <span
-          class="MuiTouchRipple-root-64"
-        />
-      </div>
-      <div
-        class="MuiListItemSecondaryAction-root-63"
-      >
-        <h6
-          class="MuiTypography-root-27 MuiTypography-h6-44"
-        >
-          £9.99
-        </h6>
-      </div>
-    </li>
-    <li
-      class="MuiListItem-container-7"
-    >
-      <div
-        class="MuiButtonBase-root-18 MuiListItem-root-6 MuiListItem-default-9 MuiListItem-gutters-14 MuiListItem-button-15 MuiListItem-alignItemsFlexStart-11 MuiListItem-secondaryAction-16"
-        data-testid="order-menu-item"
-        role="button"
-        tabindex="0"
-      >
-        <div
-          class="MuiListItemText-root-21"
-        >
-          <span
-            class="MuiTypography-root-27 MuiTypography-subheading-34 MuiListItemText-primary-24"
-          >
-            <strong>
-              Menu Item 3
-            </strong>
-          </span>
-          <span
-            class="MuiTypography-root-27 MuiTypography-body1-36 Menus-itemDesc-1"
-          >
-            Sample menu item 3
-          </span>
-        </div>
-        <span
-          class="MuiTouchRipple-root-64"
-        />
-      </div>
-      <div
-        class="MuiListItemSecondaryAction-root-63"
-      >
-        <h6
-          class="MuiTypography-root-27 MuiTypography-h6-44"
-        >
-          £20.99
-        </h6>
-      </div>
-    </li>
-  </ul>
-</div>
-`;
-
 exports[`<OrderMenus /> should render correctly all menu items 1`] = `
 <div>
   <ul
-    cellheight="160"
     class="MuiList-root-2 MuiList-padding-3"
     cols="3"
     data-testid="order-menu-list"
@@ -261,7 +131,6 @@ exports[`<OrderMenus /> should render correctly all menu items 1`] = `
 exports[`<OrderMenus /> should render menu items for selected cateogry 1`] = `
 <div>
   <ul
-    cellheight="160"
     class="MuiList-root-72 MuiList-padding-73"
     cols="3"
     data-testid="order-menu-list"

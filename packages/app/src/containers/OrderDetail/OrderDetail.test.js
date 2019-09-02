@@ -73,6 +73,6 @@ describe('<OrderDetail />', () => {
 
     expect(mockShowSummary).toHaveBeenCalled();
 
-    expect(container).toMatchnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
