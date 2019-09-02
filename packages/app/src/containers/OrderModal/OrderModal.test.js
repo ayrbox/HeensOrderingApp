@@ -35,7 +35,7 @@ describe('<OrderModal />', () => {
     it('should trigger close func', () => {
       const { getByTestId } = makeOrderModal();
       getByTestId('order-drawer');
-      
+
       fireEvent.click(getByTestId(/button-close/));
       expect(mockCloseOrderPane).toHaveBeenCalled();
     });
@@ -85,7 +85,6 @@ describe('<OrderModal />', () => {
       fireEvent.click(btnDelivery);
       expect(mockSetOrderType).toHaveBeenCalledWith('delivery');
       expect(mockCloseOrderPane).toHaveBeenCalled();
-      
     });
 
     it('should trigger set order with collection', async () => {
@@ -111,6 +110,5 @@ describe('<OrderModal />', () => {
         getByTestId(/button-takeaway/),
       ]);
     });
-
   });
 });

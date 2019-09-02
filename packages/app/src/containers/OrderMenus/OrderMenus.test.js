@@ -44,7 +44,6 @@ jest.mock('axios');
 const mockSetMenu = jest.fn();
 
 describe('<OrderMenus />', () => {
-
   afterEach(cleanup);
 
   it('should render correctly all menu items', async () => {
@@ -94,14 +93,12 @@ describe('<OrderMenus />', () => {
 
     const menusForCategory = sampleMenus
       .filter(({ category: { _id: id } }) => id === categoryId);
-    
+
     expect(menus).toHaveLength(menusForCategory.length);
 
     menus.forEach(m => fireEvent.click(m));
     expect(mockSetMenu).toHaveBeenCalledTimes(menus.length);
 
     expect(container).toMatchSnapshot();
-
-
   });
 });

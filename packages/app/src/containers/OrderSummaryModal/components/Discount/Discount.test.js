@@ -13,7 +13,6 @@ describe('<Discount />', () => {
       getByTestId,
       getByRole,
       getAllByTestId,
-      getByText,
     } = render(
       <Discount discount={10} onChange={mockOnChange} />,
     );

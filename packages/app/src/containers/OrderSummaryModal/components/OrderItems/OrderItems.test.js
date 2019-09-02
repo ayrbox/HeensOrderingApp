@@ -12,7 +12,7 @@ const sampleOrderItems = [{
   menuOptions: [
     {
       description: 'Chilli Sauce',
-      additionalCost: 1
+      additionalCost: 1,
     },
   ],
   itemTotal: 8.9,
