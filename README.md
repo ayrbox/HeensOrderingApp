@@ -54,4 +54,4 @@ Personally, I have used this project to learn about docker, node, mongo, project
 
 ## License
 
-MIT Licence
+[MIT Licence](https://github.com/ayrbox/HeensOrderingApp/blob/master/LICENSE)
