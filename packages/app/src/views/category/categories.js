@@ -6,6 +6,7 @@ import { getCategories, deleteCategory } from '../../api/categories';
 import { usePageState, ACTIONS } from '../../components/PageProvider';
 import PageHeader from '../../components/PageHeader';
 import DataTable from '../../components/DataTable';
+import Spinner from '../../components/Spinner';
 
 import MainLayout from '../viewcomponents/MainLayout';
 import CategoryForm from './components/CategoryForm';
@@ -34,7 +35,7 @@ const Categories = ({ classes }) => {
           subTitle="List of menu categories"
           onAddClicked={() => dispatch({ type: ACTIONS.ADD })}
         />
-        {loading ? <p>Loading....</p>
+        {loading ? <Spinner />
           : (
             <DataTable
               data={data}

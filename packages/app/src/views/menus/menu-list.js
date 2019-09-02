@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import { usePageState, ACTIONS } from '../../components/PageProvider';
+import Spinner from '../../components/Spinner';
 import MainLayout from '../viewcomponents/MainLayout';
 import DataTable from '../../components/DataTable';
 import PageHeader from '../../components/PageHeader';
@@ -45,7 +46,7 @@ const MenuList = ({ classes }) => {
           })}
         />
         {
-          loading ? <p>Loading...</p> : (
+          loading ? <Spinner /> : (
             <DataTable
               columns={[
                 {

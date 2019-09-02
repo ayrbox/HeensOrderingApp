@@ -17,9 +17,9 @@ const Menus = ({
   setMenu,
 }) => (
   <List
-    cellHeight={160}
     className={classes.gridList}
     cols={3}
+    data-testid="order-menu-list"
   >
     <Fetch url="/api/menus">
       {({ loading, data }) => {
@@ -46,6 +46,7 @@ const Menus = ({
                   e.preventDefault();
                   setMenu(menu);
                 }}
+                data-testid="order-menu-item"
               >
                 <ListItemText
                   primary={<strong>{name}</strong>}

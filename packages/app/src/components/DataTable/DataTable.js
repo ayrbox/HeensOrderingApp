@@ -19,8 +19,8 @@ const displayColumns = columns => columns.filter(({ hidden }) => !hidden);
 const keyColumn = columns => columns.find(({ key }) => key);
 
 const renderColumns = columns => (
-  <TableHead>
-    <TableRow>
+  <TableHead data-testid="data-table-headers">
+    <TableRow data-testid="data-table-headers-row">
       {columns.map(({ name, label }) => (<TableCell key={name}>{label}</TableCell>))}
       <TableCell />
     </TableRow>
@@ -51,6 +51,7 @@ const renderRow = (
             aria-label="View"
             size="small"
             onClick={() => onView(id)}
+            data-testid="button-view"
           >
             <ZoomIn />
           </IconButton>
@@ -60,6 +61,7 @@ const renderRow = (
             aria-label="Edit"
             size="small"
             onClick={() => onEdit(id)}
+            data-testid="button-edit"
           >
             <EditIcon />
           </IconButton>
@@ -72,6 +74,7 @@ const renderRow = (
             <IconButton
               aria-label="Delete"
               size="small"
+              data-testid="button-delete"
             >
               <DeleteIcon />
             </IconButton>
@@ -95,7 +98,7 @@ const DataTable = ({
   return (
     <Table>
       {renderColumns(cols)}
-      <TableBody>
+      <TableBody data-testid="data-table-body">
         {data.map(row => renderRow(cols, row, key, onView, onEdit, onDelete, classes))}
       </TableBody>
     </Table>

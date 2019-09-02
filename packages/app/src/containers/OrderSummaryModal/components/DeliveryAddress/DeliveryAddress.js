@@ -31,7 +31,11 @@ const DeliveryAddress = ({
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        data-testid="delivery-title"
+      >
         {`${ORDER_TYPES[type]}`}
       </Typography>
       <Typography variant="h3">Delivery Address</Typography>
@@ -95,10 +99,10 @@ DeliveryAddress.defaultProps = {
 
 DeliveryAddress.propTypes = {
   deliveryAddress: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    postCode: PropTypes.string.isRequired,
-    contactNo: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    address: PropTypes.string,
+    postCode: PropTypes.string,
+    contactNo: PropTypes.string,
   }),
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

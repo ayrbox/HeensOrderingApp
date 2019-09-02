@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MenuOptions /> when options given should render correct 1`] = `
+<div>
+  <ul
+    class="MuiList-root-3 MuiList-padding-4"
+    data-testid="menu-option-list"
+  >
+    <div
+      class="MuiButtonBase-root-19 MuiListItem-root-7 MuiListItem-default-10 MuiListItem-dense-11 MuiListItem-gutters-15 MuiListItem-button-16"
+      data-testid="menu-option-item"
+      role="button"
+      tabindex="0"
+    >
+      <span
+        class="MuiButtonBase-root-19 MuiIconButton-root-32 MuiPrivateSwitchBase-root-28 MuiCheckbox-root-22 MuiCheckbox-colorSecondary-27 MenuOptions-checkBox-1"
+      >
+        <span
+          class="MuiIconButton-label-37"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-38"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+            />
+          </svg>
+          <input
+            class="MuiPrivateSwitchBase-input-31"
+            data-indeterminate="false"
+            tabindex="-1"
+            type="checkbox"
+            value=""
+          />
+        </span>
+      </span>
+      <div
+        class="MuiListItemText-root-47 MuiListItemText-dense-49"
+      >
+        <span
+          class="MuiTypography-root-53 MuiTypography-subheading-60 MuiListItemText-primary-50 MuiListItemText-textDense-52"
+        >
+          Chilli Sauce
+        </span>
+      </div>
+      <div
+        class="MuiListItemText-root-47 MuiListItemText-dense-49 MenuOptions-optionCost-2"
+      >
+        <span
+          class="MuiTypography-root-53 MuiTypography-subheading-60 MuiListItemText-primary-50 MuiListItemText-textDense-52"
+        >
+          £1.00
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-89"
+      />
+    </div>
+    <div
+      class="MuiButtonBase-root-19 MuiListItem-root-7 MuiListItem-default-10 MuiListItem-dense-11 MuiListItem-gutters-15 MuiListItem-button-16"
+      data-testid="menu-option-item"
+      role="button"
+      tabindex="0"
+    >
+      <span
+        class="MuiButtonBase-root-19 MuiIconButton-root-32 MuiPrivateSwitchBase-root-28 MuiCheckbox-root-22 MuiCheckbox-colorSecondary-27 MenuOptions-checkBox-1"
+      >
+        <span
+          class="MuiIconButton-label-37"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-38"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+            />
+          </svg>
+          <input
+            class="MuiPrivateSwitchBase-input-31"
+            data-indeterminate="false"
+            tabindex="-1"
+            type="checkbox"
+            value=""
+          />
+        </span>
+      </span>
+      <div
+        class="MuiListItemText-root-47 MuiListItemText-dense-49"
+      >
+        <span
+          class="MuiTypography-root-53 MuiTypography-subheading-60 MuiListItemText-primary-50 MuiListItemText-textDense-52"
+        >
+          Tomato Ketchup
+        </span>
+      </div>
+      <div
+        class="MuiListItemText-root-47 MuiListItemText-dense-49 MenuOptions-optionCost-2"
+      >
+        <span
+          class="MuiTypography-root-53 MuiTypography-subheading-60 MuiListItemText-primary-50 MuiListItemText-textDense-52"
+        >
+          £0.50
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root-89"
+      />
+    </div>
+  </ul>
+</div>
+`;

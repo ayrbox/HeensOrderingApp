@@ -32,6 +32,7 @@ const OrderModal = ({
       open={isOpenOrderModal}
       anchor="right"
       onClose={closeOrderPane}
+      data-testid="order-drawer"
     >
       <Grid
         container
@@ -56,6 +57,7 @@ const OrderModal = ({
                   e.preventDefault();
                   setModalStep(0);
                 }}
+                data-testid="button-back"
               >
                 <ArrowBackIcon fontSize="small" />
               </IconButton>
@@ -63,6 +65,7 @@ const OrderModal = ({
             <IconButton
               aria-label="Close"
               onClick={closeOrderPane}
+              data-testid="button-close"
             >
               <CloseIcon fontSize="small" />
             </IconButton>
@@ -77,6 +80,7 @@ const OrderModal = ({
               size="large"
               fullWidth
               onClick={e => handleOrderType(e, 'table')}
+              data-testid="button-eatin"
             >
               EAT IN
             </Button>
@@ -90,6 +94,7 @@ const OrderModal = ({
                 e.preventDefault();
                 setModalStep(1);
               }}
+              data-testid="button-takeaway"
             >
               TAKE AWAY
             </Button>
@@ -104,6 +109,7 @@ const OrderModal = ({
               size="large"
               fullWidth
               onClick={e => handleOrderType(e, 'delivery')}
+              data-testid="button-delivery"
             >
               DELIVERY
             </Button>
@@ -114,6 +120,7 @@ const OrderModal = ({
               size="large"
               fullWidth
               onClick={e => handleOrderType(e, 'collection')}
+              data-testid="button-collection"
             >
               COLLECTION
             </Button>

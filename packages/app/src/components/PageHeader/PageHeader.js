@@ -22,8 +22,13 @@ const PageHeader = ({
     className={classes.header}
   >
     <Grid item>
-      <Typography variant="h1">{title}</Typography>
-      {subTitle && <Typography variant="subtitle1">{subTitle}</Typography>}
+      <Typography
+        variant="h1"
+        data-testid="mainTitle"
+      >
+        {title}
+      </Typography>
+      {subTitle && <Typography variant="subtitle1" data-testid="sub-title">{subTitle}</Typography>}
     </Grid>
     {onAddClicked && (
       <Grid item>
@@ -32,6 +37,7 @@ const PageHeader = ({
           aria-label="Add"
           size="small"
           onClick={onAddClicked}
+          data-testid="btn-add"
         >
           <AddIcon />
         </Fab>

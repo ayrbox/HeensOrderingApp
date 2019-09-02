@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderDetail /> should render correctly 1`] = `
+<div>
+  <h6
+    class="MuiTypography-root-13 MuiTypography-h6-30 OrderDetail-title-1"
+    data-testid="title"
+  >
+    Order Details
+  </h6>
+  <p
+    class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-type-2"
+    data-testid="order-type"
+    varaint="h1"
+  >
+    Table Order
+  </p>
+  <hr
+    class="MuiDivider-root-49 OrderDetail-spacer-3"
+  />
+  <ul
+    class="MuiList-root-54 MuiList-padding-55"
+    data-testid="item-list"
+  >
+    <li
+      class="MuiListItem-root-58 MuiListItem-default-61 MuiListItem-gutters-66 OrderDetail-item-4"
+      data-testid="order-item"
+    >
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemText-5"
+      >
+        Heen's Mixed Hors D'oeuvres并
+      </p>
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemTotal-6"
+      >
+        £
+        8.90
+      </p>
+    </li>
+    <li
+      class="MuiListItem-root-58 MuiListItem-default-61 MuiListItem-gutters-66 OrderDetail-option-7"
+      data-testid="order-item-option"
+    >
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-optionText-8"
+      >
+        Chilli Sauce
+      </p>
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemTotal-6"
+      >
+        £1.00
+      </p>
+    </li>
+    <li
+      class="MuiListItem-root-58 MuiListItem-default-61 MuiListItem-gutters-66 OrderDetail-item-4"
+      data-testid="order-item"
+    >
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemText-5"
+      >
+        Wor Tip Pan Fried Pork Dumplings 鍋貼
+      </p>
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemTotal-6"
+      >
+        £
+        5.50
+      </p>
+    </li>
+    <li
+      class="MuiListItem-root-58 MuiListItem-default-61 MuiListItem-gutters-66 OrderDetail-item-4"
+      data-testid="order-item"
+    >
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemText-5"
+      >
+        Satay Chicken 串雞
+      </p>
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-itemTotal-6"
+      >
+        £
+        6.00
+      </p>
+    </li>
+    <hr
+      class="MuiDivider-root-49 OrderDetail-spacer-3"
+    />
+    <li
+      class="MuiListItem-root-58 MuiListItem-default-61 MuiListItem-gutters-66 OrderDetail-item-4"
+    >
+      <p
+        class="MuiTypography-root-13 MuiTypography-body1-22 OrderDetail-orderTotal-10"
+      >
+        Total:
+      </p>
+      <h3
+        class="MuiTypography-root-13 MuiTypography-h3-27 OrderDetail-orderTotal-10"
+        data-testid="order-total"
+      >
+        £
+        20.40
+      </h3>
+    </li>
+  </ul>
+  <button
+    class="MuiButtonBase-root-96 MuiButton-root-70 MuiButton-contained-81 MuiButton-containedPrimary-82 MuiButton-raised-84 MuiButton-raisedPrimary-85"
+    data-testid="button-process"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="MuiButton-label-71"
+    >
+      Process Order
+    </span>
+    <span
+      class="MuiTouchRipple-root-99"
+    />
+  </button>
+</div>
+`;

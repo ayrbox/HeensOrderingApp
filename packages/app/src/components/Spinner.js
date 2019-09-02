@@ -1,8 +1,6 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default () => (
-  <div>
-    {/* <i className="fas fa-sync fa-spin fa-3x" /> */}
-      Loading.....
-  </div>
+  <CircularProgress disableShrink />
 );

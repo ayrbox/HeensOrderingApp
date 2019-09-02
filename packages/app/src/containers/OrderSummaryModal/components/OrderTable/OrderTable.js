@@ -14,10 +14,14 @@ const OrderTable = ({
   if (type !== 'table') return null;
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        data-testid="label-order-type"
+      >
         {`${ORDER_TYPES[type]}`}
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={8}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -29,6 +33,9 @@ const OrderTable = ({
             value={tableNo}
             onChange={(e) => {
               onChange(e.target.value);
+            }}
+            inputProps={{
+              'data-testid': 'table-no-input',
             }}
           />
         </Grid>

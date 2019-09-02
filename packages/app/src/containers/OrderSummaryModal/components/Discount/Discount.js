@@ -21,6 +21,7 @@ const Discount = ({
     <FormControl
       fullWidth
     >
+      <span>15</span>
       <InputLabel htmlFor="discount-dropdown">Discount</InputLabel>
       <Select
         value={discount}
@@ -28,10 +29,15 @@ const Discount = ({
         inputProps={{
           name: 'discount',
           id: 'discount-dropdown',
+          'data-testid': 'discount-dropdown',
         }}
       >
         {DISCOUNT_PERCENTAGES.map(value => (
-          <MenuItem value={value}>
+          <MenuItem
+            key={`discount-item-${value}`}
+            value={value}
+            data-testid="discount-item"
+          >
             {value}
             %
           </MenuItem>

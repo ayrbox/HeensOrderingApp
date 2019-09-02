@@ -23,7 +23,7 @@ export const ACTIONS = {
   FETCHED: 'FETCHED',
 };
 
-const initialState = {
+export const initialState = {
   id: undefined,
   requestInProgress: false,
   open: false,
@@ -129,6 +129,7 @@ const PageProvider = ({ children }) => {
               horizontal: 'right',
             }}
             message={<span id="message-id">{JSON.stringify(errors)}</span>}
+            data-testid="error-message"
           />
         )
       }
@@ -138,6 +139,7 @@ const PageProvider = ({ children }) => {
           autoHideDuration={5000}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           message={<span>{message}</span>}
+          data-testid="snack-message"
         />
       )}
     </PageContext.Provider>
